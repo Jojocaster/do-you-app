@@ -1,17 +1,56 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
+import { Heading } from '../components/Heading/Heading'
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
-import { RootTabScreenProps } from '../types';
+import EditScreenInfo from '../components/EditScreenInfo'
+import { Home } from '../components/Home/Home'
+import { Text, View } from '../components/Themed'
+import { RootTabScreenProps } from '../types'
+import { useTheme } from 'styled-components/native'
+import { Cover } from '../components/Cover/Cover'
+import { Schedule } from '../components/Schedule/Schedule'
 
-export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
+export default function TabOneScreen({
+  navigation,
+}: RootTabScreenProps<'TabOne'>) {
+  const theme = useTheme()
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
-    </View>
-  );
+    <Home>
+      <View
+        style={{
+          backgroundColor: 'transparent',
+          paddingHorizontal: 40,
+          zIndex: 1,
+        }}
+      >
+        <Heading offset={50}>DO!! YOU!!!</Heading>
+      </View>
+      <View
+        style={{
+          backgroundColor: 'transparent',
+          display: 'flex',
+          alignItems: 'center',
+          marginTop: -20,
+        }}
+      >
+        <Cover background={'assets/logo.webp'} />
+      </View>
+      <View
+        style={styles.separator}
+        lightColor="rgba(255,255,255,0.1)"
+        darkColor="rgba(255,255,255,0.1)"
+      />
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: theme.background,
+          paddingHorizontal: 40,
+        }}
+      >
+        <Schedule />
+      </View>
+      {/* <EditScreenInfo path="/screens/TabOneScreen.tsx" /> */}
+    </Home>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -26,7 +65,8 @@ const styles = StyleSheet.create({
   },
   separator: {
     marginVertical: 30,
+    marginHorizontal: '10%',
     height: 1,
     width: '80%',
   },
-});
+})
