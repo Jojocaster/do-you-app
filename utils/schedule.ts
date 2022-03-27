@@ -50,6 +50,5 @@ export const formatSchedule = (scheduleData: Schedule) => {
   //   }
   // })
 
-  console.log(filteredKeys, schedule)
   return schedule
 }

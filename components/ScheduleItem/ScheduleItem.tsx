@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { ShowInfo } from '../../utils/schedule'
-import { Text, View } from '../Themed'
+import { Text, useThemeColor, View } from '../Themed'
 
 const formatShowTime = (date: Date) => {
   return `${date
@@ -13,6 +13,7 @@ const formatShowTime = (date: Date) => {
 export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
   showsOfTheDay,
 }) => {
+  const backgroundColor = useThemeColor({}, 'primary')
   const day = new Date(showsOfTheDay[0].start_timestamp)
   const options = {
     weekday: 'short',
@@ -25,16 +26,27 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
 
   return (
     <>
-      <Text
-        style={{
-          color: 'white',
-          fontSize: 20,
-          fontFamily: 'Lato_900Black',
-          textTransform: 'uppercase',
-        }}
-      >
-        {formattedDay}
-      </Text>
+      <View style={{ display: 'flex', flexDirection: 'row' }}>
+        <View
+          style={{
+            flex: 0,
+            borderBottomWidth: 2,
+            borderBottomColor: backgroundColor,
+          }}
+        >
+          <Text
+            style={{
+              color: 'white',
+              fontSize: 20,
+              fontFamily: 'Lato_900Black',
+              textTransform: 'uppercase',
+            }}
+          >
+            {formattedDay}
+          </Text>
+        </View>
+      </View>
+
       <View
         style={{
           backgroundColor: 'transparent',
@@ -49,6 +61,7 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
 
           return (
             <View
+              key={show.id}
               style={{
                 backgroundColor: 'transparent',
                 display: 'flex',

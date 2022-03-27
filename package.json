@@ -34,7 +34,8 @@
     "react-native-screens": "~3.10.1",
     "react-native-track-player": "2.1.2",
     "react-native-web": "0.17.1",
-    "styled-components": "5.3.5"
+    "styled-components": "5.3.5",
+    "expo-av": "~10.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

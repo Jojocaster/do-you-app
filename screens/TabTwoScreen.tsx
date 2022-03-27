@@ -1,19 +1,28 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
+import { Container } from '../components/Container/Container'
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Home } from '../components/Home/Home';
-import { Text, View } from '../components/Themed';
+import EditScreenInfo from '../components/EditScreenInfo'
+import { Heading } from '../components/Heading/Heading'
+import { Home } from '../components/Home/Home'
+import { Text, View } from '../components/Themed'
 
 export default function TabTwoScreen() {
   return (
     <View style={styles.container}>
       <Home>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
+        <Container>
+          <Heading>TODAY'S TRACKS</Heading>
+          <Text style={styles.title}>Tab Two</Text>
+          <View
+            style={styles.separator}
+            lightColor="#eee"
+            darkColor="rgba(255,255,255,0.1)"
+          />
+          <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
+        </Container>
       </Home>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -31,4 +40,4 @@ const styles = StyleSheet.create({
     height: 1,
     width: '80%',
   },
-});
+})
