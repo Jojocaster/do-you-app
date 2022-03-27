@@ -11,6 +11,15 @@ import { Schedule } from '../components/Schedule/Schedule'
 import { useEffect, useState } from 'react'
 import { Audio } from 'expo-av'
 import { LIVE_STREAM_URL } from '../constants/Endpoints'
+import * as Notifications from 'expo-notifications'
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+})
 
 //TODO: move logic to its own component, only use Screens for data handling
 export default function TabOneScreen({
@@ -40,6 +49,14 @@ export default function TabOneScreen({
 
         await sound.playAsync()
         console.log('Playing sound')
+
+        Notifications.scheduleNotificationAsync({
+          content: {
+            title: 'DoYouWorld',
+            body: 'Radio is playing.',
+          },
+          trigger: null,
+        })
       } catch (e) {
         console.log('error while playing', e)
       }
