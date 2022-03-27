@@ -5,7 +5,6 @@ import {
   Touchable,
   TouchableHighlight,
 } from 'react-native'
-import { Text } from '../Themed'
 import { StyledCover } from './Cover.styles'
 import deviceInfo from '../../constants/Layout'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
@@ -30,7 +29,7 @@ export const Cover: React.FC<{ background: string; onPlay: () => void }> = ({
     >
       <TouchableHighlight underlayColor="transparent" onPress={() => onPlay()}>
         <ImageBackground
-          source={require('../../assets/images/logo.webp')}
+          source={require('../../../assets/images/logo.webp')}
           style={{
             width: '100%',
             height: '100%',

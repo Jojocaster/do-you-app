@@ -4,7 +4,6 @@ import { Heading } from '../components/Heading/Heading'
 import EditScreenInfo from '../components/EditScreenInfo'
 import { Home } from '../components/Home/Home'
 import { Text, View } from '../components/Themed'
-import { RootTabScreenProps } from '../types'
 import { useTheme } from 'styled-components/native'
 import { Cover } from '../components/Cover/Cover'
 import { Schedule } from '../components/Schedule/Schedule'
@@ -12,6 +11,7 @@ import { useEffect, useState } from 'react'
 import { Audio } from 'expo-av'
 import { LIVE_STREAM_URL } from '../constants/Endpoints'
 import * as Notifications from 'expo-notifications'
+import { RootTabScreenProps } from '../../types'
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
