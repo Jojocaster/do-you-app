@@ -14,6 +14,7 @@ import {
 import { PlayerIcons } from './Player.constants'
 import { Audio } from 'expo-av'
 import { LIVE_STREAM_URL } from '../../constants/Endpoints'
+import { View } from '../Themed'
 
 export const Player: React.FC<{ background: string }> = ({ background }) => {
   const dispatch = useDispatch()
@@ -87,15 +88,25 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
     >
       <TouchableHighlight underlayColor="transparent" onPress={onPress}>
         <ImageBackground
-          source={require('../../../assets/images/logo.webp')}
+          source={require('../../../assets/images/doyou.webp')}
           style={{
             width: '100%',
             height: '100%',
             display: 'flex',
+            position: 'relative',
             alignItems: 'center',
             justifyContent: 'center',
           }}
         >
+          <View
+            style={{
+              width: 50,
+              height: 50,
+              borderRadius: 50,
+              backgroundColor: 'white',
+              position: 'absolute',
+            }}
+          />
           <MaterialCommunityIcons
             name={PlayerIcons[status]}
             size={80}

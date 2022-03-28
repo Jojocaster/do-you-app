@@ -28,6 +28,7 @@ import {
   RootTabScreenProps,
 } from '../../types'
 import LinkingConfiguration from './LinkingConfiguration'
+import MoreScreen from '../screens/MoreScreen'
 
 export default function Navigation({
   colorScheme,
@@ -130,6 +131,18 @@ function BottomTabNavigator() {
           //     />
           //   </Pressable>
           // ),
+        })}
+      />
+      <BottomTab.Screen
+        name="More"
+        component={MoreScreen}
+        options={({ navigation }: RootTabScreenProps<'More'>) => ({
+          title: 'More',
+          tabBarStyle: { paddingVertical: 5 },
+          tabBarLabelStyle: { marginBottom: 6 },
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="dots-horizontal" size={19} color={color} />
+          ),
         })}
       />
     </BottomTab.Navigator>
