@@ -1,7 +1,7 @@
 import { Octicons } from '@expo/vector-icons'
 import { format, parse, parseJSON } from 'date-fns'
 import React, { useEffect, useRef } from 'react'
-import { ActivityIndicator, ScrollView } from 'react-native'
+import { ActivityIndicator, Animated, ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
@@ -11,6 +11,7 @@ import { Text, View } from '../Themed'
 
 export const Tracks: React.FC = () => {
   const dispatch = useDispatch()
+  const fadeAnim = useRef(new Animated.Value(1)).current
   const theme = useColorScheme()
   const timeout = useRef<NodeJS.Timeout>()
   const { lastUpdated, loading, tracks } = useSelector(
@@ -18,6 +19,20 @@ export const Tracks: React.FC = () => {
   )
 
   useEffect(() => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(fadeAnim, {
+          toValue: 0.5,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start()
     checkTracks()
   }, [])
 
@@ -63,7 +78,9 @@ export const Tracks: React.FC = () => {
           justifyContent: 'center',
         }}
       >
-        <Octicons name="radio-tower" size={30} color={'white'} />
+        <Animated.View style={{ opacity: fadeAnim }}>
+          <Octicons name="radio-tower" size={30} color={'white'} />
+        </Animated.View>
         <Text style={{ marginTop: 20, fontFamily: 'Lato_900Black' }}>
           No bangers here (yet?)
         </Text>
