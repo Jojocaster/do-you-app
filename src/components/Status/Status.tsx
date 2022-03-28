@@ -1,31 +1,49 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import React from 'react'
-import { useState } from 'react'
-import { useEffect } from 'react'
-import { LIVE_INFO_URL } from '../../constants/Endpoints'
+import React, { useRef, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchShowInfo, ShowStatus } from '../../store/slices/showSlice'
+import { RootState } from '../../store/store'
 import { Text, View } from '../Themed'
 import { StatusColours, StatusLabels } from './Status.constants'
-import { StatusType } from './Status.types'
 
 export const Status: React.FC = () => {
-  const [status, setStatus] = useState<StatusType>(StatusType.LOADING)
-  const text = StatusLabels[status]
+  const dispatch = useDispatch()
+  const { status, lastUpdated } = useSelector((state: RootState) => state.show)
+  const timeout = useRef<NodeJS.Timeout>()
 
-  useEffect(() => {
-    //TODO: only check live status when show scheduled
-    const checkStatus = async () => {
-      try {
-        const response = await fetch(LIVE_INFO_URL)
-        const data = await response.json()
-        const isLive = data.shows.current ? StatusType.ON : StatusType.OFF
-        setStatus(isLive)
-      } catch (e) {
-        console.log('error', e)
+  const checkStatus = async () => {
+    if (!lastUpdated) {
+      dispatch(fetchShowInfo())
+    } else {
+      const now = new Date().getTime()
+      const diff = now - lastUpdated
+      const diffInMinutes = diff / (1000 * 60)
+      if (diffInMinutes > 1) {
+        dispatch(fetchShowInfo())
       }
     }
+  }
 
+  useEffect(() => {
     checkStatus()
-  })
+
+    return () => {
+      if (timeout.current) {
+        clearTimeout(timeout.current)
+      }
+    }
+  }, [])
+
+  // check status every minute if not in loading state
+  //TODO: turn into background service, check against schedule to avoid hammering the API
+  useEffect(() => {
+    if (status !== ShowStatus.LOADING) {
+      timeout.current = setTimeout(() => {
+        checkStatus()
+      }, 1000 * 60)
+    }
+  }, [status])
+
   return (
     <View
       style={{
@@ -49,7 +67,7 @@ export const Status: React.FC = () => {
           alignItems: 'center',
         }}
       >
-        <Text>{text}</Text>
+        <Text>{StatusLabels[status]}</Text>
         <MaterialCommunityIcons
           name="adjust"
           size={20}

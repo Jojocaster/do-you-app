@@ -37,7 +37,7 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
           <Text
             style={{
               color: 'white',
-              fontSize: 20,
+              fontSize: 18,
               fontFamily: 'Lato_900Black',
               textTransform: 'uppercase',
             }}

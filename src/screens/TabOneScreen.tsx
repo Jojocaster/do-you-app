@@ -5,7 +5,7 @@ import EditScreenInfo from '../components/EditScreenInfo'
 import { Home } from '../components/Home/Home'
 import { Text, View } from '../components/Themed'
 import { useTheme } from 'styled-components/native'
-import { Cover } from '../components/Cover/Cover'
+import { Player } from '../components/Player/Player'
 import { Schedule } from '../components/Schedule/Schedule'
 import { useEffect, useState } from 'react'
 import { Audio } from 'expo-av'
@@ -26,53 +26,6 @@ export default function TabOneScreen({
   navigation,
 }: RootTabScreenProps<'TabOne'>) {
   const theme = useTheme()
-  const [sound, setSound] = useState<Audio.Sound>()
-  const [audioStatus, setStatus] = useState()
-
-  const playSound = async () => {
-    if (!sound) {
-      try {
-        Audio.setAudioModeAsync({
-          playsInSilentModeIOS: true,
-          staysActiveInBackground: true,
-          playThroughEarpieceAndroid: true,
-        })
-
-        console.log('Loading Sound')
-        const { sound, status } = await Audio.Sound.createAsync(
-          {
-            uri: 'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3',
-          },
-          { shouldPlay: true }
-        )
-        setSound(sound)
-
-        await sound.playAsync()
-        console.log('Playing sound')
-
-        Notifications.scheduleNotificationAsync({
-          content: {
-            title: 'DoYouWorld',
-            body: 'Radio is playing.',
-          },
-          trigger: null,
-        })
-      } catch (e) {
-        console.log('error while playing', e)
-      }
-    } else {
-      sound.pauseAsync()
-    }
-  }
-
-  useEffect(() => {
-    return sound
-      ? () => {
-          console.log('Unloading Sound')
-          sound.unloadAsync()
-        }
-      : undefined
-  }, [sound])
 
   return (
     <Home>
@@ -93,7 +46,7 @@ export default function TabOneScreen({
           marginTop: -20,
         }}
       >
-        <Cover background={'assets/logo.webp'} onPlay={playSound} />
+        <Player background={'assets/logo.webp'} />
       </View>
       <View
         style={styles.separator}
