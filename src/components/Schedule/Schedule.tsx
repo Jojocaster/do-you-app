@@ -24,6 +24,7 @@ export const Schedule: React.FC = () => {
   const { shows, loading, lastUpdated } = useSelector(
     (state: RootState) => state.schedule
   )
+
   const theme = useColorScheme()
 
   useEffect(() => {

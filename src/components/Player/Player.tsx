@@ -15,66 +15,62 @@ import { PlayerIcons } from './Player.constants'
 import { Audio } from 'expo-av'
 import { LIVE_STREAM_URL } from '../../constants/Endpoints'
 import { View } from '../Themed'
+import TrackPlayer, {
+  Event,
+  State,
+  useTrackPlayerEvents,
+} from 'react-native-track-player'
+//@ts-ignore
+import logo from '../../../assets/images/doyou.webp'
+// import TrackPlayer from 'react-native-track-player'
 
 export const Player: React.FC<{ background: string }> = ({ background }) => {
   const dispatch = useDispatch()
-  const [sound, setSound] = useState<Audio.Sound>()
-
-  const coverSize = (60 / 100) * deviceInfo.window.width
   const theme = useColorScheme()
   const { status } = useSelector((state: RootState) => state.player)
+  const { current } = useSelector((state: RootState) => state.show)
+  const coverSize = (60 / 100) * deviceInfo.window.width
 
   const onPress = async () => {
     if (status === PlayerStatus.PAUSED) {
-      play()
+      dispatch(updatePlayerStatus(PlayerStatus.LOADING))
+      await TrackPlayer.play()
+      dispatch(updatePlayerStatus(PlayerStatus.PLAYING))
     }
-    if (status === PlayerStatus.PLAYING && sound) {
-      await sound.pauseAsync()
+    if (status === PlayerStatus.PLAYING) {
+      // stop() instead of pause() to reset buffer
+      await TrackPlayer.stop()
       dispatch(updatePlayerStatus(PlayerStatus.PAUSED))
     }
   }
+  useTrackPlayerEvents(
+    [Event.RemoteStop, Event.PlaybackQueueEnded],
+    async (event) => {
+      if (event.type === Event.PlaybackQueueEnded) {
+        await TrackPlayer.stop()
+        dispatch(updatePlayerStatus(PlayerStatus.PAUSED))
+      }
 
-  const play = async () => {
-    try {
-      dispatch(updatePlayerStatus(PlayerStatus.LOADING))
-      Audio.setAudioModeAsync({
-        playsInSilentModeIOS: true,
-        staysActiveInBackground: true,
-      })
-
-      console.log('Loading Sound')
-      const { sound } = await Audio.Sound.createAsync(
-        {
-          uri: LIVE_STREAM_URL,
-        },
-        { shouldPlay: true }
-      )
-      setSound(sound)
-
-      await sound.playAsync()
-
-      console.log('Playing sound')
-      dispatch(updatePlayerStatus(PlayerStatus.PLAYING))
-      // Notifications.scheduleNotificationAsync({
-      //   content: {
-      //     title: 'DoYouWorld',
-      //     body: 'Radio is playing.',
-      //   },
-      //   trigger: null,
-      // })
-    } catch (e) {
-      console.log('error while playing', e)
+      if (event.type === Event.RemoteStop) {
+        dispatch(updatePlayerStatus(PlayerStatus.PAUSED))
+      }
     }
-  }
+  )
 
   useEffect(() => {
-    return sound
-      ? () => {
-          console.log('Unloading Sound')
-          sound.unloadAsync()
-        }
-      : undefined
-  }, [sound])
+    const initPlayer = async () => {
+      await TrackPlayer.add([
+        {
+          url: 'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3',
+          artwork: logo,
+          artist: 'DoYouWorld',
+          title: current || `It's a family affair.`,
+        },
+      ])
+    }
+
+    initPlayer()
+  }, [])
 
   return (
     <StyledCover

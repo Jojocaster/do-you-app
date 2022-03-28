@@ -1,3 +1,5 @@
+import { isAfter, isToday, parseJSON } from 'date-fns'
+
 export interface ShowInfo {
   auto_dj: boolean
   description: string
@@ -20,8 +22,7 @@ export interface Schedule {
 }
 
 export const formatSchedule = (scheduleData: Schedule) => {
-  // strip out time from date
-  const today = new Date().toDateString()
+  const today = new Date()
   const filteredKeys = Object.keys(scheduleData).reduce((acc, curr) => {
     if (curr !== 'AIRTIME_API_VERSION' && scheduleData[curr].length) {
       acc.push(scheduleData[curr])
@@ -33,9 +34,10 @@ export const formatSchedule = (scheduleData: Schedule) => {
   let schedule: ShowInfo[][] = []
 
   filteredKeys.forEach((day) => {
-    const date = new Date(day[0].start_timestamp).toDateString()
+    // workaround for Android's terrible implementation of Date
+    const date = parseJSON(day[0].start_timestamp)
     // ignore entry if data is in the past
-    if (new Date(date).getTime() >= new Date(today).getTime()) {
+    if (isAfter(date, today) || isToday(date)) {
       schedule.push(day)
     }
   })

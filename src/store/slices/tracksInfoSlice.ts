@@ -14,6 +14,7 @@ interface TrackInfo {
 
 export interface TracksInfoState {
   tracks: TrackInfo[]
+  loading: boolean
   lastUpdated: number | null
 }
 
@@ -27,8 +28,9 @@ export const fetchTracksInfo = createAsyncThunk(
 )
 
 const initialState: TracksInfoState = {
-  tracks: [],
   lastUpdated: null,
+  loading: true,
+  tracks: [],
 }
 
 const tracksInfoSlice = createSlice({
@@ -40,10 +42,15 @@ const tracksInfoSlice = createSlice({
       fetchTracksInfo.fulfilled,
       (state, action: PayloadAction<{ tracks: TrackInfo[] }>) => {
         state.tracks = action.payload.tracks
+        state.loading = false
         state.lastUpdated = new Date().getTime()
       }
     ),
+      builder.addCase(fetchTracksInfo.pending, (state) => {
+        state.loading = true
+      }),
       builder.addCase(fetchTracksInfo.rejected, (state) => {
+        state.loading = false
         state.lastUpdated = new Date().getTime()
       })
   },

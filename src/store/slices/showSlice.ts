@@ -8,16 +8,21 @@ export enum ShowStatus {
 }
 
 interface ShowState {
+  current: string | null
   status: ShowStatus
   lastUpdated: number | null
 }
 
 interface ShowInfo {
   shows: {
-    current: any | null
+    current: {
+      name?: string
+    }
   }
   tracks: {
-    current: any | null
+    current: {
+      name?: string
+    }
   }
 }
 
@@ -31,6 +36,7 @@ export const fetchShowInfo = createAsyncThunk(
 )
 
 const initialState: ShowState = {
+  current: null,
   status: ShowStatus.LOADING,
   lastUpdated: null,
 }
@@ -45,6 +51,7 @@ const showSlice = createSlice({
         ? ShowStatus.ON
         : ShowStatus.OFF
       state.lastUpdated = new Date().getTime()
+      state.current = action.payload.tracks?.current?.name || null
     }),
       builder.addCase(fetchShowInfo.pending, (state) => {
         console.log('fetchShow pending')

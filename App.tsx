@@ -8,6 +8,16 @@ import useColorScheme from './src/hooks/useColorScheme'
 import Navigation from './src/navigation'
 import { store } from './src/store/store'
 import { theme } from './src/theme'
+import service from './service'
+import TrackPlayer, { Capability } from 'react-native-track-player'
+
+TrackPlayer.setupPlayer({})
+TrackPlayer.registerPlaybackService(() => service)
+TrackPlayer.updateOptions({
+  stopWithApp: true,
+  capabilities: [Capability.Stop],
+  compactCapabilities: [Capability.Stop],
+})
 
 export default function App() {
   const isLoadingComplete = useCachedResources()

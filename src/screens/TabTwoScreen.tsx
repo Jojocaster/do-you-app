@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
   homeScreenFilename: {
     marginTop: 20,
     marginBottom: 10,
+    display: 'flex',
   },
   codeHighlightContainer: {
     borderRadius: 3,

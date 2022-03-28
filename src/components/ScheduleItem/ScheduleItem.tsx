@@ -1,3 +1,4 @@
+import { format, parseJSON } from 'date-fns'
 import React, { useRef } from 'react'
 import { ShowInfo } from '../../utils/schedule'
 import { Text, useThemeColor, View } from '../Themed'
@@ -14,15 +15,8 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
   showsOfTheDay,
 }) => {
   const backgroundColor = useThemeColor({}, 'primary')
-  const day = new Date(showsOfTheDay[0].start_timestamp)
-  const options = {
-    weekday: 'short',
-    month: 'short',
-    day: 'numeric',
-  }
-  const formattedDay = new Intl.DateTimeFormat('en-UK', options as any).format(
-    day
-  )
+  const day = parseJSON(showsOfTheDay[0].start_timestamp)
+  const formattedDay = format(day, 'E, MMM dd')
 
   return (
     <>
@@ -56,8 +50,10 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
         }}
       >
         {showsOfTheDay.map((show) => {
-          const start = formatShowTime(new Date(show.start_timestamp))
-          const end = formatShowTime(new Date(show.end_timestamp))
+          const startDate = parseJSON(show.start_timestamp)
+          const start = format(startDate, 'HH:mm')
+          const endDate = parseJSON(show.end_timestamp)
+          const end = format(endDate, 'HH:mm')
 
           return (
             <View

@@ -31,7 +31,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.wonkylines.doyouapp"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

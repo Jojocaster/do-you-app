@@ -1,14 +1,19 @@
+import { Octicons } from '@expo/vector-icons'
+import { format, parse, parseJSON } from 'date-fns'
 import React, { useEffect, useRef } from 'react'
-import { ScrollView } from 'react-native'
+import { ActivityIndicator, ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
+import Colors from '../../constants/Colors'
+import useColorScheme from '../../hooks/useColorScheme'
 import { fetchTracksInfo } from '../../store/slices/tracksInfoSlice'
 import { RootState } from '../../store/store'
 import { Text, View } from '../Themed'
 
 export const Tracks: React.FC = () => {
   const dispatch = useDispatch()
+  const theme = useColorScheme()
   const timeout = useRef<NodeJS.Timeout>()
-  const { lastUpdated, tracks } = useSelector(
+  const { lastUpdated, loading, tracks } = useSelector(
     (state: RootState) => state.tracksInfo
   )
 
@@ -31,6 +36,41 @@ export const Tracks: React.FC = () => {
     }, 1000 * 60)
   }, [lastUpdated])
 
+  if (loading && !tracks.length) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <ActivityIndicator color={Colors[theme].primary} />
+      </View>
+    )
+  }
+
+  // if (!loading && !tracks.length) {
+  if (true) {
+    return (
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Octicons name="radio-tower" size={30} color={'white'} />
+        <Text style={{ marginTop: 20, fontFamily: 'Lato_900Black' }}>
+          No bangers here (yet?)
+        </Text>
+      </View>
+    )
+  }
+
   return (
     <ScrollView
       indicatorStyle="white"
@@ -39,11 +79,9 @@ export const Tracks: React.FC = () => {
       style={{ marginTop: 20 }}
     >
       {tracks.map((track) => {
-        const timecode = new Date(track.played_datetime)
-        const formattedDate = Intl.DateTimeFormat(undefined, {
-          hour: 'numeric',
-          minute: 'numeric',
-        }).format(timecode)
+        const timecode = parseJSON(track.played_datetime)
+        const formattedTimecode = format(timecode, 'HH:mm')
+
         return (
           <View
             key={track.played_datetime}
@@ -55,7 +93,7 @@ export const Tracks: React.FC = () => {
                   fontSize: 14,
                 }}
               >
-                {formattedDate}
+                {formattedTimecode}
               </Text>
             </View>
             <View style={{ flex: 1 }}>
