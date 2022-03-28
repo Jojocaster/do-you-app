@@ -12,6 +12,7 @@ import { Audio } from 'expo-av'
 import { LIVE_STREAM_URL } from '../constants/Endpoints'
 import * as Notifications from 'expo-notifications'
 import { RootTabScreenProps } from '../../types'
+import { Container } from '../components/Container/Container'
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -29,15 +30,9 @@ export default function TabOneScreen({
 
   return (
     <Home>
-      <View
-        style={{
-          backgroundColor: 'transparent',
-          paddingHorizontal: 40,
-          zIndex: 1,
-        }}
-      >
+      <Container>
         <Heading offset={50}>DO!! YOU!!!</Heading>
-      </View>
+      </Container>
       <View
         style={{
           backgroundColor: 'transparent',

@@ -13,6 +13,7 @@ import {
 } from '../../store/slices/playerSlice'
 import { PlayerIcons } from './Player.constants'
 import { Audio } from 'expo-av'
+import { LIVE_STREAM_URL } from '../../constants/Endpoints'
 
 export const Player: React.FC<{ background: string }> = ({ background }) => {
   const dispatch = useDispatch()
@@ -38,13 +39,12 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
         Audio.setAudioModeAsync({
           playsInSilentModeIOS: true,
           staysActiveInBackground: true,
-          playThroughEarpieceAndroid: true,
         })
 
         console.log('Loading Sound')
         const { sound } = await Audio.Sound.createAsync(
           {
-            uri: 'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3',
+            uri: LIVE_STREAM_URL,
           },
           { shouldPlay: true }
         )

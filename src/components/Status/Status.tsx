@@ -26,18 +26,17 @@ export const Status: React.FC = () => {
 
   useEffect(() => {
     checkStatus()
-
-    return () => {
-      if (timeout.current) {
-        clearTimeout(timeout.current)
-      }
-    }
   }, [])
 
   // check status every minute if not in loading state
   //TODO: turn into background service, check against schedule to avoid hammering the API
   useEffect(() => {
     if (status !== ShowStatus.LOADING) {
+      // reset timeout
+      if (timeout.current) {
+        clearTimeout(timeout.current)
+      }
+
       timeout.current = setTimeout(() => {
         checkStatus()
       }, 1000 * 60)

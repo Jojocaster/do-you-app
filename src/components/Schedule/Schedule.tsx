@@ -25,7 +25,6 @@ export const Schedule: React.FC = () => {
     (state: RootState) => state.schedule
   )
   const theme = useColorScheme()
-  const ref = useRef<ScrollView>(null)
 
   useEffect(() => {
     // if schedule has never been updated (~fetched), fetch it now
@@ -52,11 +51,9 @@ export const Schedule: React.FC = () => {
 
   return (
     <ScrollView
-      ref={ref}
       indicatorStyle="white"
       fadingEdgeLength={50}
       overScrollMode="never"
-      persistentScrollbar={true}
     >
       {shows.map((showsOfTheDay, i) => (
         <ScheduleItem key={i} showsOfTheDay={showsOfTheDay} />

@@ -8,8 +8,12 @@ Feel free to create issues [here](https://github.com/Jojocaster/do-you-app/issue
 - UI & UX improvements
 - Set alerts for individual shows based on schedule
 - Fetch live info in the background to send notifications when shows are live
-- Display tracks covers
 - 11:11
+- Load shows from Mixcloud through Redis
+- Display tracks covers
+- Add Settings to manage alerts, autoplay, ...
+- Show correct times according to timezone
+- Track ID archive
 - Handle light theme
 - Better error management 
 - iOS release

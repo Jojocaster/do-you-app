@@ -16,6 +16,9 @@ interface ShowInfo {
   shows: {
     current: any | null
   }
+  tracks: {
+    current: any | null
+  }
 }
 
 export const fetchShowInfo = createAsyncThunk(
@@ -40,7 +43,7 @@ const showSlice = createSlice({
     builder.addCase(fetchShowInfo.fulfilled, (state, action) => {
       console.log(action.payload)
 
-      state.status = action.payload.shows.current
+      state.status = action.payload.tracks.current
         ? ShowStatus.ON
         : ShowStatus.OFF
       state.lastUpdated = new Date().getTime()
