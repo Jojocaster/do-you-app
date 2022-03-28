@@ -1,3 +1,3 @@
 export const theme = {
-	background: '#151515'
+  background: '#1c1c1c',
 }

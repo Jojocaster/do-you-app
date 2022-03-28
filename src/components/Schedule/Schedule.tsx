@@ -19,7 +19,7 @@ import { Title } from '../Title/Title'
 
 export const Schedule: React.FC = () => {
   const isFocused = useIsFocused()
-
+  const ref = useRef<ScrollView>(null)
   const dispatch = useDispatch()
   const { shows, loading, lastUpdated } = useSelector(
     (state: RootState) => state.schedule
@@ -49,8 +49,17 @@ export const Schedule: React.FC = () => {
     return <ActivityIndicator color={Colors[theme].primary} />
   }
 
+  // useEffect(() => {
+  //   if (!isFocused) {
+  //     if (ref.current) {
+  //       ref.current.scrollTo({ x: 0, y: 0, animated: false })
+  //     }
+  //   }
+  // }, [isFocused])
+
   return (
     <ScrollView
+      ref={ref}
       indicatorStyle="white"
       fadingEdgeLength={50}
       overScrollMode="never"

@@ -25,7 +25,9 @@ export default function useCachedResources() {
         console.warn(e)
       } finally {
         setLoadingComplete(true)
-        SplashScreen.hideAsync()
+        setTimeout(() => {
+          SplashScreen.hideAsync()
+        }, 300)
       }
     }
     if (fontsLoaded) {

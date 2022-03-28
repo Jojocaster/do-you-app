@@ -35,25 +35,23 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
 
   const play = async () => {
     try {
-      if (!sound) {
-        Audio.setAudioModeAsync({
-          playsInSilentModeIOS: true,
-          staysActiveInBackground: true,
-        })
+      dispatch(updatePlayerStatus(PlayerStatus.LOADING))
+      Audio.setAudioModeAsync({
+        playsInSilentModeIOS: true,
+        staysActiveInBackground: true,
+      })
 
-        console.log('Loading Sound')
-        const { sound } = await Audio.Sound.createAsync(
-          {
-            uri: LIVE_STREAM_URL,
-          },
-          { shouldPlay: true }
-        )
-        setSound(sound)
-      } else {
-        dispatch(updatePlayerStatus(PlayerStatus.LOADING))
+      console.log('Loading Sound')
+      const { sound } = await Audio.Sound.createAsync(
+        {
+          uri: LIVE_STREAM_URL,
+        },
+        { shouldPlay: true }
+      )
+      setSound(sound)
 
-        await sound.playAsync()
-      }
+      await sound.playAsync()
+
       console.log('Playing sound')
       dispatch(updatePlayerStatus(PlayerStatus.PLAYING))
       // Notifications.scheduleNotificationAsync({

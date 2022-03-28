@@ -3,6 +3,7 @@
     "name": "DoYouApp",
     "slug": "DoYouApp",
     "version": "1.0.0",
+    "backgroundColor": "#212020",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -10,7 +11,7 @@
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#212020"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

@@ -37,7 +37,7 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
           <Text
             style={{
               color: 'white',
-              fontSize: 18,
+              fontSize: 16,
               fontFamily: 'Lato_900Black',
               textTransform: 'uppercase',
             }}
@@ -70,14 +70,18 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
                 marginVertical: 5,
               }}
             >
-              <Text style={{ fontSize: 16, color: 'white' }} key={show.id}>
-                {start}-{end}:
+              <Text
+                style={{ fontSize: 14, color: 'white', flexBasis: 90 }}
+                key={show.id}
+              >
+                {start} - {end}
               </Text>
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: 14,
                   fontWeight: 'bold',
                   color: 'white',
+
                   marginLeft: 10,
                   flex: 1,
                 }}

@@ -35,6 +35,8 @@ const scheduleSlice = createSlice({
       state.lastUpdated = new Date().getTime()
     }),
       builder.addCase(fetchSchedule.pending, (state, action) => {
+        console.log('fetchSchedule pending')
+
         state.loading = true
       }),
       //TODO: handle errors

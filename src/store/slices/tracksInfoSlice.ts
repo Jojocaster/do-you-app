@@ -39,8 +39,6 @@ const tracksInfoSlice = createSlice({
     builder.addCase(
       fetchTracksInfo.fulfilled,
       (state, action: PayloadAction<{ tracks: TrackInfo[] }>) => {
-        console.log(action.payload)
-
         state.tracks = action.payload.tracks
         state.lastUpdated = new Date().getTime()
       }

@@ -20,10 +20,10 @@ export const Heading: React.FC<{ children: string; offset?: number }> = ({
             textShadowColor: '#426DD5',
             textShadowOffset: { width: 3, height: 2 },
             textShadowRadius: 5,
-            lineHeight: 58,
+            lineHeight: 48,
             fontFamily: 'Lato_900Black',
             marginBottom: -6,
-            fontSize: 58,
+            fontSize: 48,
             marginLeft: offset * i,
           }}
         >

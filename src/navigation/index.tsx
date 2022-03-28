@@ -82,6 +82,7 @@ function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
       initialRouteName="TabOne"
+      sceneContainerStyle={{ backgroundColor: '#212020' }}
       screenOptions={{
         header: () => <Status />,
         tabBarActiveTintColor: Colors[colorScheme].tint,
@@ -91,10 +92,11 @@ function BottomTabNavigator() {
         name="TabOne"
         component={TabOneScreen}
         options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-          title: 'Home',
-          tabBarShowLabel: false,
+          title: 'Live',
+          tabBarStyle: { paddingVertical: 5 },
+          tabBarLabelStyle: { marginBottom: 6 },
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="headphones" size={25} color={color} />
+            <TabBarIcon name="headphones" size={19} color={color} />
           ),
         })}
       />
@@ -102,10 +104,16 @@ function BottomTabNavigator() {
         name="TabTwo"
         component={TabTwoScreen}
         options={({ navigation }) => ({
-          title: 'Tracks',
-          tabBarShowLabel: false,
+          title: 'Track IDs',
+          tabBarStyle: { paddingVertical: 5 },
+          tabBarLabelStyle: { marginBottom: 6 },
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="playlist-music-outline" color={color} />
+            <TabBarIcon
+              name="playlist-music-outline"
+              style={{ marginTop: -2 }}
+              size={25}
+              color={color}
+            />
           ),
           // headerRight: () => (
           //   <Pressable
@@ -134,9 +142,8 @@ function BottomTabNavigator() {
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof MaterialCommunityIcons>['name']
   color: string
+  style?: any
   size?: number
 }) {
-  return (
-    <MaterialCommunityIcons size={30} style={{ marginBottom: -3 }} {...props} />
-  )
+  return <MaterialCommunityIcons size={30} {...props} />
 }

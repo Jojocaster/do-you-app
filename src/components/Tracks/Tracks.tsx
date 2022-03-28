@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+import { ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchTracksInfo } from '../../store/slices/tracksInfoSlice'
 import { RootState } from '../../store/store'
@@ -31,7 +32,12 @@ export const Tracks: React.FC = () => {
   }, [lastUpdated])
 
   return (
-    <View style={{ marginTop: 20 }}>
+    <ScrollView
+      indicatorStyle="white"
+      fadingEdgeLength={100}
+      overScrollMode="never"
+      style={{ marginTop: 20 }}
+    >
       {tracks.map((track) => {
         const timecode = new Date(track.played_datetime)
         const formattedDate = Intl.DateTimeFormat(undefined, {
@@ -43,20 +49,20 @@ export const Tracks: React.FC = () => {
             key={track.played_datetime}
             style={{ display: 'flex', flexDirection: 'row', marginBottom: 10 }}
           >
-            <View style={{ flexBasis: 50 }}>
+            <View style={{ flexBasis: 60 }}>
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: 14,
                 }}
               >
-                {formattedDate} -
+                {formattedDate}
               </Text>
             </View>
             <View style={{ flex: 1 }}>
               <Text
                 style={{
                   fontWeight: 'bold',
-                  fontSize: 16,
+                  fontSize: 14,
                 }}
               >
                 {track.artist} - {track.title}
@@ -65,6 +71,6 @@ export const Tracks: React.FC = () => {
           </View>
         )
       })}
-    </View>
+    </ScrollView>
   )
 }

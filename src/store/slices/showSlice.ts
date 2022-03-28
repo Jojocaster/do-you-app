@@ -41,16 +41,13 @@ const showSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchShowInfo.fulfilled, (state, action) => {
-      console.log(action.payload)
-
       state.status = action.payload.tracks.current
         ? ShowStatus.ON
         : ShowStatus.OFF
       state.lastUpdated = new Date().getTime()
     }),
       builder.addCase(fetchShowInfo.pending, (state) => {
-        console.log('pending')
-
+        console.log('fetchShow pending')
         state.status = ShowStatus.LOADING
       }),
       builder.addCase(fetchShowInfo.rejected, () => {

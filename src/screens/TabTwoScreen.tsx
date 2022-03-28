@@ -1,3 +1,4 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { StyleSheet } from 'react-native'
 import { Container } from '../components/Container/Container'
 
@@ -7,33 +8,33 @@ import { Home } from '../components/Home/Home'
 import { MonoText } from '../components/StyledText'
 import { Text, View } from '../components/Themed'
 import { Tracks } from '../components/Tracks/Tracks'
+import Colors from '../constants/Colors'
+import useColorScheme from '../hooks/useColorScheme'
 
 export default function TabTwoScreen() {
+  const theme = useColorScheme()
   return (
     <View style={styles.container}>
       <Home>
         <Container>
           <Heading offset={50}>TODAY'S TRACKS</Heading>
-          <View
+          {/* <View
             style={styles.separator}
             lightColor="#eee"
             darkColor="rgba(255,255,255,0.1)"
-          />
+          /> */}
           <View
             style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
             darkColor="rgba(255,255,255,0.05)"
             lightColor="rgba(0,0,0,0.05)"
           >
             <MonoText>
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  fontFamily: 'initial',
-                }}
-              >
-                Note:
-              </Text>{' '}
-              this is still in beta, all tracks may not be identified properly
+              <MaterialCommunityIcons
+                name="alert"
+                color={Colors[theme].primary}
+                size={16}
+              />{' '}
+              This is still in beta, all tracks may not be identified properly
               just yet.
             </MonoText>
           </View>
@@ -63,7 +64,8 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   homeScreenFilename: {
-    marginVertical: 7,
+    marginTop: 20,
+    marginBottom: 10,
   },
   codeHighlightContainer: {
     borderRadius: 3,

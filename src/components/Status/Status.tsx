@@ -1,5 +1,5 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchShowInfo, ShowStatus } from '../../store/slices/showSlice'
 import { RootState } from '../../store/store'
@@ -50,7 +50,7 @@ export const Status: React.FC = () => {
         paddingBottom: 20,
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: '#121212',
+        backgroundColor: '#151515',
         display: 'flex',
         flexDirection: 'row',
         paddingHorizontal: 20,

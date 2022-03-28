@@ -17,7 +17,7 @@ export default function App() {
     return null
   } else {
     return (
-      <SafeAreaProvider>
+      <SafeAreaProvider style={{ backgroundColor: '#212020' }}>
         <Provider store={store}>
           <ThemeProvider theme={theme}>
             <Navigation colorScheme={colorScheme} />
