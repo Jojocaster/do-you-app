@@ -88,7 +88,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
         width: coverSize,
         height: coverSize,
         borderColor: '#3A70D6',
-        borderWidth: 2,
+        borderWidth: 3,
       }}
     >
       <TouchableHighlight underlayColor="transparent" onPress={onPress}>

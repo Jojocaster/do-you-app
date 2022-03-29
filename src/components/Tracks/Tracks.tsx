@@ -66,8 +66,7 @@ export const Tracks: React.FC = () => {
     )
   }
 
-  // if (!loading && !tracks.length) {
-  if (true) {
+  if (!loading && !tracks.length) {
     return (
       <View
         style={{

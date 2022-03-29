@@ -4,14 +4,6 @@ import React from 'react'
 import { ShowInfo } from '../../utils/schedule'
 import { Text, useThemeColor, View } from '../Themed'
 
-const formatShowTime = (date: Date) => {
-  return `${date
-    .getHours()
-    .toLocaleString(undefined, { minimumIntegerDigits: 2 })}:${date
-    .getMinutes()
-    .toLocaleString(undefined, { minimumIntegerDigits: 2 })}`
-}
-
 export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
   showsOfTheDay,
 }) => {
@@ -52,6 +44,8 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
       >
         {showsOfTheDay.map((show) => {
           const startDate = parseISO(show.start_timestamp)
+          console.log('startDate', startDate)
+
           const start = format(startDate, 'HH:mm')
           const endDate = parseISO(show.end_timestamp)
           const end = format(endDate, 'HH:mm')
