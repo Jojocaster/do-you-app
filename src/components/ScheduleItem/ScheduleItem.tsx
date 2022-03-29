@@ -1,5 +1,6 @@
-import { format, parseJSON } from 'date-fns'
-import React, { useRef } from 'react'
+import { parseISO, parseJSON } from 'date-fns'
+import { format } from 'date-fns-tz'
+import React from 'react'
 import { ShowInfo } from '../../utils/schedule'
 import { Text, useThemeColor, View } from '../Themed'
 
@@ -50,9 +51,9 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
         }}
       >
         {showsOfTheDay.map((show) => {
-          const startDate = parseJSON(show.start_timestamp)
+          const startDate = parseISO(show.start_timestamp)
           const start = format(startDate, 'HH:mm')
-          const endDate = parseJSON(show.end_timestamp)
+          const endDate = parseISO(show.end_timestamp)
           const end = format(endDate, 'HH:mm')
 
           return (

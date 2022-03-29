@@ -12,7 +12,6 @@ import {
   updatePlayerStatus,
 } from '../../store/slices/playerSlice'
 import { PlayerIcons } from './Player.constants'
-import { Audio } from 'expo-av'
 import { LIVE_STREAM_URL } from '../../constants/Endpoints'
 import { View } from '../Themed'
 import TrackPlayer, {
@@ -22,7 +21,6 @@ import TrackPlayer, {
 } from 'react-native-track-player'
 //@ts-ignore
 import logo from '../../../assets/images/doyou.webp'
-// import TrackPlayer from 'react-native-track-player'
 
 export const Player: React.FC<{ background: string }> = ({ background }) => {
   const dispatch = useDispatch()
@@ -61,7 +59,8 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
     const initPlayer = async () => {
       await TrackPlayer.add([
         {
-          url: 'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3',
+          // url: 'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3',
+          url: LIVE_STREAM_URL,
           artwork: logo,
           artist: 'DoYouWorld',
           title: current || `It's a family affair.`,
@@ -71,6 +70,16 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
 
     initPlayer()
   }, [])
+
+  useEffect(() => {
+    if (current) {
+      TrackPlayer.updateNowPlayingMetadata({
+        artist: 'DoYouWorld',
+        artwork: logo,
+        title: current,
+      })
+    }
+  }, [current])
 
   return (
     <StyledCover
