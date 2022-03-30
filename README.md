@@ -20,6 +20,7 @@ Feel free to create issues [here](https://github.com/Jojocaster/do-you-app/issue
 - Add Settings to manage alerts, autoplay, ...
 - Show correct times according to timezone
 - Track ID archive
+- Add "Events" tab
 - Handle light theme?
 - Better error management :)
 - iOS release

@@ -78,6 +78,10 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
         artwork: logo,
         title: current,
       })
+    } else {
+      // stop player if show has ended
+      TrackPlayer.stop()
+      dispatch(updatePlayerStatus(PlayerStatus.PAUSED))
     }
   }, [current])
 

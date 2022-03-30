@@ -9,13 +9,10 @@ import React, {
 import { ActivityIndicator, ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import Colors from '../../constants/Colors'
-import { SCHEDULE_URL } from '../../constants/Endpoints'
 import useColorScheme from '../../hooks/useColorScheme'
 import { fetchSchedule } from '../../store/slices/scheduleSlice'
 import { RootState } from '../../store/store'
-import { formatSchedule, ShowInfo } from '../../utils/schedule'
 import { ScheduleItem } from '../ScheduleItem/ScheduleItem'
-import { Title } from '../Title/Title'
 
 export const Schedule: React.FC = () => {
   const isFocused = useIsFocused()
