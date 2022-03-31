@@ -4,6 +4,11 @@ Unofficial app for https://doyou.world/ , built with React Native, AirTime Pro's
 
 Feel free to create issues [here](https://github.com/Jojocaster/do-you-app/issues) to report bugs / suggest features, I'll do my best to get back to you asap.
 
+## Releases (Android)
+- Beta 0.1.0: [Download link](https://expo.dev/accounts/joelbeaudon/projects/DoYouWorld/builds/fe33a6dc-e470-4270-978c-33fd50b119be)
+
+/!\ As this version is still a beta and not on the store just yet, Google may warn you about the app being "unsafe" - that is completely normal. Just "install anyway" and enjoy that perfect sound forever.
+
 ## Features
 - Live Status tracker, running automatically in the background
 - Displays the list of upcoming shows
