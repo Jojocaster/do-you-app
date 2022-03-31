@@ -11,10 +11,13 @@ Feel free to create issues [here](https://github.com/Jojocaster/do-you-app/issue
 - Displays current show's Track IDs (Beta)
 
 ## Screenshots
+<p align="center">
 <img src="assets/readme/home.jpg" width="200"/>
+&nbsp; &nbsp; &nbsp; &nbsp;
 <img src="assets/readme/tracks.jpg" width="200"/>
+&nbsp; &nbsp; &nbsp; &nbsp;
 <img src="assets/readme/controls.jpg" width="200"/>
-
+</p>
 
 ## Roadmap
 - UI & UX improvements
