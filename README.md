@@ -11,9 +11,9 @@ Feel free to create issues [here](https://github.com/Jojocaster/do-you-app/issue
 - Displays current show's Track IDs (Beta)
 
 ## Screenshots
-![Home](assets/readme/home.jpg?raw=true "Home")
-![Track IDs](assets/readme/home.jpg?raw=true "Track IDs")
-![Controls](assets/readme/home.jpg?raw=true "Controls")
+![Home](assets/readme/home.jpg?raw=true|width=200)
+![Track IDs](assets/readme/home.jpg?raw=true|width=200)
+![Controls](assets/readme/home.jpg?raw=true|width=200)
 
 
 ## Roadmap
