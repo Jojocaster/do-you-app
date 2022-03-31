@@ -10,6 +10,12 @@ Feel free to create issues [here](https://github.com/Jojocaster/do-you-app/issue
 - Allows radio to be played in the background & controlled from the notification centre & the lockscreen
 - Displays current show's Track IDs (Beta)
 
+## Screenshots
+![Home](assets/readme/home.jpg?raw=true "Home")
+![Track IDs](assets/readme/home.jpg?raw=true "Track IDs")
+![Controls](assets/readme/home.jpg?raw=true "Controls")
+
+
 ## Roadmap
 - UI & UX improvements
 - Set alerts for individual shows based on schedule

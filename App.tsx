@@ -15,8 +15,8 @@ TrackPlayer.setupPlayer({})
 TrackPlayer.registerPlaybackService(() => service)
 TrackPlayer.updateOptions({
   stopWithApp: true,
-  capabilities: [Capability.Stop],
-  compactCapabilities: [Capability.Stop],
+  capabilities: [Capability.Stop, Capability.Pause, Capability.Play],
+  compactCapabilities: [Capability.Stop, Capability.Pause, Capability.Play],
 })
 
 export default function App() {

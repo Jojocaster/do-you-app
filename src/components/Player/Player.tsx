@@ -31,29 +31,54 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
 
   const onPress = async () => {
     if (status === PlayerStatus.PAUSED) {
-      dispatch(updatePlayerStatus(PlayerStatus.LOADING))
+      // dispatch(updatePlayerStatus(PlayerStatus.LOADING))
       await TrackPlayer.play()
-      dispatch(updatePlayerStatus(PlayerStatus.PLAYING))
+      // dispatch(updatePlayerStatus(PlayerStatus.PLAYING))
     }
     if (status === PlayerStatus.PLAYING) {
       // stop() instead of pause() to reset buffer
       await TrackPlayer.stop()
-      dispatch(updatePlayerStatus(PlayerStatus.PAUSED))
+      // dispatch(updatePlayerStatus(PlayerStatus.PAUSED))
     }
   }
+
   useTrackPlayerEvents(
-    [Event.RemoteStop, Event.PlaybackQueueEnded],
+    [Event.RemoteStop, Event.PlaybackState],
     async (event) => {
-      if (event.type === Event.PlaybackQueueEnded) {
-        await TrackPlayer.stop()
-        dispatch(updatePlayerStatus(PlayerStatus.PAUSED))
+      if (event.type === Event.PlaybackState) {
+        const { state } = event
+        switch (state) {
+          case State.Buffering:
+          case State.Connecting:
+            dispatch(updatePlayerStatus(PlayerStatus.LOADING))
+            break
+
+          case State.Paused:
+          case State.Stopped:
+          case State.Ready:
+          case State.None:
+            dispatch(updatePlayerStatus(PlayerStatus.PAUSED))
+            break
+
+          case State.Playing:
+            dispatch(updatePlayerStatus(PlayerStatus.PLAYING))
+            break
+        }
       }
 
-      if (event.type === Event.RemoteStop) {
-        dispatch(updatePlayerStatus(PlayerStatus.PAUSED))
-      }
+      // if (event.type === Event.RemoteStop || event.type === Event.RemotePause) {
+      //   console.log('remote stop')
+
+      //   dispatch(updatePlayerStatus(PlayerStatus.PAUSED))
+      // }
     }
   )
+
+  // useTrackPlayerEvents([Event.RemoteStop], async (event) => {
+  //   if (event.type === Event.RemoteStop) {
+  //     dispatch(updatePlayerStatus(PlayerStatus.PAUSED))
+  //   }
+  // })
 
   useEffect(() => {
     const initPlayer = async () => {

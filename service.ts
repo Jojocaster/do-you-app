@@ -5,4 +5,12 @@ export default async function () {
     Event.RemoteStop,
     async () => await TrackPlayer.stop()
   )
+  TrackPlayer.addEventListener(
+    Event.RemotePause,
+    async () => await TrackPlayer.pause()
+  )
+  TrackPlayer.addEventListener(
+    Event.RemotePlay,
+    async () => await TrackPlayer.play()
+  )
 }
