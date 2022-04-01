@@ -14,7 +14,8 @@
       "backgroundColor": "#212020"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://exp.host/@joelbeaudon/DoYouWorld"
     },
     "assetBundlePatterns": [
       "**/*"

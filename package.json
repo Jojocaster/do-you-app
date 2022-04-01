@@ -4,14 +4,15 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
+    "dev": "TARGET=dev expo start --dev-client",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "jest --watchAll",
     "build:preview": "eas build --platform android --profile preview",
-    "build:dev": "eas build --platform android --profile preview",
-    "build:prod": "eas build --platform android --profile preview"
+    "build:dev": "eas build --platform android --profile development",
+    "build:prod": "eas build --platform android --profile production"
   },
   "jest": {
     "preset": "jest-expo"
@@ -43,7 +44,8 @@
     "react-native-track-player": "2.1.2",
     "react-native-web": "0.17.1",
     "react-redux": "7.2.6",
-    "styled-components": "5.3.5"
+    "styled-components": "5.3.5",
+    "expo-updates": "~0.11.6"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

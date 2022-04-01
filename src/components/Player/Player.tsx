@@ -88,7 +88,8 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
           url: LIVE_STREAM_URL,
           artwork: logo,
           artist: 'DoYouWorld',
-          title: current || `It's a family affair.`,
+          //TODO: use current show's name from schedule as fallback
+          title: current?.name || `It's a family affair.`,
         },
       ])
     }
@@ -101,7 +102,8 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
       TrackPlayer.updateNowPlayingMetadata({
         artist: 'DoYouWorld',
         artwork: logo,
-        title: current,
+        //TODO: use current show's name from schedule as fallback
+        title: current.name || `It's a family affair.`,
       })
     } else {
       // stop player if show has ended

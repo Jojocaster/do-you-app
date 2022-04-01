@@ -10,6 +10,7 @@ import { store } from './src/store/store'
 import { theme } from './src/theme'
 import service from './service'
 import TrackPlayer, { Capability } from 'react-native-track-player'
+// import * as Updates from 'expo-updates'
 
 TrackPlayer.setupPlayer({})
 TrackPlayer.registerPlaybackService(() => service)
@@ -18,6 +19,8 @@ TrackPlayer.updateOptions({
   capabilities: [Capability.Stop, Capability.Pause, Capability.Play],
   compactCapabilities: [Capability.Stop, Capability.Pause, Capability.Play],
 })
+
+// Updates.fetchUpdateAsync()
 
 export default function App() {
   const isLoadingComplete = useCachedResources()
