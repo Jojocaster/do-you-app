@@ -54,6 +54,7 @@ const showSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchShowInfo.fulfilled, (state, action) => {
+      console.log('[fetchShow]: resolved')
       state.status = action.payload.tracks.current
         ? ShowStatus.ON
         : ShowStatus.OFF
@@ -66,11 +67,11 @@ const showSlice = createSlice({
       state.current = action.payload.tracks?.current || null
     }),
       builder.addCase(fetchShowInfo.pending, (state) => {
-        console.log('fetchShow pending')
+        console.log('[fetchShow]: pending')
         state.status = ShowStatus.LOADING
       }),
-      builder.addCase(fetchShowInfo.rejected, () => {
-        console.log('error fetching show info')
+      builder.addCase(fetchShowInfo.rejected, (state, action) => {
+        console.log('[fetchShow]: error', action.error)
       })
   },
 })

@@ -5,6 +5,7 @@ import { ActivityIndicator, Animated, ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
+import { ShowStatus } from '../../store/slices/showSlice'
 import { fetchTracksInfo } from '../../store/slices/tracksInfoSlice'
 import { RootState } from '../../store/store'
 import { Text, View } from '../Themed'
@@ -17,6 +18,7 @@ export const Tracks: React.FC = () => {
   const { lastUpdated, loading, tracks } = useSelector(
     (state: RootState) => state.tracksInfo
   )
+  const { status } = useSelector((state: RootState) => state.show)
 
   useEffect(() => {
     Animated.loop(
@@ -46,9 +48,12 @@ export const Tracks: React.FC = () => {
       clearTimeout(timeout.current)
     }
 
-    timeout.current = setTimeout(() => {
-      checkTracks()
-    }, 1000 * 60)
+    // only poll if show is live
+    if (status === ShowStatus.ON) {
+      timeout.current = setTimeout(() => {
+        checkTracks()
+      }, 1000 * 60)
+    }
   }, [lastUpdated])
 
   if (loading && !tracks.length) {

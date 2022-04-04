@@ -85,8 +85,10 @@ function BottomTabNavigator() {
       initialRouteName="TabOne"
       sceneContainerStyle={{ backgroundColor: '#212020' }}
       screenOptions={{
-        header: () => <Status />,
+        headerShown: false,
         tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarStyle: { paddingVertical: 5 },
+        tabBarLabelStyle: { marginBottom: 6 },
       }}
     >
       <BottomTab.Screen
@@ -94,8 +96,7 @@ function BottomTabNavigator() {
         component={TabOneScreen}
         options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
           title: 'Live',
-          tabBarStyle: { paddingVertical: 5 },
-          tabBarLabelStyle: { marginBottom: 6 },
+
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="headphones" size={19} color={color} />
           ),
@@ -106,8 +107,6 @@ function BottomTabNavigator() {
         component={TabTwoScreen}
         options={({ navigation }) => ({
           title: 'Track IDs',
-          tabBarStyle: { paddingVertical: 5 },
-          tabBarLabelStyle: { marginBottom: 6 },
           tabBarIcon: ({ color }) => (
             <TabBarIcon
               name="playlist-music-outline"
@@ -138,8 +137,6 @@ function BottomTabNavigator() {
         component={MoreScreen}
         options={({ navigation }: RootTabScreenProps<'More'>) => ({
           title: 'More',
-          tabBarStyle: { paddingVertical: 5 },
-          tabBarLabelStyle: { marginBottom: 6 },
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="dots-horizontal" size={19} color={color} />
           ),

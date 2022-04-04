@@ -54,3 +54,18 @@ export const formatSchedule = (scheduleData: Schedule) => {
 
   return schedule
 }
+
+export const getCurrentShowFromSchedule = (
+  shows: ShowInfo[][]
+): ShowInfo | undefined => {
+  if (!shows.length) {
+    return
+  }
+  const now = new Date().getTime()
+  const todaysShows = shows[0]
+  return todaysShows.find((show) => {
+    const start = parseJSON(show.start_timestamp).getTime()
+    const end = parseJSON(show.end_timestamp).getTime()
+    return now >= start && now <= end
+  })
+}

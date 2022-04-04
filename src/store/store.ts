@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 import playerReducer from './slices/playerSlice'
 import scheduleReducer from './slices/scheduleSlice'
 import showReducer from './slices/showSlice'

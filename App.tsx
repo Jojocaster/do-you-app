@@ -10,6 +10,7 @@ import { store } from './src/store/store'
 import { theme } from './src/theme'
 import service from './service'
 import TrackPlayer, { Capability } from 'react-native-track-player'
+import { Status } from './src/components/Status/Status'
 // import * as Updates from 'expo-updates'
 
 TrackPlayer.setupPlayer({})
@@ -33,6 +34,7 @@ export default function App() {
       <SafeAreaProvider style={{ backgroundColor: '#212020' }}>
         <Provider store={store}>
           <ThemeProvider theme={theme}>
+            <Status />
             <Navigation colorScheme={colorScheme} />
           </ThemeProvider>
           <StatusBar style={'light'} />

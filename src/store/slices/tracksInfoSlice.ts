@@ -41,15 +41,18 @@ const tracksInfoSlice = createSlice({
     builder.addCase(
       fetchTracksInfo.fulfilled,
       (state, action: PayloadAction<{ tracks: TrackInfo[] }>) => {
+        console.log('[fetchTracks]: resolved')
         state.tracks = action.payload.tracks
         state.loading = false
         state.lastUpdated = new Date().getTime()
       }
     ),
       builder.addCase(fetchTracksInfo.pending, (state) => {
+        console.log('[fetchTracks]: pending')
         state.loading = true
       }),
-      builder.addCase(fetchTracksInfo.rejected, (state) => {
+      builder.addCase(fetchTracksInfo.rejected, (state, action) => {
+        console.log('[fetchTracks]: error', action.error)
         state.loading = false
         state.lastUpdated = new Date().getTime()
       })
