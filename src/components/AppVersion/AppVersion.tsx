@@ -5,7 +5,7 @@ import { View } from '../Themed'
 import Constants from 'expo-constants'
 
 export const AppVersion: React.FC = () => {
-  const version = Constants.manifest?.version
+  const version = Constants.manifest?.version || ''
   return (
     <View
       style={{

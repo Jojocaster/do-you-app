@@ -1,7 +1,7 @@
 import { useTheme } from '@react-navigation/native'
 import React, { Fragment } from 'react'
 import { Text } from 'react-native'
-import { useThemeColor } from '../Themed'
+import { useThemeColor, View } from '../Themed'
 
 export const Heading: React.FC<{ children: string; offset?: number }> = ({
   children,
@@ -11,7 +11,7 @@ export const Heading: React.FC<{ children: string; offset?: number }> = ({
   const color = useThemeColor({}, 'primary')
 
   return (
-    <Fragment>
+    <View style={{ zIndex: 1, backgroundColor: 'transparent' }}>
       {words.map((word, i) => (
         <Text
           key={i}
@@ -19,7 +19,7 @@ export const Heading: React.FC<{ children: string; offset?: number }> = ({
             color,
             textShadowColor: '#426DD5',
             textShadowOffset: { width: 3, height: 2 },
-            textShadowRadius: 5,
+            textShadowRadius: 3,
             lineHeight: 48,
             fontFamily: 'Lato_900Black',
             marginBottom: -6,
@@ -30,6 +30,6 @@ export const Heading: React.FC<{ children: string; offset?: number }> = ({
           {word}
         </Text>
       ))}
-    </Fragment>
+    </View>
   )
 }

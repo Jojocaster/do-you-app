@@ -13,6 +13,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#212020"
     },
+    "notification": {
+      "icon": "./assets/images/notifs.png"
+    },
     "updates": {
       "fallbackToCacheTimeout": 0,
       "url": "https://exp.host/@joelbeaudon/DoYouWorld"

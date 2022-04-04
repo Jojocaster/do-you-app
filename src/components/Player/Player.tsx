@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { ImageBackground, TouchableHighlight } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
+import { ImageBackground, Platform, TouchableHighlight } from 'react-native'
 import { StyledCover } from './Player.styles'
 import deviceInfo from '../../constants/Layout'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
@@ -11,7 +11,7 @@ import {
   PlayerStatus,
   updatePlayerStatus,
 } from '../../store/slices/playerSlice'
-import { PlayerIcons } from './Player.constants'
+import { DEFAUT_SHOW_NAME, PlayerIcons } from './Player.constants'
 import { LIVE_STREAM_URL } from '../../constants/Endpoints'
 import { View } from '../Themed'
 import TrackPlayer, {
@@ -21,12 +21,21 @@ import TrackPlayer, {
 } from 'react-native-track-player'
 //@ts-ignore
 import logo from '../../../assets/images/doyou.webp'
+import * as Notifications from 'expo-notifications'
+import { AndroidNotificationPriority } from 'expo-notifications'
+import { fetchSettings } from '../../store/slices/settingsSlice'
+import { updateLastNotified } from '../../store/slices/showSlice'
 
 export const Player: React.FC<{ background: string }> = ({ background }) => {
   const dispatch = useDispatch()
   const theme = useColorScheme()
   const { status } = useSelector((state: RootState) => state.player)
-  const { current } = useSelector((state: RootState) => state.show)
+  const { current, lastNotified } = useSelector(
+    (state: RootState) => state.show
+  )
+  const { liveStatusNotification } = useSelector(
+    (state: RootState) => state.settings
+  )
   const coverSize = (60 / 100) * deviceInfo.window.width
 
   const onPress = async () => {
@@ -81,6 +90,8 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
   // })
 
   useEffect(() => {
+    dispatch(fetchSettings())
+
     const initPlayer = async () => {
       await TrackPlayer.add([
         {
@@ -89,12 +100,42 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
           artwork: logo,
           artist: 'DoYouWorld',
           //TODO: use current show's name from schedule as fallback
-          title: current?.name || `It's a family affair.`,
+          title: current?.name || DEFAUT_SHOW_NAME,
         },
       ])
     }
 
+    const initNotifications = async () => {
+      const permission = await Notifications.getPermissionsAsync()
+
+      if (
+        permission.granted ||
+        permission.ios?.status ===
+          Notifications.IosAuthorizationStatus.PROVISIONAL
+      ) {
+        Notifications.setNotificationHandler({
+          handleNotification: async () => ({
+            shouldShowAlert: true,
+            shouldPlaySound: true,
+            shouldSetBadge: false,
+          }),
+        })
+
+        if (Platform.OS === 'android') {
+          await Notifications.setNotificationChannelAsync(
+            'notification-sound-channel',
+            {
+              name: 'default',
+              importance: Notifications.AndroidImportance.MAX,
+              vibrationPattern: [0, 250, 250, 250],
+            }
+          )
+        }
+      }
+    }
+
     initPlayer()
+    initNotifications()
   }, [])
 
   useEffect(() => {
@@ -103,12 +144,42 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
         artist: 'DoYouWorld',
         artwork: logo,
         //TODO: use current show's name from schedule as fallback
-        title: current.name || `It's a family affair.`,
+        title: current.name || DEFAUT_SHOW_NAME,
       })
+
+      const handleNotifications = async () => {
+        // if we get a new show name while the player is off, send a notification
+        // checking for player state should be enough to prevent notifications when a show name changes
+        if (
+          status !== PlayerStatus.PLAYING &&
+          liveStatusNotification &&
+          !lastNotified
+        ) {
+          console.log(lastNotified)
+
+          await Notifications.scheduleNotificationAsync({
+            content: {
+              title: `We're on baby!`,
+              //TODO: use name from schedule as fallback
+              body: `Now live: ${current.name || DEFAUT_SHOW_NAME}`,
+              priority: AndroidNotificationPriority.HIGH,
+              vibrate: [0, 250, 250, 250],
+              //@ts-ignore - missing types
+              android: {
+                channelId: 'notification-sound-channel', //and this
+              },
+            },
+            trigger: null,
+          })
+
+          dispatch(updateLastNotified(new Date().getTime()))
+        }
+      }
+      handleNotifications()
     } else {
       // stop player if show has ended
       TrackPlayer.stop()
-      dispatch(updatePlayerStatus(PlayerStatus.PAUSED))
+      // dispatch(updatePlayerStatus(PlayerStatus.PAUSED))
     }
   }, [current])
 

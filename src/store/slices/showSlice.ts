@@ -9,12 +9,14 @@ export enum ShowStatus {
 
 interface ShowInfo {
   name?: string
+  starts: string
 }
 
 interface ShowState {
   current: ShowInfo | null
   status: ShowStatus
   lastUpdated: number | null
+  lastNotified: number | null
 }
 
 interface LiveInfo {
@@ -39,18 +41,28 @@ const initialState: ShowState = {
   current: null,
   status: ShowStatus.LOADING,
   lastUpdated: null,
+  lastNotified: null,
 }
 
 const showSlice = createSlice({
   initialState,
   name: 'show',
-  reducers: {},
+  reducers: {
+    updateLastNotified: (state, action: PayloadAction<number>) => {
+      state.lastNotified = action.payload
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchShowInfo.fulfilled, (state, action) => {
       state.status = action.payload.tracks.current
         ? ShowStatus.ON
         : ShowStatus.OFF
       state.lastUpdated = new Date().getTime()
+
+      if (state.current?.starts !== action.payload.tracks?.current?.starts) {
+        state.lastNotified = null
+      }
+
       state.current = action.payload.tracks?.current || null
     }),
       builder.addCase(fetchShowInfo.pending, (state) => {
@@ -63,4 +75,5 @@ const showSlice = createSlice({
   },
 })
 
+export const { updateLastNotified } = showSlice.actions
 export default showSlice.reducer

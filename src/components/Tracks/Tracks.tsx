@@ -33,11 +33,11 @@ export const Tracks: React.FC = () => {
         }),
       ])
     ).start()
+
     checkTracks()
   }, [])
 
   const checkTracks = () => {
-    console.log('fetching tracks')
     dispatch(fetchTracksInfo())
   }
 
@@ -81,7 +81,7 @@ export const Tracks: React.FC = () => {
           <Octicons name="radio-tower" size={30} color={'white'} />
         </Animated.View>
         <Text style={{ marginTop: 20, fontFamily: 'Lato_900Black' }}>
-          No bangers here (yet?)
+          No bangers here - yet
         </Text>
       </View>
     )

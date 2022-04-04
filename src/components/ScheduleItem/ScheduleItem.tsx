@@ -52,7 +52,7 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
 
           return (
             <View
-              key={show.id}
+              key={show.start_timestamp}
               style={{
                 backgroundColor: 'transparent',
                 display: 'flex',
@@ -63,7 +63,7 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
             >
               <Text
                 style={{ fontSize: 14, color: 'white', flexBasis: 90 }}
-                key={show.id}
+                key={show.start_timestamp}
               >
                 {start} - {end}
               </Text>
