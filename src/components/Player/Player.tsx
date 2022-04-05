@@ -79,6 +79,10 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
     dispatch(fetchSettings())
 
     const initPlayer = async () => {
+      const currentShow = current?.name?.length
+        ? current.name
+        : getCurrentShowFromSchedule(shows)?.name
+
       await TrackPlayer.add([
         {
           // url: 'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3',
@@ -86,7 +90,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
           artwork: logo,
           artist: 'DoYouWorld',
           //TODO: use current show's name from schedule as fallback
-          title: current?.name || DEFAUT_SHOW_NAME,
+          title: currentShow || DEFAUT_SHOW_NAME,
         },
       ])
     }
@@ -128,13 +132,14 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
 
   useEffect(() => {
     if (current) {
+      const currentShow = current.name?.length
+        ? current.name
+        : getCurrentShowFromSchedule(shows)?.name
+
       TrackPlayer.updateNowPlayingMetadata({
         artist: 'DoYouWorld',
         artwork: logo,
-        title:
-          current.name ||
-          getCurrentShowFromSchedule(shows)?.name ||
-          DEFAUT_SHOW_NAME,
+        title: currentShow || DEFAUT_SHOW_NAME,
       })
 
       const handleNotifications = async () => {
@@ -148,11 +153,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
           await Notifications.scheduleNotificationAsync({
             content: {
               title: `We're on baby!`,
-              body: `Now live: ${
-                current.name ||
-                getCurrentShowFromSchedule(shows)?.name ||
-                DEFAUT_SHOW_NAME
-              }`,
+              body: `Now live: ${currentShow || DEFAUT_SHOW_NAME}`,
               priority: AndroidNotificationPriority.HIGH,
               vibrate: [0, 250, 250, 250],
               //@ts-ignore - missing types

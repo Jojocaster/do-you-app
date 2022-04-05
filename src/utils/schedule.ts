@@ -61,11 +61,18 @@ export const getCurrentShowFromSchedule = (
   if (!shows.length) {
     return
   }
-  const now = new Date().getTime()
+
+  const now = new Date()
   const todaysShows = shows[0]
-  return todaysShows.find((show) => {
-    const start = parseJSON(show.start_timestamp).getTime()
-    const end = parseJSON(show.end_timestamp).getTime()
-    return now >= start && now <= end
+  const currentShow = todaysShows.find((show) => {
+    const start = parseJSON(show.start_timestamp)
+    const end = parseJSON(show.end_timestamp)
+
+    return (
+      now.getHours() >= start.getUTCHours() &&
+      now.getHours() <= end.getUTCHours()
+    )
   })
+
+  return currentShow
 }
