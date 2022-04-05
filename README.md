@@ -28,13 +28,13 @@ Changelog:
 
 ## Screenshots
 <p align="center">
-<img src="assets/readme/home.jpg" width="200"/>
+<img src="assets/readme/home.jpg" width="150"/>
 &nbsp; &nbsp; &nbsp; &nbsp;
-<img src="assets/readme/tracks.jpg" width="200"/>
+<img src="assets/readme/tracks.jpg" width="150"/>
 &nbsp; &nbsp; &nbsp; &nbsp;
-<img src="assets/readme/controls.jpg" width="200"/>
+<img src="assets/readme/controls.jpg" width="150"/>
 &nbsp; &nbsp; &nbsp; &nbsp;
-<img src="assets/readme/settings.jpg" width="200"/>
+<img src="assets/readme/settings.jpg" width="150"/>
 </p>
 
 ## Roadmap
