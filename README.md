@@ -8,7 +8,8 @@ Feel free to create issues [here](https://github.com/Jojocaster/do-you-app/issue
 - Beta 0.2.0: [Download link](https://turtle-v2-artifacts.s3.amazonaws.com/android/44fb928c-12a5-4d20-bcc9-1b8aae1c02c7-39a1768725d54e5ba882c932e7b5dcf3.apk)
 ```
 Changelog: 
-- Notifications can now be turned on & off when a show is live
+
+- Notifications can now be sent when a show is live and can be turned on & off from the Settings.
 - Current show's title grabbed from schedule in case `live-info` doesn't return the right name
 - Player controls improved
 - Minor fixes 
@@ -32,6 +33,8 @@ Changelog:
 <img src="assets/readme/tracks.jpg" width="200"/>
 &nbsp; &nbsp; &nbsp; &nbsp;
 <img src="assets/readme/controls.jpg" width="200"/>
+&nbsp; &nbsp; &nbsp; &nbsp;
+<img src="assets/readme/settings.jpg" width="200"/>
 </p>
 
 ## Roadmap
