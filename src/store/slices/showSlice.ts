@@ -11,9 +11,18 @@ interface ShowInfo {
   name?: string
   starts: string
 }
+interface TrackInfo {
+  starts: string
+  ends: string
+  type: string
+  name: string
+  media_item_played: boolean
+  record: string
+}
 
 interface ShowState {
-  current: ShowInfo | null
+  currentShow: ShowInfo | null
+  currentTrack: TrackInfo | null
   status: ShowStatus
   lastUpdated: number | null
   lastNotified: number | null
@@ -24,7 +33,7 @@ interface LiveInfo {
     current: ShowInfo
   }
   tracks: {
-    current: ShowInfo
+    current: TrackInfo
   }
 }
 
@@ -38,7 +47,8 @@ export const fetchShowInfo = createAsyncThunk(
 )
 
 const initialState: ShowState = {
-  current: null,
+  currentShow: null,
+  currentTrack: null,
   status: ShowStatus.LOADING,
   lastUpdated: null,
   lastNotified: null,
@@ -60,11 +70,14 @@ const showSlice = createSlice({
         : ShowStatus.OFF
       state.lastUpdated = new Date().getTime()
 
-      if (state.current?.starts !== action.payload.tracks?.current?.starts) {
+      if (
+        state.currentTrack?.starts !== action.payload.tracks?.current?.starts
+      ) {
         state.lastNotified = null
       }
 
-      state.current = action.payload.tracks?.current || null
+      state.currentTrack = action.payload.tracks?.current || null
+      state.currentShow = action.payload.shows?.current || null
     }),
       builder.addCase(fetchShowInfo.pending, (state) => {
         console.log('[fetchShow]: pending')

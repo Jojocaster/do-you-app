@@ -1,12 +1,10 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { StyleSheet } from 'react-native'
 import { Container } from '../components/Container/Container'
-
-import EditScreenInfo from '../components/EditScreenInfo'
 import { Heading } from '../components/Heading/Heading'
 import { Home } from '../components/Home/Home'
 import { MonoText } from '../components/StyledText'
-import { Text, View } from '../components/Themed'
+import { View } from '../components/Themed'
 import { Tracks } from '../components/Tracks/Tracks'
 import Colors from '../constants/Colors'
 import useColorScheme from '../hooks/useColorScheme'
@@ -20,7 +18,7 @@ export default function TabTwoScreen() {
           <Heading offset={50}>TODAY'S TRACKS</Heading>
           {/* <View
             style={styles.separator}
-            lightColor="#eee"
+            lightColor="#eee" 
             darkColor="rgba(255,255,255,0.1)"
           /> */}
           <View
