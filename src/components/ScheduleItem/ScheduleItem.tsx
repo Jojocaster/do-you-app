@@ -1,13 +1,15 @@
-import { parseISO, parseJSON } from 'date-fns'
+import { parseJSON } from 'date-fns'
 import { format } from 'date-fns-tz'
 import React, { useEffect, useRef } from 'react'
 import { Animated } from 'react-native'
 import { useSelector } from 'react-redux'
 import Colors from '../../constants/Colors'
+import { useAppState } from '../../hooks/useAppState'
 import useColorScheme from '../../hooks/useColorScheme'
 import { RootState } from '../../store/store'
 import { ShowInfo } from '../../utils/schedule'
 import { Text, useThemeColor, View } from '../Themed'
+import { getLocalShowTime } from './ScheduleItem.utils'
 
 const LiveShow: React.FC = ({ children }) => {
   const theme = useColorScheme()
@@ -51,7 +53,8 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
   showsOfTheDay,
 }) => {
   const { currentShow } = useSelector((state: RootState) => state.show)
-  const theme = useColorScheme()
+  // this will allow component to re-render when appState changes
+  const appState = useAppState()
   const backgroundColor = useThemeColor({}, 'primary')
   const day = parseJSON(showsOfTheDay[0].start_timestamp)
   const formattedDay = format(day, 'E, MMM dd')
@@ -88,14 +91,13 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
         }}
       >
         {showsOfTheDay.map((show) => {
-          const startDate = parseISO(show.start_timestamp)
           // TODO: improve logic
           const isCurrent =
             show.name === currentShow?.name &&
             show.starts === currentShow.starts
-          const start = format(startDate, 'HH:mm')
-          const endDate = parseISO(show.end_timestamp)
-          const end = format(endDate, 'HH:mm')
+
+          const start = getLocalShowTime(show.start_timestamp)
+          const end = getLocalShowTime(show.end_timestamp)
 
           return (
             <View

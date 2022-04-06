@@ -20,6 +20,7 @@
   "dependencies": {
     "@expo-google-fonts/lato": "0.2.2",
     "@expo/vector-icons": "^12.0.0",
+    "@react-native-async-storage/async-storage": "~1.15.0",
     "@react-navigation/bottom-tabs": "^6.0.5",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.1.0",
@@ -32,9 +33,11 @@
     "expo-dev-client": "~0.8.4",
     "expo-font": "~10.0.4",
     "expo-linking": "~3.0.0",
+    "expo-localization": "~12.0.0",
     "expo-notifications": "~0.14.0",
     "expo-splash-screen": "~0.14.0",
     "expo-status-bar": "~1.2.0",
+    "expo-updates": "~0.11.6",
     "expo-web-browser": "~10.1.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
@@ -44,9 +47,7 @@
     "react-native-track-player": "2.1.2",
     "react-native-web": "0.17.1",
     "react-redux": "7.2.6",
-    "styled-components": "5.3.5",
-    "expo-updates": "~0.11.6",
-    "@react-native-async-storage/async-storage": "~1.15.0"
+    "styled-components": "5.3.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
