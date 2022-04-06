@@ -45,7 +45,7 @@ Changelog:
 - Load shows from Mixcloud through Redis
 - Display tracks covers
 - <del>Add Settings to manage alerts</del>
-- Show correct times according to timezone
+- <del>Show correct times according to timezone</del>
 - Track ID archive
 - Add "Events" tab
 - Handle light theme?
