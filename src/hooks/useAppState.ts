@@ -5,9 +5,14 @@ export const useAppState = (): AppStateStatus => {
   const [state, setState] = useState<AppStateStatus>('unknown')
 
   useEffect(() => {
-    AppState.addEventListener('change', (appState) => {
+    const listener = AppState.addEventListener('change', (appState) => {
       setState(appState)
     })
+
+    return () => {
+      //@ts-ignore - wrong types here
+      listener?.remove()
+    }
   })
 
   return state

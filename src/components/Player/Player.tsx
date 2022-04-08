@@ -154,9 +154,9 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
             },
             trigger: null,
           })
-
-          dispatch(updateLastNotified(new Date().getTime()))
         }
+        // update lastNotified even if playijng to avoid duplicated notifications later on
+        dispatch(updateLastNotified(new Date().getTime()))
       }
       handleNotifications()
     } else {
