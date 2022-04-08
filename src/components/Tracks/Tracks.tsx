@@ -1,4 +1,5 @@
 import { Octicons } from '@expo/vector-icons'
+import { useIsFocused } from '@react-navigation/native'
 import { format, parse, parseJSON } from 'date-fns'
 import React, { useEffect, useRef } from 'react'
 import { ActivityIndicator, Animated, ScrollView } from 'react-native'
@@ -14,6 +15,7 @@ export const Tracks: React.FC = () => {
   const dispatch = useDispatch()
   const fadeAnim = useRef(new Animated.Value(1)).current
   const theme = useColorScheme()
+  const isFocused = useIsFocused()
   const timeout = useRef<NodeJS.Timeout>()
   const { lastUpdated, loading, tracks } = useSelector(
     (state: RootState) => state.tracksInfo
@@ -35,23 +37,25 @@ export const Tracks: React.FC = () => {
         }),
       ])
     ).start()
-
-    checkTracks()
   }, [])
 
-  const checkTracks = () => {
-    dispatch(fetchTracksInfo())
-  }
+  useEffect(() => {
+    // fetch tracks when tab is focused
+    if (isFocused) {
+      dispatch(fetchTracksInfo())
+    }
+  }, [isFocused])
 
   useEffect(() => {
+    // always clear timeout to prevent leaks
     if (timeout.current) {
       clearTimeout(timeout.current)
     }
 
-    // only poll if show is live
-    if (status === ShowStatus.ON) {
+    // only poll if show is live & screen is focused
+    if (status === ShowStatus.ON && isFocused) {
       timeout.current = setTimeout(() => {
-        checkTracks()
+        dispatch(fetchTracksInfo())
       }, 1000 * 60)
     }
   }, [lastUpdated])

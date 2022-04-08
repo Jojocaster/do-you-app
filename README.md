@@ -5,6 +5,16 @@ Unofficial app for https://doyou.world/ , built with React Native, AirTime Pro's
 Feel free to create issues [here](https://github.com/Jojocaster/do-you-app/issues) to report bugs / suggest features, I'll do my best to get back to you asap.
 
 ## Releases (Android)
+- Beta 0.2.1: [Download link](https://turtle-v2-artifacts.s3.amazonaws.com/android/bc0cbc31-cd68-4fa7-b95c-5b22689e35c4-b5212c5713e249a0abc2a4431559d084.apk)
+```
+Changelog: 
+
+- Current show / track logic improved
+- Current show now highlighted in schedule
+- Schedule now supports different timezones
+- Code cleaned up and improved
+```
+
 - Beta 0.2.0: [Download link](https://turtle-v2-artifacts.s3.amazonaws.com/android/44fb928c-12a5-4d20-bcc9-1b8aae1c02c7-39a1768725d54e5ba882c932e7b5dcf3.apk)
 ```
 Changelog: 
@@ -45,7 +55,7 @@ Changelog:
 - Load shows from Mixcloud through Redis
 - Display tracks covers
 - <del>Add Settings to manage alerts</del>
-- Show correct times according to timezone
+- <del>Show correct times according to timezone</del>
 - Track ID archive
 - Add "Events" tab
 - Handle light theme?

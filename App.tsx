@@ -1,8 +1,7 @@
 import { StatusBar } from 'expo-status-bar'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { Provider } from 'react-redux'
-import { ThemeContext, ThemeProvider } from 'styled-components/native'
-
+import { ThemeProvider } from 'styled-components/native'
 import useCachedResources from './src/hooks/useCachedResources'
 import useColorScheme from './src/hooks/useColorScheme'
 import Navigation from './src/navigation'
@@ -11,6 +10,8 @@ import { theme } from './src/theme'
 import service from './service'
 import TrackPlayer, { Capability } from 'react-native-track-player'
 import { Status } from './src/components/Status/Status'
+//@ts-ignore
+import logo from './assets/images/doyou.webp'
 // import * as Updates from 'expo-updates'
 
 TrackPlayer.setupPlayer({})
@@ -19,6 +20,7 @@ TrackPlayer.updateOptions({
   stopWithApp: true,
   capabilities: [Capability.Stop, Capability.Pause, Capability.Play],
   compactCapabilities: [Capability.Stop, Capability.Pause, Capability.Play],
+  icon: logo,
 })
 
 // Updates.fetchUpdateAsync()

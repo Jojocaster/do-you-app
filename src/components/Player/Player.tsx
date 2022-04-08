@@ -10,7 +10,7 @@ import {
   PlayerStatus,
   updatePlayerStatus,
 } from '../../store/slices/playerSlice'
-import { DEFAUT_SHOW_NAME, PlayerIcons, PLAYER_SIZE } from './Player.constants'
+import { ARTIST_NAME, PlayerIcons, PLAYER_SIZE } from './Player.constants'
 import { LIVE_STREAM_URL } from '../../constants/Endpoints'
 import { View } from '../Themed'
 import TrackPlayer, {
@@ -24,15 +24,15 @@ import * as Notifications from 'expo-notifications'
 import { AndroidNotificationPriority } from 'expo-notifications'
 import { fetchSettings } from '../../store/slices/settingsSlice'
 import { updateLastNotified } from '../../store/slices/showSlice'
-import { getCurrentShowFromSchedule } from '../../utils/schedule'
+import { useShowTitle } from '../../hooks/useShowTitle'
 
 export const Player: React.FC<{ background: string }> = ({ background }) => {
   const dispatch = useDispatch()
   const theme = useColorScheme()
+  const currentTitle = useShowTitle()
 
   const { status } = useSelector((state: RootState) => state.player)
-  const { shows } = useSelector((state: RootState) => state.schedule)
-  const { current, lastNotified } = useSelector(
+  const { currentTrack, lastNotified } = useSelector(
     (state: RootState) => state.show
   )
   const { liveStatusNotification } = useSelector(
@@ -79,18 +79,13 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
     dispatch(fetchSettings())
 
     const initPlayer = async () => {
-      const currentShow = current?.name?.length
-        ? current.name
-        : getCurrentShowFromSchedule(shows)?.name
-
       await TrackPlayer.add([
         {
           // url: 'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3',
           url: LIVE_STREAM_URL,
           artwork: logo,
-          artist: 'DoYouWorld',
-          //TODO: use current show's name from schedule as fallback
-          title: currentShow || DEFAUT_SHOW_NAME,
+          artist: ARTIST_NAME,
+          title: currentTitle,
         },
       ])
     }
@@ -131,15 +126,11 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
   }, [])
 
   useEffect(() => {
-    if (current) {
-      const currentShow = current.name?.length
-        ? current.name
-        : getCurrentShowFromSchedule(shows)?.name
-
+    if (currentTrack) {
       TrackPlayer.updateNowPlayingMetadata({
-        artist: 'DoYouWorld',
+        artist: ARTIST_NAME,
         artwork: logo,
-        title: currentShow || DEFAUT_SHOW_NAME,
+        title: currentTitle,
       })
 
       const handleNotifications = async () => {
@@ -153,7 +144,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
           await Notifications.scheduleNotificationAsync({
             content: {
               title: `We're on baby!`,
-              body: `Now live: ${currentShow || DEFAUT_SHOW_NAME}`,
+              body: `Now live: ${currentTitle}`,
               priority: AndroidNotificationPriority.HIGH,
               vibrate: [0, 250, 250, 250],
               //@ts-ignore - missing types
@@ -163,9 +154,9 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
             },
             trigger: null,
           })
-
-          dispatch(updateLastNotified(new Date().getTime()))
         }
+        // update lastNotified even if playijng to avoid duplicated notifications later on
+        dispatch(updateLastNotified(new Date().getTime()))
       }
       handleNotifications()
     } else {
@@ -173,7 +164,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
       TrackPlayer.stop()
       // dispatch(updatePlayerStatus(PlayerStatus.PAUSED))
     }
-  }, [current])
+  }, [currentTrack])
 
   return (
     <StyledCover
