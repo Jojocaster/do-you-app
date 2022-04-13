@@ -1,5 +1,10 @@
-import React, { useEffect } from 'react'
-import { ImageBackground, Platform, TouchableHighlight } from 'react-native'
+import React, { useEffect, useRef } from 'react'
+import {
+  Animated,
+  ImageBackground,
+  Platform,
+  TouchableHighlight,
+} from 'react-native'
 import { StyledCover } from './Player.styles'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import Colors from '../../constants/Colors'
@@ -32,22 +37,25 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
   const currentTitle = useShowTitle()
 
   const { status } = useSelector((state: RootState) => state.player)
-  const { currentTrack, lastNotified } = useSelector(
-    (state: RootState) => state.show
-  )
+  const {
+    currentTrack,
+    lastNotified,
+    status: showStatus,
+  } = useSelector((state: RootState) => state.show)
   const { liveStatusNotification } = useSelector(
     (state: RootState) => state.settings
   )
 
-  const onPress = async () => {
-    if (status === PlayerStatus.PAUSED) {
-      await TrackPlayer.play()
-    }
-    if (status === PlayerStatus.PLAYING) {
-      // stop() instead of pause() to reset buffer
-      await TrackPlayer.stop()
-    }
-  }
+  const initPlayer = async () =>
+    await TrackPlayer.add([
+      {
+        // url: 'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3',
+        url: LIVE_STREAM_URL,
+        artwork: logo,
+        artist: ARTIST_NAME,
+        title: currentTitle,
+      },
+    ])
 
   useTrackPlayerEvents(
     [Event.RemoteStop, Event.PlaybackState],
@@ -77,18 +85,6 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
 
   useEffect(() => {
     dispatch(fetchSettings())
-
-    const initPlayer = async () => {
-      await TrackPlayer.add([
-        {
-          // url: 'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3',
-          url: LIVE_STREAM_URL,
-          artwork: logo,
-          artist: ARTIST_NAME,
-          title: currentTitle,
-        },
-      ])
-    }
 
     const initNotifications = async () => {
       // check permission for iOS
@@ -165,6 +161,30 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
       // dispatch(updatePlayerStatus(PlayerStatus.PAUSED))
     }
   }, [currentTrack])
+
+  const onPress = async () => {
+    const playerState = await TrackPlayer.getState()
+    const currentPlayerTrack = await TrackPlayer.getCurrentTrack()
+    console.log('currentPlayerTrack', currentPlayerTrack)
+
+    // currentTrack is sometimes set to null after resuming from background, preventing "play" from working normally
+    // re-adding the track allows it to play again
+    if (currentPlayerTrack === null) {
+      await initPlayer()
+    }
+
+    if (
+      [State.Paused, State.None, State.Ready, State.Stopped].includes(
+        playerState
+      )
+    ) {
+      TrackPlayer.play()
+      console.log('play')
+    } else if ([State.Playing, State.Buffering, State.Connecting]) {
+      // stop() instead of pause() to reset buffer
+      TrackPlayer.stop()
+    }
+  }
 
   return (
     <StyledCover

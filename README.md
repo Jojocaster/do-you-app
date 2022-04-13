@@ -31,7 +31,7 @@ Changelog:
 
 ## Features
 - Live Status tracker, running automatically in the background
-- Displays the list of upcoming shows
+- Displays the list of upcoming shows according to timezone
 - Allow radio to be played in the background & controlled from the notification centre & the lockscreen
 - Display current show's Track IDs (Beta)
 - Send notifications when a show is live
@@ -49,19 +49,19 @@ Changelog:
 
 ## Roadmap
 - UI & UX improvements
-- Set alerts for individual shows based on schedule
+- Trigger push notifications from server instead of polling data from client (using `Lambda`, `CRON`, `S3` & `expo-notifications`)
 - <del>Fetch live info in the background to send notifications when shows are live</del>
 - 11:11
-- Load shows from Mixcloud through Redis
 - Display tracks covers
 - <del>Add Settings to manage alerts</del>
 - <del>Show correct times according to timezone</del>
+- Load shows from Mixcloud through Redis?
 - Track ID archive
 - Add "Events" tab
 - Handle light theme?
+- Set alerts for individual shows based on schedule?
 - Better error management :)
 - iOS release
 - Persist state
-- Trigger push notifications from server instead of polling data from client? 
 - Embed chat? 
 - Open to suggestions, feel free to post them here [here](https://github.com/Jojocaster/do-you-app/issues) :) 
