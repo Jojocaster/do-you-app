@@ -5,7 +5,14 @@ Unofficial app for https://doyou.world/ , built with React Native, AirTime Pro's
 Feel free to create issues [here](https://github.com/Jojocaster/do-you-app/issues) to report bugs / suggest features, I'll do my best to get back to you asap.
 
 ## Releases (Android)
-- Beta 0.2.1: [Download link](https://turtle-v2-artifacts.s3.amazonaws.com/android/bc0cbc31-cd68-4fa7-b95c-5b22689e35c4-b5212c5713e249a0abc2a4431559d084.apk)
+- Beta 0.2.2: [Download link](https://github.com/Jojocaster/do-you-app/releases/download/v0.2.2/a0a4ea6f-8afe-4995-85fb-1686f9b50878-9ff2763ce3b94445894895eb25765993.apk)
+```
+Changelog: 
+
+- Fix for player. It would sometimes lose the current track when the app was idle in the background for too long. 
+```
+
+- Beta 0.2.1: [Download link](https://github.com/Jojocaster/do-you-app/releases/download/v0.2.1/bc0cbc31-cd68-4fa7-b95c-5b22689e35c4-b5212c5713e249a0abc2a4431559d084.apk)
 ```
 Changelog: 
 
@@ -15,7 +22,7 @@ Changelog:
 - Code cleaned up and improved
 ```
 
-- Beta 0.2.0: [Download link](https://turtle-v2-artifacts.s3.amazonaws.com/android/44fb928c-12a5-4d20-bcc9-1b8aae1c02c7-39a1768725d54e5ba882c932e7b5dcf3.apk)
+- Beta 0.2.0: [Download link](https://github.com/Jojocaster/do-you-app/releases/download/v0.2.0/44fb928c-12a5-4d20-bcc9-1b8aae1c02c7-39a1768725d54e5ba882c932e7b5dcf3.apk)
 ```
 Changelog: 
 
@@ -25,7 +32,7 @@ Changelog:
 - Minor fixes 
 ```
 
-- Beta 0.1.0: [Download link](https://expo.dev/accounts/joelbeaudon/projects/DoYouWorld/builds/fe33a6dc-e470-4270-978c-33fd50b119be)
+- Beta 0.1.0: [Download link](https://github.com/Jojocaster/do-you-app/releases/download/v0.1.0/b883bc47-bfbb-483e-a960-6439cc2148e6-41c9ea09d631423b8a98bb9c8cf39d0d.apk)
 
 /!\ As this version is still a beta and not on the store just yet, Google may warn you about the app being "unsafe" - that is completely normal. Just "install anyway" and enjoy that perfect sound forever.
 
