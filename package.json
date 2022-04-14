@@ -51,6 +51,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@expo/config": "6.0.20",
     "@types/react": "~17.0.21",
     "@types/react-native": "~0.64.12",
     "@types/react-redux": "7.1.23",

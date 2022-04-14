@@ -13,7 +13,7 @@
     "preview": {
       "distribution": "internal",
       "env": {
-        "TARGET": "dev"
+        "TARGET": "preview"
       }
     },
     "production": {}
