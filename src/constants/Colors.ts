@@ -1,14 +1,23 @@
 const tintColorLight = '#1c1c1c'
 const tintColorDark = '#fff'
+const brandYellow = '#FFDC3B'
+const brandBlue = '#3A70D6'
 
 export default {
   light: {
     text: '#000',
-    background: '#1c1c1c',
+    statusBar: brandBlue,
+    background: '#fff',
     tint: tintColorLight,
     tabIconDefault: '#ccc',
-    tabIconSelected: tintColorLight,
-    primary: '#E4C75E',
+    tabIconSelected: brandBlue,
+    primary: brandYellow,
+    accent: brandBlue,
+    heading: brandYellow,
+    headingShadow: brandBlue,
+    scheduleBackground: '#F5F5F5',
+    scheduleText: '#000',
+    scheduleHeading: brandBlue,
   },
   dark: {
     text: '#fff',
@@ -17,6 +26,13 @@ export default {
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorDark,
     // old primary: '#E4C75E',
-    primary: '#FFDC3B',
+    primary: brandYellow,
+    accent: '#000',
+    statusBar: '#151515',
+    heading: brandYellow,
+    headingShadow: brandBlue,
+    scheduleBackground: tintColorLight,
+    scheduleText: '#fff',
+    scheduleHeading: '#fff',
   },
 }

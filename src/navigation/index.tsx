@@ -3,7 +3,11 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'
+import {
+  FontAwesome,
+  Ionicons,
+  MaterialCommunityIcons,
+} from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import {
   NavigationContainer,
@@ -29,6 +33,7 @@ import {
 } from '../../types'
 import LinkingConfiguration from './LinkingConfiguration'
 import MoreScreen from '../screens/MoreScreen'
+import { ChatScreen } from '../screens/ChatScreen'
 
 export default function Navigation({
   colorScheme,
@@ -82,28 +87,27 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Live"
       sceneContainerStyle={{ backgroundColor: '#212020' }}
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarActiveTintColor: Colors[colorScheme].tabIconSelected,
         tabBarStyle: { paddingVertical: 5 },
         tabBarLabelStyle: { marginBottom: 6 },
       }}
     >
       <BottomTab.Screen
-        name="TabOne"
+        name="Live"
         component={LiveScreen}
-        options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
+        options={({ navigation }: RootTabScreenProps<'Live'>) => ({
           title: 'Live',
-
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="headphones" size={19} color={color} />
           ),
         })}
       />
       <BottomTab.Screen
-        name="TabTwo"
+        name="Tracks"
         component={TracksScreen}
         options={({ navigation }) => ({
           title: 'Track IDs',
@@ -130,6 +134,16 @@ function BottomTabNavigator() {
           //     />
           //   </Pressable>
           // ),
+        })}
+      />
+      <BottomTab.Screen
+        name="Chat"
+        component={ChatScreen}
+        options={({ navigation }: RootTabScreenProps<'Chat'>) => ({
+          title: 'Chat',
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="chatbox-ellipses-outline" size={19} color={color} />
+          ),
         })}
       />
       <BottomTab.Screen
