@@ -1,5 +1,5 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
@@ -14,26 +14,20 @@ export const Status: React.FC = () => {
   const timeout = useRef<NodeJS.Timeout>()
   const theme = useColorScheme()
 
-  const checkStatus = async () => {
-    if (!lastUpdated) {
-      dispatch(fetchShowInfo())
-    } else {
-      const now = new Date().getTime()
-      const diff = now - lastUpdated
-      const diffInMinutes = diff / (1000 * 60)
-      if (diffInMinutes > 1) {
-        dispatch(fetchShowInfo())
-      }
-    }
-  }
-
   useEffect(() => {
-    checkStatus()
+    dispatch(fetchShowInfo())
   }, [])
 
   // check status every minute if not in loading state
   //TODO: turn into background service, check against schedule to avoid hammering the API
   useEffect(() => {
+    // retry immediately if error
+    if (status === ShowStatus.ERROR) {
+      dispatch(fetchShowInfo())
+      return
+    }
+
+    // ignore loading state, only trigger timeout once status is on/off
     if (status !== ShowStatus.LOADING) {
       // reset timeout
       if (timeout.current) {
@@ -41,10 +35,10 @@ export const Status: React.FC = () => {
       }
 
       timeout.current = setTimeout(() => {
-        checkStatus()
+        dispatch(fetchShowInfo())
       }, 1000 * 60)
     }
-  }, [status])
+  }, [status, lastUpdated])
 
   return (
     <View

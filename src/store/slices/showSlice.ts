@@ -5,6 +5,7 @@ export enum ShowStatus {
   ON,
   OFF,
   LOADING,
+  ERROR,
 }
 
 interface ShowInfo {
@@ -85,6 +86,8 @@ const showSlice = createSlice({
       }),
       builder.addCase(fetchShowInfo.rejected, (state, action) => {
         console.log('[fetchShow]: error', action.error)
+        state.lastUpdated = new Date().getTime()
+        state.status = ShowStatus.ERROR
       })
   },
 })

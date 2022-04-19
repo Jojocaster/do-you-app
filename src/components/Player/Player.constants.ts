@@ -4,7 +4,8 @@ import deviceInfo from '../../constants/Layout'
 export const PlayerIcons: Record<PlayerStatus, any> = {
   [PlayerStatus.PAUSED]: 'play-circle',
   [PlayerStatus.PLAYING]: 'pause-circle',
-  [PlayerStatus.LOADING]: 'dots-horizontal-circle',
+  [PlayerStatus.LOADING]: 'play-circle',
+  [PlayerStatus.BUFFERING]: 'dots-horizontal-circle',
 }
 
 export const ARTIST_NAME = 'DoYouWorld'

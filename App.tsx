@@ -14,7 +14,7 @@ import { Status } from './src/components/Status/Status'
 import logo from './assets/images/doyou.webp'
 // import * as Updates from 'expo-updates'
 
-TrackPlayer.setupPlayer({})
+TrackPlayer.setupPlayer({ waitForBuffer: true })
 TrackPlayer.registerPlaybackService(() => service)
 TrackPlayer.updateOptions({
   stopWithApp: true,

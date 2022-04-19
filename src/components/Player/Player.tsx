@@ -45,7 +45,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
     (state: RootState) => state.settings
   )
 
-  const initPlayer = async () =>
+  const initPlayer = async () => {
     await TrackPlayer.add([
       {
         // url: 'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3',
@@ -55,6 +55,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
         title: currentTitle,
       },
     ])
+  }
 
   useTrackPlayerEvents(
     [Event.RemoteStop, Event.PlaybackState],
@@ -162,8 +163,8 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
   }, [currentTrack])
 
   const onPress = async () => {
-    const playerState = await TrackPlayer.getState()
     const currentPlayerTrack = await TrackPlayer.getCurrentTrack()
+
     console.log('currentPlayerTrack', currentPlayerTrack)
 
     // currentTrack is sometimes set to null after resuming from background, preventing "play" from working normally
@@ -172,14 +173,20 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
       await initPlayer()
     }
 
+    const playerState = await TrackPlayer.getState()
+
     if (
-      [State.Paused, State.None, State.Ready, State.Stopped].includes(
-        playerState
-      )
+      [
+        State.Paused,
+        State.None,
+        State.Ready,
+        State.Buffering,
+        State.Stopped,
+      ].includes(playerState)
     ) {
       TrackPlayer.play()
       console.log('play')
-    } else if ([State.Playing, State.Buffering, State.Connecting]) {
+    } else if ([State.Playing, State.Connecting]) {
       // stop() instead of pause() to reset buffer
       TrackPlayer.stop()
     }

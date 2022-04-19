@@ -4,6 +4,7 @@ export enum PlayerStatus {
   PLAYING,
   LOADING,
   PAUSED,
+  BUFFERING,
 }
 
 const initialState = {

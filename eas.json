@@ -8,6 +8,9 @@
       "distribution": "internal",
       "env": {
         "TARGET": "dev"
+      },
+      "ios": {
+        "simulator": true
       }
     },
     "preview": {

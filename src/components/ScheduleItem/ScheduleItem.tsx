@@ -9,7 +9,7 @@ import useColorScheme from '../../hooks/useColorScheme'
 import { RootState } from '../../store/store'
 import { ShowInfo } from '../../utils/schedule'
 import { Text, useThemeColor, View } from '../Themed'
-import { getLocalShowTime } from './ScheduleItem.utils'
+import { decodeHtmlCharCodes, getLocalShowTime } from './ScheduleItem.utils'
 
 const LiveShow: React.FC = ({ children }) => {
   const theme = useColorScheme()
@@ -141,7 +141,7 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
                     flex: 1,
                   }}
                 >
-                  {show.name}
+                  {decodeHtmlCharCodes(show.name)}
                 </Text>
               )}
             </View>

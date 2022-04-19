@@ -10,9 +10,12 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "jest --watchAll",
-    "build:preview": "eas build --platform android --profile preview",
-    "build:dev": "eas build --platform android --profile development",
-    "build:prod": "eas build --platform android --profile production"
+    "build:android:preview": "eas build --platform android --profile preview",
+    "build:android:dev": "eas build --platform android --profile development",
+    "build:android:prod": "eas build --platform android --profile production",
+    "build:ios:preview": "eas build --platform ios --profile preview",
+    "build:ios:dev": "eas build --platform ios --profile development",
+    "build:ios:prod": "eas build --platform ios --profile production"
   },
   "jest": {
     "preset": "jest-expo"
@@ -46,11 +49,11 @@
     "react-native": "0.64.3",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
-    "react-native-track-player": "2.1.2",
+    "react-native-track-player": "v2.2.0-rc3",
     "react-native-web": "0.17.1",
+    "react-native-webview": "11.15.0",
     "react-redux": "7.2.6",
-    "styled-components": "5.3.5",
-    "react-native-webview": "11.15.0"
+    "styled-components": "5.3.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
