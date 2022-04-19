@@ -1,8 +1,9 @@
 import React from 'react'
 import { View } from '../components/Themed'
 import { WebView } from 'react-native-webview'
+import { RootTabScreenProps } from '../../types'
 
-export const ChatScreen: React.FC = () => {
+export default function ChatScreen({ navigation }: RootTabScreenProps<'Chat'>) {
   return (
     <WebView
       source={{
