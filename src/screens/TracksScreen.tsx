@@ -1,5 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { StyleSheet } from 'react-native'
+import { RootTabScreenProps } from '../../types'
 import { Container } from '../components/Container/Container'
 import { Heading } from '../components/Heading/Heading'
 import { Home } from '../components/Home/Home'
@@ -9,18 +10,15 @@ import { Tracks } from '../components/Tracks/Tracks'
 import Colors from '../constants/Colors'
 import useColorScheme from '../hooks/useColorScheme'
 
-export default function TabTwoScreen() {
+export default function TrackScreen({
+  navigation,
+}: RootTabScreenProps<'Tracks'>) {
   const theme = useColorScheme()
   return (
     <View style={styles.container}>
       <Home>
         <Container>
           <Heading offset={50}>TODAY'S TRACKS</Heading>
-          {/* <View
-            style={styles.separator}
-            lightColor="#eee" 
-            darkColor="rgba(255,255,255,0.1)"
-          /> */}
           <View
             style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
             darkColor="rgba(255,255,255,0.05)"

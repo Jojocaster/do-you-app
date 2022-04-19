@@ -38,10 +38,7 @@ export const VolumeControl = () => {
   )
 }
 
-//TODO: move logic to its own component, only use Screens for data handling
-export default function TabOneScreen({
-  navigation,
-}: RootTabScreenProps<'TabOne'>) {
+export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
   const theme = useColorScheme()
 
   return (

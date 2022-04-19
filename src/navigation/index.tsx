@@ -16,9 +16,7 @@ import {
 } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import * as React from 'react'
-import { ColorSchemeName, Pressable } from 'react-native'
-import { Status } from '../components/Status/Status'
-import { View } from '../components/Themed'
+import { ColorSchemeName } from 'react-native'
 
 import Colors from '../constants/Colors'
 import useColorScheme from '../hooks/useColorScheme'
@@ -33,7 +31,7 @@ import {
 } from '../../types'
 import LinkingConfiguration from './LinkingConfiguration'
 import MoreScreen from '../screens/MoreScreen'
-import { ChatScreen } from '../screens/ChatScreen'
+import ChatScreen from '../screens/ChatScreen'
 
 export default function Navigation({
   colorScheme,
