@@ -87,7 +87,7 @@ export const Tracks: React.FC = () => {
         }}
       >
         <Animated.View style={{ opacity: fadeAnim }}>
-          <Octicons name="radio-tower" size={30} color={'white'} />
+          <Octicons name="radio-tower" size={30} color={Colors[theme].tint} />
         </Animated.View>
         <Text style={{ marginTop: 20, fontFamily: 'Lato_900Black' }}>
           No bangers here - yet
@@ -98,7 +98,7 @@ export const Tracks: React.FC = () => {
 
   return (
     <ScrollView
-      indicatorStyle="white"
+      showsVerticalScrollIndicator={false}
       fadingEdgeLength={100}
       overScrollMode="never"
       style={{ marginTop: 20 }}

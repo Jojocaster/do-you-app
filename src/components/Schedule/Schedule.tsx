@@ -58,9 +58,10 @@ export const Schedule: React.FC = () => {
   return (
     <ScrollView
       ref={ref}
-      indicatorStyle="white"
-      fadingEdgeLength={50}
+      showsVerticalScrollIndicator={false}
+      fadingEdgeLength={100}
       overScrollMode="never"
+      style={{ backgroundColor: Colors[theme].scheduleBackground }}
     >
       {shows.map((showsOfTheDay, i) => (
         <ScheduleItem key={i} showsOfTheDay={showsOfTheDay} />

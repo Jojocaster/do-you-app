@@ -35,7 +35,6 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
   const dispatch = useDispatch()
   const theme = useColorScheme()
   const currentTitle = useShowTitle()
-
   const { status } = useSelector((state: RootState) => state.player)
   const {
     currentTrack,
@@ -220,7 +219,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
           <MaterialCommunityIcons
             name={PlayerIcons[status]}
             size={80}
-            color={Colors[theme].background}
+            color={Colors[theme].accent}
           />
         </ImageBackground>
       </TouchableHighlight>

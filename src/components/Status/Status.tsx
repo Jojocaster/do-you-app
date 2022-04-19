@@ -1,6 +1,8 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React, { useRef, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import Colors from '../../constants/Colors'
+import useColorScheme from '../../hooks/useColorScheme'
 import { fetchShowInfo, ShowStatus } from '../../store/slices/showSlice'
 import { RootState } from '../../store/store'
 import { Text, View } from '../Themed'
@@ -10,6 +12,7 @@ export const Status: React.FC = () => {
   const dispatch = useDispatch()
   const { status, lastUpdated } = useSelector((state: RootState) => state.show)
   const timeout = useRef<NodeJS.Timeout>()
+  const theme = useColorScheme()
 
   const checkStatus = async () => {
     if (!lastUpdated) {
@@ -50,23 +53,22 @@ export const Status: React.FC = () => {
         paddingBottom: 20,
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: '#151515',
+        backgroundColor: Colors[theme].statusBar,
         display: 'flex',
         flexDirection: 'row',
         paddingHorizontal: 20,
       }}
     >
-      <Text style={{ fontWeight: 'bold' }}>Status: </Text>
+      <Text style={{ fontWeight: 'bold', color: '#fff' }}>Status: </Text>
       <View
         style={{
           backgroundColor: 'transparent',
           display: 'flex',
           flexDirection: 'row',
-
           alignItems: 'center',
         }}
       >
-        <Text>{StatusLabels[status]}</Text>
+        <Text style={{ color: '#fff' }}>{StatusLabels[status]}</Text>
         <MaterialCommunityIcons
           name="adjust"
           size={20}
