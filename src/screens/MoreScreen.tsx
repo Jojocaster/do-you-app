@@ -20,7 +20,7 @@ export default function MoreScreen({ navigation }: RootTabScreenProps<'More'>) {
           }}
         >
           <View>
-            <Heading>Credits</Heading>
+            <Heading style={{ fontSize: 32 }}>Credits</Heading>
 
             <Text style={{ marginVertical: 10 }}>
               - Out to Charlie Bones for giving us the{' '}

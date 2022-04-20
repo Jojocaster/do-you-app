@@ -1,14 +1,15 @@
 import { useTheme } from '@react-navigation/native'
 import React, { Fragment } from 'react'
-import { Text } from 'react-native'
+import { StyleProp, Text, TextStyle } from 'react-native'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
 import { useThemeColor, View } from '../Themed'
 
-export const Heading: React.FC<{ children: string; offset?: number }> = ({
-  children,
-  offset = 32,
-}) => {
+export const Heading: React.FC<{
+  children: string
+  offset?: number
+  style?: TextStyle
+}> = ({ children, offset = 32, style }) => {
   const words = children.split(' ')
   const theme = useColorScheme()
 
@@ -27,6 +28,7 @@ export const Heading: React.FC<{ children: string; offset?: number }> = ({
             marginBottom: -6,
             fontSize: 48,
             marginLeft: offset * i,
+            ...style,
           }}
         >
           {word}

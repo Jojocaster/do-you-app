@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Switch } from 'react-native'
+import { Platform, Switch } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
@@ -14,6 +14,8 @@ import { Text, View } from '../Themed'
 
 export const Settings: React.FC = () => {
   const dispatch = useDispatch()
+  // scale Switch down on iOS
+  const switchScale = Platform.OS === 'ios' ? 0.8 : 1
   const theme = useColorScheme()
   const settings = useSelector((state: RootState) => state.settings)
 
@@ -32,7 +34,7 @@ export const Settings: React.FC = () => {
 
   return (
     <View>
-      <Heading>Settings</Heading>
+      <Heading style={{ fontSize: 32 }}>Settings</Heading>
       <View
         style={{
           marginTop: 10,
@@ -45,6 +47,7 @@ export const Settings: React.FC = () => {
       >
         <Text>Notify me when a show is live</Text>
         <Switch
+          style={{ transform: [{ scale: switchScale }] }}
           disabled={!settingsLoaded}
           value={liveStatusNotification}
           trackColor={{

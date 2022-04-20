@@ -31,11 +31,8 @@ export const Schedule: React.FC = () => {
       return
     }
     const today = new Date()
-    // console.log('date now', today)
-    // console.log('last updated: ', new Date(lastUpdated))
     const diff = today.getTime() - new Date(lastUpdated).getTime()
     const diffInHours = diff / (1000 * 60 * 60)
-    // console.log('diff in hours', diffInHours)
 
     // fetch every hour to avoid hammering the API
     if (diffInHours > 1) {
@@ -46,14 +43,6 @@ export const Schedule: React.FC = () => {
   if (loading) {
     return <ActivityIndicator color={Colors[theme].primary} />
   }
-
-  // useEffect(() => {
-  //   if (!isFocused) {
-  //     if (ref.current) {
-  //       ref.current.scrollTo({ x: 0, y: 0, animated: false })
-  //     }
-  //   }
-  // }, [isFocused])
 
   return (
     <ScrollView

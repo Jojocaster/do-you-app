@@ -68,7 +68,7 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
           flex: 1,
           backgroundColor: Colors[theme].scheduleBackground,
           paddingHorizontal: 40,
-          paddingVertical: 20,
+          paddingTop: 20,
         }}
       >
         <Schedule />
