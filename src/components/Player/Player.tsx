@@ -162,6 +162,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
     }
   }, [currentTrack])
 
+  // TODO: handle player state better on iOS, loading state doesn't work properly there
   const onPress = async () => {
     const currentPlayerTrack = await TrackPlayer.getCurrentTrack()
 

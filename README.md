@@ -62,13 +62,15 @@ Changelog:
 - Display tracks covers
 - <del>Add Settings to manage alerts</del>
 - <del>Show correct times according to timezone</del>
-- Load shows from Mixcloud through Redis?
+- Load shows from Mixcloud through Redis
+- Add volume control
 - Track ID archive
 - Add "Events" tab
 - Handle light theme?
 - Set alerts for individual shows based on schedule?
 - Better error management :)
+- Improve test coverage
 - iOS release
-- Persist state
-- Embed chat? 
+- Persist state in async store
+- <del>Embed chat</del>
 - Open to suggestions, feel free to post them here [here](https://github.com/Jojocaster/do-you-app/issues) :) 
