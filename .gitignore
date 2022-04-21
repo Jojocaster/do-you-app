@@ -12,3 +12,4 @@ web-build/
 assets/local/
 # macOS
 .DS_Store
+coverage/

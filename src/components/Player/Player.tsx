@@ -62,15 +62,16 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
     async (event) => {
       if (event.type === Event.PlaybackState) {
         const { state } = event
+        console.log(state)
         switch (state) {
           case State.Buffering:
           case State.Connecting:
+          case State.Ready:
             dispatch(updatePlayerStatus(PlayerStatus.LOADING))
             break
 
           case State.Paused:
           case State.Stopped:
-          case State.Ready:
           case State.None:
             dispatch(updatePlayerStatus(PlayerStatus.PAUSED))
             break
@@ -117,7 +118,11 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
       }
     }
 
-    initPlayer()
+    // Will play quicker if init from the start
+    // However, iOS doesn't seem to like that - the media won't play if loaded before users actually perform an action
+    if (Platform.OS === 'android') {
+      initPlayer()
+    }
     initNotifications()
   }, [])
 
@@ -170,26 +175,18 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
 
     // currentTrack is sometimes set to null after resuming from background, preventing "play" from working normally
     // re-adding the track allows it to play again
+    // iOS also requires it as the track needs to be init by user action
     if (currentPlayerTrack === null) {
       await initPlayer()
     }
 
     const playerState = await TrackPlayer.getState()
 
-    if (
-      [
-        State.Paused,
-        State.None,
-        State.Ready,
-        State.Buffering,
-        State.Stopped,
-      ].includes(playerState)
-    ) {
-      TrackPlayer.play()
-      console.log('play')
-    } else if ([State.Playing, State.Connecting]) {
-      // stop() instead of pause() to reset buffer
-      TrackPlayer.stop()
+    // only stop if playing, otherwise play - buffering / connecting will play just fine
+    if (playerState === State.Playing) {
+      await TrackPlayer.stop()
+    } else {
+      await TrackPlayer.play()
     }
   }
 

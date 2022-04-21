@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppVersion should render correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#1c1c1c",
+      },
+      Object {
+        "backgroundColor": "rgba(255,255,255,0.05)",
+        "marginVertical": 20,
+        "padding": 10,
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#fff",
+        },
+        Array [
+          undefined,
+          Object {
+            "fontFamily": "space-mono",
+          },
+        ],
+      ]
+    }
+  >
+    <Text />
+     App version: 
+    foo
+  </Text>
+</View>
+`;
