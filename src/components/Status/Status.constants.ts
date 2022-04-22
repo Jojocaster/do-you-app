@@ -9,7 +9,7 @@ export const StatusLabels: Record<StatusType, string> = {
 
 export const StatusColours: Record<StatusType, string> = {
   [StatusType.OFF]: `red`,
-  [StatusType.ON]: `green`,
+  [StatusType.ON]: `#27ae60`,
   [StatusType.LOADING]: `orange`,
   [StatusType.ERROR]: `orange`,
 }

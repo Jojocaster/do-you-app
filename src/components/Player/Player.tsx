@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react'
 import {
   Animated,
+  Easing,
+  Image,
   ImageBackground,
   Platform,
   TouchableHighlight,
@@ -30,9 +32,18 @@ import { AndroidNotificationPriority } from 'expo-notifications'
 import { fetchSettings } from '../../store/slices/settingsSlice'
 import { updateLastNotified } from '../../store/slices/showSlice'
 import { useShowTitle } from '../../hooks/useShowTitle'
+//@ts-ignore
+import playerBg from '../../../assets/images/playerBg.png'
+//@ts-ignore
+import playerRecord from '../../../assets/images/playerRecord.png'
 
 export const Player: React.FC<{ background: string }> = ({ background }) => {
   const dispatch = useDispatch()
+  // const recordAnim = useRef(new Animated.Value(0))
+  // const spin = recordAnim.current.interpolate({
+  //   inputRange: [0, 1],
+  //   outputRange: ['0deg', '360deg'],
+  // })
   const theme = useColorScheme()
   const currentTitle = useShowTitle()
   const { status } = useSelector((state: RootState) => state.player)
@@ -62,14 +73,19 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
     async (event) => {
       if (event.type === Event.PlaybackState) {
         const { state } = event
-        console.log(state)
         switch (state) {
           case State.Buffering:
           case State.Connecting:
-          case State.Ready:
             dispatch(updatePlayerStatus(PlayerStatus.LOADING))
             break
-
+          // ios triggers "ready" while buffering, hence the exception
+          case State.Ready:
+            if (Platform.OS === 'ios') {
+              dispatch(updatePlayerStatus(PlayerStatus.LOADING))
+              // use as "paused" on Android to avoid loading icon on Android
+            } else {
+              dispatch(updatePlayerStatus(PlayerStatus.PAUSED))
+            }
           case State.Paused:
           case State.Stopped:
           case State.None:
@@ -124,6 +140,14 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
       initPlayer()
     }
     initNotifications()
+    // Animated.loop(
+    //   Animated.timing(recordAnim.current, {
+    //     toValue: 1,
+    //     duration: 1000,
+    //     easing: Easing.linear,
+    //     useNativeDriver: true,
+    //   })
+    // ).start()
   }, [])
 
   useEffect(() => {
@@ -193,13 +217,31 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
   return (
     <StyledCover
       style={{
-        backgroundColor: 'white',
+        // backgroundColor: 'red',
         width: PLAYER_SIZE,
         height: PLAYER_SIZE,
         borderColor: '#3A70D6',
         borderWidth: 3,
+        // overflow: 'hidden',
+        // position: 'relative',
       }}
     >
+      {/* <Image
+        source={playerBg}
+        style={{ width: PLAYER_SIZE, height: PLAYER_SIZE }}
+      />
+      <Animated.Image
+        source={playerRecord}
+        style={{
+          transform: [{ rotate: spin }],
+          position: 'absolute',
+          left: 27,
+          top: 48,
+          width: 69,
+          height: 69,
+          zIndex: -1,
+        }}
+      /> */}
       <TouchableHighlight underlayColor="transparent" onPress={onPress}>
         <ImageBackground
           source={require('../../../assets/images/doyou.webp')}

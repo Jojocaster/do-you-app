@@ -6,11 +6,12 @@ import useColorScheme from '../../hooks/useColorScheme'
 import { useThemeColor, View } from '../Themed'
 
 export const Heading: React.FC<{
+  multiline?: boolean
   children: string
   offset?: number
   style?: TextStyle
-}> = ({ children, offset = 32, style }) => {
-  const words = children.split(' ')
+}> = ({ children, multiline = true, offset = 32, style }) => {
+  const words = multiline ? children.split(' ') : [children]
   const theme = useColorScheme()
 
   return (

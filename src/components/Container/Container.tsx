@@ -1,13 +1,14 @@
 import React from 'react'
 import { View } from '../Themed'
 
-export const Container: React.FC = ({ children }) => {
+export const Container: React.FC<{ style?: any }> = ({ children, style }) => {
   return (
     <View
       style={{
         backgroundColor: 'transparent',
-        paddingHorizontal: 40,
+        marginHorizontal: 40,
         zIndex: 1,
+        ...style,
       }}
     >
       {children}

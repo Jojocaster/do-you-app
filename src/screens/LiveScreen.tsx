@@ -3,15 +3,13 @@ import { Heading } from '../components/Heading/Heading'
 
 import { Home } from '../components/Home/Home'
 import { View } from '../components/Themed'
-import { useTheme } from 'styled-components/native'
+// import { useTheme } from 'styled-components/native'
 import { Player } from '../components/Player/Player'
 import { Schedule } from '../components/Schedule/Schedule'
 import * as Notifications from 'expo-notifications'
 import { RootTabScreenProps } from '../../types'
 import { Container } from '../components/Container/Container'
-//@ts-ignore
-import banana from '../../assets/images/banana.png'
-import { Slider } from '@sharcoux/slider'
+// import { Slider } from '@sharcoux/slider'
 import useColorScheme from '../hooks/useColorScheme'
 import Colors from '../constants/Colors'
 
@@ -23,20 +21,20 @@ Notifications.setNotificationHandler({
   }),
 })
 
-export const VolumeControl = () => {
-  return (
-    <Slider
-      thumbImage={banana}
-      thumbSize={30}
-      thumbStyle={{ backgroundColor: 'transparent' }}
-      style={{ width: 200, height: 20 }}
-      minimumValue={0}
-      maximumValue={1}
-      minimumTrackTintColor="#FFFFFF"
-      maximumTrackTintColor="#000000"
-    />
-  )
-}
+// export const VolumeControl = () => {
+//   return (
+//     <Slider
+//       thumbImage={banana}
+//       thumbSize={30}
+//       thumbStyle={{ backgroundColor: 'transparent' }}
+//       style={{ width: 200, height: 20 }}
+//       minimumValue={0}
+//       maximumValue={1}
+//       minimumTrackTintColor="#FFFFFF"
+//       maximumTrackTintColor="#000000"
+//     />
+//   )
+// }
 
 export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
   const theme = useColorScheme()
@@ -58,11 +56,6 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
         <Player background={'assets/logo.webp'} />
       </View>
       {/* <VolumeControl /> */}
-      {/* <View
-        style={styles.separator}
-        lightColor="rgba(0,0,0,0.1)"
-        darkColor="rgba(255,255,255,0.1)"
-      /> */}
       <View
         style={{
           flex: 1,
