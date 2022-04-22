@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "DoYou World",
+    "name": "Do!! You!!! World",
     "slug": "DoYouWorld",
     "version": "0.2.3",
     "backgroundColor": "#212020",
@@ -27,7 +27,7 @@
     "ios": {
       "bundleIdentifier": "com.wonkylines.doyouworld",
       "buildNumber": "0.2.3",
-      "supportsTablet": true,
+      "supportsTablet": false,
       "infoPlist": {
         "UIBackgroundModes": [
           "audio"
