@@ -8,6 +8,19 @@ If you choose to use our Service, then you agree to the collection and use of in
 
 The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which are accessible at Do!! You!!! World unless otherwise defined in this Privacy Policy.
 
+**Note**
+In developing the Do!! You!!! World app for Android & iOS, we use a Javascript framework known as Expo. This framework is an integrated way of using React Native to create mobile apps. For a variety of technical reasons, this has been the best way for us to deliver an iOS app, even with its current restrictions.
+
+When we use Expo to build the app (their “managed” workflow), their compiler automatically includes base code for a variety of different items, which includes code that can be used to provide analytics and tracking information. Even though we don’t use any of these functions, this code is included in the final app binary, so we are now forced to declare that app can access the Device Identifier.
+
+As Expo explains on [their publishing details page](https://docs.expo.dev/distribution/app-stores/#ios-specific-guidelines):
+
+```
+Note: No data is sent to Branch, Facebook, Segment, or Amplitude from your app unless you explicitly do so using the APIs.
+```
+
+We do not track any user activity or collect any data, and we're hoping that Expo gives us the ability to remove the code mentioned above soon enough, so we can definitely remove this tracking status on all stores.
+
 **Information Collection and Use**
 
 For a better experience, while using our Service, we may require you to provide us with certain personally identifiable information, including but not limited to IDFA. The information that we request will be retained by us and used as described in this privacy policy.
