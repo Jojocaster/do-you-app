@@ -12,9 +12,9 @@ export default ({ config }: ConfigContext): Partial<ExpoConfig> => {
   //@ts-ignore
   const packageName =
     target === 'dev'
-      ? 'com.wonkylines.doyouworld-dev'
+      ? 'com.wonkylines.doyouworld.dev'
       : target === 'preview'
-      ? 'com.wonkylines.doyouworld-preview'
+      ? 'com.wonkylines.doyouworld.preview'
       : 'com.wonkylines.doyouworld'
 
   return {
