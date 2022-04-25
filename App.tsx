@@ -12,9 +12,12 @@ import TrackPlayer, { Capability } from 'react-native-track-player'
 import { Status } from './src/components/Status/Status'
 //@ts-ignore
 import logo from './assets/images/doyou.webp'
+import { Platform } from 'react-native'
 // import * as Updates from 'expo-updates'
 
-TrackPlayer.setupPlayer({})
+// Required on iOS (otherwise player will go to pause state while buffering)
+// Only makes Android slower to load, hence the condition
+TrackPlayer.setupPlayer({ waitForBuffer: Platform.OS === 'ios' })
 TrackPlayer.registerPlaybackService(() => service)
 TrackPlayer.updateOptions({
   stopWithApp: true,

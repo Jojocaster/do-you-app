@@ -1,38 +1,32 @@
 import { ExpoConfig, ConfigContext } from '@expo/config'
 
 export default ({ config }: ConfigContext): Partial<ExpoConfig> => {
-  let appName
-
   //@ts-ignore
-  switch (process.env.TARGET) {
-    case 'dev':
-      appName = `${config.name} Dev`
-      break
-    case 'preview':
-      appName = `${config.name} Preview`
-      break
-    default:
-      appName = config.name
-  }
+  const target = process.env.TARGET
+  const appName =
+    target === 'dev'
+      ? `${config.name} Dev`
+      : target === 'preview'
+      ? `${config.name} Preview`
+      : config.name
+  //@ts-ignore
+  const packageName =
+    target === 'dev'
+      ? 'com.wonkylines.doyouworld.dev'
+      : target === 'preview'
+      ? 'com.wonkylines.doyouworld.preview'
+      : 'com.wonkylines.doyouworld'
 
   return {
     ...config,
     name: appName,
     ios: {
       ...config.ios,
-      bundleIdentifier:
-        //@ts-ignore
-        process.env.TARGET === 'dev'
-          ? 'com.wonkylines.doyouworlddev'
-          : 'com.wonkylines.doyouworld',
+      bundleIdentifier: packageName,
     },
     android: {
       ...config.android,
-      package:
-        //@ts-ignore
-        process.env.TARGET === 'dev'
-          ? 'com.wonkylines.doyouworlddev'
-          : 'com.wonkylines.doyouworld',
+      package: packageName,
     },
   }
 }

@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react'
 import {
   Animated,
+  Easing,
+  Image,
   ImageBackground,
   Platform,
   TouchableHighlight,
@@ -30,12 +32,20 @@ import { AndroidNotificationPriority } from 'expo-notifications'
 import { fetchSettings } from '../../store/slices/settingsSlice'
 import { updateLastNotified } from '../../store/slices/showSlice'
 import { useShowTitle } from '../../hooks/useShowTitle'
+//@ts-ignore
+import playerBg from '../../../assets/images/playerBg.png'
+//@ts-ignore
+import playerRecord from '../../../assets/images/playerRecord.png'
 
 export const Player: React.FC<{ background: string }> = ({ background }) => {
   const dispatch = useDispatch()
+  // const recordAnim = useRef(new Animated.Value(0))
+  // const spin = recordAnim.current.interpolate({
+  //   inputRange: [0, 1],
+  //   outputRange: ['0deg', '360deg'],
+  // })
   const theme = useColorScheme()
   const currentTitle = useShowTitle()
-
   const { status } = useSelector((state: RootState) => state.player)
   const {
     currentTrack,
@@ -46,7 +56,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
     (state: RootState) => state.settings
   )
 
-  const initPlayer = async () =>
+  const initPlayer = async () => {
     await TrackPlayer.add([
       {
         // url: 'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3',
@@ -56,6 +66,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
         title: currentTitle,
       },
     ])
+  }
 
   useTrackPlayerEvents(
     [Event.RemoteStop, Event.PlaybackState],
@@ -67,10 +78,16 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
           case State.Connecting:
             dispatch(updatePlayerStatus(PlayerStatus.LOADING))
             break
-
+          // ios triggers "ready" while buffering, hence the exception
+          case State.Ready:
+            if (Platform.OS === 'ios') {
+              dispatch(updatePlayerStatus(PlayerStatus.LOADING))
+              // use as "paused" on Android to avoid loading icon on Android
+            } else {
+              dispatch(updatePlayerStatus(PlayerStatus.PAUSED))
+            }
           case State.Paused:
           case State.Stopped:
-          case State.Ready:
           case State.None:
             dispatch(updatePlayerStatus(PlayerStatus.PAUSED))
             break
@@ -117,8 +134,20 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
       }
     }
 
-    initPlayer()
+    // Will play quicker if init from the start
+    // However, iOS doesn't seem to like that - the media won't play if loaded before users actually perform an action
+    if (Platform.OS === 'android') {
+      initPlayer()
+    }
     initNotifications()
+    // Animated.loop(
+    //   Animated.timing(recordAnim.current, {
+    //     toValue: 1,
+    //     duration: 1000,
+    //     easing: Easing.linear,
+    //     useNativeDriver: true,
+    //   })
+    // ).start()
   }, [])
 
   useEffect(() => {
@@ -162,40 +191,57 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
     }
   }, [currentTrack])
 
+  // TODO: handle player state better on iOS, loading state doesn't work properly there
   const onPress = async () => {
-    const playerState = await TrackPlayer.getState()
     const currentPlayerTrack = await TrackPlayer.getCurrentTrack()
+
     console.log('currentPlayerTrack', currentPlayerTrack)
 
     // currentTrack is sometimes set to null after resuming from background, preventing "play" from working normally
     // re-adding the track allows it to play again
+    // iOS also requires it as the track needs to be init by user action
     if (currentPlayerTrack === null) {
       await initPlayer()
     }
 
-    if (
-      [State.Paused, State.None, State.Ready, State.Stopped].includes(
-        playerState
-      )
-    ) {
-      TrackPlayer.play()
-      console.log('play')
-    } else if ([State.Playing, State.Buffering, State.Connecting]) {
-      // stop() instead of pause() to reset buffer
-      TrackPlayer.stop()
+    const playerState = await TrackPlayer.getState()
+
+    // only stop if playing, otherwise play - buffering / connecting will play just fine
+    if (playerState === State.Playing) {
+      await TrackPlayer.stop()
+    } else {
+      await TrackPlayer.play()
     }
   }
 
   return (
     <StyledCover
       style={{
-        backgroundColor: 'white',
+        // backgroundColor: 'red',
         width: PLAYER_SIZE,
         height: PLAYER_SIZE,
         borderColor: '#3A70D6',
         borderWidth: 3,
+        // overflow: 'hidden',
+        // position: 'relative',
       }}
     >
+      {/* <Image
+        source={playerBg}
+        style={{ width: PLAYER_SIZE, height: PLAYER_SIZE }}
+      />
+      <Animated.Image
+        source={playerRecord}
+        style={{
+          transform: [{ rotate: spin }],
+          position: 'absolute',
+          left: 27,
+          top: 48,
+          width: 69,
+          height: 69,
+          zIndex: -1,
+        }}
+      /> */}
       <TouchableHighlight underlayColor="transparent" onPress={onPress}>
         <ImageBackground
           source={require('../../../assets/images/doyou.webp')}
@@ -220,7 +266,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
           <MaterialCommunityIcons
             name={PlayerIcons[status]}
             size={80}
-            color={Colors[theme].background}
+            color={Colors[theme].accent}
           />
         </ImageBackground>
       </TouchableHighlight>

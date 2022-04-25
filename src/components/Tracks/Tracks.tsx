@@ -22,6 +22,7 @@ export const Tracks: React.FC = () => {
   )
   const { status } = useSelector((state: RootState) => state.show)
 
+  // setup animation
   useEffect(() => {
     Animated.loop(
       Animated.sequence([
@@ -39,14 +40,7 @@ export const Tracks: React.FC = () => {
     ).start()
   }, [])
 
-  useEffect(() => {
-    // fetch tracks when tab is focused
-    if (isFocused) {
-      dispatch(fetchTracksInfo())
-    }
-  }, [isFocused])
-
-  useEffect(() => {
+  const restartTimer = () => {
     // always clear timeout to prevent leaks
     if (timeout.current) {
       clearTimeout(timeout.current)
@@ -58,6 +52,34 @@ export const Tracks: React.FC = () => {
         dispatch(fetchTracksInfo())
       }, 1000 * 60)
     }
+  }
+
+  const getTracks = async () => {
+    // if tracks were never fetched before, request them straight away
+    if (!lastUpdated) {
+      dispatch(fetchTracksInfo())
+    } else {
+      const now = new Date().getTime()
+      const diff = now - lastUpdated
+      const diffInMinutes = diff / (1000 * 60)
+      if (diffInMinutes >= 1) {
+        dispatch(fetchTracksInfo())
+      } else {
+        restartTimer()
+      }
+    }
+  }
+
+  useEffect(() => {
+    // fetch tracks when tab is focused
+    if (isFocused) {
+      getTracks()
+    }
+  }, [isFocused])
+
+  useEffect(() => {
+    // restart timer as soon as new tracks have been loaded
+    restartTimer()
   }, [lastUpdated])
 
   if (loading && !tracks.length) {
@@ -87,7 +109,7 @@ export const Tracks: React.FC = () => {
         }}
       >
         <Animated.View style={{ opacity: fadeAnim }}>
-          <Octicons name="radio-tower" size={30} color={'white'} />
+          <Octicons name="radio-tower" size={30} color={Colors[theme].tint} />
         </Animated.View>
         <Text style={{ marginTop: 20, fontFamily: 'Lato_900Black' }}>
           No bangers here - yet
@@ -98,7 +120,7 @@ export const Tracks: React.FC = () => {
 
   return (
     <ScrollView
-      indicatorStyle="white"
+      showsVerticalScrollIndicator={false}
       fadingEdgeLength={100}
       overScrollMode="never"
       style={{ marginTop: 20 }}

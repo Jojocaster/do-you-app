@@ -15,3 +15,8 @@ export const getLocalShowTime = (dateTime: string): string => {
     return format(iso, 'HH:mm')
   }
 }
+
+export const decodeHtmlCharCodes = (str: string): string =>
+  str.replace(/(&#(\d+);)/g, (match, capture, charCode) =>
+    String.fromCharCode(charCode)
+  )

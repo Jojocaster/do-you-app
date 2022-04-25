@@ -13,7 +13,7 @@ export const useAppState = (): AppStateStatus => {
       //@ts-ignore - wrong types here
       listener?.remove()
     }
-  })
+  }, [])
 
   return state
 }

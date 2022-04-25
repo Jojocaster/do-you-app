@@ -9,7 +9,7 @@ import useColorScheme from '../../hooks/useColorScheme'
 import { RootState } from '../../store/store'
 import { ShowInfo } from '../../utils/schedule'
 import { Text, useThemeColor, View } from '../Themed'
-import { getLocalShowTime } from './ScheduleItem.utils'
+import { decodeHtmlCharCodes, getLocalShowTime } from './ScheduleItem.utils'
 
 const LiveShow: React.FC = ({ children }) => {
   const theme = useColorScheme()
@@ -55,15 +55,23 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
   const { currentShow } = useSelector((state: RootState) => state.show)
   // this will allow component to re-render when appState changes
   const appState = useAppState()
+  const theme = useColorScheme()
   const backgroundColor = useThemeColor({}, 'primary')
   const day = parseJSON(showsOfTheDay[0].start_timestamp)
   const formattedDay = format(day, 'E, MMM dd')
 
   return (
     <>
-      <View style={{ display: 'flex', flexDirection: 'row' }}>
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          backgroundColor: Colors[theme].scheduleBackground,
+        }}
+      >
         <View
           style={{
+            backgroundColor: Colors[theme].scheduleBackground,
             flex: 0,
             borderBottomWidth: 2,
             borderBottomColor: backgroundColor,
@@ -71,7 +79,8 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
         >
           <Text
             style={{
-              color: 'white',
+              color: Colors[theme].scheduleHeading,
+              backgroundColor: Colors[theme].scheduleBackground,
               fontSize: 16,
               fontFamily: 'Lato_900Black',
               textTransform: 'uppercase',
@@ -111,7 +120,11 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
               }}
             >
               <Text
-                style={{ fontSize: 14, color: 'white', flexBasis: 90 }}
+                style={{
+                  fontSize: 14,
+                  color: Colors[theme].scheduleText,
+                  flexBasis: 90,
+                }}
                 key={show.start_timestamp}
               >
                 {start} - {end}
@@ -123,13 +136,12 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
                   style={{
                     fontSize: 14,
                     fontWeight: 'bold',
-                    color: 'white',
-
+                    color: Colors[theme].scheduleText,
                     marginLeft: 10,
                     flex: 1,
                   }}
                 >
-                  {show.name}
+                  {decodeHtmlCharCodes(show.name)}
                 </Text>
               )}
             </View>

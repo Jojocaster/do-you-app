@@ -44,6 +44,7 @@ const scheduleSlice = createSlice({
       builder.addCase(fetchSchedule.rejected, (state, action) => {
         console.log('[fetchSchedule]: error', action.error)
         state.loading = false
+        state.lastUpdated = new Date().getTime()
       })
   },
 })
