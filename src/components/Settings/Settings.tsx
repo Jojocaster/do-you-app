@@ -45,7 +45,7 @@ export const Settings: React.FC = () => {
           alignItems: 'center',
         }}
       >
-        <Text>Notify me when a show is live</Text>
+        <Text>Notify me when a show is live (beta)</Text>
         <Switch
           style={{ transform: [{ scale: switchScale }] }}
           disabled={!settingsLoaded}
