@@ -123,7 +123,7 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
                 style={{
                   fontSize: 14,
                   color: Colors[theme].scheduleText,
-                  flexBasis: 90,
+                  flexBasis: 100,
                 }}
                 key={show.start_timestamp}
               >
