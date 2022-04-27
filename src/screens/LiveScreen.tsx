@@ -3,7 +3,6 @@ import { Heading } from '../components/Heading/Heading'
 
 import { Home } from '../components/Home/Home'
 import { View } from '../components/Themed'
-// import { useTheme } from 'styled-components/native'
 import { Player } from '../components/Player/Player'
 import { Schedule } from '../components/Schedule/Schedule'
 import * as Notifications from 'expo-notifications'

@@ -18,6 +18,13 @@ export default {
     scheduleBackground: '#F5F5F5',
     scheduleText: '#000',
     scheduleHeading: brandBlue,
+    switch: {
+      trackActive: brandYellow,
+      trackInactive: 'grey',
+      trackDisabled: '#E1E1E1',
+      thumb: 'white',
+      thumDisabled: '#F5F5F5',
+    },
   },
   dark: {
     text: '#fff',
@@ -34,5 +41,12 @@ export default {
     scheduleBackground: tintColorLight,
     scheduleText: '#fff',
     scheduleHeading: '#fff',
+    switch: {
+      trackActive: brandYellow,
+      trackInactive: 'black',
+      trackDisabled: 'black',
+      thumb: 'white',
+      thumDisabled: 'dimgrey',
+    },
   },
 }

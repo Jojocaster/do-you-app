@@ -14,6 +14,9 @@ import { Status } from './src/components/Status/Status'
 import logo from './assets/images/doyou.webp'
 import { Platform } from 'react-native'
 import { PersistGate } from 'redux-persist/integration/react'
+import { useCallback } from 'react'
+import { View } from './src/components/Themed'
+import * as SplashScreen from 'expo-splash-screen'
 
 // Required on iOS (otherwise player will go to pause state while buffering)
 // Only makes Android slower to load, hence the condition
@@ -30,23 +33,35 @@ TrackPlayer.updateOptions({
 
 export default function App() {
   const isLoadingComplete = useCachedResources()
-  const colorScheme = useColorScheme()
+  // const colorScheme = useColorScheme()
+  const onLayout = useCallback(async () => {
+    if (isLoadingComplete) {
+      // This tells the splash screen to hide immediately! If we call this after
+      // `setAppIsReady`, then we may see a blank screen while the app is
+      // loading its initial state and rendering its first pixels. So instead,
+      // we hide the splash screen once we know the root view has already
+      // performed layout.
+      await SplashScreen.hideAsync()
+    }
+  }, [isLoadingComplete])
 
   if (!isLoadingComplete) {
     return null
-  } else {
-    return (
-      <SafeAreaProvider style={{ backgroundColor: '#212020' }}>
-        <Provider store={store}>
-          <PersistGate persistor={persistor}>
+  }
+
+  return (
+    <SafeAreaProvider style={{ backgroundColor: '#212020' }}>
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
+          <View style={{ height: '100%' }} onLayout={onLayout}>
             <ThemeProvider theme={theme}>
               <Status />
-              <Navigation colorScheme={colorScheme} />
+              <Navigation colorScheme={null} />
             </ThemeProvider>
             <StatusBar style={'light'} />
-          </PersistGate>
-        </Provider>
-      </SafeAreaProvider>
-    )
-  }
+          </View>
+        </PersistGate>
+      </Provider>
+    </SafeAreaProvider>
+  )
 }

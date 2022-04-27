@@ -69,6 +69,7 @@ export default function MoreScreen({ navigation }: RootTabScreenProps<'More'>) {
           style={{
             position: 'relative',
             display: 'flex',
+            marginTop: 10,
             height: '100%',
           }}
         >

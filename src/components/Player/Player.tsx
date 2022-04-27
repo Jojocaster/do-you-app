@@ -29,7 +29,6 @@ import TrackPlayer, {
 import logo from '../../../assets/images/doyou.webp'
 import * as Notifications from 'expo-notifications'
 import { AndroidNotificationPriority } from 'expo-notifications'
-import { fetchSettings } from '../../store/slices/settingsSlice'
 import { updateLastNotified } from '../../store/slices/showSlice'
 import { useShowTitle } from '../../hooks/useShowTitle'
 //@ts-ignore
@@ -101,8 +100,6 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
   )
 
   useEffect(() => {
-    dispatch(fetchSettings())
-
     const initNotifications = async () => {
       // check permission for iOS
       const permission = await Notifications.getPermissionsAsync()
