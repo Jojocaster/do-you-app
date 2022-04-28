@@ -1,13 +1,6 @@
 import React from 'react'
-import {
-  Image,
-  Linking,
-  TouchableHighlight,
-  TouchableOpacity,
-} from 'react-native'
+import { Image, Linking, StyleSheet, TouchableOpacity } from 'react-native'
 import { RootTabScreenProps } from '../../types'
-import { AppVersion } from '../components/AppVersion/AppVersion'
-import { Container } from '../components/Container/Container'
 import { Heading } from '../components/Heading/Heading'
 import { Home } from '../components/Home/Home'
 import { Settings } from '../components/Settings/Settings'
@@ -17,6 +10,8 @@ import kofiDark from '../../assets/images/kofi-dark.png'
 //@ts-ignore
 import kofiLight from '../../assets/images/kofi-light.png'
 import useColorScheme from '../hooks/useColorScheme'
+import { ScrollView } from 'react-native'
+import Space from '../constants/Space'
 
 const Support = () => {
   const theme = useColorScheme()
@@ -63,15 +58,19 @@ const Link: React.FC<{ uri: string }> = ({ children, uri }) => (
 export default function MoreScreen({ navigation }: RootTabScreenProps<'More'>) {
   return (
     <Home>
-      <Container style={{ height: '100%' }}>
+      <ScrollView
+        style={{ height: '100%', paddingHorizontal: Space.viewPadding }}
+      >
         <Settings />
         <View
-          style={{
-            position: 'relative',
-            display: 'flex',
-            marginTop: 10,
-            height: '100%',
-          }}
+          style={[
+            styles.section,
+            {
+              position: 'relative',
+              display: 'flex',
+              height: '100%',
+            },
+          ]}
         >
           <View>
             <Heading style={{ fontSize: 32 }}>Credits</Heading>
@@ -94,7 +93,7 @@ export default function MoreScreen({ navigation }: RootTabScreenProps<'More'>) {
               </Link>
             </Text>
           </View>
-          <View style={{ marginTop: 20 }}>
+          <View style={styles.section}>
             <Heading multiline={false} style={{ fontSize: 32 }}>
               Support us
             </Heading>
@@ -102,7 +101,13 @@ export default function MoreScreen({ navigation }: RootTabScreenProps<'More'>) {
             <Support />
           </View>
         </View>
-      </Container>
+      </ScrollView>
     </Home>
   )
 }
+
+const styles = StyleSheet.create({
+  section: {
+    marginTop: 20,
+  },
+})

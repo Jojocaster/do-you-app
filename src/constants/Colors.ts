@@ -25,6 +25,9 @@ export default {
       thumb: 'white',
       thumDisabled: '#F5F5F5',
     },
+    tracks: {
+      artist: brandBlue,
+    },
   },
   dark: {
     text: '#fff',
@@ -47,6 +50,9 @@ export default {
       trackDisabled: 'black',
       thumb: 'white',
       thumDisabled: 'dimgrey',
+    },
+    tracks: {
+      artist: brandYellow,
     },
   },
 }

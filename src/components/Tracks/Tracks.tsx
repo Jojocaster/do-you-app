@@ -1,50 +1,19 @@
 import { Octicons } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
-import { format, parse, parseJSON } from 'date-fns'
-import React, { useEffect, useRef } from 'react'
-import { ActivityIndicator, Animated, FlatList, ScrollView } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
+import { ActivityIndicator, Animated, FlatList } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
 import { ShowStatus } from '../../store/slices/showSlice'
-import { fetchTracksInfo, TrackInfo } from '../../store/slices/tracksInfoSlice'
+import { fetchTracksInfo } from '../../store/slices/tracksInfoSlice'
 import { RootState } from '../../store/store'
 import { Text, View } from '../Themed'
-
-const TrackItem: React.FC<{ track: TrackInfo }> = ({ track }) => {
-  const timecode = parseJSON(track.played_datetime)
-  const formattedTimecode = format(timecode, 'HH:mm')
-
-  return (
-    <View
-      key={track.played_datetime}
-      style={{ display: 'flex', flexDirection: 'row', marginBottom: 10 }}
-    >
-      <View style={{ flexBasis: 60 }}>
-        <Text
-          style={{
-            fontSize: 14,
-          }}
-        >
-          {formattedTimecode}
-        </Text>
-      </View>
-      <View style={{ flex: 1 }}>
-        <Text
-          style={{
-            fontWeight: 'bold',
-            fontSize: 14,
-          }}
-        >
-          {track.artist} - {track.title}
-        </Text>
-      </View>
-    </View>
-  )
-}
+import { Track } from '../Track/Track'
 
 export const Tracks: React.FC = () => {
   const dispatch = useDispatch()
+  const [activeTrack, setActiveTrack] = useState<string>()
   const fadeAnim = useRef(new Animated.Value(1)).current
   const theme = useColorScheme()
   const isFocused = useIsFocused()
@@ -71,6 +40,14 @@ export const Tracks: React.FC = () => {
       ])
     ).start()
   }, [])
+
+  const onToggle = (track: string) => {
+    if (track === activeTrack) {
+      setActiveTrack(undefined)
+    } else {
+      setActiveTrack(track)
+    }
+  }
 
   const restartTimer = () => {
     // always clear timeout to prevent leaks
@@ -153,7 +130,13 @@ export const Tracks: React.FC = () => {
   return (
     <FlatList
       data={tracks}
-      renderItem={(track) => <TrackItem track={track.item} />}
+      renderItem={(track) => (
+        <Track
+          active={activeTrack === track.item.played_datetime}
+          onToggle={onToggle}
+          track={track.item}
+        />
+      )}
       keyExtractor={(track) => track.played_datetime}
       showsVerticalScrollIndicator={false}
       fadingEdgeLength={100}

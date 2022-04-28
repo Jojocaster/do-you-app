@@ -4,6 +4,7 @@ import { TRACKLIST_URL } from '../../constants/Endpoints'
 export interface TrackInfo {
   album: string
   artist: string
+  score: number
   label: string
   played_datetime: string
   release_date: string

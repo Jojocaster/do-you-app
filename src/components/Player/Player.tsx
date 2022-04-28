@@ -1,12 +1,5 @@
-import React, { useEffect, useRef } from 'react'
-import {
-  Animated,
-  Easing,
-  Image,
-  ImageBackground,
-  Platform,
-  TouchableHighlight,
-} from 'react-native'
+import React, { useEffect } from 'react'
+import { ImageBackground, Platform, TouchableHighlight } from 'react-native'
 import { StyledCover } from './Player.styles'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import Colors from '../../constants/Colors'
@@ -29,7 +22,7 @@ import TrackPlayer, {
 import logo from '../../../assets/images/doyou.webp'
 import * as Notifications from 'expo-notifications'
 import { AndroidNotificationPriority } from 'expo-notifications'
-import { updateLastNotified } from '../../store/slices/showSlice'
+import { ShowStatus, updateLastNotified } from '../../store/slices/showSlice'
 import { useShowTitle } from '../../hooks/useShowTitle'
 //@ts-ignore
 import playerBg from '../../../assets/images/playerBg.png'
@@ -183,8 +176,9 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
       handleNotifications()
     } else {
       // stop player if show has ended
-      TrackPlayer.stop()
-      // dispatch(updatePlayerStatus(PlayerStatus.PAUSED))
+      if (showStatus === ShowStatus.OFF) {
+        TrackPlayer.stop()
+      }
     }
   }, [currentTrack])
 

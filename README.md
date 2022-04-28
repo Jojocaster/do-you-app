@@ -42,6 +42,7 @@ Changelog:
 - Allow radio to be played in the background & controlled from the notification centre & lockscreen
 - See today's track IDs (Beta)
 - Receive notifications when a show is live
+- Dark / light themes
 - Chat!
 
 ## Screenshots
@@ -57,18 +58,18 @@ Changelog:
 
 ## Roadmap
 - <del>Fetch live info in the background to send notifications when shows are live</del>
+- UI & UX improvements
 - 11:11
 - <del>Add Settings to manage alerts</del>
 - <del>Show correct times according to timezone</del>
 - <del>Embed chat</del>
-- UI & UX improvements
-- Persist state in async store
-- iOS release
+- <del>Handle light theme</del>
+- <del>Persist state in async store</del>
+- <del>iOS release</del>
 - Add volume control
 - Trigger push notifications from server instead of polling data from client (using `Lambda`, `CRON`, `S3` & `expo-notifications`)
 - Load shows from Mixcloud through Redis and display track IDs
 - Add "Events" tab
-- Handle light theme
 - Set alerts for individual shows based on schedule?
 - Better error management :)
 - Improve test coverage
