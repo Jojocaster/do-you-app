@@ -1,6 +1,6 @@
 # DoYou?
 
-Unofficial app for https://doyou.world/ , built with React Native, AirTime Pro's API & a lot of coffee.
+Official app for https://doyou.world/ , built with React Native, AirTime Pro's API & a lot of coffee.
 
 Feel free to create issues [here](https://github.com/Jojocaster/do-you-app/issues) to report bugs / suggest features, I'll do my best to get back to you asap.
 
@@ -66,6 +66,7 @@ Changelog:
 - <del>Handle light theme</del>
 - <del>Persist state in async store</del>
 - <del>iOS release</del>
+- Allow users to save tracks to favourites
 - Add volume control
 - Trigger push notifications from server instead of polling data from client (using `Lambda`, `CRON`, `S3` & `expo-notifications`)
 - Load shows from Mixcloud through Redis and display track IDs

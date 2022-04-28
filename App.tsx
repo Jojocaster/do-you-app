@@ -25,7 +25,6 @@ TrackPlayer.updateOptions({
   stopWithApp: true,
   capabilities: [Capability.Stop, Capability.Pause, Capability.Play],
   compactCapabilities: [Capability.Stop, Capability.Pause, Capability.Play],
-  icon: logo,
 })
 
 // Updates.fetchUpdateAsync()

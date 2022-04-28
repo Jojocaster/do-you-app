@@ -13,7 +13,7 @@ export default function ChatScreen({ navigation }: RootTabScreenProps<'Chat'>) {
   const [background, setBackground] = useState(false)
   const theme = useColorScheme()
   const appState = useAppState()
-  const timeout = useRef<NodeJS.Timeout>()
+  // const timeout = useRef<NodeJS.Timeout>()
 
   const reload = () => {
     setLoading(true)
@@ -69,6 +69,8 @@ export default function ChatScreen({ navigation }: RootTabScreenProps<'Chat'>) {
         source={{
           uri: 'https://minnit.chat/DOYOUFAMILY?embed',
         }}
+        sharedCookiesEnabled
+        thirdPartyCookiesEnabled
         onLoadEnd={(syntheticEvent) => {
           const { nativeEvent } = syntheticEvent
           //hide loader once loaded

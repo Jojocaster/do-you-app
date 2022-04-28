@@ -130,7 +130,7 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
                 {start} - {end}
               </Text>
               {isCurrent ? (
-                <LiveShow>{show.name}</LiveShow>
+                <LiveShow>{decodeHtmlCharCodes(show.name)}</LiveShow>
               ) : (
                 <Text
                   style={{
