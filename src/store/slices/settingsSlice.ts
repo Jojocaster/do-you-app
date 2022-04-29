@@ -3,14 +3,17 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ColorSchemeName } from 'react-native'
 
 export interface SettingsState {
+  darkTheme: boolean
   liveStatusNotification: boolean
   useNativeTheme: boolean
-  darkTheme: boolean
+  volume: number
 }
+
 const initialState: SettingsState = {
   liveStatusNotification: false,
   useNativeTheme: true,
   darkTheme: false,
+  volume: 1,
 }
 
 const settingsSlice = createSlice({
@@ -23,6 +26,7 @@ const settingsSlice = createSlice({
       action: PayloadAction<{ name: keyof SettingsState; value: any }>
     ) => {
       const { name, value } = action.payload
+      //@ts-ignore
       state[name] = value
     },
   },

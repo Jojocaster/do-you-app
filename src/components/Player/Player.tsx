@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { ImageBackground, Platform, TouchableHighlight } from 'react-native'
 import { StyledCover } from './Player.styles'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
 import { useDispatch, useSelector } from 'react-redux'
@@ -28,6 +28,58 @@ import { useShowTitle } from '../../hooks/useShowTitle'
 import playerBg from '../../../assets/images/playerBg.png'
 //@ts-ignore
 import playerRecord from '../../../assets/images/playerRecord.png'
+import Space from '../../constants/Space'
+import Slider from '@react-native-community/slider'
+import { updateSettings } from '../../store/slices/settingsSlice'
+
+const VolumeControl: React.FC = () => {
+  const theme = useColorScheme()
+  const dispatch = useDispatch()
+  const { volume } = useSelector((state: RootState) => state.settings)
+
+  const setVolume = async (v: number) => {
+    await TrackPlayer.setVolume(v)
+    dispatch(updateSettings({ name: 'volume', value: v }))
+  }
+
+  return useMemo(
+    () => (
+      <View
+        style={{
+          paddingHorizontal: Space.viewPadding,
+          marginTop: 20,
+          width: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          flexDirection: 'row',
+        }}
+      >
+        <Ionicons
+          name="volume-off"
+          color={Colors[theme].volume.icons}
+          size={20}
+        />
+        <Slider
+          style={{ flex: 1, height: 40 }}
+          minimumValue={0}
+          maximumValue={1}
+          onValueChange={setVolume}
+          // set volume to 1 if never set before
+          value={volume || 1}
+          thumbTintColor={Colors[theme].primary}
+          minimumTrackTintColor={Colors[theme].volume.trackTint}
+          maximumTrackTintColor="#000000"
+        />
+        <Ionicons
+          name="volume-medium"
+          color={Colors[theme].volume.icons}
+          size={20}
+        />
+      </View>
+    ),
+    [theme]
+  )
+}
 
 export const Player: React.FC<{ background: string }> = ({ background }) => {
   const dispatch = useDispatch()
@@ -206,18 +258,19 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
   }
 
   return (
-    <StyledCover
-      style={{
-        // backgroundColor: 'red',
-        width: PLAYER_SIZE,
-        height: PLAYER_SIZE,
-        borderColor: '#3A70D6',
-        borderWidth: 3,
-        // overflow: 'hidden',
-        // position: 'relative',
-      }}
-    >
-      {/* <Image
+    <>
+      <StyledCover
+        style={{
+          // backgroundColor: 'red',
+          width: PLAYER_SIZE,
+          height: PLAYER_SIZE,
+          borderColor: '#3A70D6',
+          borderWidth: 3,
+          // overflow: 'hidden',
+          // position: 'relative',
+        }}
+      >
+        {/* <Image
         source={playerBg}
         style={{ width: PLAYER_SIZE, height: PLAYER_SIZE }}
       />
@@ -233,34 +286,36 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
           zIndex: -1,
         }}
       /> */}
-      <TouchableHighlight underlayColor="transparent" onPress={onPress}>
-        <ImageBackground
-          source={require('../../../assets/images/doyou.webp')}
-          style={{
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            position: 'relative',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <View
+        <TouchableHighlight underlayColor="transparent" onPress={onPress}>
+          <ImageBackground
+            source={require('../../../assets/images/doyou.webp')}
             style={{
-              width: 50,
-              height: 50,
-              borderRadius: 50,
-              backgroundColor: 'white',
-              position: 'absolute',
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              position: 'relative',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
-          />
-          <MaterialCommunityIcons
-            name={PlayerIcons[status]}
-            size={80}
-            color={Colors[theme].accent}
-          />
-        </ImageBackground>
-      </TouchableHighlight>
-    </StyledCover>
+          >
+            <View
+              style={{
+                width: 50,
+                height: 50,
+                borderRadius: 50,
+                backgroundColor: 'white',
+                position: 'absolute',
+              }}
+            />
+            <MaterialCommunityIcons
+              name={PlayerIcons[status]}
+              size={80}
+              color={Colors[theme].accent}
+            />
+          </ImageBackground>
+        </TouchableHighlight>
+      </StyledCover>
+      <VolumeControl />
+    </>
   )
 }

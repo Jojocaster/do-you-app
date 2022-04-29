@@ -28,6 +28,10 @@ export default {
     tracks: {
       artist: brandBlue,
     },
+    volume: {
+      trackTint: brandYellow,
+      icons: 'black',
+    },
   },
   dark: {
     text: '#fff',
@@ -53,6 +57,10 @@ export default {
     },
     tracks: {
       artist: brandYellow,
+    },
+    volume: {
+      trackTint: 'white',
+      icons: 'white',
     },
   },
 }

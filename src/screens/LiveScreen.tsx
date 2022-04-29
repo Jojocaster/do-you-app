@@ -49,11 +49,12 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
           display: 'flex',
           alignItems: 'center',
           marginTop: -20,
-          marginBottom: 20,
+          marginBottom: 10,
         }}
       >
         <Player background={'assets/logo.webp'} />
       </View>
+
       {/* <VolumeControl /> */}
       <View
         style={{

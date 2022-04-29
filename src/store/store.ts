@@ -4,7 +4,6 @@ import scheduleReducer from './slices/scheduleSlice'
 import showReducer from './slices/showSlice'
 import tracksInfoReducer from './slices/tracksInfoSlice'
 import settingsReducer from './slices/settingsSlice'
-import storage from 'redux-persist/lib/storage'
 import AsyncStore from '@react-native-async-storage/async-storage'
 import {
   persistStore,
@@ -30,7 +29,7 @@ const reducers = combineReducers({
   tracksInfo: tracksInfoReducer,
   settings: settingsReducer,
 })
-
+//@ts-ignore
 const persistedReducer = persistReducer(persistConfig, reducers)
 
 export const store = configureStore({
