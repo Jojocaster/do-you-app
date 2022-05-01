@@ -6,21 +6,25 @@ import useColorScheme from '../../hooks/useColorScheme'
 import { SettingsState, updateSettings } from '../../store/slices/settingsSlice'
 import { RootState } from '../../store/store'
 import { Heading } from '../Heading/Heading'
-import { Text } from '../Themed'
+import { Text, View } from '../Themed'
 import { StyledSetting } from './Settings.styles'
 
 const SingleSetting: React.FC<{
+  beta?: boolean
   disabled?: boolean
   onToggle: () => void
   value: any
-}> = ({ children, disabled = false, onToggle, value }) => {
+}> = ({ children, beta = false, disabled = false, onToggle, value }) => {
   // scale Switch down on iOS
   const switchScale = Platform.OS === 'ios' ? 0.8 : 1
   const theme = useColorScheme()
 
   return (
     <StyledSetting>
-      <Text>{children}</Text>
+      <View style={{ position: 'relative' }}>
+        <Text>{children}</Text>
+        {beta && <Beta />}
+      </View>
       <Switch
         style={{ transform: [{ scale: switchScale }] }}
         disabled={disabled}
@@ -44,6 +48,22 @@ const SingleSetting: React.FC<{
   )
 }
 
+const Beta: React.FC = ({ children }) => {
+  return (
+    <Text
+      style={{
+        fontSize: 8,
+        fontWeight: 'bold',
+        position: 'absolute',
+        left: '102%',
+        top: -2,
+      }}
+    >
+      BETA
+    </Text>
+  )
+}
+
 export const Settings: React.FC = () => {
   const dispatch = useDispatch()
   const { darkTheme, liveStatusNotification, useNativeTheme } = useSelector(
@@ -61,12 +81,13 @@ export const Settings: React.FC = () => {
     <>
       <Heading style={{ fontSize: 32 }}>Settings</Heading>
       <SingleSetting
+        beta
         value={liveStatusNotification}
         onToggle={() =>
           onToggle('liveStatusNotification', !liveStatusNotification)
         }
       >
-        Notify me when a show is live (beta)
+        Notify me when a show is live
       </SingleSetting>
       <SingleSetting
         value={useNativeTheme}
