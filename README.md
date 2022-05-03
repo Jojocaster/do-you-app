@@ -90,6 +90,7 @@ Changelog:
 <img src="assets/readme/tracks-light.jpg" width="150"/>
 &nbsp; &nbsp; &nbsp; &nbsp;
 </p>
+
 ## Roadmap
 - <del>Fetch live info in the background to send notifications when shows are live</del>
 - UI & UX improvements
