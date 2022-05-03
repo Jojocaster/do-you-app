@@ -35,12 +35,20 @@ import { updateSettings } from '../../store/slices/settingsSlice'
 const VolumeControl: React.FC = () => {
   const theme = useColorScheme()
   const dispatch = useDispatch()
+  const margin = Platform.OS === 'ios' ? 20 : 0
   const { volume } = useSelector((state: RootState) => state.settings)
 
   const setVolume = async (v: number) => {
     await TrackPlayer.setVolume(v)
     dispatch(updateSettings({ name: 'volume', value: v }))
   }
+
+  // set volume on first render
+  useEffect(() => {
+    if (volume) {
+      TrackPlayer.setVolume(volume)
+    }
+  }, [])
 
   return useMemo(
     () => (
@@ -60,7 +68,7 @@ const VolumeControl: React.FC = () => {
           size={20}
         />
         <Slider
-          style={{ flex: 1, height: 40 }}
+          style={{ flex: 1, height: 40, marginHorizontal: margin }}
           minimumValue={0}
           maximumValue={1}
           onValueChange={setVolume}

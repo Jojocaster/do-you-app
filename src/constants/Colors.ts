@@ -15,7 +15,7 @@ export default {
     accent: brandBlue,
     heading: brandYellow,
     headingShadow: brandBlue,
-    scheduleBackground: '#F5F5F5',
+    scheduleBackground: '#F8F8F8',
     scheduleText: '#000',
     scheduleHeading: brandBlue,
     switch: {
@@ -32,6 +32,7 @@ export default {
       trackTint: brandYellow,
       icons: 'black',
     },
+    chatText: brandBlue,
   },
   dark: {
     text: '#fff',
@@ -62,5 +63,6 @@ export default {
       trackTint: 'white',
       icons: 'white',
     },
+    chatText: brandYellow,
   },
 }
