@@ -82,12 +82,14 @@ Changelog:
 <img src="assets/readme/controls.jpg" width="150"/>
 &nbsp; &nbsp; &nbsp; &nbsp;
 <img src="assets/readme/settings.jpg" width="150"/>
-&nbsp; &nbsp; &nbsp; &nbsp;
+</p>
+
+<p align="center">
 <img src="assets/readme/home-light.jpg" width="150"/>
 &nbsp; &nbsp; &nbsp; &nbsp;
 <img src="assets/readme/tracks-light.jpg" width="150"/>
+&nbsp; &nbsp; &nbsp; &nbsp;
 </p>
-
 ## Roadmap
 - <del>Fetch live info in the background to send notifications when shows are live</del>
 - UI & UX improvements
