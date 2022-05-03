@@ -1,8 +1,10 @@
-# DoYou?
+# Do!!You!!!World app
 
 Official app for https://doyou.world/ , built with React Native, AirTime Pro's API & a lot of coffee.
 
 Feel free to create issues [here](https://github.com/Jojocaster/do-you-app/issues) to report bugs / suggest features, I'll do my best to get back to you asap.
+
+Bug tracker for non-GitHub users: [Google Form](https://forms.gle/5HYMW6AM7vtAZ1QP6)
 
 ## Releases
 
