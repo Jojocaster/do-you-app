@@ -103,6 +103,7 @@ Changelog:
 - <del>Handle light theme</del>
 - <del>Persist state in async store</del>
 - <del>iOS release</del>
+- Support tablets
 - Allow users to save tracks to favourites
 - <del>Add volume control</del>
 - Trigger push notifications from server instead of polling data from client (using `Lambda`, `CRON`, `S3` & `expo-notifications`)
