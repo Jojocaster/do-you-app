@@ -5,6 +5,18 @@ Official app for https://doyou.world/ , built with React Native, AirTime Pro's A
 Feel free to create issues [here](https://github.com/Jojocaster/do-you-app/issues) to report bugs / suggest features, I'll do my best to get back to you asap.
 
 ## Releases (Android)
+
+- 0.2.3: [Android](https://play.google.com/store/apps/details?id=com.wonkylines.doyouworld) - [iOS](https://apps.apple.com/gb/app/do-you-world/id1620769718)
+```
+Changelog: 
+
+- Settings improved, 
+- Overall style improvements
+- App & deployment config updated
+- Chat view added
+- Player behaviour improved on iOS
+```
+
 - Beta 0.2.2: [Download link](https://github.com/Jojocaster/do-you-app/releases/download/v0.2.2/a0a4ea6f-8afe-4995-85fb-1686f9b50878-9ff2763ce3b94445894895eb25765993.apk)
 ```
 Changelog: 

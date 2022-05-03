@@ -8,9 +8,9 @@ import { Schedule } from '../components/Schedule/Schedule'
 import * as Notifications from 'expo-notifications'
 import { RootTabScreenProps } from '../../types'
 import { Container } from '../components/Container/Container'
-// import { Slider } from '@sharcoux/slider'
 import useColorScheme from '../hooks/useColorScheme'
 import Colors from '../constants/Colors'
+import { VolumeControl } from '../components/VolumeControl/VolumeControl'
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -19,21 +19,6 @@ Notifications.setNotificationHandler({
     shouldSetBadge: false,
   }),
 })
-
-// export const VolumeControl = () => {
-//   return (
-//     <Slider
-//       thumbImage={banana}
-//       thumbSize={30}
-//       thumbStyle={{ backgroundColor: 'transparent' }}
-//       style={{ width: 200, height: 20 }}
-//       minimumValue={0}
-//       maximumValue={1}
-//       minimumTrackTintColor="#FFFFFF"
-//       maximumTrackTintColor="#000000"
-//     />
-//   )
-// }
 
 export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
   const theme = useColorScheme()
@@ -53,9 +38,9 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
         }}
       >
         <Player background={'assets/logo.webp'} />
+        <VolumeControl />
       </View>
 
-      {/* <VolumeControl /> */}
       <View
         style={{
           flex: 1,
