@@ -64,7 +64,7 @@ const Credits: React.FC = () => (
     <Heading style={{ fontSize: 32 }}>Credits</Heading>
 
     <Text style={{ marginVertical: 10 }}>
-      - Out to Charlie Bones for giving us the{' '}
+      - Out to Charlie Bones & Oscar for giving us the{' '}
       <Text style={{ fontStyle: 'italic' }}>perfect sound forever</Text> and
       making the radio world a better place.
     </Text>
