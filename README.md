@@ -6,7 +6,58 @@ Feel free to create issues [here](https://github.com/Jojocaster/do-you-app/issue
 
 Bug tracker for non-GitHub users: [Google Form](https://forms.gle/5HYMW6AM7vtAZ1QP6)
 
-## Releases
+## Features
+- Live Status tracker, running automatically in the background
+- See the list of upcoming shows (according to current timezone)
+- Allow radio to be played in the background & controlled from the notification centre & lockscreen
+- See today's track IDs (Beta)
+- Receive notifications when a show is live (Beta)
+- Control app volume separately from OS
+- Dark & light themes
+- Chat!
+
+## Screenshots
+<p align="center">
+<img src="assets/readme/home.jpg" width="150"/>
+&nbsp; &nbsp; &nbsp; &nbsp;
+<img src="assets/readme/tracks.jpg" width="150"/>
+&nbsp; &nbsp; &nbsp; &nbsp;
+<img src="assets/readme/controls.jpg" width="150"/>
+&nbsp; &nbsp; &nbsp; &nbsp;
+<img src="assets/readme/settings.jpg" width="150"/>
+</p>
+
+<p align="center">
+<img src="assets/readme/home-light.jpg" width="150"/>
+&nbsp; &nbsp; &nbsp; &nbsp;
+<img src="assets/readme/tracks-light.jpg" width="150"/>
+&nbsp; &nbsp; &nbsp; &nbsp;
+</p>
+
+## Roadmap
+- <del>Fetch live info in the background to send notifications when shows are live</del>
+- UI & UX improvements
+- 11:11
+- <del>Add Settings to manage alerts</del>
+- <del>Show correct times according to timezone</del>
+- <del>Embed chat</del>
+- <del>Handle light theme</del>
+- <del>Persist state in async store</del>
+- <del>iOS release</del>
+- Support tablets
+- Allow users to save tracks to favourites
+- <del>Add volume control</del>
+- Trigger push notifications from server instead of polling data from client (using `Lambda`, `CRON`, `S3` & `expo-notifications`)
+- Load shows from Mixcloud through Redis and display track IDs
+- Add "Events" tab
+- Set alerts for individual shows based on schedule?
+- Better error management :)
+- Improve test coverage
+- <del>Display more information about tracks</del>
+- <del>Prevent app from going to sleep is chat is focused</del>
+- Open to suggestions, feel free to post them here [here](https://github.com/Jojocaster/do-you-app/issues) :) 
+
+## Changelog
 
 - 0.3.0: [Android](https://play.google.com/store/apps/details?id=com.wonkylines.doyouworld) - [iOS](https://apps.apple.com/gb/app/do-you-world/id1620769718)
 ```
@@ -64,54 +115,3 @@ Changelog:
 - Beta 0.1.0: [Android](https://github.com/Jojocaster/do-you-app/releases/download/v0.1.0/b883bc47-bfbb-483e-a960-6439cc2148e6-41c9ea09d631423b8a98bb9c8cf39d0d.apk)
 
 /!\ As this version is still a beta and not on the store just yet, Google may warn you about the app being "unsafe" - that is completely normal. Just "install anyway" and enjoy that perfect sound forever.
-
-## Features
-- Live Status tracker, running automatically in the background
-- See the list of upcoming shows (according to current timezone)
-- Allow radio to be played in the background & controlled from the notification centre & lockscreen
-- See today's track IDs (Beta)
-- Receive notifications when a show is live (Beta)
-- Control app volume separately from OS
-- Dark & light themes
-- Chat!
-
-## Screenshots
-<p align="center">
-<img src="assets/readme/home.jpg" width="150"/>
-&nbsp; &nbsp; &nbsp; &nbsp;
-<img src="assets/readme/tracks.jpg" width="150"/>
-&nbsp; &nbsp; &nbsp; &nbsp;
-<img src="assets/readme/controls.jpg" width="150"/>
-&nbsp; &nbsp; &nbsp; &nbsp;
-<img src="assets/readme/settings.jpg" width="150"/>
-</p>
-
-<p align="center">
-<img src="assets/readme/home-light.jpg" width="150"/>
-&nbsp; &nbsp; &nbsp; &nbsp;
-<img src="assets/readme/tracks-light.jpg" width="150"/>
-&nbsp; &nbsp; &nbsp; &nbsp;
-</p>
-
-## Roadmap
-- <del>Fetch live info in the background to send notifications when shows are live</del>
-- UI & UX improvements
-- 11:11
-- <del>Add Settings to manage alerts</del>
-- <del>Show correct times according to timezone</del>
-- <del>Embed chat</del>
-- <del>Handle light theme</del>
-- <del>Persist state in async store</del>
-- <del>iOS release</del>
-- Support tablets
-- Allow users to save tracks to favourites
-- <del>Add volume control</del>
-- Trigger push notifications from server instead of polling data from client (using `Lambda`, `CRON`, `S3` & `expo-notifications`)
-- Load shows from Mixcloud through Redis and display track IDs
-- Add "Events" tab
-- Set alerts for individual shows based on schedule?
-- Better error management :)
-- Improve test coverage
-- <del>Display more information about tracks</del>
-- <del>Prevent app from going to sleep is chat is focused</del>
-- Open to suggestions, feel free to post them here [here](https://github.com/Jojocaster/do-you-app/issues) :) 
