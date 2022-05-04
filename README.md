@@ -56,6 +56,7 @@ Bug tracker for non-GitHub users: [Google Form](https://forms.gle/5HYMW6AM7vtAZ1
 - Allow users to save tracks to favourites
 - Improve test coverage
 
+### Done
 - <del>Fetch live info in the background to send notifications when shows are live</del>
 - <del>Add volume control</del>
 - <del>Add Settings to manage alerts</del>
