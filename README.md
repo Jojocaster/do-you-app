@@ -6,6 +6,13 @@ Feel free to create issues [here](https://github.com/Jojocaster/do-you-app/issue
 
 Bug tracker for non-GitHub users: [Google Form](https://forms.gle/5HYMW6AM7vtAZ1QP6)
 
+## Table of contents
+* [Features](#features)
+* [Roadmap](#roadmap)
+* [Screenshots](#screenshots)
+* [Changelog](#changelog)
+* [Known Bugs / Troubleshooting](#known-bugs)
+
 ## Features
 - Live Status tracker, running automatically in the background
 - See the list of upcoming shows (according to current timezone)
@@ -115,3 +122,11 @@ Changelog:
 - Beta 0.1.0: [Android](https://github.com/Jojocaster/do-you-app/releases/download/v0.1.0/b883bc47-bfbb-483e-a960-6439cc2148e6-41c9ea09d631423b8a98bb9c8cf39d0d.apk)
 
 /!\ As this version is still a beta and not on the store just yet, Google may warn you about the app being "unsafe" - that is completely normal. Just "install anyway" and enjoy that perfect sound forever.
+
+## Known bugs
+* <strong>AirPlay keeps dropping:</strong> There is currently a bug on the library we're using to manage streams (described [here](https://github.com/doublesymmetry/react-native-track-player/issues/1408)). We will update the app once this is sorted.
+
+* <strong>Google Cast:</strong> There is no current support for Google Cast. his might change in the future, but further work on the library mentioned above is needed before we can support it.
+
+* <strong>Notifications don't work properly:</strong> Notifications are currently in beta. We are using local notifications, which means that the app checks for live status and tries to notify users when a new show is live. However, Android tends to kill the process if the app is in the background. iOS can also be unpredictable and limit background processes to run only every 15 minutes. 
+We will move to push notifications shortly, which should solve this issue. 

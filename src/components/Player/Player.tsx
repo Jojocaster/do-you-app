@@ -152,12 +152,15 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
 
   useEffect(() => {
     if (currentTrack) {
-      TrackPlayer.updateNowPlayingMetadata({
-        artist: ARTIST_NAME,
-        artwork: logo,
-        album: DEFAULT_SHOW_NAME,
-        title: currentTitle,
-      })
+      // only update when playing to prevent showing controls when not playing
+      if (status === PlayerStatus.PLAYING) {
+        TrackPlayer.updateNowPlayingMetadata({
+          artist: ARTIST_NAME,
+          artwork: logo,
+          album: DEFAULT_SHOW_NAME,
+          title: currentTitle,
+        })
+      }
 
       const handleNotifications = async () => {
         // if we get a new show name while the player is off, send a notification
