@@ -42,27 +42,32 @@ Bug tracker for non-GitHub users: [Google Form](https://forms.gle/5HYMW6AM7vtAZ1
 </p>
 
 ## Roadmap
-- <del>Fetch live info in the background to send notifications when shows are live</del>
 - UI & UX improvements
+- Add animation when show is playing
+- Trigger push notifications from server instead of polling data from client (using `Lambda`, `CRON`, `S3` & `expo-notifications`)
+- Add "Archives" tab
+- Improve splash screen
+- Link track IDs to archives
 - 11:11
+- Support tablets
+- Add "Events" tab
+- Persist cookies from Minnit 
+- Better error management :)
+- Allow users to save tracks to favourites
+- Improve test coverage
+
+- <del>Fetch live info in the background to send notifications when shows are live</del>
+- <del>Add volume control</del>
 - <del>Add Settings to manage alerts</del>
 - <del>Show correct times according to timezone</del>
 - <del>Embed chat</del>
 - <del>Handle light theme</del>
 - <del>Persist state in async store</del>
 - <del>iOS release</del>
-- Support tablets
-- Allow users to save tracks to favourites
-- <del>Add volume control</del>
-- Trigger push notifications from server instead of polling data from client (using `Lambda`, `CRON`, `S3` & `expo-notifications`)
-- Load shows from Mixcloud through Redis and display track IDs
-- Add "Events" tab
-- Set alerts for individual shows based on schedule?
-- Better error management :)
-- Improve test coverage
 - <del>Display more information about tracks</del>
 - <del>Prevent app from going to sleep is chat is focused</del>
-- Open to suggestions, feel free to post them here [here](https://github.com/Jojocaster/do-you-app/issues) :) 
+
+<strong>Open to suggestions, feel free to post them [here](https://github.com/Jojocaster/do-you-app/issues) :)</strong>
 
 ## Changelog
 
