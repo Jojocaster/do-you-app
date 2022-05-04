@@ -132,9 +132,13 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
 
     // Will play quicker if init from the start
     // However, iOS doesn't seem to like that - the media won't play if loaded before users actually perform an action
-    if (Platform.OS === 'android') {
-      initPlayer()
-    }
+
+    // Update: this displays a notification before anything gets played, hence commenting it out.
+    // TODO: reduce buffer
+    // if (Platform.OS === 'android') {
+    //   initPlayer()
+    // }
+
     initNotifications()
     // Animated.loop(
     //   Animated.timing(recordAnim.current, {
