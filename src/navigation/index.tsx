@@ -32,16 +32,18 @@ import {
 import LinkingConfiguration from './LinkingConfiguration'
 import MoreScreen from '../screens/MoreScreen'
 import ChatScreen from '../screens/ChatScreen'
+// import ArchiveScreen from '../screens/ArchiveScreen'
 
 export default function Navigation({
   colorScheme,
 }: {
   colorScheme: ColorSchemeName
 }) {
+  const theme = useColorScheme()
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+      theme={theme === 'dark' ? DarkTheme : DefaultTheme}
     >
       <RootNavigator />
     </NavigationContainer>
@@ -139,11 +141,26 @@ function BottomTabNavigator() {
         component={ChatScreen}
         options={({ navigation }: RootTabScreenProps<'Chat'>) => ({
           title: 'Chat',
+
           tabBarIcon: ({ color }) => (
             <Ionicons name="chatbox-ellipses-outline" size={19} color={color} />
           ),
         })}
       />
+      {/* <BottomTab.Screen
+        name="Archive"
+        component={ArchiveScreen}
+        options={({ navigation }: RootTabScreenProps<'Archive'>) => ({
+          title: 'Archive',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="folder-music-outline"
+              size={19}
+              color={color}
+            />
+          ),
+        })}
+      /> */}
       <BottomTab.Screen
         name="More"
         component={MoreScreen}

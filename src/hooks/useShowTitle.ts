@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux'
 import { DEFAULT_SHOW_NAME } from '../components/Player/Player.constants'
+import { decodeHtmlCharCodes } from '../components/ScheduleItem/ScheduleItem.utils'
 import { RootState } from '../store/store'
 
 export const useShowTitle = () => {
@@ -7,8 +8,10 @@ export const useShowTitle = () => {
     (state: RootState) => state.show
   )
   const title = currentTrack?.name?.length
-    ? currentTrack.name
-    : currentShow?.name || DEFAULT_SHOW_NAME
+    ? decodeHtmlCharCodes(currentTrack.name)
+    : currentShow?.name
+    ? decodeHtmlCharCodes(currentShow?.name)
+    : DEFAULT_SHOW_NAME
 
   return title
 }

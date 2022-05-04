@@ -12,6 +12,8 @@ export const useAppState = (): AppStateStatus => {
     return () => {
       //@ts-ignore - wrong types here
       listener?.remove()
+      //@ts-ignore - wrong types here
+      AppState.removeEventListener('change', listener)
     }
   }, [])
 

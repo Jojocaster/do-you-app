@@ -7,6 +7,6 @@ export const PlayerIcons: Record<PlayerStatus, any> = {
   [PlayerStatus.LOADING]: 'dots-horizontal-circle',
 }
 
-export const ARTIST_NAME = 'DoYouWorld'
+export const ARTIST_NAME = 'Do!!You!!!World'
 export const DEFAULT_SHOW_NAME = `It's a family affair.`
 export const PLAYER_SIZE = (60 / 100) * deviceInfo.window.width

@@ -15,9 +15,24 @@ export default {
     accent: brandBlue,
     heading: brandYellow,
     headingShadow: brandBlue,
-    scheduleBackground: '#F5F5F5',
+    scheduleBackground: '#F8F8F8',
     scheduleText: '#000',
     scheduleHeading: brandBlue,
+    switch: {
+      trackActive: brandYellow,
+      trackInactive: 'grey',
+      trackDisabled: '#E1E1E1',
+      thumb: 'white',
+      thumDisabled: '#F5F5F5',
+    },
+    tracks: {
+      artist: brandBlue,
+    },
+    volume: {
+      trackTint: brandYellow,
+      icons: 'black',
+    },
+    chatText: brandBlue,
   },
   dark: {
     text: '#fff',
@@ -34,5 +49,20 @@ export default {
     scheduleBackground: tintColorLight,
     scheduleText: '#fff',
     scheduleHeading: '#fff',
+    switch: {
+      trackActive: brandYellow,
+      trackInactive: 'black',
+      trackDisabled: 'black',
+      thumb: 'white',
+      thumDisabled: 'dimgrey',
+    },
+    tracks: {
+      artist: brandYellow,
+    },
+    volume: {
+      trackTint: 'white',
+      icons: 'white',
+    },
+    chatText: brandYellow,
   },
 }

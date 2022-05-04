@@ -1,12 +1,5 @@
-import React, { useEffect, useRef } from 'react'
-import {
-  Animated,
-  Easing,
-  Image,
-  ImageBackground,
-  Platform,
-  TouchableHighlight,
-} from 'react-native'
+import React, { useEffect } from 'react'
+import { ImageBackground, Platform, TouchableHighlight } from 'react-native'
 import { StyledCover } from './Player.styles'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import Colors from '../../constants/Colors'
@@ -17,7 +10,12 @@ import {
   PlayerStatus,
   updatePlayerStatus,
 } from '../../store/slices/playerSlice'
-import { ARTIST_NAME, PlayerIcons, PLAYER_SIZE } from './Player.constants'
+import {
+  ARTIST_NAME,
+  DEFAULT_SHOW_NAME,
+  PlayerIcons,
+  PLAYER_SIZE,
+} from './Player.constants'
 import { LIVE_STREAM_URL } from '../../constants/Endpoints'
 import { View } from '../Themed'
 import TrackPlayer, {
@@ -29,8 +27,7 @@ import TrackPlayer, {
 import logo from '../../../assets/images/doyou.webp'
 import * as Notifications from 'expo-notifications'
 import { AndroidNotificationPriority } from 'expo-notifications'
-import { fetchSettings } from '../../store/slices/settingsSlice'
-import { updateLastNotified } from '../../store/slices/showSlice'
+import { ShowStatus, updateLastNotified } from '../../store/slices/showSlice'
 import { useShowTitle } from '../../hooks/useShowTitle'
 //@ts-ignore
 import playerBg from '../../../assets/images/playerBg.png'
@@ -62,6 +59,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
         // url: 'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3',
         url: LIVE_STREAM_URL,
         artwork: logo,
+        album: DEFAULT_SHOW_NAME,
         artist: ARTIST_NAME,
         title: currentTitle,
       },
@@ -101,8 +99,6 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
   )
 
   useEffect(() => {
-    dispatch(fetchSettings())
-
     const initNotifications = async () => {
       // check permission for iOS
       const permission = await Notifications.getPermissionsAsync()
@@ -155,6 +151,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
       TrackPlayer.updateNowPlayingMetadata({
         artist: ARTIST_NAME,
         artwork: logo,
+        album: DEFAULT_SHOW_NAME,
         title: currentTitle,
       })
 
@@ -186,8 +183,9 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
       handleNotifications()
     } else {
       // stop player if show has ended
-      TrackPlayer.stop()
-      // dispatch(updatePlayerStatus(PlayerStatus.PAUSED))
+      if (showStatus === ShowStatus.OFF) {
+        TrackPlayer.stop()
+      }
     }
   }, [currentTrack])
 

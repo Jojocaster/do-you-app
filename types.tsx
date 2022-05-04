@@ -30,6 +30,7 @@ export type RootTabParamList = {
   Live: undefined
   Tracks: undefined
   Chat: undefined
+  Archive: undefined
   More: undefined
 }
 

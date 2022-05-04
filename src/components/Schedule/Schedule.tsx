@@ -40,7 +40,7 @@ export const Schedule: React.FC = () => {
     }
   }, [isFocused, lastUpdated])
 
-  if (loading) {
+  if (loading && !shows.length) {
     return <ActivityIndicator color={Colors[theme].primary} />
   }
 

@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { TRACKLIST_URL } from '../../constants/Endpoints'
 
-interface TrackInfo {
+export interface TrackInfo {
   album: string
   artist: string
+  score: number
   label: string
   played_datetime: string
   release_date: string
