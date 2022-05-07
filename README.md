@@ -55,6 +55,7 @@ Bug tracker for non-GitHub users: [Google Form](https://forms.gle/5HYMW6AM7vtAZ1
 - Better error management :)
 - Allow users to save tracks to favourites
 - Improve test coverage
+- Remove useless packages (e.g. styled-components)
 
 ### Done
 - <del>Fetch live info in the background to send notifications when shows are live</del>

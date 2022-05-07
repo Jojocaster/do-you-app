@@ -271,7 +271,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
           <MaterialCommunityIcons
             name={PlayerIcons[status]}
             size={80}
-            color={Colors[theme].accent}
+            color={Colors[theme].player.icon}
           />
         </ImageBackground>
       </TouchableHighlight>

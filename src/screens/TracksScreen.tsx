@@ -26,12 +26,11 @@ export default function TrackScreen({
           >
             <MonoText>
               <MaterialCommunityIcons
-                name="alert"
-                color={Colors[theme].primary}
+                name="information-outline"
+                color={Colors.common.warning}
                 size={16}
               />{' '}
-              This is still in beta, all tracks may not be identified properly
-              just yet.
+              Source: doyoutrackid.com
             </MonoText>
           </View>
           <Tracks />

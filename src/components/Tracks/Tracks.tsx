@@ -115,6 +115,7 @@ export const Tracks: React.FC = () => {
           flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
+          width: '100%',
         }}
       >
         <Animated.View style={{ opacity: fadeAnim }}>
@@ -141,7 +142,7 @@ export const Tracks: React.FC = () => {
       showsVerticalScrollIndicator={false}
       fadingEdgeLength={100}
       overScrollMode="never"
-      style={{ marginTop: 20 }}
+      style={{ marginTop: 20, width: '100%' }}
     />
   )
 }

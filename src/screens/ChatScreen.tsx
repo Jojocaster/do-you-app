@@ -5,12 +5,12 @@ import { RootTabScreenProps } from '../../types'
 import { ActivityIndicator, Linking, TouchableOpacity } from 'react-native'
 import Colors from '../constants/Colors'
 import useColorScheme from '../hooks/useColorScheme'
+import { CHAT_URL } from '../constants/Endpoints'
 
 export default function ChatScreen({ navigation }: RootTabScreenProps<'Chat'>) {
   const [loading, setLoading] = useState(true)
   const chatRef = useRef<WebView>(null)
   const theme = useColorScheme()
-  const uri = 'https://minnit.chat/DOYOUFAMILY?embed'
 
   const reload = () => {
     setLoading(true)
@@ -63,7 +63,7 @@ export default function ChatScreen({ navigation }: RootTabScreenProps<'Chat'>) {
         onError={reload}
         ref={chatRef}
         source={{
-          uri,
+          uri: CHAT_URL,
         }}
         onContentProcessDidTerminate={() => {
           console.log('onContentProcessDidTerminate')
@@ -74,7 +74,7 @@ export default function ChatScreen({ navigation }: RootTabScreenProps<'Chat'>) {
           reload()
         }}
         onNavigationStateChange={(event) => {
-          if (event.url !== uri) {
+          if (event.url !== CHAT_URL) {
             chatRef.current?.stopLoading()
             Linking.openURL(event.url)
           }

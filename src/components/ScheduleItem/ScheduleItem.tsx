@@ -56,7 +56,6 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
   // this will allow component to re-render when appState changes
   const appState = useAppState()
   const theme = useColorScheme()
-  const backgroundColor = useThemeColor({}, 'primary')
   const day = parseJSON(showsOfTheDay[0].start_timestamp)
   const formattedDay = format(day, 'E, MMM dd')
 
@@ -74,7 +73,7 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
             backgroundColor: Colors[theme].scheduleBackground,
             flex: 0,
             borderBottomWidth: 2,
-            borderBottomColor: backgroundColor,
+            borderBottomColor: Colors[theme].scheduleUnderline,
           }}
         >
           <Text

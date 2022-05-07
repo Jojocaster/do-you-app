@@ -23,7 +23,7 @@ const Support = () => {
   return (
     <>
       <Heading multiline={false} style={{ fontSize: 32 }}>
-        Support us
+        Support the app
       </Heading>
 
       <View
@@ -31,14 +31,55 @@ const Support = () => {
           marginTop: 10,
         }}
       >
-        <Text style={{ marginBottom: 5 }}>There's a lot more to come.</Text>
+        <Text style={{ marginBottom: 5 }}>
+          We have a lot of features in the works.
+        </Text>
         <Text style={{ marginBottom: 5 }}>
           If you can contribute, your support will be greatly appreciated.
         </Text>
-        <Text style={{ marginBottom: 10 }}>
-          If not, your love will be more than enough.
+        <Text>If not, your love will be more than enough.</Text>
+        <TouchableOpacity style={{ marginTop: 10 }} onPress={onClick}>
+          <Image
+            style={{ width: 143, height: 36 }}
+            source={source}
+            accessibilityLabel="Buy Me a Coffee at ko-fi.com"
+          />
+        </TouchableOpacity>
+      </View>
+    </>
+  )
+}
+
+const Subscribe = () => {
+  const theme = useColorScheme()
+  const source = theme === 'dark' ? kofiDark : kofiLight
+  const onClick = () => {
+    Linking.openURL('https://ko-fi.com/doyouworld/tiers')
+  }
+
+  return (
+    <>
+      <Heading multiline={false} style={{ fontSize: 32 }}>
+        Subscribe
+      </Heading>
+
+      <View
+        style={{
+          marginTop: 10,
+        }}
+      >
+        <Text style={{ marginBottom: 5 }}>Hello dear listener.</Text>
+        <Text style={{ marginBottom: 5 }}>
+          The station is subscriber funded.
         </Text>
-        <TouchableOpacity onPress={onClick}>
+        <Text style={{ marginBottom: 5 }}>
+          Donations are most welcome but subscriptions are much more effective
+          at keeping it going.
+        </Text>
+        <Text>
+          If you can contribute, your support will be greatly appreciated.
+        </Text>
+        <TouchableOpacity style={{ marginTop: 10 }} onPress={onClick}>
           <Image
             style={{ width: 143, height: 36 }}
             source={source}
@@ -80,23 +121,30 @@ const Credits: React.FC = () => (
 
 export default function MoreScreen({ navigation }: RootTabScreenProps<'More'>) {
   return (
-    <Home>
-      <ScrollView
-        style={{ height: '100%', paddingHorizontal: Space.viewPadding }}
+    <ScrollView automaticallyAdjustContentInsets style={styles.view}>
+      <View
+        style={{
+          paddingVertical: Space.viewPaddingVertical,
+          paddingHorizontal: Space.viewPadding,
+        }}
       >
         <Settings />
+        <View style={styles.section}>
+          <Subscribe />
+        </View>
         <View style={styles.section}>
           <Credits />
         </View>
         <View style={styles.section}>
           <Support />
         </View>
-      </ScrollView>
-    </Home>
+      </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
+  view: {},
   section: {
     marginTop: 20,
   },
