@@ -1,4 +1,5 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { Link } from '@react-navigation/native'
 import { StyleSheet } from 'react-native'
 import { RootTabScreenProps } from '../../types'
 import { Container } from '../components/Container/Container'
@@ -9,6 +10,7 @@ import { View } from '../components/Themed'
 import { Tracks } from '../components/Tracks/Tracks'
 import Colors from '../constants/Colors'
 import useColorScheme from '../hooks/useColorScheme'
+import { Weblink } from './MoreScreen'
 
 export default function TrackScreen({
   navigation,
@@ -30,7 +32,8 @@ export default function TrackScreen({
                 color={Colors.common.warning}
                 size={16}
               />{' '}
-              Source: doyoutrackid.com
+              Source:{' '}
+              <Weblink uri="https://doyoutrackid.com">doyoutrackid.com</Weblink>
             </MonoText>
           </View>
           <Tracks />

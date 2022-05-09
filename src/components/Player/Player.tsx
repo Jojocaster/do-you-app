@@ -15,6 +15,7 @@ import {
   DEFAULT_SHOW_NAME,
   PlayerIcons,
   PLAYER_SIZE,
+  STREAM_HEADERS,
 } from './Player.constants'
 import { LIVE_STREAM_URL } from '../../constants/Endpoints'
 import { View } from '../Themed'
@@ -62,6 +63,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
         album: DEFAULT_SHOW_NAME,
         artist: ARTIST_NAME,
         title: currentTitle,
+        headers: STREAM_HEADERS,
       },
     ])
   }

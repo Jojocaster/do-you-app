@@ -91,7 +91,7 @@ const Subscribe = () => {
   )
 }
 
-const Link: React.FC<{ uri: string }> = ({ children, uri }) => (
+export const Weblink: React.FC<{ uri: string }> = ({ children, uri }) => (
   <Text
     style={{ textDecorationLine: 'underline' }}
     onPress={() => Linking.openURL(uri)}
@@ -110,11 +110,14 @@ const Credits: React.FC = () => (
       making the radio world a better place.
     </Text>
     <Text>
-      - Out to <Link uri="https://github.com/Rassibassi/">Rassibassi</Link>,{' '}
-      <Link uri="https://www.erinrimmer.com/">Erin Rimmer</Link> &{' '}
-      <Link uri="https://github.com/jackhkmatthews">jackhkmatthews</Link> for
-      their work on{' '}
-      <Link uri="https://doyoutrackid.com/">https://doyoutrackid.com</Link>
+      - Out to{' '}
+      <Weblink uri="https://github.com/Rassibassi/">Rassibassi</Weblink>,{' '}
+      <Weblink uri="https://www.erinrimmer.com/">Erin Rimmer</Weblink> &{' '}
+      <Weblink uri="https://github.com/jackhkmatthews">jackhkmatthews</Weblink>{' '}
+      for their work on{' '}
+      <Weblink uri="https://doyoutrackid.com/">
+        https://doyoutrackid.com
+      </Weblink>
     </Text>
   </View>
 )
