@@ -1,46 +1,40 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { Link } from '@react-navigation/native'
 import { StyleSheet } from 'react-native'
 import { RootTabScreenProps } from '../../types'
-import { Container } from '../components/Container/Container'
 import { Heading } from '../components/Heading/Heading'
-import { Home } from '../components/Home/Home'
 import { MonoText } from '../components/StyledText'
 import { View } from '../components/Themed'
 import { Tracks } from '../components/Tracks/Tracks'
 import Colors from '../constants/Colors'
-import useColorScheme from '../hooks/useColorScheme'
+import Space from '../constants/Space'
 import { Weblink } from './MoreScreen'
 
 export default function TrackScreen({
   navigation,
 }: RootTabScreenProps<'Tracks'>) {
-  const theme = useColorScheme()
   return (
     <View style={styles.container}>
-      <Home>
-        <Container>
-          <Heading offset={50}>TODAY'S TRACKS</Heading>
-          <View
-            style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
-            darkColor="rgba(255,255,255,0.05)"
-            lightColor="#F8F8F8"
-          >
-            <MonoText>
-              <MaterialCommunityIcons
-                name="information-outline"
-                color={Colors.common.warning}
-                size={16}
-              />{' '}
-              Source:{' '}
-              <Weblink uri="https://doyoutrackid.com">doyoutrackid.com</Weblink>
-            </MonoText>
-          </View>
-          <Tracks />
+      <View style={{ width: '100%' }}>
+        <Heading offset={50}>TODAY'S TRACKS</Heading>
+      </View>
+      <View
+        style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
+        darkColor="rgba(255,255,255,0.05)"
+        lightColor="#F8F8F8"
+      >
+        <MonoText>
+          <MaterialCommunityIcons
+            name="information-outline"
+            color={Colors.common.warning}
+            size={16}
+          />{' '}
+          Source:{' '}
+          <Weblink uri="https://doyoutrackid.com">doyoutrackid.com</Weblink>
+        </MonoText>
+      </View>
+      <Tracks />
 
-          {/* <EditScreenInfo path="/screens/TabTwoScreen.tsx" /> */}
-        </Container>
-      </Home>
+      {/* <EditScreenInfo path="/screens/TabTwoScreen.tsx" /> */}
     </View>
   )
 }
@@ -50,6 +44,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingHorizontal: Space.viewPadding,
+    paddingTop: Space.viewPaddingVertical,
   },
   title: {
     fontSize: 20,
@@ -69,5 +65,6 @@ const styles = StyleSheet.create({
   codeHighlightContainer: {
     borderRadius: 3,
     padding: 20,
+    width: '100%',
   },
 })
