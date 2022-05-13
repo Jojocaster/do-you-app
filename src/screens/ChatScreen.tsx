@@ -9,11 +9,43 @@ import { CHAT_URL } from '../constants/Endpoints'
 import { useSelector } from 'react-redux'
 import { RootState } from '../store/store'
 import { useIsFocused } from '@react-navigation/native'
+import { useAppState } from '../hooks/useAppState'
+
+const ReloadChat: React.FC<{ reload: () => void }> = ({ reload }) => {
+  const theme = useColorScheme()
+
+  return useMemo(
+    () => (
+      <View style={{ padding: 10 }}>
+        <TouchableOpacity
+          onPressOut={reload}
+          style={{ width: '100%', display: 'flex', alignItems: 'center' }}
+        >
+          <Text>
+            Chat stuck?{' '}
+            <Text
+              style={{
+                color: Colors[theme].chatText,
+                fontWeight: 'bold',
+                textDecorationStyle: 'solid',
+                textDecorationLine: 'underline',
+              }}
+            >
+              Reload
+            </Text>
+          </Text>
+        </TouchableOpacity>
+      </View>
+    ),
+    [theme]
+  )
+}
 
 export default function ChatScreen({ navigation }: RootTabScreenProps<'Chat'>) {
   const [loading, setLoading] = useState(true)
   const { batterySaver } = useSelector((state: RootState) => state.settings)
   const chatRef = useRef<WebView>(null)
+  const appState = useAppState()
   const theme = useColorScheme()
   const isFocused = useIsFocused()
   const [showChat, setShowChat] = useState(true)
@@ -22,6 +54,14 @@ export default function ChatScreen({ navigation }: RootTabScreenProps<'Chat'>) {
     setLoading(true)
     chatRef.current?.reload()
   }
+
+  useEffect(() => {
+    console.log('appState', appState)
+
+    if (batterySaver) {
+      setShowChat(appState === 'active')
+    }
+  }, [appState])
 
   // toggle webview if battery saver enabled on focus update
   useEffect(() => {
@@ -62,26 +102,8 @@ export default function ChatScreen({ navigation }: RootTabScreenProps<'Chat'>) {
           </View>
         )}
 
-        <View style={{ padding: 10 }}>
-          <TouchableOpacity
-            onPressOut={reload}
-            style={{ width: '100%', display: 'flex', alignItems: 'center' }}
-          >
-            <Text>
-              Chat stuck?{' '}
-              <Text
-                style={{
-                  color: Colors[theme].chatText,
-                  fontWeight: 'bold',
-                  textDecorationStyle: 'solid',
-                  textDecorationLine: 'underline',
-                }}
-              >
-                Reload
-              </Text>
-            </Text>
-          </TouchableOpacity>
-        </View>
+        <ReloadChat reload={reload} />
+
         {showChat && (
           <WebView
             onError={reload}

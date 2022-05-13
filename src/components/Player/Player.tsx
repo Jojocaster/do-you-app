@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { ImageBackground, Platform, TouchableHighlight } from 'react-native'
 import { StyledCover } from './Player.styles'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
@@ -13,7 +13,7 @@ import {
 import {
   ARTIST_NAME,
   DEFAULT_SHOW_NAME,
-  PlayerIcons,
+  PlayerStateIcons,
   PLAYER_SIZE,
   STREAM_HEADERS,
 } from './Player.constants'
@@ -30,22 +30,15 @@ import * as Notifications from 'expo-notifications'
 import { AndroidNotificationPriority } from 'expo-notifications'
 import { ShowStatus, updateLastNotified } from '../../store/slices/showSlice'
 import { useShowTitle } from '../../hooks/useShowTitle'
-//@ts-ignore
-import playerBg from '../../../assets/images/playerBg.png'
-//@ts-ignore
-import playerRecord from '../../../assets/images/playerRecord.png'
 
 export const Player: React.FC<{ background: string }> = ({ background }) => {
   const dispatch = useDispatch()
-  // const recordAnim = useRef(new Animated.Value(0))
-  // const spin = recordAnim.current.interpolate({
-  //   inputRange: [0, 1],
-  //   outputRange: ['0deg', '360deg'],
-  // })
+  const [playerState, setPlayerState] = useState<State>(State.None)
   const theme = useColorScheme()
   const currentTitle = useShowTitle()
   const { status } = useSelector((state: RootState) => state.player)
   const {
+    currentShow,
     currentTrack,
     lastNotified,
     status: showStatus,
@@ -54,25 +47,28 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
     (state: RootState) => state.settings
   )
 
-  const initPlayer = async () => {
+  const initPlayer = async () =>
     await TrackPlayer.add([
       {
         // url: 'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3',
         url: LIVE_STREAM_URL,
-        artwork: logo,
+        artwork: currentShow?.image_path || logo,
         album: DEFAULT_SHOW_NAME,
         artist: ARTIST_NAME,
         title: currentTitle,
         headers: STREAM_HEADERS,
       },
     ])
-  }
 
+  // TODO: remove redux bits for now
   useTrackPlayerEvents(
     [Event.RemoteStop, Event.PlaybackState],
     async (event) => {
       if (event.type === Event.PlaybackState) {
         const { state } = event
+
+        setPlayerState(state)
+
         switch (state) {
           case State.Buffering:
           case State.Connecting:
@@ -132,24 +128,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
       }
     }
 
-    // Will play quicker if init from the start
-    // However, iOS doesn't seem to like that - the media won't play if loaded before users actually perform an action
-
-    // Update: this displays a notification before anything gets played, hence commenting it out.
-    // TODO: reduce buffer
-    // if (Platform.OS === 'android') {
-    //   initPlayer()
-    // }
-
     initNotifications()
-    // Animated.loop(
-    //   Animated.timing(recordAnim.current, {
-    //     toValue: 1,
-    //     duration: 1000,
-    //     easing: Easing.linear,
-    //     useNativeDriver: true,
-    //   })
-    // ).start()
   }, [])
 
   useEffect(() => {
@@ -158,7 +137,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
       if (status === PlayerStatus.PLAYING) {
         TrackPlayer.updateNowPlayingMetadata({
           artist: ARTIST_NAME,
-          artwork: logo,
+          artwork: currentShow?.image_path || logo,
           album: DEFAULT_SHOW_NAME,
           title: currentTitle,
         })
@@ -200,23 +179,19 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
 
   // TODO: handle player state better on iOS, loading state doesn't work properly there
   const onPress = async () => {
-    const currentPlayerTrack = await TrackPlayer.getCurrentTrack()
+    // const currentPlayerTrack = await TrackPlayer.getCurrentTrack()
 
-    console.log('currentPlayerTrack', currentPlayerTrack)
-
-    // currentTrack is sometimes set to null after resuming from background, preventing "play" from working normally
-    // re-adding the track allows it to play again
-    // iOS also requires it as the track needs to be init by user action
-    if (currentPlayerTrack === null) {
-      await initPlayer()
-    }
-
-    const playerState = await TrackPlayer.getState()
+    const state = await TrackPlayer.getState()
 
     // only stop if playing, otherwise play - buffering / connecting will play just fine
-    if (playerState === State.Playing) {
+    if (state === State.Playing) {
       await TrackPlayer.stop()
     } else {
+      // reset queue (& buffer)
+      await TrackPlayer.reset()
+      // re-add track
+      await initPlayer()
+      // and finally play track again
       await TrackPlayer.play()
     }
   }
@@ -224,31 +199,12 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
   return (
     <StyledCover
       style={{
-        // backgroundColor: 'red',
         width: PLAYER_SIZE,
         height: PLAYER_SIZE,
         borderColor: '#3A70D6',
         borderWidth: 3,
-        // overflow: 'hidden',
-        // position: 'relative',
       }}
     >
-      {/* <Image
-        source={playerBg}
-        style={{ width: PLAYER_SIZE, height: PLAYER_SIZE }}
-      />
-      <Animated.Image
-        source={playerRecord}
-        style={{
-          transform: [{ rotate: spin }],
-          position: 'absolute',
-          left: 27,
-          top: 48,
-          width: 69,
-          height: 69,
-          zIndex: -1,
-        }}
-      /> */}
       <TouchableHighlight underlayColor="transparent" onPress={onPress}>
         <ImageBackground
           source={require('../../../assets/images/doyou.webp')}
@@ -271,7 +227,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
             }}
           />
           <MaterialCommunityIcons
-            name={PlayerIcons[status]}
+            name={PlayerStateIcons[playerState]}
             size={80}
             color={Colors[theme].player.icon}
           />

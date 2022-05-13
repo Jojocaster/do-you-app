@@ -6,7 +6,7 @@ import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
 import { TrackInfo } from '../../store/slices/tracksInfoSlice'
 import { Button } from '../Button/Button'
-import * as Clipboard from 'expo-clipboard'
+import Clipboard from 'expo-clipboard'
 import { Text, View } from '../Themed'
 
 export const Track: React.FC<{
@@ -22,8 +22,9 @@ export const Track: React.FC<{
   const onCopy = () => {
     try {
       Clipboard.setString(`${track.artist} - ${track.title}`)
+      console.log('[Track copy]', `${track.artist} - ${track.title}`)
     } catch (e) {
-      console.log('There was an error copying to clipboard.')
+      console.log('[Track copy] There was an error copying to clipboard.', e)
     } finally {
       setCopied(true)
     }

@@ -2,7 +2,6 @@ import React from 'react'
 import { Image, Linking, StyleSheet, TouchableOpacity } from 'react-native'
 import { RootTabScreenProps } from '../../types'
 import { Heading } from '../components/Heading/Heading'
-import { Home } from '../components/Home/Home'
 import { Settings } from '../components/Settings/Settings'
 import { Text, View } from '../components/Themed'
 //@ts-ignore
@@ -60,7 +59,7 @@ const Subscribe = () => {
   return (
     <>
       <Heading multiline={false} style={{ fontSize: 32 }}>
-        Subscribe
+        Support the station
       </Heading>
 
       <View
@@ -68,16 +67,22 @@ const Subscribe = () => {
           marginTop: 10,
         }}
       >
-        <Text style={{ marginBottom: 5 }}>Hello dear listener.</Text>
         <Text style={{ marginBottom: 5 }}>
-          The station is subscriber funded.
+          Do!! You!!! World! is a totally independent station free of external
+          investment. A station solely funded by the listeners that will always
+          be free at the point of use.
         </Text>
         <Text style={{ marginBottom: 5 }}>
-          Donations are most welcome but subscriptions are much more effective
-          at keeping it going.
+          However, to allow the station to function, grow and develop, we rely
+          on donations and subscriptions from people like yourself.
         </Text>
-        <Text>
-          If you can contribute, your support will be greatly appreciated.
+        <Text style={{ marginBottom: 5 }}>
+          Your money goes towards paying for staff, rent, studio equipment,
+          licensing fees, developing the service and keeping the service free
+          for all to use.
+        </Text>
+        <Text style={{ marginBottom: 5 }}>
+          If you are able to contribute it is greatly appreciated. DO!!YOU!!!
         </Text>
         <TouchableOpacity style={{ marginTop: 10 }} onPress={onClick}>
           <Image
@@ -124,7 +129,11 @@ const Credits: React.FC = () => (
 
 export default function MoreScreen({ navigation }: RootTabScreenProps<'More'>) {
   return (
-    <ScrollView automaticallyAdjustContentInsets style={styles.view}>
+    <ScrollView
+      bounces={false}
+      overScrollMode="never"
+      showsVerticalScrollIndicator
+    >
       <View
         style={{
           paddingVertical: Space.viewPaddingVertical,
@@ -136,10 +145,10 @@ export default function MoreScreen({ navigation }: RootTabScreenProps<'More'>) {
           <Subscribe />
         </View>
         <View style={styles.section}>
-          <Credits />
+          <Support />
         </View>
         <View style={styles.section}>
-          <Support />
+          <Credits />
         </View>
       </View>
     </ScrollView>

@@ -94,6 +94,7 @@ export const Tracks: React.FC = () => {
   if (loading && !tracks.length) {
     return (
       <View
+        testID="loader"
         style={{
           flex: 1,
           display: 'flex',
@@ -109,6 +110,7 @@ export const Tracks: React.FC = () => {
   if (!loading && !tracks.length) {
     return (
       <View
+        testID="noTracks"
         style={{
           display: 'flex',
           flexDirection: 'column',
