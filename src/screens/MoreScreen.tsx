@@ -68,9 +68,9 @@ const Subscribe = () => {
         }}
       >
         <Text style={{ marginBottom: 5 }}>
-          Do!! You!!! World! is a totally independent station free of external
-          investment. A station solely funded by the listeners that will always
-          be free at the point of use.
+          Do!! You!!! World! is a totally independent station, free of corporate
+          investment. A radio station solely funded by the listeners that will
+          always be free at the point of use.
         </Text>
         <Text style={{ marginBottom: 5 }}>
           However, to allow the station to function, grow and develop, we rely
@@ -78,12 +78,13 @@ const Subscribe = () => {
         </Text>
         <Text style={{ marginBottom: 5 }}>
           Your money goes towards paying for staff, rent, studio equipment,
-          licensing fees, developing the service and keeping the service free
-          for all to use.
+          licensing, developing the service and keeping the it free for all to
+          use.
         </Text>
         <Text style={{ marginBottom: 5 }}>
-          If you are able to contribute it is greatly appreciated. DO!!YOU!!!
+          If you are able to contribute it is greatly appreciated.
         </Text>
+        <Text style={{ marginBottom: 5 }}>DO!!YOU!!! </Text>
         <TouchableOpacity style={{ marginTop: 10 }} onPress={onClick}>
           <Image
             style={{ width: 143, height: 36 }}

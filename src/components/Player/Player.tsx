@@ -114,7 +114,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
           }),
         })
 
-        // create notif channle for icons & vibrate on Android
+        // create notif channel for icons & vibrate on Android
         if (Platform.OS === 'android') {
           await Notifications.setNotificationChannelAsync(
             'notification-sound-channel',
@@ -177,7 +177,6 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
     }
   }, [currentTrack])
 
-  // TODO: handle player state better on iOS, loading state doesn't work properly there
   const onPress = async () => {
     // const currentPlayerTrack = await TrackPlayer.getCurrentTrack()
 
