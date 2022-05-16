@@ -75,6 +75,7 @@ Bug tracker for non-GitHub users: [Google Form](https://forms.gle/5HYMW6AM7vtAZ1
 
 - 0.3.1: [Android](https://play.google.com/store/apps/details?id=com.wonkylines.doyouworld) - [iOS](https://apps.apple.com/gb/app/do-you-world/id1620769718)
 ```
+- Copy added to TrackIDs
 - MoreScreen copy updated, now showing DoYouWorld's ko-fi
 - Player now checks the show API for artwork to make lockscreen / controls more dynamic, reverts to default image if undefined 
 - Battery saver added to settings
