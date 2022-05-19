@@ -51,6 +51,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
     await TrackPlayer.add([
       {
         // url: 'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3',
+        // url: 'https://hooliganexpress.out.airtime.pro/hooliganexpress_b',
         url: LIVE_STREAM_URL,
         artwork: currentShow?.image_path || logo,
         album: DEFAULT_SHOW_NAME,
@@ -100,7 +101,6 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
     const initNotifications = async () => {
       // check permission for iOS
       const permission = await Notifications.getPermissionsAsync()
-
       if (
         permission.granted ||
         permission.ios?.status ===

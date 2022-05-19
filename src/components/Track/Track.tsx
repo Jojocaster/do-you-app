@@ -6,7 +6,7 @@ import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
 import { TrackInfo } from '../../store/slices/tracksInfoSlice'
 import { Button } from '../Button/Button'
-import Clipboard from 'expo-clipboard'
+import { Clipboard } from 'react-native'
 import { Text, View } from '../Themed'
 
 export const Track: React.FC<{
