@@ -1,11 +1,12 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import { format, parseJSON } from 'date-fns'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { StyleSheet, TouchableOpacity } from 'react-native'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
 import { TrackInfo } from '../../store/slices/tracksInfoSlice'
-import { MonoText } from '../StyledText'
+import { Button } from '../Button/Button'
+import { Clipboard } from 'react-native'
 import { Text, View } from '../Themed'
 
 export const Track: React.FC<{
@@ -13,9 +14,25 @@ export const Track: React.FC<{
   onToggle: (track: string) => void
   track: TrackInfo
 }> = ({ active, track, onToggle }) => {
+  const [copied, setCopied] = useState(false)
   const theme = useColorScheme()
   const timecode = parseJSON(track.played_datetime)
   const formattedTimecode = format(timecode, 'HH:mm')
+
+  const onCopy = () => {
+    try {
+      Clipboard.setString(`${track.artist} - ${track.title}`)
+      console.log('[Track copy]', `${track.artist} - ${track.title}`)
+    } catch (e) {
+      console.log('[Track copy] There was an error copying to clipboard.', e)
+    } finally {
+      setCopied(true)
+    }
+  }
+
+  useEffect(() => {
+    setCopied(false)
+  }, [active])
 
   // big performance impact, re-rendering all components added a ~200ms delay
   // useMemo prevents that by only re-rendering the tracks involved
@@ -47,7 +64,7 @@ export const Track: React.FC<{
               <View style={styles.trackContainer}>
                 <Text
                   style={{
-                    color: Colors[theme].tracks.artist,
+                    color: Colors[theme].primary,
                     fontWeight: 'bold',
                     fontSize: 14,
                   }}
@@ -85,6 +102,20 @@ export const Track: React.FC<{
                           {track.release_date}
                         </Text>
                       </Text>
+                      <View
+                        style={styles.separator}
+                        lightColor="#eee"
+                        darkColor="rgba(255,255,255,0.1)"
+                      />
+                      <View style={{}}>
+                        <Button
+                          color={copied ? Colors[theme].primary : undefined}
+                          icon={copied ? 'check' : 'content-copy'}
+                          onPress={onCopy}
+                        >
+                          {copied ? `Copied` : 'Copy'}
+                        </Button>
+                      </View>
                     </View>
 
                     // <View
@@ -106,7 +137,7 @@ export const Track: React.FC<{
         </View>
       </View>
     ),
-    [active, theme]
+    [active, theme, copied]
   )
 }
 
@@ -130,5 +161,10 @@ const styles = StyleSheet.create({
   homeScreenFilename: {
     marginVertical: 10,
     display: 'flex',
+  },
+  separator: {
+    marginVertical: 10,
+    height: 1,
+    width: '50%',
   },
 })

@@ -35,7 +35,7 @@ export const VolumeControl: React.FC = () => {
       <View
         style={{
           paddingHorizontal: Space.viewPadding,
-          marginTop: 20,
+          paddingVertical: 20,
           width: '100%',
           display: 'flex',
           alignItems: 'center',
@@ -54,7 +54,7 @@ export const VolumeControl: React.FC = () => {
           onValueChange={setVolume}
           // set volume to 1 if never set before
           value={volume || 1}
-          thumbTintColor={Colors[theme].primary}
+          thumbTintColor={Colors[theme].volume.thumb}
           minimumTrackTintColor={Colors[theme].volume.trackTint}
           maximumTrackTintColor="#000000"
         />

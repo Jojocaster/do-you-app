@@ -11,6 +11,7 @@ export enum ShowStatus {
 interface ShowInfo {
   name?: string
   starts: string
+  image_path: string
 }
 interface TrackInfo {
   starts: string

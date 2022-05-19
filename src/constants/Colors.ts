@@ -3,7 +3,13 @@ const tintColorDark = '#fff'
 const brandYellow = '#FFDC3B'
 const brandBlue = '#3A70D6'
 
-export default {
+const common = {
+  warning: brandYellow,
+  success: '#27ae60',
+}
+
+const Colors = {
+  common,
   light: {
     text: '#000',
     statusBar: brandBlue,
@@ -11,12 +17,14 @@ export default {
     tint: tintColorLight,
     tabIconDefault: '#ccc',
     tabIconSelected: brandBlue,
-    primary: brandYellow,
+    primary: brandBlue,
+    secondary: brandYellow,
     accent: brandBlue,
     heading: brandYellow,
     headingShadow: brandBlue,
     scheduleBackground: '#F8F8F8',
     scheduleText: '#000',
+    scheduleUnderline: brandYellow,
     scheduleHeading: brandBlue,
     switch: {
       trackActive: brandYellow,
@@ -25,11 +33,15 @@ export default {
       thumb: 'white',
       thumDisabled: '#F5F5F5',
     },
+    player: {
+      icon: brandBlue,
+    },
     tracks: {
       artist: brandBlue,
     },
     volume: {
       trackTint: brandYellow,
+      thumb: brandYellow,
       icons: 'black',
     },
     chatText: brandBlue,
@@ -42,11 +54,13 @@ export default {
     tabIconSelected: tintColorDark,
     // old primary: '#E4C75E',
     primary: brandYellow,
+    secondary: brandBlue,
     accent: '#000',
     statusBar: '#151515',
     heading: brandYellow,
     headingShadow: brandBlue,
     scheduleBackground: tintColorLight,
+    scheduleUnderline: brandYellow,
     scheduleText: '#fff',
     scheduleHeading: '#fff',
     switch: {
@@ -56,13 +70,17 @@ export default {
       thumb: 'white',
       thumDisabled: 'dimgrey',
     },
-    tracks: {
-      artist: brandYellow,
+    player: {
+      icon: 'black',
     },
     volume: {
       trackTint: 'white',
+      thumb: brandYellow,
       icons: 'white',
     },
     chatText: brandYellow,
   },
 }
+
+export type Palette = typeof Colors['light']
+export default Colors

@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ColorSchemeName } from 'react-native'
 
 export interface SettingsState {
+  batterySaver: boolean
   darkTheme: boolean
   liveStatusNotification: boolean
   useNativeTheme: boolean
@@ -10,6 +11,7 @@ export interface SettingsState {
 }
 
 const initialState: SettingsState = {
+  batterySaver: false,
   liveStatusNotification: false,
   useNativeTheme: true,
   darkTheme: false,

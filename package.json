@@ -1,6 +1,6 @@
 {
   "name": "do-you-world",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
@@ -15,10 +15,15 @@
     "build:android:prod": "eas build --platform android --profile production",
     "build:ios:preview": "eas build --platform ios --profile preview",
     "build:ios:dev": "eas build --platform ios --profile development",
-    "build:ios:prod": "eas build --platform ios --profile production"
+    "build:ios:prod": "eas build --platform ios --profile production",
+    "publish:android": "eas submit -p android",
+    "publish:ios": "eas submit -p ios"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "setupFiles": [
+      "./jestSetup.js"
+    ]
   },
   "dependencies": {
     "@expo-google-fonts/lato": "0.2.2",
@@ -53,11 +58,13 @@
     "react-redux": "7.2.6",
     "redux-persist": "6.0.0",
     "styled-components": "5.3.5",
-    "expo-system-ui": "~1.1.0"
+    "expo-system-ui": "~1.1.0",
+    "expo-clipboard": "~2.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@expo/config": "6.0.20",
+    "@testing-library/react-native": "9.1.0",
     "@types/react": "~17.0.21",
     "@types/react-native": "~0.64.12",
     "@types/react-redux": "7.1.23",
@@ -69,6 +76,7 @@
     "eslint-plugin-unused-imports": "2.0.0",
     "jest": "^26.6.3",
     "jest-expo": "~44.0.1",
+    "jest-fetch-mock": "3.0.3",
     "prettier": "2.6.2",
     "react-test-renderer": "17.0.1",
     "tslint-config-prettier": "1.18.0",

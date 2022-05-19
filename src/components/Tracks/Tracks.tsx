@@ -94,6 +94,7 @@ export const Tracks: React.FC = () => {
   if (loading && !tracks.length) {
     return (
       <View
+        testID="loader"
         style={{
           flex: 1,
           display: 'flex',
@@ -109,12 +110,14 @@ export const Tracks: React.FC = () => {
   if (!loading && !tracks.length) {
     return (
       <View
+        testID="noTracks"
         style={{
           display: 'flex',
           flexDirection: 'column',
           flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
+          width: '100%',
         }}
       >
         <Animated.View style={{ opacity: fadeAnim }}>
@@ -141,7 +144,7 @@ export const Tracks: React.FC = () => {
       showsVerticalScrollIndicator={false}
       fadingEdgeLength={100}
       overScrollMode="never"
-      style={{ marginTop: 20 }}
+      style={{ marginTop: 20, width: '100%' }}
     />
   )
 }
