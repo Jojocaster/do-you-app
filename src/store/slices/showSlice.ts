@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { LIVE_INFO_URL } from '../../constants/Endpoints'
 
 export enum ShowStatus {
@@ -27,7 +27,6 @@ interface ShowState {
   currentTrack: TrackInfo | null
   status: ShowStatus
   lastUpdated: number | null
-  lastNotified: number | null
 }
 
 interface LiveInfo {
@@ -53,30 +52,20 @@ const initialState: ShowState = {
   currentTrack: null,
   status: ShowStatus.LOADING,
   lastUpdated: null,
-  lastNotified: null,
 }
 
 const showSlice = createSlice({
   initialState,
   name: 'show',
-  reducers: {
-    updateLastNotified: (state, action: PayloadAction<number>) => {
-      state.lastNotified = action.payload
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchShowInfo.fulfilled, (state, action) => {
       console.log('[fetchShow]: resolved')
-      state.status = action.payload.tracks.current
-        ? ShowStatus.ON
-        : ShowStatus.OFF
+      state.status =
+        action.payload.tracks.current || action.payload.shows.current
+          ? ShowStatus.ON
+          : ShowStatus.OFF
       state.lastUpdated = new Date().getTime()
-
-      if (
-        state.currentTrack?.starts !== action.payload.tracks?.current?.starts
-      ) {
-        state.lastNotified = null
-      }
 
       state.currentTrack = action.payload.tracks?.current || null
       state.currentShow = action.payload.shows?.current || null
@@ -93,5 +82,4 @@ const showSlice = createSlice({
   },
 })
 
-export const { updateLastNotified } = showSlice.actions
 export default showSlice.reducer

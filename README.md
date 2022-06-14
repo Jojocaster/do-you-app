@@ -44,7 +44,7 @@ Bug tracker for non-GitHub users: [Google Form](https://forms.gle/5HYMW6AM7vtAZ1
 ## Roadmap
 - UI & UX improvements
 - Add animation when show is playing
-- Trigger push notifications from server instead of polling data from client (using `Lambda`, `CRON`, `S3` & `expo-notifications`)
+- Fetch current track in background and update "now playing" 
 - Add "Archives" tab
 - Improve splash screen
 - Link track IDs to archives
@@ -57,6 +57,7 @@ Bug tracker for non-GitHub users: [Google Form](https://forms.gle/5HYMW6AM7vtAZ1
 - Remove useless packages (e.g. styled-components)
 
 ### Done
+<del>- Trigger push notifications from server instead of polling data from client (using `Lambda`, `CRON`, `S3` & `expo-notifications`)</dev>
 - <del>Fetch live info in the background to send notifications when shows are live</del>
 - <del>Add volume control</del>
 - <del>Add Settings to manage alerts</del>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "930084554248",
+    "project_id": "do-you-world-dev",
+    "storage_bucket": "do-you-world-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:930084554248:android:6ca8f61dc7fcdc742733bd",
+        "android_client_info": {
+          "package_name": "com.wonkylines.doyouworld.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "930084554248-tgue46u6k450iqa9f894ni5nmbr1drgb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPIRKNFmRQeY7O1de4UKXMfJpOCEK2nF8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "930084554248-tgue46u6k450iqa9f894ni5nmbr1drgb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

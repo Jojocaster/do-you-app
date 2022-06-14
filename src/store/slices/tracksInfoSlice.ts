@@ -16,7 +16,7 @@ export interface TrackInfo {
 export interface TracksInfoState {
   tracks: TrackInfo[]
   loading: boolean
-  lastUpdated: number | null
+  lastUpdated: number
 }
 
 export const fetchTracksInfo = createAsyncThunk(
@@ -29,7 +29,7 @@ export const fetchTracksInfo = createAsyncThunk(
 )
 
 const initialState: TracksInfoState = {
-  lastUpdated: null,
+  lastUpdated: 0,
   loading: true,
   tracks: [],
 }

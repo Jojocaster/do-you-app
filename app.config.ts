@@ -3,6 +3,7 @@ import { ExpoConfig, ConfigContext } from '@expo/config'
 export default ({ config }: ConfigContext): Partial<ExpoConfig> => {
   //@ts-ignore
   const target = process.env.TARGET
+
   const appName =
     target === 'dev'
       ? `${config.name} Dev`
@@ -27,6 +28,7 @@ export default ({ config }: ConfigContext): Partial<ExpoConfig> => {
     android: {
       ...config.android,
       package: packageName,
+      googleServicesFile: `./services/firebase/${target}/google-services.json`,
     },
   }
 }

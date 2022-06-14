@@ -5,20 +5,11 @@ import { Home } from '../components/Home/Home'
 import { View } from '../components/Themed'
 import { Player } from '../components/Player/Player'
 import { Schedule } from '../components/Schedule/Schedule'
-import * as Notifications from 'expo-notifications'
 import { RootTabScreenProps } from '../../types'
 import { Container } from '../components/Container/Container'
 import useColorScheme from '../hooks/useColorScheme'
 import Colors from '../constants/Colors'
 import { VolumeControl } from '../components/VolumeControl/VolumeControl'
-
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: false,
-  }),
-})
 
 export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
   const theme = useColorScheme()

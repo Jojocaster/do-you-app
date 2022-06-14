@@ -1,18 +1,17 @@
-import { useAsyncStorage } from '@react-native-async-storage/async-storage'
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ColorSchemeName } from 'react-native'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface SettingsState {
   batterySaver: boolean
   darkTheme: boolean
-  liveStatusNotification: boolean
+  pushEnabled: boolean
   useNativeTheme: boolean
   volume: number
+  token?: string
 }
 
 const initialState: SettingsState = {
   batterySaver: false,
-  liveStatusNotification: false,
+  pushEnabled: false,
   useNativeTheme: true,
   darkTheme: false,
   volume: 1,
