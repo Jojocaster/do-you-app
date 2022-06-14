@@ -8,7 +8,7 @@ import { useAppState } from '../../hooks/useAppState'
 import useColorScheme from '../../hooks/useColorScheme'
 import { RootState } from '../../store/store'
 import { ShowInfo } from '../../utils/schedule'
-import { Text, useThemeColor, View } from '../Themed'
+import { Text, View } from '../Themed'
 import { decodeHtmlCharCodes, getLocalShowTime } from './ScheduleItem.utils'
 
 const LiveShow: React.FC = ({ children }) => {

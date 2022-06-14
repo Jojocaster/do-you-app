@@ -4,7 +4,6 @@ import { StyleSheet, TouchableOpacity } from 'react-native'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
 import { Text, View } from '../Themed'
-import { ButtonVariant } from './Button.types'
 
 //TODO: fix types
 export const Button: React.FC<{
@@ -17,7 +16,7 @@ export const Button: React.FC<{
 
   return (
     <TouchableOpacity
-      onPress={onPress}
+      onPressIn={onPress}
       style={{ display: 'flex', flexDirection: 'row' }}
     >
       <View style={[styles.button, {}]}>

@@ -2,7 +2,7 @@ import { StatusType } from './Status.types'
 
 export const StatusLabels: Record<StatusType, string> = {
   [StatusType.OFF]: `We're out.`,
-  [StatusType.ON]: `We're on baby!`,
+  [StatusType.ON]: `We're on, baby!`,
   [StatusType.LOADING]: `Checking ...`,
   [StatusType.ERROR]: `Checking ...`,
 }

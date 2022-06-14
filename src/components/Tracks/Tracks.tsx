@@ -1,45 +1,23 @@
-import { Octicons } from '@expo/vector-icons'
 import { useIsFocused } from '@react-navigation/native'
+import { isToday } from 'date-fns'
 import React, { useEffect, useRef, useState } from 'react'
-import { ActivityIndicator, Animated, FlatList } from 'react-native'
+import { FlatList } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import Colors from '../../constants/Colors'
-import useColorScheme from '../../hooks/useColorScheme'
 import { ShowStatus } from '../../store/slices/showSlice'
 import { fetchTracksInfo } from '../../store/slices/tracksInfoSlice'
 import { RootState } from '../../store/store'
-import { Text, View } from '../Themed'
+import { Loader } from '../Loader/Loader'
 import { Track } from '../Track/Track'
 
 export const Tracks: React.FC = () => {
   const dispatch = useDispatch()
   const [activeTrack, setActiveTrack] = useState<string>()
-  const fadeAnim = useRef(new Animated.Value(1)).current
-  const theme = useColorScheme()
   const isFocused = useIsFocused()
   const timeout = useRef<NodeJS.Timeout>()
   const { lastUpdated, loading, tracks } = useSelector(
     (state: RootState) => state.tracksInfo
   )
   const { status } = useSelector((state: RootState) => state.show)
-
-  // setup animation
-  useEffect(() => {
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(fadeAnim, {
-          toValue: 0.5,
-          duration: 1000,
-          useNativeDriver: true,
-        }),
-        Animated.timing(fadeAnim, {
-          toValue: 1,
-          duration: 1000,
-          useNativeDriver: true,
-        }),
-      ])
-    ).start()
-  }, [])
 
   const onToggle = (track: string) => {
     if (track === activeTrack) {
@@ -91,43 +69,12 @@ export const Tracks: React.FC = () => {
     restartTimer()
   }, [lastUpdated])
 
-  if (loading && !tracks.length) {
-    return (
-      <View
-        testID="loader"
-        style={{
-          flex: 1,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <ActivityIndicator color={Colors[theme].primary} />
-      </View>
-    )
+  if ((loading && !tracks.length) || (loading && !isToday(lastUpdated))) {
+    return <Loader>Loading bangers</Loader>
   }
 
-  if (!loading && !tracks.length) {
-    return (
-      <View
-        testID="noTracks"
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: '100%',
-        }}
-      >
-        <Animated.View style={{ opacity: fadeAnim }}>
-          <Octicons name="radio-tower" size={30} color={Colors[theme].tint} />
-        </Animated.View>
-        <Text style={{ marginTop: 20, fontFamily: 'Lato_900Black' }}>
-          No bangers here - yet
-        </Text>
-      </View>
-    )
+  if ((!loading && !tracks.length) || (!loading && !isToday(lastUpdated))) {
+    return <Loader>No bangers here - yet</Loader>
   }
 
   return (
