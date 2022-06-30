@@ -7,6 +7,7 @@ export const useShowTitle = () => {
   const { currentShow, currentTrack } = useSelector(
     (state: RootState) => state.show
   )
+
   const title = currentTrack?.name?.length
     ? decodeHtmlCharCodes(currentTrack.name)
     : currentShow?.name

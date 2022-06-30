@@ -13,9 +13,11 @@ import { Status } from './src/components/Status/Status'
 import logo from './assets/images/doyou.webp'
 import { Platform } from 'react-native'
 import { PersistGate } from 'redux-persist/integration/react'
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { View } from './src/components/Themed'
 import * as SplashScreen from 'expo-splash-screen'
+import * as BackgroundFetch from 'expo-background-fetch'
+import * as TaskManager from 'expo-task-manager'
 
 // Required on iOS (otherwise player will go to pause state while buffering)
 // Only makes Android slower to load, hence the condition
@@ -27,10 +29,40 @@ TrackPlayer.updateOptions({
   compactCapabilities: [Capability.Stop, Capability.Pause, Capability.Play],
 })
 
-// Updates.fetchUpdateAsync()
+const TASK_NAME = 'BACKGROUND_TASK'
+
+TaskManager.defineTask(TASK_NAME, () => {
+  try {
+    // fetch data here...
+    const receivedNewData = 'Simulated fetch ' + Math.random()
+    console.log('My task ', receivedNewData)
+    return receivedNewData
+      ? //@ts-ignore
+        BackgroundFetch.Result.NewData
+      : //@ts-ignore
+        BackgroundFetch.Result.NoData
+  } catch (err) {
+    //@ts-ignore
+    return BackgroundFetch.Result.Failed
+  }
+})
 
 export default function App() {
   const isLoadingComplete = useCachedResources()
+  const registerBackgroundTask = async () => {
+    try {
+      await BackgroundFetch.registerTaskAsync(TASK_NAME, {
+        minimumInterval: 5, // seconds,
+      })
+      console.log('Task registered')
+    } catch (err) {
+      console.log('Task Register failed:', err)
+    }
+  }
+
+  useEffect(() => {
+    registerBackgroundTask()
+  }, [])
   // const colorScheme = useColorScheme()
   const onLayout = useCallback(async () => {
     if (isLoadingComplete) {

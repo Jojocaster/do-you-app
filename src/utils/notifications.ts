@@ -6,7 +6,7 @@ import {
   setNotificationChannelAsync,
 } from 'expo-notifications'
 import { Platform } from 'react-native'
-import { PUSH_URL } from '../constants/Endpoints'
+import { getEnv } from '../constants/Env'
 import { fetchData } from './fetch'
 
 export const getToken = async () => {
@@ -40,7 +40,7 @@ export const getToken = async () => {
 export const registerToken = async (token: string): Promise<boolean> => {
   try {
     const data = await fetchData({
-      url: `${PUSH_URL}/register`,
+      url: `${getEnv('API_URL')}/register`,
       data: { token },
       method: 'POST',
     })
@@ -58,7 +58,7 @@ export const registerToken = async (token: string): Promise<boolean> => {
 export const unregisterToken = async (token: string) => {
   try {
     const data = await fetchData({
-      url: `${PUSH_URL}/unregister`,
+      url: `${getEnv('API_URL')}/unregister`,
       data: { token },
       method: 'POST',
     })

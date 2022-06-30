@@ -59,7 +59,9 @@
     "redux-persist": "6.0.0",
     "styled-components": "5.3.5",
     "expo-system-ui": "~1.1.0",
-    "expo-clipboard": "~2.1.0"
+    "expo-clipboard": "~2.1.0",
+    "expo-background-fetch": "~10.1.0",
+    "expo-task-manager": "~10.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

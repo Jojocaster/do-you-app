@@ -32,6 +32,7 @@ import {
 import LinkingConfiguration from './LinkingConfiguration'
 import MoreScreen from '../screens/MoreScreen'
 import ChatScreen from '../screens/ChatScreen'
+import ArchiveScreen from '../screens/ArchiveScreen'
 // import ArchiveScreen from '../screens/ArchiveScreen'
 
 export default function Navigation({
@@ -147,7 +148,7 @@ function BottomTabNavigator() {
           ),
         })}
       />
-      {/* <BottomTab.Screen
+      <BottomTab.Screen
         name="Archive"
         component={ArchiveScreen}
         options={({ navigation }: RootTabScreenProps<'Archive'>) => ({
@@ -160,7 +161,7 @@ function BottomTabNavigator() {
             />
           ),
         })}
-      /> */}
+      />
       <BottomTab.Screen
         name="More"
         component={MoreScreen}

@@ -31,8 +31,6 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
   const [playerState, setPlayerState] = useState<State>(State.None)
   const theme = useColorScheme()
   const currentTitle = useShowTitle()
-  const nowPlaying = useRef(currentTitle)
-  const { status } = useSelector((state: RootState) => state.player)
   const {
     currentShow,
     currentTrack,
@@ -90,20 +88,15 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
   )
 
   useEffect(() => {
-    if (currentTrack) {
+    if (currentTrack || currentShow) {
       // only update when playing to prevent showing controls when not playing
-      if (status === PlayerStatus.PLAYING) {
-        // only update if title has changed
-        if (currentTitle !== nowPlaying.current) {
-          TrackPlayer.updateNowPlayingMetadata({
-            artist: ARTIST_NAME,
-            artwork: currentShow?.image_path || logo,
-            album: DEFAULT_SHOW_NAME,
-            title: currentTitle,
-          })
-          // store new title for next loop
-          nowPlaying.current = currentTitle
-        }
+      if (playerState !== State.Stopped) {
+        TrackPlayer.updateNowPlayingMetadata({
+          artist: ARTIST_NAME,
+          artwork: currentShow?.image_path || logo,
+          album: DEFAULT_SHOW_NAME,
+          title: currentTitle,
+        })
       }
     } else {
       // stop player if show has ended
@@ -111,7 +104,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
         TrackPlayer.stop()
       }
     }
-  }, [currentTrack])
+  }, [currentTrack, currentShow])
 
   const onPress = async () => {
     // const currentPlayerTrack = await TrackPlayer.getCurrentTrack()
