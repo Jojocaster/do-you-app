@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { ImageBackground, TouchableHighlight } from 'react-native'
 import { StyledCover } from './Player.styles'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
@@ -6,7 +6,6 @@ import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../store/store'
-import { PlayerStatus } from '../../store/slices/playerSlice'
 import {
   ARTIST_NAME,
   DEFAULT_SHOW_NAME,
@@ -23,21 +22,26 @@ import TrackPlayer, {
 } from 'react-native-track-player'
 //@ts-ignore
 import logo from '../../../assets/images/doyou.webp'
-import { ShowStatus } from '../../store/slices/showSlice'
-import { useShowTitle } from '../../hooks/useShowTitle'
+import { getShowTitle } from '../../utils/show'
+import {
+  registerBackgroundTask,
+  unregisterBackgroundTask,
+} from '../../utils/tasks'
 
 export const Player: React.FC<{ background: string }> = ({ background }) => {
   // const dispatch = useDispatch()
   const [playerState, setPlayerState] = useState<State>(State.None)
   const theme = useColorScheme()
-  const currentTitle = useShowTitle()
-  const {
-    currentShow,
-    currentTrack,
-    status: showStatus,
-  } = useSelector((state: RootState) => state.show)
+  const { currentShow, currentTrack } = useSelector(
+    (state: RootState) => state.show
+  )
+  const { batterySaver } = useSelector((state: RootState) => state.settings)
 
-  const initPlayer = async () =>
+  const initPlayer = async () => {
+    if (!batterySaver) {
+      await registerBackgroundTask()
+    }
+
     await TrackPlayer.add([
       {
         // url: 'https://hooliganexpress.out.airtime.pro/hooliganexpress_b',
@@ -46,12 +50,12 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
         artwork: currentShow?.image_path || logo,
         album: DEFAULT_SHOW_NAME,
         artist: ARTIST_NAME,
-        title: currentTitle,
+        title: getShowTitle({ currentShow, currentTrack }),
         headers: STREAM_HEADERS,
       },
     ])
+  }
 
-  // TODO: remove redux bits for good
   useTrackPlayerEvents(
     [Event.RemoteStop, Event.PlaybackState],
     async (event) => {
@@ -59,30 +63,6 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
         const { state } = event
 
         setPlayerState(state)
-
-        // switch (state) {
-        //   case State.Buffering:
-        //   case State.Connecting:
-        //     dispatch(updatePlayerStatus(PlayerStatus.LOADING))
-        //     break
-        //   // ios triggers "ready" while buffering, hence the exception
-        //   case State.Ready:
-        //     if (Platform.OS === 'ios') {
-        //       dispatch(updatePlayerStatus(PlayerStatus.LOADING))
-        //       // use as "paused" on Android to avoid loading icon on Android
-        //     } else {
-        //       dispatch(updatePlayerStatus(PlayerStatus.PAUSED))
-        //     }
-        //   case State.Paused:
-        //   case State.Stopped:
-        //   case State.None:
-        //     dispatch(updatePlayerStatus(PlayerStatus.PAUSED))
-        //     break
-
-        //   case State.Playing:
-        //     dispatch(updatePlayerStatus(PlayerStatus.PLAYING))
-        //     break
-        // }
       }
     }
   )
@@ -90,19 +70,19 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
   useEffect(() => {
     if (currentTrack || currentShow) {
       // only update when playing to prevent showing controls when not playing
-      if (playerState !== State.Stopped) {
+      if (playerState === State.Playing || playerState === State.Paused) {
         TrackPlayer.updateNowPlayingMetadata({
           artist: ARTIST_NAME,
           artwork: currentShow?.image_path || logo,
           album: DEFAULT_SHOW_NAME,
-          title: currentTitle,
+          title: getShowTitle({ currentShow, currentTrack }),
         })
       }
     } else {
       // stop player if show has ended
-      if (showStatus === ShowStatus.OFF) {
-        TrackPlayer.stop()
-      }
+      // if (showStatus === ShowStatus.OFF) {
+      //   TrackPlayer.stop()
+      // }
     }
   }, [currentTrack, currentShow])
 
@@ -113,6 +93,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
 
     // only stop if playing, otherwise play - buffering / connecting will play just fine
     if (state === State.Playing) {
+      unregisterBackgroundTask()
       await TrackPlayer.stop()
     } else {
       // reset queue (& buffer)

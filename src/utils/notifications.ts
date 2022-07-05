@@ -10,6 +10,7 @@ import { getEnv } from '../constants/Env'
 import { fetchData } from './fetch'
 
 export const getToken = async () => {
+  console.log('[fetchToken]')
   const { status: existingStatus } = await getPermissionsAsync()
   let finalStatus = existingStatus
   if (existingStatus !== 'granted') {

@@ -8,12 +8,12 @@ export enum ShowStatus {
   ERROR,
 }
 
-interface ShowInfo {
+export interface CurrentShowInfo {
   name?: string
   starts: string
   image_path: string
 }
-interface TrackInfo {
+export interface CurrentTrackInfo {
   starts: string
   ends: string
   type: string
@@ -23,18 +23,18 @@ interface TrackInfo {
 }
 
 interface ShowState {
-  currentShow: ShowInfo | null
-  currentTrack: TrackInfo | null
+  currentShow: CurrentShowInfo | null
+  currentTrack: CurrentTrackInfo | null
   status: ShowStatus
   lastUpdated: number | null
 }
 
 interface LiveInfo {
   shows: {
-    current: ShowInfo
+    current: CurrentShowInfo
   }
   tracks: {
-    current: TrackInfo
+    current: CurrentTrackInfo
   }
 }
 

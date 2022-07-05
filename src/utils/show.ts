@@ -1,13 +1,14 @@
-import { useSelector } from 'react-redux'
 import { DEFAULT_SHOW_NAME } from '../components/Player/Player.constants'
 import { decodeHtmlCharCodes } from '../components/ScheduleItem/ScheduleItem.utils'
-import { RootState } from '../store/store'
+import { CurrentShowInfo, CurrentTrackInfo } from '../store/slices/showSlice'
 
-export const useShowTitle = () => {
-  const { currentShow, currentTrack } = useSelector(
-    (state: RootState) => state.show
-  )
-
+export const getShowTitle = ({
+  currentShow,
+  currentTrack,
+}: {
+  currentShow?: CurrentShowInfo | null
+  currentTrack?: CurrentTrackInfo | null
+}) => {
   const title = currentTrack?.name?.length
     ? decodeHtmlCharCodes(currentTrack.name)
     : currentShow?.name

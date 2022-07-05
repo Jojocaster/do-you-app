@@ -64,7 +64,7 @@ export const Settings: React.FC = () => {
         value={pushEnabled}
         onToggle={() => togglePushNotifications(pushEnabled)}
       >
-        Let me when a show is live
+        Enable notifications
       </SingleSetting>
       <SingleSetting
         value={useNativeTheme}

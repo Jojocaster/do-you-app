@@ -9,23 +9,23 @@ export const Loader: React.FC<{ children?: string }> = ({ children }) => {
   const theme = useColorScheme()
   const fadeAnim = useRef(new Animated.Value(1)).current
 
-  // setup animation
-  useEffect(() => {
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(fadeAnim, {
-          toValue: 0.5,
-          duration: 1000,
-          useNativeDriver: true,
-        }),
-        Animated.timing(fadeAnim, {
-          toValue: 1,
-          duration: 1000,
-          useNativeDriver: true,
-        }),
-      ])
-    ).start()
-  }, [])
+  // commented out for now as this might created memory leaks
+  // useEffect(() => {
+  // Animated.loop(
+  //   Animated.sequence([
+  //     Animated.timing(fadeAnim, {
+  //       toValue: 0.5,
+  //       duration: 1000,
+  //       useNativeDriver: true,
+  //     }),
+  //     Animated.timing(fadeAnim, {
+  //       toValue: 1,
+  //       duration: 1000,
+  //       useNativeDriver: true,
+  //     }),
+  //   ])
+  // ).start()
+  // }, [])
 
   return (
     <View
