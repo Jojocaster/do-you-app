@@ -15,7 +15,9 @@ export default function TrackScreen({
   return (
     <View style={styles.container}>
       <View style={{ width: '100%' }}>
-        <Heading offset={50}>TODAY'S TRACKS</Heading>
+        <Heading style={{ fontSize: 32 }} multiline={false}>
+          Track IDs
+        </Heading>
       </View>
       <View
         style={[styles.codeHighlightContainer, styles.homeScreenFilename]}

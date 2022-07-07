@@ -1,31 +1,11 @@
-import React, { useEffect, useRef } from 'react'
 import { Octicons } from '@expo/vector-icons'
-import { Animated } from 'react-native'
-import { Text, View } from '../Themed'
+import React from 'react'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
+import { Text, View } from '../Themed'
 
 export const Loader: React.FC<{ children?: string }> = ({ children }) => {
   const theme = useColorScheme()
-  const fadeAnim = useRef(new Animated.Value(1)).current
-
-  // commented out for now as this might created memory leaks
-  // useEffect(() => {
-  // Animated.loop(
-  //   Animated.sequence([
-  //     Animated.timing(fadeAnim, {
-  //       toValue: 0.5,
-  //       duration: 1000,
-  //       useNativeDriver: true,
-  //     }),
-  //     Animated.timing(fadeAnim, {
-  //       toValue: 1,
-  //       duration: 1000,
-  //       useNativeDriver: true,
-  //     }),
-  //   ])
-  // ).start()
-  // }, [])
 
   return (
     <View
@@ -39,9 +19,9 @@ export const Loader: React.FC<{ children?: string }> = ({ children }) => {
         width: '100%',
       }}
     >
-      <Animated.View style={{ opacity: fadeAnim }}>
+      <View>
         <Octicons name="radio-tower" size={30} color={Colors[theme].tint} />
-      </Animated.View>
+      </View>
       {children && (
         <Text style={{ marginTop: 20, fontFamily: 'Lato_900Black' }}>
           {children}

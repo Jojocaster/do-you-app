@@ -1,7 +1,6 @@
 import { parseJSON } from 'date-fns'
 import { format } from 'date-fns-tz'
-import React, { useEffect, useRef } from 'react'
-import { Animated } from 'react-native'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import Colors from '../../constants/Colors'
 import { useAppState } from '../../hooks/useAppState'
@@ -13,30 +12,11 @@ import { decodeHtmlCharCodes, getLocalShowTime } from './ScheduleItem.utils'
 
 const LiveShow: React.FC = ({ children }) => {
   const theme = useColorScheme()
-  const anim = useRef(new Animated.Value(1))
-
-  useEffect(() => {
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(anim.current, {
-          toValue: 0.8,
-          duration: 1000,
-          useNativeDriver: false,
-        }),
-        Animated.timing(anim.current, {
-          toValue: 1,
-          duration: 1000,
-          useNativeDriver: false,
-        }),
-      ])
-    ).start()
-  }, [])
 
   return (
-    <Animated.Text
+    <Text
       style={{
         color: Colors[theme].primary,
-        opacity: anim.current,
         fontSize: 16,
         fontWeight: 'bold',
 
@@ -45,7 +25,7 @@ const LiveShow: React.FC = ({ children }) => {
       }}
     >
       {children}
-    </Animated.Text>
+    </Text>
   )
 }
 

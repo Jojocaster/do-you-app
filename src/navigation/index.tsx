@@ -32,8 +32,7 @@ import {
 import LinkingConfiguration from './LinkingConfiguration'
 import MoreScreen from '../screens/MoreScreen'
 import ChatScreen from '../screens/ChatScreen'
-import ArchiveScreen from '../screens/ArchiveScreen'
-// import ArchiveScreen from '../screens/ArchiveScreen'
+import ArchivesScreen from '../screens/ArchivesScreen'
 
 export default function Navigation({
   colorScheme,
@@ -149,10 +148,10 @@ function BottomTabNavigator() {
         })}
       />
       <BottomTab.Screen
-        name="Archive"
-        component={ArchiveScreen}
-        options={({ navigation }: RootTabScreenProps<'Archive'>) => ({
-          title: 'Archive',
+        name="Archives"
+        component={ArchivesScreen}
+        options={({ navigation }: RootTabScreenProps<'Archives'>) => ({
+          title: 'Archives',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="folder-music-outline"
