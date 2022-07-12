@@ -42,37 +42,27 @@ export const formatSchedule = (scheduleData: Schedule) => {
     }
   })
 
-  // filteredKeys.forEach((day) => {
-  //   // strip out time from date so we can compare it to today's date
-  //   // no need to check array as empty arrays have been filtered out
-  //   const date = new Date(day[0].start_timestamp).toDateString()
-  //   // ignore entry if data is in the past
-  //   if (new Date(date).getTime() >= new Date(today).getTime()) {
-  //     schedule[date] = day
-  //   }
-  // })
-
   return schedule
 }
 
-export const getCurrentShowFromSchedule = (
-  shows: ShowInfo[][]
-): ShowInfo | undefined => {
-  if (!shows.length) {
-    return
-  }
+// export const getCurrentShowFromSchedule = (
+//   shows: ShowInfo[][]
+// ): ShowInfo | undefined => {
+//   if (!shows.length) {
+//     return
+//   }
 
-  const now = new Date()
-  const todaysShows = shows[0]
-  const currentShow = todaysShows.find((show) => {
-    const start = parseJSON(show.start_timestamp)
-    const end = parseJSON(show.end_timestamp)
+//   const now = new Date()
+//   const todaysShows = shows[0]
+//   const currentShow = todaysShows.find((show) => {
+//     const start = parseJSON(show.start_timestamp)
+//     const end = parseJSON(show.end_timestamp)
 
-    return (
-      now.getHours() >= start.getUTCHours() &&
-      now.getHours() <= end.getUTCHours()
-    )
-  })
+//     return (
+//       now.getHours() >= start.getUTCHours() &&
+//       now.getHours() <= end.getUTCHours()
+//     )
+//   })
 
-  return currentShow
-}
+//   return currentShow
+// }

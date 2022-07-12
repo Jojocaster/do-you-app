@@ -70,13 +70,12 @@ export const Tracks: React.FC = () => {
   }, [lastUpdated])
 
   if ((loading && !tracks.length) || (loading && !isToday(lastUpdated))) {
-    return <Loader>Loading bangers</Loader>
+    return <Loader testID="loader">Loading bangers</Loader>
   }
 
   if ((!loading && !tracks.length) || (!loading && !isToday(lastUpdated))) {
-    return <Loader>No bangers here - yet</Loader>
+    return <Loader testID="noTracks">No bangers here - yet</Loader>
   }
-
   return (
     <FlatList
       data={tracks}

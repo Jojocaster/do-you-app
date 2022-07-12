@@ -10,6 +10,7 @@ import { ActivityIndicator, TouchableOpacity } from 'react-native'
 import { Track } from '../../Track/Track'
 import { useIsFocused } from '@react-navigation/native'
 import { fetchTracksInfo } from '../../../store/slices/tracksInfoSlice'
+import { Loader } from '../../Loader/Loader'
 
 const mockStore = {
   settings: {
@@ -126,6 +127,7 @@ describe('<Tracks />', () => {
       cb({
         ...mockStore,
         tracksInfo: {
+          lastUpdated: new Date().getTime(),
           loading: false,
           tracks: [
             {
@@ -138,8 +140,9 @@ describe('<Tracks />', () => {
       })
     )
     const instance = renderer.create(<Tracks />).root
-    expect(instance.findAllByProps({ testID: 'loader' }).length).toEqual(0)
-    expect(instance.findAllByProps({ testID: 'noTracks' }).length).toEqual(0)
+
+    expect(instance.findAllByType(Loader).length).toEqual(0)
+
     expect(instance.findAllByType(Track).length).toBe(1)
   })
 })

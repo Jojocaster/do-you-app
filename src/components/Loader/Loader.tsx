@@ -4,12 +4,15 @@ import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
 import { Text, View } from '../Themed'
 
-export const Loader: React.FC<{ children?: string }> = ({ children }) => {
+export const Loader: React.FC<{ children?: string; testID?: string }> = ({
+  children,
+  testID,
+}) => {
   const theme = useColorScheme()
 
   return (
     <View
-      testID="noTracks"
+      testID={testID}
       style={{
         display: 'flex',
         flexDirection: 'column',

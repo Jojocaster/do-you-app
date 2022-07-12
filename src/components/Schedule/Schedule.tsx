@@ -6,7 +6,7 @@ import React, {
   useRef,
   useState,
 } from 'react'
-import { ActivityIndicator, ScrollView } from 'react-native'
+import { ActivityIndicator, RefreshControl, ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
@@ -47,6 +47,13 @@ export const Schedule: React.FC = () => {
   return (
     <ScrollView
       ref={ref}
+      refreshControl={
+        <RefreshControl
+          colors={[Colors[theme].primary]}
+          refreshing={loading}
+          onRefresh={() => dispatch(fetchSchedule())}
+        />
+      }
       showsVerticalScrollIndicator={false}
       fadingEdgeLength={100}
       overScrollMode="never"
