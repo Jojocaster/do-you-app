@@ -49,6 +49,7 @@ export const Schedule: React.FC = () => {
       ref={ref}
       refreshControl={
         <RefreshControl
+          tintColor={Colors[theme].primary}
           colors={[Colors[theme].primary]}
           refreshing={loading}
           onRefresh={() => dispatch(fetchSchedule())}

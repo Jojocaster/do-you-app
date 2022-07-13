@@ -1,39 +1,120 @@
-import { StatusBar } from 'expo-status-bar'
-import { Platform, StyleSheet } from 'react-native'
+import React from 'react'
+import { StyleSheet, TouchableWithoutFeedback } from 'react-native'
+import { RootTabScreenProps } from '../../types'
 
-import EditScreenInfo from '../components/EditScreenInfo'
+import { Heading } from '../components/Heading/Heading'
 import { Text, View } from '../components/Themed'
+import Colors from '../constants/Colors'
+import useColorScheme from '../hooks/useColorScheme'
 
-export default function ModalScreen() {
+const Link: React.FC<{ children: string; onClick: () => void }> = ({
+  onClick,
+  children,
+}) => {
+  const theme = useColorScheme()
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Modal</Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-      <EditScreenInfo path="/screens/ModalScreen.tsx" />
+    <TouchableWithoutFeedback onPress={onClick}>
+      <Text
+        style={{
+          fontWeight: 'bold',
+          textDecorationColor: Colors[theme].primary,
+          color: Colors[theme].primary,
+          textDecorationLine: 'underline',
+        }}
+      >
+        {children}
+      </Text>
+    </TouchableWithoutFeedback>
+  )
+}
 
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
-      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
-    </View>
+export default function ModalScreen({
+  navigation,
+}: RootTabScreenProps<'Live'>) {
+  const theme = useColorScheme()
+  return (
+    <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          backgroundColor: 'transparent',
+        }}
+      >
+        <View
+          style={[
+            styles.container,
+            {
+              elevation: 5,
+              shadowOffset: {
+                width: 0,
+                height: 5,
+              },
+              shadowRadius: 10,
+              shadowOpacity: 0.2,
+              borderTopWidth: 3,
+              borderBottomWidth: 3,
+              borderTopColor: Colors[theme].primary,
+              borderBottomColor: Colors[theme].secondary,
+            },
+          ]}
+        >
+          <Heading style={styles.title} multiline={false}>
+            What's new
+          </Heading>
+          <View style={styles.textContainer}>
+            <Text style={styles.text}>
+              <Link onClick={() => navigation.navigate('Archives')}>
+                Archives
+              </Link>{' '}
+              are now available! 🎉
+            </Text>
+            <Text>Search, filters, embed player & more coming soon.</Text>
+          </View>
+          <View style={styles.textContainer}>
+            <Text style={styles.text}>
+              Notifications are now fully supported.
+            </Text>
+            <Text style={styles.text}>
+              Head over to the{' '}
+              <Link onClick={() => navigation.navigate('More')}>Settings</Link>{' '}
+              to enable notifications and make sure you never miss a show again.
+            </Text>
+            <Text style={styles.text}>
+              <Text style={{ fontWeight: 'bold' }}>Disclaimer:</Text> This may
+              affect your productivity.
+            </Text>
+          </View>
+          <View style={{ marginTop: 10 }}>
+            <Link onClick={() => navigation.goBack()}>Close</Link>
+          </View>
+        </View>
+      </View>
+    </TouchableWithoutFeedback>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 0,
+    flexShrink: 1,
+    // flex: 1,
+    paddingHorizontal: 20,
+    paddingBottom: 40,
+    paddingTop: 20,
+    marginHorizontal: 20,
     alignItems: 'center',
     justifyContent: 'center',
   },
+  textContainer: {
+    backgroundColor: 'transparent',
+    marginVertical: 10,
+    width: '100%',
+    justifyContent: 'flex-start',
+  },
   title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    marginBottom: 20,
+    fontSize: 32,
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
+  text: { lineHeight: 20 },
 })

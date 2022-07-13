@@ -119,6 +119,20 @@ export default function ChatScreen({ navigation }: RootTabScreenProps<'Chat'>) {
               console.log('onRenderProcessGone')
               reload()
             }}
+            onShouldStartLoadWithRequest={(event) => {
+              const { url } = event
+
+              if (
+                url === CHAT_URL ||
+                url.includes('https://minnit.chat/chifr.html')
+              ) {
+                return true
+              }
+
+              Linking.openURL(url)
+
+              return false
+            }}
             onNavigationStateChange={(event) => {
               if (event.url !== CHAT_URL) {
                 chatRef.current?.stopLoading()

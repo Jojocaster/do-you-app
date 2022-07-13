@@ -28,17 +28,21 @@ export const Settings: React.FC = () => {
 
     // if option isn't on, go through token flow
     if (!isEnabled) {
-      // grab token from storage if available, otherwise request it from device
-      const newToken = token || (await getToken())
+      try {
+        // grab token from storage if available, otherwise request it from device
+        const newToken = token || (await getToken())
 
-      // send token to API
-      const success = await registerToken(newToken)
+        // send token to API
+        const success = await registerToken(newToken)
 
-      // store token if success
-      if (success) {
-        onToggle('token', newToken)
-      } else {
-        // reset setting otherwise
+        // store token if success
+        if (success) {
+          onToggle('token', newToken)
+        } else {
+          // reset setting otherwise
+          onToggle('pushEnabled', false)
+        }
+      } catch (e) {
         onToggle('pushEnabled', false)
       }
       // otherwise, remove token from DB & device

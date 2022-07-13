@@ -1,7 +1,13 @@
 import { useIsFocused } from '@react-navigation/native'
 import { differenceInHours } from 'date-fns'
 import React, { useCallback, useEffect, useState } from 'react'
-import { ActivityIndicator, FlatList, Linking, RefreshControl, TouchableOpacity } from 'react-native'
+import {
+  ActivityIndicator,
+  FlatList,
+  Linking,
+  RefreshControl,
+  TouchableOpacity,
+} from 'react-native'
 import Colors from '../../constants/Colors'
 import { ARCHIVES_URL } from '../../constants/Endpoints'
 import useColorScheme from '../../hooks/useColorScheme'
@@ -173,6 +179,7 @@ export const Archives: React.FC = () => {
     <FlatList
       refreshControl={
         <RefreshControl
+          tintColor={Colors[theme].primary}
           colors={[Colors[theme].primary]}
           refreshing={isRefreshing}
           onRefresh={onRefresh}
