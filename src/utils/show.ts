@@ -9,10 +9,10 @@ export const getShowTitle = ({
   currentShow?: CurrentShowInfo | null
   currentTrack?: CurrentTrackInfo | null
 }) => {
-  const title = currentTrack?.name?.length
+  const title = currentShow?.name?.length
+    ? decodeHtmlCharCodes(currentShow.name)
+    : currentTrack?.name?.length
     ? decodeHtmlCharCodes(currentTrack.name)
-    : currentShow?.name
-    ? decodeHtmlCharCodes(currentShow?.name)
     : DEFAULT_SHOW_NAME
 
   return title

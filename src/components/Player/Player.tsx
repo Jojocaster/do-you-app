@@ -36,8 +36,11 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
     (state: RootState) => state.show
   )
   const { batterySaver } = useSelector((state: RootState) => state.settings)
+  console.log(currentShow?.name, currentTrack?.name)
 
   const initPlayer = async () => {
+    console.log('init', currentShow?.name, currentTrack?.name)
+
     if (!batterySaver) {
       await registerBackgroundTask()
     }
