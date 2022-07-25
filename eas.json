@@ -19,7 +19,11 @@
         "TARGET": "preview"
       }
     },
-    "production": {}
+    "production": {
+      "env": {
+        "TARGET": "prod"
+      }
+    }
   },
   "submit": {
     "production": {}

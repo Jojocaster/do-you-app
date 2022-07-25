@@ -9,6 +9,7 @@ import {
   NavigatorScreenParams,
 } from '@react-navigation/native'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { ArchiveItem } from './src/components/Archives/Archives.types'
 import { theme } from './src/theme'
 
 declare global {
@@ -30,7 +31,11 @@ export type RootTabParamList = {
   Live: undefined
   Tracks: undefined
   Chat: undefined
-  Archive: undefined
+  Archives: undefined
+  ArchivesList: undefined
+  ArchiveDetails: {
+    track: ArchiveItem
+  }
   More: undefined
 }
 

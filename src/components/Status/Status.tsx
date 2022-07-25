@@ -1,5 +1,5 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
@@ -36,40 +36,44 @@ export const Status: React.FC = () => {
 
       timeout.current = setTimeout(() => {
         dispatch(fetchShowInfo())
+        // TODO: increase timeout if batterySaver on?
       }, 1000 * 60)
     }
   }, [status, lastUpdated])
 
-  return (
-    <View
-      style={{
-        paddingTop: 50,
-        paddingBottom: 20,
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        backgroundColor: Colors[theme].statusBar,
-        display: 'flex',
-        flexDirection: 'row',
-        paddingHorizontal: 20,
-      }}
-    >
-      <Text style={{ fontWeight: 'bold', color: '#fff' }}>Status: </Text>
+  return useMemo(
+    () => (
       <View
         style={{
-          backgroundColor: 'transparent',
+          paddingTop: 50,
+          paddingBottom: 20,
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          backgroundColor: Colors[theme].statusBar,
           display: 'flex',
           flexDirection: 'row',
-          alignItems: 'center',
+          paddingHorizontal: 20,
         }}
       >
-        <Text style={{ color: '#fff' }}>{StatusLabels[status]}</Text>
-        <MaterialCommunityIcons
-          name="adjust"
-          size={20}
-          style={{ marginLeft: 5 }}
-          color={StatusColours[status]}
-        />
+        <Text style={{ fontWeight: 'bold', color: '#fff' }}>Status: </Text>
+        <View
+          style={{
+            backgroundColor: 'transparent',
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+        >
+          <Text style={{ color: '#fff' }}>{StatusLabels[status]}</Text>
+          <MaterialCommunityIcons
+            name="adjust"
+            size={20}
+            style={{ marginLeft: 5 }}
+            color={StatusColours[status]}
+          />
+        </View>
       </View>
-    </View>
+    ),
+    [status, theme]
   )
 }

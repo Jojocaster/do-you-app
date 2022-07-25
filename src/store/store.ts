@@ -1,4 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import appReducer from './slices/appSlice'
 import playerReducer from './slices/playerSlice'
 import scheduleReducer from './slices/scheduleSlice'
 import showReducer from './slices/showSlice'
@@ -23,6 +24,7 @@ const persistConfig = {
 }
 
 const reducers = combineReducers({
+  app: appReducer,
   player: playerReducer,
   schedule: scheduleReducer,
   show: showReducer,

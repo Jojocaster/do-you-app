@@ -32,7 +32,7 @@ import {
 import LinkingConfiguration from './LinkingConfiguration'
 import MoreScreen from '../screens/MoreScreen'
 import ChatScreen from '../screens/ChatScreen'
-// import ArchiveScreen from '../screens/ArchiveScreen'
+import ArchivesScreen from '../screens/ArchivesScreen'
 
 export default function Navigation({
   colorScheme,
@@ -59,17 +59,25 @@ const Stack = createNativeStackNavigator<RootStackParamList>()
 function RootNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name="Root"
-        component={BottomTabNavigator}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="NotFound"
-        component={NotFoundScreen}
-        options={{ title: 'Oops!' }}
-      />
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
+      <Stack.Group>
+        <Stack.Screen
+          name="Root"
+          component={BottomTabNavigator}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="NotFound"
+          component={NotFoundScreen}
+          options={{ title: 'Oops!' }}
+        />
+      </Stack.Group>
+      <Stack.Group
+        screenOptions={{
+          presentation: 'transparentModal',
+          // contentStyle: { backgroundColor: 'rgba(0, 0, 0, .5)' },
+          headerShown: false,
+        }}
+      >
         <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>
     </Stack.Navigator>
@@ -147,11 +155,11 @@ function BottomTabNavigator() {
           ),
         })}
       />
-      {/* <BottomTab.Screen
-        name="Archive"
-        component={ArchiveScreen}
-        options={({ navigation }: RootTabScreenProps<'Archive'>) => ({
-          title: 'Archive',
+      <BottomTab.Screen
+        name="Archives"
+        component={ArchivesScreen}
+        options={({ navigation }: RootTabScreenProps<'Archives'>) => ({
+          title: 'Archives',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="folder-music-outline"
@@ -160,7 +168,7 @@ function BottomTabNavigator() {
             />
           ),
         })}
-      /> */}
+      />
       <BottomTab.Screen
         name="More"
         component={MoreScreen}

@@ -1,7 +1,7 @@
 const tintColorLight = '#1c1c1c'
 const tintColorDark = '#fff'
 const brandYellow = '#FFDC3B'
-const brandBlue = '#3A70D6'
+const brandBlue = '#3a5ed6'
 
 const common = {
   warning: brandYellow,

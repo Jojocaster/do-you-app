@@ -11,17 +11,40 @@ exports[`<Tracks /> should render 1`] = `
         "alignItems": "center",
         "display": "flex",
         "flex": 1,
+        "flexDirection": "column",
         "justifyContent": "center",
+        "width": "100%",
       },
     ]
   }
   testID="loader"
 >
-  <ActivityIndicator
-    animating={true}
-    color="#FFDC3B"
-    hidesWhenStopped={true}
-    size="small"
-  />
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#1c1c1c",
+        },
+        undefined,
+      ]
+    }
+  >
+    <Text />
+  </View>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#fff",
+        },
+        Object {
+          "fontFamily": "Lato_900Black",
+          "marginTop": 20,
+        },
+      ]
+    }
+  >
+    Loading bangers
+  </Text>
 </View>
 `;

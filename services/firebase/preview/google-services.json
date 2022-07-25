@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "871452236814",
+    "project_id": "do-you-world-preview",
+    "storage_bucket": "do-you-world-preview.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:871452236814:android:7f35b7661ae1cc15f2b05f",
+        "android_client_info": {
+          "package_name": "com.wonkylines.doyouworld.preview"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "871452236814-k7sk2fd569qtcv2473vock3qv7h22kl2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtdWSsy1kCEbpmdWnOIQNHJ26tIQH9Bwk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "871452236814-k7sk2fd569qtcv2473vock3qv7h22kl2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
