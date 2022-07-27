@@ -14,4 +14,5 @@ export interface ArchiveItem {
   slug: string
   start_time?: any
   tags?: string
+  genres?: Array<{ id: number; name: string }>
 }

@@ -28,7 +28,7 @@ export const PlayerStateIcons: Record<State, any> = {
 
 export const ARTIST_NAME = 'Do!!You!!!World'
 export const DEFAULT_SHOW_NAME = `It's a family affair.`
-export const PLAYER_SIZE = (60 / 100) * deviceInfo.window.width
+export const PLAYER_SIZE = (50 / 100) * deviceInfo.window.width
 export const STREAM_HEADERS = {
   Referer: 'https://doyouworld.airtime.pro/',
   Host: 'https://doyouworld.airtime.pro/',

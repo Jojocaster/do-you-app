@@ -12,6 +12,7 @@ const Colors = {
   common,
   light: {
     text: '#000',
+    link: brandBlue,
     statusBar: brandBlue,
     background: '#fff',
     tint: tintColorLight,
@@ -26,6 +27,9 @@ const Colors = {
     scheduleText: '#000',
     scheduleUnderline: brandYellow,
     scheduleHeading: brandBlue,
+    archive: {
+      webviewBackground: '#F8F8F8',
+    },
     switch: {
       trackActive: brandYellow,
       trackInactive: 'grey',
@@ -48,6 +52,7 @@ const Colors = {
   },
   dark: {
     text: '#fff',
+    link: brandYellow,
     background: '#1c1c1c',
     tint: tintColorDark,
     tabIconDefault: '#ccc',
@@ -63,6 +68,9 @@ const Colors = {
     scheduleUnderline: brandYellow,
     scheduleText: '#fff',
     scheduleHeading: '#fff',
+    archive: {
+      webviewBackground: '#282828',
+    },
     switch: {
       trackActive: brandYellow,
       trackInactive: 'black',

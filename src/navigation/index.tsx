@@ -3,36 +3,32 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import {
-  FontAwesome,
-  Ionicons,
-  MaterialCommunityIcons,
-} from '@expo/vector-icons'
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import {
-  NavigationContainer,
-  DefaultTheme,
   DarkTheme,
+  DefaultTheme,
+  NavigationContainer,
 } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import * as React from 'react'
 import { ColorSchemeName } from 'react-native'
 
-import Colors from '../constants/Colors'
-import useColorScheme from '../hooks/useColorScheme'
-import ModalScreen from '../screens/ModalScreen'
-import NotFoundScreen from '../screens/NotFoundScreen'
-import LiveScreen from '../screens/LiveScreen'
-import TracksScreen from '../screens/TracksScreen'
 import {
   RootStackParamList,
   RootTabParamList,
   RootTabScreenProps,
 } from '../../types'
-import LinkingConfiguration from './LinkingConfiguration'
-import MoreScreen from '../screens/MoreScreen'
-import ChatScreen from '../screens/ChatScreen'
+import Colors from '../constants/Colors'
+import useColorScheme from '../hooks/useColorScheme'
 import ArchivesScreen from '../screens/ArchivesScreen'
+import ChatScreen from '../screens/ChatScreen'
+import LiveScreen from '../screens/LiveScreen'
+import ModalScreen from '../screens/ModalScreen'
+import MoreScreen from '../screens/MoreScreen'
+import NotFoundScreen from '../screens/NotFoundScreen'
+import TracksScreen from '../screens/TracksScreen'
+import LinkingConfiguration from './LinkingConfiguration'
 
 export default function Navigation({
   colorScheme,

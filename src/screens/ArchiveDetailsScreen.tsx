@@ -1,39 +1,130 @@
-import { BlurView } from 'expo-blur'
-import { Image, ImageBackground } from 'react-native'
+import { format } from 'date-fns'
+import { Platform, ScrollView, StyleSheet } from 'react-native'
 import { RootTabScreenProps } from '../../types'
-import { MIXCLOUD_IMAGE_ENDPOINT } from '../components/Archive/Archive.constants'
+import { ArchiveDetailsFooter } from '../components/ArchiveDetails/ArchiveDetailsFooter/ArchiveDetailsFooter'
+import { ArchiveDetailsHeader } from '../components/ArchiveDetails/ArchiveDetailsHeader/ArchiveDetailsHeader'
+import { ArchiveTracklist } from '../components/ArchiveDetails/ArchiveTracklist/ArchiveTracklist'
+import { Badge } from '../components/Badge/Badge'
 import { Text, View } from '../components/Themed'
+import Colors from '../constants/Colors'
+import Space from '../constants/Space'
+import useColorScheme from '../hooks/useColorScheme'
+import { formatArchiveTitle } from '../utils/archives'
+
+const Tab: React.FC<{ children: string; color?: string }> = ({
+  children,
+  color,
+}) => (
+  <View
+    style={{
+      paddingBottom: 3,
+      flex: 0,
+      borderBottomColor: color,
+      borderBottomWidth: 2,
+    }}
+  >
+    <Text
+      style={{
+        color,
+        fontFamily: 'Lato_900Black',
+        textTransform: 'uppercase',
+        fontWeight: 'bold',
+        fontSize: 12,
+      }}
+    >
+      {children}
+    </Text>
+  </View>
+)
 
 export default function ArchiveDetailsScreen({
   route,
 }: RootTabScreenProps<'ArchiveDetails'>) {
   const { track } = route.params
-  console.log(`${MIXCLOUD_IMAGE_ENDPOINT}/${track.picture_url}`)
+  const theme = useColorScheme()
+  console.log(track)
+
   return (
-    <View style={{ flex: 1, height: '100%' }}>
-      <View
-        style={{
-          height: '50%',
-          width: '100%',
-          position: 'relative',
-          overflow: 'hidden',
+    <View style={{ flex: 1, position: 'relative' }}>
+      <ScrollView
+        bounces={false}
+        contentContainerStyle={{
+          flexGrow: 1,
+          paddingBottom: Platform.OS === 'ios' ? 60 : 20,
         }}
+        style={styles.scrollView}
       >
-        <Image
-          blurRadius={20}
+        <ArchiveDetailsHeader track={track} />
+
+        <View
           style={{
-            position: 'absolute',
-            top: '-50%',
-            left: '-50%',
-            height: '200%',
-            width: '200%',
+            paddingHorizontal: Space.viewPadding,
+            paddingVertical: 25,
+            flex: 1,
           }}
-          source={{ uri: `${MIXCLOUD_IMAGE_ENDPOINT}${track.picture_url}` }}
-        />
-        {/* <BlurView intensity={40} style={{ height: '100%', width: '100%' }}>
-          <Text>yo</Text>
-        </BlurView> */}
-      </View>
+        >
+          <Text
+            style={{
+              textTransform: 'uppercase',
+              fontSize: 12,
+              marginBottom: 5,
+            }}
+          >
+            {format(new Date(track.date), 'E, MMM dd')}
+          </Text>
+          <View>
+            <Text
+              style={{
+                fontSize: 24,
+                color: Colors[theme].primary,
+                fontWeight: 'bold',
+              }}
+            >
+              {formatArchiveTitle(track.name)}
+            </Text>
+          </View>
+          <View style={styles.genres}>
+            {track.genres?.map((genre, i) => (
+              <Badge
+                key={i}
+                fontSize={12}
+                style={{ marginRight: 5, marginBottom: 5 }}
+                color={Colors[theme].text}
+                backgroundColor={Colors[theme].secondary}
+              >
+                {genre.name}
+              </Badge>
+            ))}
+          </View>
+
+          <View style={{ marginTop: 20 }}>
+            <View style={styles.tabs}>
+              <Tab color={Colors[theme].primary}>Tracklist</Tab>
+            </View>
+            <ArchiveTracklist track={track} />
+          </View>
+        </View>
+      </ScrollView>
+      <ArchiveDetailsFooter slug={track.slug} />
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  scrollView: {
+    height: '100%',
+    backgroundColor: 'white',
+    width: '100%',
+  },
+  tabs: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginBottom: 10,
+  },
+  genres: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 10,
+  },
+})
