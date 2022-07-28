@@ -1,6 +1,6 @@
 {
   "name": "do-you-world",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
@@ -9,7 +9,9 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest --watchAll --coverage --verbose",
+    "test": "jest --coverage --verbose",
+    "test:watch": "jest --watchAll --coverage --verbose",
+    "test:badges": "jest-coverage-badges",
     "build:android:preview": "eas build --platform android --profile preview",
     "build:android:dev": "eas build --platform android --profile development",
     "build:android:prod": "eas build --platform android --profile production",
@@ -23,6 +25,11 @@
     "preset": "jest-expo",
     "setupFiles": [
       "./jestSetup.js"
+    ],
+    "coverageReporters": [
+      "json-summary",
+      "text",
+      "lcov"
     ]
   },
   "dependencies": {
@@ -67,9 +74,11 @@
     "@babel/core": "^7.12.9",
     "@expo/config": "6.0.20",
     "@testing-library/react-native": "9.1.0",
+    "@types/jest": "28.1.6",
     "@types/react": "~17.0.21",
     "@types/react-native": "~0.64.12",
     "@types/react-redux": "7.1.23",
+    "@types/react-test-renderer": "18.0.0",
     "@types/redux-persist": "4.3.1",
     "@types/styled-components-react-native": "5.1.3",
     "eslint": "8.12.0",
@@ -77,6 +86,7 @@
     "eslint-plugin-prettier": "4.0.0",
     "eslint-plugin-unused-imports": "2.0.0",
     "jest": "^26.6.3",
+    "jest-coverage-badges": "1.1.2",
     "jest-expo": "~44.0.1",
     "jest-fetch-mock": "3.0.3",
     "prettier": "2.6.2",

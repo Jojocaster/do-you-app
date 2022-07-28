@@ -42,7 +42,6 @@ export default function ArchiveDetailsScreen({
 }: RootTabScreenProps<'ArchiveDetails'>) {
   const { track } = route.params
   const theme = useColorScheme()
-  console.log(track)
 
   return (
     <View style={{ flex: 1, position: 'relative' }}>
@@ -101,6 +100,7 @@ export default function ArchiveDetailsScreen({
             <View style={styles.tabs}>
               <Tab color={Colors[theme].primary}>Tracklist</Tab>
             </View>
+
             <ArchiveTracklist track={track} />
           </View>
         </View>
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
   tabs: {
     display: 'flex',
     flexDirection: 'row',
-    marginBottom: 10,
+    marginBottom: 20,
   },
   genres: {
     display: 'flex',

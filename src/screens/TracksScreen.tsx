@@ -20,7 +20,11 @@ export default function TrackScreen({
         </Heading>
       </View>
       <View
-        style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
+        style={[
+          styles.codeHighlightContainer,
+          styles.homeScreenFilename,
+          { marginBottom: 20 },
+        ]}
         darkColor="rgba(255,255,255,0.05)"
         lightColor="#F8F8F8"
       >
@@ -34,6 +38,7 @@ export default function TrackScreen({
           <Weblink uri="https://doyoutrackid.com">doyoutrackid.com</Weblink>
         </MonoText>
       </View>
+
       <Tracks />
 
       {/* <EditScreenInfo path="/screens/TabTwoScreen.tsx" /> */}

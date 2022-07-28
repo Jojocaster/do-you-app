@@ -1,23 +1,22 @@
 import { MaterialIcons } from '@expo/vector-icons'
-import { format, parseJSON } from 'date-fns'
 import { useEffect, useMemo, useState } from 'react'
-import { StyleSheet, TouchableOpacity } from 'react-native'
+import { Clipboard, StyleSheet, TouchableOpacity } from 'react-native'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
 import { TrackInfo } from '../../store/slices/tracksInfoSlice'
+import { formatTrackTime } from '../../utils/track'
 import { Button } from '../Button/Button'
-import { Clipboard } from 'react-native'
 import { Text, View } from '../Themed'
 
 export const Track: React.FC<{
   active: boolean
+  showStart?: string
   onToggle: (track: string) => void
   track: TrackInfo
-}> = ({ active, track, onToggle }) => {
+}> = ({ active, track, onToggle, showStart }) => {
   const [copied, setCopied] = useState(false)
   const theme = useColorScheme()
-  const timecode = parseJSON(track.played_datetime)
-  const formattedTimecode = format(timecode, 'HH:mm')
+  const timecode = formatTrackTime(track, showStart)
 
   const onCopy = () => {
     try {
@@ -40,13 +39,13 @@ export const Track: React.FC<{
     () => (
       <View>
         <View style={styles.container} key={track.played_datetime}>
-          <View style={styles.timecode}>
+          <View style={{ flexBasis: showStart ? 80 : 60 }}>
             <Text
               style={{
                 fontSize: 14,
               }}
             >
-              {formattedTimecode}
+              {timecode}
             </Text>
           </View>
           <TouchableOpacity
@@ -146,9 +145,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     marginBottom: 10,
-  },
-  timecode: {
-    flexBasis: 60,
   },
   trackContainer: {
     flex: 1,

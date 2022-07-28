@@ -6,7 +6,7 @@ import { MIXCLOUD_URL, MIXCLOUD_WEBVIEW } from '../../../constants/Endpoints'
 import { deviceWidth } from '../../../constants/Layout'
 import useColorScheme from '../../../hooks/useColorScheme'
 import { Link } from '../../Link/Link'
-import { Text, View } from '../../Themed'
+import { View } from '../../Themed'
 
 const VIEW_HEIGHT = 60
 

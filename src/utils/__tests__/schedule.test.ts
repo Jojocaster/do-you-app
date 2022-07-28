@@ -1,7 +1,7 @@
-import React from 'react'
-import { formatSchedule } from '../schedule'
+import { formatSchedule, Schedule } from '../schedule'
 
-const mockSchedule = {
+//@ts-ignore
+const mockSchedule: Schedule = {
   wednesday: [
     {
       start_timestamp: '2022-07-06 09:00:00',
@@ -329,14 +329,98 @@ const mockSchedule = {
     },
   ],
   saturday: [],
-  AIRTIME_API_VERSION: 0.1,
+  AIRTIME_API_VERSION: '0.1',
 }
 
 describe('schedule.ts', () => {
   describe('formatSchedule()', () => {
-    it(`should strip out Airtime's key from the schedule`, () => {
+    it(`should format the schedule`, () => {
+      Date.now = jest.fn(() => +new Date('2022-07-08'))
       const result = formatSchedule(mockSchedule)
-      expect(result).toEqual({})
+      expect(result).toEqual([
+        [
+          {
+            start_timestamp: '2022-07-08 10:00:00',
+            end_timestamp: '2022-07-08 12:00:00',
+            name: 'The Do!! You!!! Breakfast Show w/ Charlie Bones and Goodblock',
+            description: '',
+            id: 249,
+            instance_id: 805,
+            instance_description: '',
+            record: 0,
+            url: '',
+            image_path: '',
+            image_cloud_file_id: null,
+            auto_dj: false,
+            starts: '2022-07-08 10:00:00',
+            ends: '2022-07-08 12:00:00',
+          },
+          {
+            start_timestamp: '2022-07-08 12:00:00',
+            end_timestamp: '2022-07-08 14:00:00',
+            name: 'Richard Sen',
+            description: '',
+            id: 71,
+            instance_id: 543,
+            instance_description: '',
+            record: 0,
+            url: '',
+            image_path: 'https://doyouworld.airtime.pro/api/show-logo?id=71',
+            image_cloud_file_id: 97,
+            auto_dj: false,
+            starts: '2022-07-08 12:00:00',
+            ends: '2022-07-08 14:00:00',
+          },
+          {
+            start_timestamp: '2022-07-08 14:00:00',
+            end_timestamp: '2022-07-08 15:26:00',
+            name: '(R) My Mate Luke B2B Charlie Bones Live From Gala - 02/06/22',
+            description: '',
+            id: 245,
+            instance_id: 801,
+            instance_description: '',
+            record: 0,
+            url: '',
+            image_path: '',
+            image_cloud_file_id: null,
+            auto_dj: false,
+            starts: '2022-07-08 14:00:00',
+            ends: '2022-07-08 15:26:00',
+          },
+          {
+            start_timestamp: '2022-07-08 15:26:00',
+            end_timestamp: '2022-07-08 17:45:00',
+            name: '(R) Charlie OG MML Dan Mela B2B - 03/06/22',
+            description: '',
+            id: 246,
+            instance_id: 802,
+            instance_description: '',
+            record: 0,
+            url: '',
+            image_path: '',
+            image_cloud_file_id: null,
+            auto_dj: false,
+            starts: '2022-07-08 15:26:00',
+            ends: '2022-07-08 17:45:00',
+          },
+          {
+            start_timestamp: '2022-07-08 17:45:00',
+            end_timestamp: '2022-07-08 18:48:00',
+            name: '(R) Pender Street Steppers Live From Gala - 04/06/22',
+            description: '',
+            id: 247,
+            instance_id: 803,
+            instance_description: '',
+            record: 0,
+            url: '',
+            image_path: '',
+            image_cloud_file_id: null,
+            auto_dj: false,
+            starts: '2022-07-08 17:45:00',
+            ends: '2022-07-08 18:48:00',
+          },
+        ],
+      ])
     })
   })
 })

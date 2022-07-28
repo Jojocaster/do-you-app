@@ -1,31 +1,21 @@
 import { useIsFocused } from '@react-navigation/native'
 import { isToday } from 'date-fns'
-import React, { useEffect, useRef, useState } from 'react'
-import { FlatList } from 'react-native'
+import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ShowStatus } from '../../store/slices/showSlice'
 import { fetchTracksInfo } from '../../store/slices/tracksInfoSlice'
 import { RootState } from '../../store/store'
 import { Loader } from '../Loader/Loader'
-import { Track } from '../Track/Track'
+import { Tracklist } from '../Tracklist/Tracklist'
 
 export const Tracks: React.FC = () => {
   const dispatch = useDispatch()
-  const [activeTrack, setActiveTrack] = useState<string>()
   const isFocused = useIsFocused()
   const timeout = useRef<NodeJS.Timeout>()
   const { lastUpdated, loading, tracks } = useSelector(
     (state: RootState) => state.tracksInfo
   )
   const { status } = useSelector((state: RootState) => state.show)
-
-  const onToggle = (track: string) => {
-    if (track === activeTrack) {
-      setActiveTrack(undefined)
-    } else {
-      setActiveTrack(track)
-    }
-  }
 
   const restartTimer = () => {
     // always clear timeout to prevent leaks
@@ -76,21 +66,6 @@ export const Tracks: React.FC = () => {
   if ((!loading && !tracks.length) || (!loading && !isToday(lastUpdated))) {
     return <Loader testID="noTracks">No bangers here - yet</Loader>
   }
-  return (
-    <FlatList
-      data={tracks}
-      renderItem={(track) => (
-        <Track
-          active={activeTrack === track.item.played_datetime}
-          onToggle={onToggle}
-          track={track.item}
-        />
-      )}
-      keyExtractor={(track) => track.played_datetime}
-      showsVerticalScrollIndicator={false}
-      fadingEdgeLength={100}
-      overScrollMode="never"
-      style={{ marginTop: 20, width: '100%' }}
-    />
-  )
+
+  return <Tracklist tracks={tracks} />
 }
