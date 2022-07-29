@@ -1,5 +1,5 @@
 import { TrackInfo } from '../../store/slices/tracksInfoSlice'
-import { formatTrackTime } from '../track'
+import { formatTrackTime, getTrackScore } from '../track'
 
 describe('track.ts', () => {
   describe('formatTrackTime', () => {
@@ -34,6 +34,19 @@ describe('track.ts', () => {
         )
         expect(result).toEqual('N/A')
       })
+    })
+  })
+
+  describe('getTrackScore', () => {
+    it('should return `N/A` if track.score is undefined or NaN', () => {
+      const result = getTrackScore(undefined as any)
+      expect(result).toEqual('N/A')
+      const result2 = getTrackScore({ score: 'foo' } as any)
+      expect(result2).toEqual('N/A')
+    })
+    it('should return a formatted string if track.score is defined', () => {
+      const result = getTrackScore({ score: 40 } as any)
+      expect(result).toEqual('4/10')
     })
   })
 })

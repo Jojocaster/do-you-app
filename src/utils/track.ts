@@ -20,3 +20,11 @@ export const formatTrackTime = (track: TrackInfo, showStart?: string) => {
     return 'N/A'
   }
 }
+
+export const getTrackScore = (track: TrackInfo): string => {
+  if (!track?.score || isNaN(track.score)) {
+    return 'N/A'
+  }
+
+  return `${track.score / 10}/10`
+}

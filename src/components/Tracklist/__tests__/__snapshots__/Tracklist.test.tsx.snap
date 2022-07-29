@@ -149,20 +149,17 @@ exports[`Tracklist should render correctly 1`] = `
             </Text>
           </View>
           <View
-            accessible={true}
-            focusable={true}
-            onClick={[Function]}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
             style={
-              Object {
-                "flex": 1,
-                "opacity": 1,
-              }
+              Array [
+                Object {
+                  "backgroundColor": "#1c1c1c",
+                },
+                Object {
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "row",
+                },
+              ]
             }
           >
             <View
@@ -172,36 +169,39 @@ exports[`Tracklist should render correctly 1`] = `
                     "backgroundColor": "#1c1c1c",
                   },
                   Object {
-                    "display": "flex",
-                    "flexDirection": "row",
+                    "marginRight": 5,
+                  },
+                ]
+              }
+            >
+              <Text />
+            </View>
+            <View
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "#1c1c1c",
+                  },
+                  Object {
+                    "flex": 1,
                   },
                 ]
               }
             >
               <View
+                accessible={true}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
                 style={
-                  Array [
-                    Object {
-                      "backgroundColor": "#1c1c1c",
-                    },
-                    Object {
-                      "marginRight": 5,
-                    },
-                  ]
-                }
-              >
-                <Text />
-              </View>
-              <View
-                style={
-                  Array [
-                    Object {
-                      "backgroundColor": "#1c1c1c",
-                    },
-                    Object {
-                      "flex": 1,
-                    },
-                  ]
+                  Object {
+                    "opacity": 1,
+                  }
                 }
               >
                 <Text
@@ -243,17 +243,17 @@ exports[`Tracklist should render correctly 1`] = `
                     Are You Lonely?
                   </Text>
                 </View>
-                <View
-                  style={
-                    Array [
-                      Object {
-                        "backgroundColor": "#1c1c1c",
-                      },
-                      undefined,
-                    ]
-                  }
-                />
               </View>
+              <View
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "#1c1c1c",
+                    },
+                    undefined,
+                  ]
+                }
+              />
             </View>
           </View>
         </View>
@@ -315,20 +315,17 @@ exports[`Tracklist should render correctly 1`] = `
             </Text>
           </View>
           <View
-            accessible={true}
-            focusable={true}
-            onClick={[Function]}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
             style={
-              Object {
-                "flex": 1,
-                "opacity": 1,
-              }
+              Array [
+                Object {
+                  "backgroundColor": "#1c1c1c",
+                },
+                Object {
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "row",
+                },
+              ]
             }
           >
             <View
@@ -338,36 +335,39 @@ exports[`Tracklist should render correctly 1`] = `
                     "backgroundColor": "#1c1c1c",
                   },
                   Object {
-                    "display": "flex",
-                    "flexDirection": "row",
+                    "marginRight": 5,
+                  },
+                ]
+              }
+            >
+              <Text />
+            </View>
+            <View
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "#1c1c1c",
+                  },
+                  Object {
+                    "flex": 1,
                   },
                 ]
               }
             >
               <View
+                accessible={true}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
                 style={
-                  Array [
-                    Object {
-                      "backgroundColor": "#1c1c1c",
-                    },
-                    Object {
-                      "marginRight": 5,
-                    },
-                  ]
-                }
-              >
-                <Text />
-              </View>
-              <View
-                style={
-                  Array [
-                    Object {
-                      "backgroundColor": "#1c1c1c",
-                    },
-                    Object {
-                      "flex": 1,
-                    },
-                  ]
+                  Object {
+                    "opacity": 1,
+                  }
                 }
               >
                 <Text
@@ -409,17 +409,17 @@ exports[`Tracklist should render correctly 1`] = `
                     Let Me Show You (Long Vocal Version)
                   </Text>
                 </View>
-                <View
-                  style={
-                    Array [
-                      Object {
-                        "backgroundColor": "#1c1c1c",
-                      },
-                      undefined,
-                    ]
-                  }
-                />
               </View>
+              <View
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "#1c1c1c",
+                    },
+                    undefined,
+                  ]
+                }
+              />
             </View>
           </View>
         </View>
@@ -481,20 +481,17 @@ exports[`Tracklist should render correctly 1`] = `
             </Text>
           </View>
           <View
-            accessible={true}
-            focusable={true}
-            onClick={[Function]}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
             style={
-              Object {
-                "flex": 1,
-                "opacity": 1,
-              }
+              Array [
+                Object {
+                  "backgroundColor": "#1c1c1c",
+                },
+                Object {
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "row",
+                },
+              ]
             }
           >
             <View
@@ -504,36 +501,39 @@ exports[`Tracklist should render correctly 1`] = `
                     "backgroundColor": "#1c1c1c",
                   },
                   Object {
-                    "display": "flex",
-                    "flexDirection": "row",
+                    "marginRight": 5,
+                  },
+                ]
+              }
+            >
+              <Text />
+            </View>
+            <View
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "#1c1c1c",
+                  },
+                  Object {
+                    "flex": 1,
                   },
                 ]
               }
             >
               <View
+                accessible={true}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
                 style={
-                  Array [
-                    Object {
-                      "backgroundColor": "#1c1c1c",
-                    },
-                    Object {
-                      "marginRight": 5,
-                    },
-                  ]
-                }
-              >
-                <Text />
-              </View>
-              <View
-                style={
-                  Array [
-                    Object {
-                      "backgroundColor": "#1c1c1c",
-                    },
-                    Object {
-                      "flex": 1,
-                    },
-                  ]
+                  Object {
+                    "opacity": 1,
+                  }
                 }
               >
                 <Text
@@ -575,17 +575,17 @@ exports[`Tracklist should render correctly 1`] = `
                     I'm Dreaming (Any Moment I May Wake Up Screaming)
                   </Text>
                 </View>
-                <View
-                  style={
-                    Array [
-                      Object {
-                        "backgroundColor": "#1c1c1c",
-                      },
-                      undefined,
-                    ]
-                  }
-                />
               </View>
+              <View
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "#1c1c1c",
+                    },
+                    undefined,
+                  ]
+                }
+              />
             </View>
           </View>
         </View>
@@ -647,20 +647,17 @@ exports[`Tracklist should render correctly 1`] = `
             </Text>
           </View>
           <View
-            accessible={true}
-            focusable={true}
-            onClick={[Function]}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
             style={
-              Object {
-                "flex": 1,
-                "opacity": 1,
-              }
+              Array [
+                Object {
+                  "backgroundColor": "#1c1c1c",
+                },
+                Object {
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "row",
+                },
+              ]
             }
           >
             <View
@@ -670,36 +667,39 @@ exports[`Tracklist should render correctly 1`] = `
                     "backgroundColor": "#1c1c1c",
                   },
                   Object {
-                    "display": "flex",
-                    "flexDirection": "row",
+                    "marginRight": 5,
+                  },
+                ]
+              }
+            >
+              <Text />
+            </View>
+            <View
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "#1c1c1c",
+                  },
+                  Object {
+                    "flex": 1,
                   },
                 ]
               }
             >
               <View
+                accessible={true}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
                 style={
-                  Array [
-                    Object {
-                      "backgroundColor": "#1c1c1c",
-                    },
-                    Object {
-                      "marginRight": 5,
-                    },
-                  ]
-                }
-              >
-                <Text />
-              </View>
-              <View
-                style={
-                  Array [
-                    Object {
-                      "backgroundColor": "#1c1c1c",
-                    },
-                    Object {
-                      "flex": 1,
-                    },
-                  ]
+                  Object {
+                    "opacity": 1,
+                  }
                 }
               >
                 <Text
@@ -741,17 +741,17 @@ exports[`Tracklist should render correctly 1`] = `
                     DEEP IN YOU (LTJ CLUB MIX)
                   </Text>
                 </View>
-                <View
-                  style={
-                    Array [
-                      Object {
-                        "backgroundColor": "#1c1c1c",
-                      },
-                      undefined,
-                    ]
-                  }
-                />
               </View>
+              <View
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "#1c1c1c",
+                    },
+                    undefined,
+                  ]
+                }
+              />
             </View>
           </View>
         </View>

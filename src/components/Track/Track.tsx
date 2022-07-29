@@ -4,7 +4,7 @@ import { Clipboard, StyleSheet, TouchableOpacity } from 'react-native'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
 import { TrackInfo } from '../../store/slices/tracksInfoSlice'
-import { formatTrackTime } from '../../utils/track'
+import { formatTrackTime, getTrackScore } from '../../utils/track'
 import { Button2 } from '../Button2/Button2'
 import { Text, View } from '../Themed'
 
@@ -77,7 +77,7 @@ export const Track: React.FC<{
                     <Text style={{ fontSize: 12 }}>
                       Confidence:{' '}
                       <Text style={{ fontWeight: 'bold' }}>
-                        {track.score / 10}/10
+                        {getTrackScore(track)}
                       </Text>
                     </Text>
                     <Text style={{ fontSize: 12 }}>

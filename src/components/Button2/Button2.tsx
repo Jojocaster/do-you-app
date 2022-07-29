@@ -1,11 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React, { useRef } from 'react'
-import {
-  Animated,
-  Pressable,
-  StyleSheet,
-  TouchableWithoutFeedback,
-} from 'react-native'
+import { Animated, Pressable, StyleSheet } from 'react-native'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
 import { Text, View } from '../Themed'
