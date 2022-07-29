@@ -12,7 +12,9 @@ export default function ArchivesListScreen({
   return (
     <View style={styles.view}>
       <Heading style={{ marginBottom: 10, fontSize: 32 }}>Archives</Heading>
-
+      {/* <Button2 variant="sm" icon="filter-outline" onPress={() => {}}>
+        Filters
+      </Button2> */}
       <Archives />
     </View>
   )

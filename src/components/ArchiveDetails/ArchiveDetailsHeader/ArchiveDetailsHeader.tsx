@@ -1,6 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
 import React, { useRef } from 'react'
-import { Animated, ImageBackground, StyleSheet } from 'react-native'
+import { Animated, ImageBackground, Pressable, StyleSheet } from 'react-native'
 import Colors from '../../../constants/Colors'
 import { deviceHeight, deviceWidth } from '../../../constants/Layout'
 import useColorScheme from '../../../hooks/useColorScheme'
@@ -12,6 +13,7 @@ export const ArchiveDetailsHeader: React.FC<{ track: ArchiveItem }> = ({
   track,
 }) => {
   const theme = useColorScheme()
+  const navigation = useNavigation()
   const opacity = useRef(new Animated.Value(0))
   const imageSource = `${MIXCLOUD_IMAGE_ENDPOINT}${track.picture_url}`
   const imageSize = deviceWidth / 2
@@ -54,25 +56,21 @@ export const ArchiveDetailsHeader: React.FC<{ track: ArchiveItem }> = ({
       >
         <ImageBackground source={{ uri: imageSource }} style={{ flex: 1 }} />
       </View>
-      {/* <Badge
-        style={{ marginTop: 10 }}
-        backgroundColor={Colors[theme].primary}
-        color="white"
-      >
-        {format(track.audio_length * 1000, 'hh:mm:ss')}
-      </Badge> */}
-      <MaterialCommunityIcons
-        size={36}
-        color="white"
-        name="arrow-left"
-        style={styles.close}
-      />
+      <View style={styles.close}>
+        <Pressable
+          pressRetentionOffset={20}
+          onPress={() => navigation.goBack()}
+        >
+          <MaterialCommunityIcons size={36} color="white" name="arrow-left" />
+        </Pressable>
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   close: {
+    backgroundColor: 'transparent',
     position: 'absolute',
     top: 20,
     left: 20,

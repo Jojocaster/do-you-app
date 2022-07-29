@@ -63,7 +63,7 @@ export const Settings: React.FC = () => {
 
   return (
     <>
-      <Heading style={{ fontSize: 32 }}>Settings</Heading>
+      <Heading style={{ fontSize: 32, marginBottom: 15 }}>Settings</Heading>
       <SingleSetting
         value={pushEnabled}
         onToggle={() => togglePushNotifications(pushEnabled)}

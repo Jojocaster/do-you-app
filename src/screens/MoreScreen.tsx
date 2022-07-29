@@ -11,6 +11,7 @@ import kofiLight from '../../assets/images/kofi-light.png'
 import useColorScheme from '../hooks/useColorScheme'
 import { ScrollView } from 'react-native'
 import Space from '../constants/Space'
+import { Button2 } from '../components/Button2/Button2'
 
 const Support = () => {
   const theme = useColorScheme()
@@ -27,31 +28,27 @@ const Support = () => {
 
       <View
         style={{
-          marginTop: 10,
+          marginTop: 20,
         }}
       >
-        <Text style={{ marginBottom: 5 }}>
+        <Text style={{ marginBottom: 10 }}>
           We have a lot of features in the works.
         </Text>
-        <Text style={{ marginBottom: 5 }}>
+        <Text style={{ marginBottom: 10 }}>
           If you can contribute, your support will be greatly appreciated.
         </Text>
         <Text>If not, your love will be more than enough.</Text>
-        <TouchableOpacity style={{ marginTop: 10 }} onPress={onClick}>
-          <Image
-            style={{ width: 143, height: 36 }}
-            source={source}
-            accessibilityLabel="Buy Me a Coffee at ko-fi.com"
-          />
-        </TouchableOpacity>
+        <View style={{ marginTop: 15, display: 'flex', flexWrap: 'wrap' }}>
+          <Button2 onPress={onClick} icon="coffee">
+            Buy me a coffee
+          </Button2>
+        </View>
       </View>
     </>
   )
 }
 
 const Subscribe = () => {
-  const theme = useColorScheme()
-  const source = theme === 'dark' ? kofiDark : kofiLight
   const onClick = () => {
     Linking.openURL('https://ko-fi.com/doyouworld/tiers')
   }
@@ -64,34 +61,35 @@ const Subscribe = () => {
 
       <View
         style={{
-          marginTop: 10,
+          marginTop: 20,
         }}
       >
-        <Text style={{ marginBottom: 5 }}>
-          Do!! You!!! World! is a totally independent station, free of corporate
-          investment. A radio station solely funded by the listeners that will
-          always be free at the point of use.
+        <Text style={{ marginBottom: 10 }}>
+          <Text style={{ fontWeight: 'bold' }}>Do!! You!!! World</Text> is a
+          totally independent station, free of corporate investment.
         </Text>
-        <Text style={{ marginBottom: 5 }}>
+        <Text style={{ marginBottom: 10 }}>
+          A radio station solely funded by the listeners that will always be
+          free at the point of use.
+        </Text>
+        <Text style={{ marginBottom: 10 }}>
           However, to allow the station to function, grow and develop, we rely
           on donations and subscriptions from people like yourself.
         </Text>
-        <Text style={{ marginBottom: 5 }}>
+        <Text style={{ marginBottom: 10 }}>
           Your money goes towards paying for staff, rent, studio equipment,
           licensing, developing the service and keeping the it free for all to
           use.
         </Text>
-        <Text style={{ marginBottom: 5 }}>
+        <Text style={{ marginBottom: 10 }}>
           If you are able to contribute it is greatly appreciated.
         </Text>
-        <Text style={{ marginBottom: 5 }}>DO!!YOU!!! </Text>
-        <TouchableOpacity style={{ marginTop: 10 }} onPress={onClick}>
-          <Image
-            style={{ width: 143, height: 36 }}
-            source={source}
-            accessibilityLabel="Buy Me a Coffee at ko-fi.com"
-          />
-        </TouchableOpacity>
+        <Text style={{ marginBottom: 10, fontWeight: 'bold' }}>DO!!YOU!!!</Text>
+        <View style={{ marginTop: 10, display: 'flex', flexWrap: 'wrap' }}>
+          <Button2 onPress={onClick} icon="heart-multiple">
+            Subscribe
+          </Button2>
+        </View>
       </View>
     </>
   )
@@ -110,7 +108,7 @@ const Credits: React.FC = () => (
   <View>
     <Heading style={{ fontSize: 32 }}>Credits</Heading>
 
-    <Text style={{ marginVertical: 10 }}>
+    <Text style={{ marginVertical: 20 }}>
       - Out to Charlie Bones & Oscar for giving us the{' '}
       <Text style={{ fontStyle: 'italic' }}>perfect sound forever</Text> and
       making the radio world a better place.

@@ -4,7 +4,7 @@ import { RootTabScreenProps } from '../../types'
 import { ArchiveDetailsFooter } from '../components/ArchiveDetails/ArchiveDetailsFooter/ArchiveDetailsFooter'
 import { ArchiveDetailsHeader } from '../components/ArchiveDetails/ArchiveDetailsHeader/ArchiveDetailsHeader'
 import { ArchiveTracklist } from '../components/ArchiveDetails/ArchiveTracklist/ArchiveTracklist'
-import { Badge } from '../components/Badge/Badge'
+import { Button2 } from '../components/Button2/Button2'
 import { Text, View } from '../components/Themed'
 import Colors from '../constants/Colors'
 import Space from '../constants/Space'
@@ -84,15 +84,9 @@ export default function ArchiveDetailsScreen({
           </View>
           <View style={styles.genres}>
             {track.genres?.map((genre, i) => (
-              <Badge
-                key={i}
-                fontSize={12}
-                style={{ marginRight: 5, marginBottom: 5 }}
-                color={Colors[theme].text}
-                backgroundColor={Colors[theme].secondary}
-              >
-                {genre.name}
-              </Badge>
+              <View key={i} style={{ marginRight: 5, marginBottom: 5 }}>
+                <Button2 variant="sm">{genre.name}</Button2>
+              </View>
             ))}
           </View>
 
