@@ -12,6 +12,7 @@ import useColorScheme from '../hooks/useColorScheme'
 import { ScrollView } from 'react-native'
 import Space from '../constants/Space'
 import { Button2 } from '../components/Button2/Button2'
+import { Link } from '../components/Link/Link'
 
 const Support = () => {
   const theme = useColorScheme()
@@ -38,7 +39,7 @@ const Support = () => {
           If you can contribute, your support will be greatly appreciated.
         </Text>
         <Text>If not, your love will be more than enough.</Text>
-        <View style={{ marginTop: 15, display: 'flex', flexWrap: 'wrap' }}>
+        <View style={{ marginTop: 20, display: 'flex', flexWrap: 'wrap' }}>
           <Button2 onPress={onClick} icon="coffee">
             Buy me a coffee
           </Button2>
@@ -87,7 +88,7 @@ const Subscribe = () => {
         <Text style={{ marginBottom: 10, fontWeight: 'bold' }}>DO!!YOU!!!</Text>
         <View style={{ marginTop: 10, display: 'flex', flexWrap: 'wrap' }}>
           <Button2 onPress={onClick} icon="heart-multiple">
-            Subscribe
+            Support the station
           </Button2>
         </View>
       </View>
@@ -126,6 +127,31 @@ const Credits: React.FC = () => (
   </View>
 )
 
+const Account = () => {
+  return (
+    <View>
+      <Heading style={{ fontSize: 32 }} multiline={false}>
+        Manage your data
+      </Heading>
+
+      <Text style={{ marginTop: 20, marginBottom: 10 }}>
+        <Text style={{ fontWeight: 'bold' }}>Do!! You!!! World</Text> does not
+        use/share/store any of your personal data.
+      </Text>
+      <Text style={{ marginBottom: 10 }}>
+        However, the chat (hosted by minnit.chat) may retain some of your data
+        on their servers if you have an account with them.
+      </Text>
+      <Text style={{ marginBottom: 20 }}>
+        If you wish to delete your Minnit account, please use the link below.
+      </Text>
+      <Link link="https://minnit.chat/accountsettings">
+        Delete Minnit account
+      </Link>
+    </View>
+  )
+}
+
 export default function MoreScreen({ navigation }: RootTabScreenProps<'More'>) {
   return (
     <ScrollView
@@ -148,6 +174,9 @@ export default function MoreScreen({ navigation }: RootTabScreenProps<'More'>) {
         </View>
         <View style={styles.section}>
           <Credits />
+        </View>
+        <View style={styles.section}>
+          <Account />
         </View>
       </View>
     </ScrollView>

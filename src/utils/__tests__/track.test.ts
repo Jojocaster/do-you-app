@@ -17,7 +17,7 @@ describe('track.ts', () => {
     describe('when `showStart` is NOT defined', () => {
       it('should return the formatted time at which the track was played', () => {
         const result = formatTrackTime(mockTrack)
-        expect(result).toEqual('10:23')
+        expect(result).toEqual('09:23')
       })
     })
     describe('when `showStart` is defined', () => {

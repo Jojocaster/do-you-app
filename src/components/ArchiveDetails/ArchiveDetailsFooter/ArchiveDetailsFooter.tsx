@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Animated, Linking, Platform, StyleSheet } from 'react-native'
 import WebView from 'react-native-webview'
 import Colors from '../../../constants/Colors'
@@ -12,9 +12,20 @@ const VIEW_HEIGHT = 60
 
 export const ArchiveDetailsFooter: React.FC<{ slug: string }> = ({ slug }) => {
   const theme = useColorScheme()
+  const [showWebview, setShowWebview] = useState(true)
   const uri = `${MIXCLOUD_WEBVIEW}/${slug}/${theme === 'light' ? 1 : 0}`
   const webview = useRef<WebView>(null)
   const translateY = useRef(new Animated.Value(VIEW_HEIGHT))
+
+  useEffect(() => {
+    return () => {
+      // setShowWebview(false)
+      // const message = { source: 'app', type: 'pause' }
+      // webview.current?.postMessage(JSON.stringify(message))
+
+      setShowWebview(false)
+    }
+  }, [])
 
   const onMessage = (e: any) => {
     const event = JSON.parse(e.nativeEvent.data)
@@ -41,6 +52,10 @@ export const ArchiveDetailsFooter: React.FC<{ slug: string }> = ({ slug }) => {
         <Link link={`${MIXCLOUD_URL}/${slug}`}>Listen on Mixcloud</Link>
       </View>
     )
+  }
+
+  if (!showWebview) {
+    return null
   }
 
   return (
@@ -85,10 +100,10 @@ const styles = StyleSheet.create({
     shadowColor: '#000000',
     shadowOffset: {
       width: 0,
-      height: -5,
+      height: -2,
     },
-    shadowRadius: 10,
-    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    shadowOpacity: 0.1,
   },
   androidView: {
     padding: 10,

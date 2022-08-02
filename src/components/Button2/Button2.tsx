@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React, { useRef } from 'react'
-import { Animated, Pressable, StyleSheet } from 'react-native'
+import { Animated, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
 import { Text, View } from '../Themed'
@@ -42,7 +42,6 @@ export const Button2: React.FC<ButtonProps> = (props) => {
     Animated.spring(scale.current, {
       toValue: 0.8,
       friction: 4,
-      delay: 0,
       useNativeDriver: true,
     }).start()
   }
@@ -51,13 +50,12 @@ export const Button2: React.FC<ButtonProps> = (props) => {
     Animated.spring(scale.current, {
       toValue: 1,
       friction: 2,
-      delay: 0,
       useNativeDriver: true,
     }).start()
   }
 
   return (
-    <Pressable
+    <TouchableWithoutFeedback
       delayLongPress={0}
       onPress={onPress}
       onPressIn={onPress ? onPressIn : undefined}
@@ -84,7 +82,7 @@ export const Button2: React.FC<ButtonProps> = (props) => {
           </View>
         </Animated.View>
       </Animated.View>
-    </Pressable>
+    </TouchableWithoutFeedback>
   )
 }
 

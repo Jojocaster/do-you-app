@@ -1,4 +1,5 @@
 import { format } from 'date-fns'
+import { useEffect } from 'react'
 import { Platform, ScrollView, StyleSheet } from 'react-native'
 import { RootTabScreenProps } from '../../types'
 import { ArchiveDetailsFooter } from '../components/ArchiveDetails/ArchiveDetailsFooter/ArchiveDetailsFooter'

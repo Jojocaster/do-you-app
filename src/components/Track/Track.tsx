@@ -73,7 +73,10 @@ export const Track: React.FC<{
               </TouchableOpacity>
               <View>
                 {active && (
-                  <View style={{ marginTop: 10, marginBottom: 10 }}>
+                  <View
+                    testID="trackDetails"
+                    style={{ marginTop: 10, marginBottom: 10 }}
+                  >
                     <Text style={{ fontSize: 12 }}>
                       Confidence:{' '}
                       <Text style={{ fontWeight: 'bold' }}>

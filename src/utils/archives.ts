@@ -15,8 +15,6 @@ export const formatArchiveTitle = (title: string): string => {
 }
 
 export const formatArchiveDate = (track: ArchiveItem): string => {
-  console.log('date', track.date)
-
   try {
     const titleItems = track.name?.split(' - ')
     if (titleItems.length > 1) {

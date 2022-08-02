@@ -1,4 +1,6 @@
-import renderer from 'react-test-renderer'
+import { fireEvent, waitFor } from '@testing-library/react-native'
+import { FlatList } from 'react-native'
+import renderer, { act } from 'react-test-renderer'
 import { StatusType } from '../../Status/Status.types'
 import { Track } from '../../Track/Track'
 import { Tracklist } from '../Tracklist'
@@ -96,4 +98,37 @@ describe('Tracklist', () => {
     const wrapper = renderer.create(<Tracklist tracks={mockTracks} />)
     expect(wrapper.root.findAllByType(Track).length).toEqual(mockTracks.length)
   })
+
+  describe('when `virtual` is set to false', () => {
+    it('should NOT use a Flatlist', () => {
+      const wrapper = renderer.create(
+        <Tracklist virtual={false} tracks={mockTracks} />
+      )
+      const flatlist = wrapper.root.findAllByType(FlatList)
+      expect(flatlist.length).toBe(0)
+    })
+  })
+
+  describe('when `virtual` is set to true', () => {
+    it('should use a Flatlist', () => {
+      const wrapper = renderer.create(
+        <Tracklist virtual={true} tracks={mockTracks} />
+      )
+      const flatlist = wrapper.root.findAllByType(FlatList)
+      expect(flatlist.length).toBe(1)
+    })
+  })
+
+  // describe('when a track is pressed', () => {
+  //   it('should set its `active` prop to true', async () => {
+  //     const wrapper = renderer.create(<Tracklist tracks={mockTracks} />)
+  //     const item = wrapper.root.findAllByType(Track)[0]
+  //     expect(item.props.active).toBeFalsy()
+
+  //     act(() => {
+  //       item.props.onToggle(mockTracks[0])
+  //     })
+  //     await waitFor(() => expect(item.props.active).toBeTruthy())
+  //   })
+  // })
 })

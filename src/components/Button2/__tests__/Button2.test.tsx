@@ -30,7 +30,7 @@ describe('Button', () => {
       const wrapper = renderer.create(
         <Button2 onPress={mockOnPress}>foo</Button2>
       )
-      const button = wrapper.root.findByType(Pressable)
+      const button = wrapper.root.findByType(RN.TouchableWithoutFeedback)
       fireEvent.press(button)
       expect(mockOnPress).toHaveBeenCalled()
     })

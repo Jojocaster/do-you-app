@@ -145,7 +145,7 @@ exports[`Tracklist should render correctly 1`] = `
                 ]
               }
             >
-              10:23
+              09:23
             </Text>
           </View>
           <View
@@ -311,7 +311,7 @@ exports[`Tracklist should render correctly 1`] = `
                 ]
               }
             >
-              10:33
+              09:33
             </Text>
           </View>
           <View
@@ -477,7 +477,7 @@ exports[`Tracklist should render correctly 1`] = `
                 ]
               }
             >
-              10:45
+              09:45
             </Text>
           </View>
           <View
@@ -643,7 +643,7 @@ exports[`Tracklist should render correctly 1`] = `
                 ]
               }
             >
-              10:51
+              09:51
             </Text>
           </View>
           <View
