@@ -26,7 +26,7 @@
     ],
     "ios": {
       "bundleIdentifier": "com.wonkylines.doyouworld",
-      "buildNumber": "0.4.2.1",
+      "buildNumber": "0.4.2.2",
       "supportsTablet": false,
       "infoPlist": {
         "UIBackgroundModes": [
