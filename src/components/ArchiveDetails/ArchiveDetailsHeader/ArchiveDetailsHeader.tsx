@@ -9,14 +9,21 @@ import { MIXCLOUD_IMAGE_ENDPOINT } from '../../ArchiveListItem/ArchiveListItem.c
 import { ArchiveItem } from '../../Archives/Archives.types'
 import { View } from '../../Themed'
 
-export const ArchiveDetailsHeader: React.FC<{ track: ArchiveItem }> = ({
-  track,
-}) => {
+export const ArchiveDetailsHeader: React.FC<{
+  scrollY: Animated.Value
+  track: ArchiveItem
+}> = ({ scrollY, track }) => {
   const theme = useColorScheme()
   const navigation = useNavigation()
   const opacity = useRef(new Animated.Value(0))
   const imageSource = `${MIXCLOUD_IMAGE_ENDPOINT}${track.picture_url}`
   const imageSize = deviceWidth / 2
+
+  const headerScroll = scrollY.interpolate({
+    inputRange: [0, deviceHeight],
+    outputRange: [0, deviceHeight * 0.5],
+    extrapolate: 'extend',
+  })
 
   const onLoad = () => {
     Animated.timing(opacity.current, {
@@ -42,20 +49,22 @@ export const ArchiveDetailsHeader: React.FC<{ track: ArchiveItem }> = ({
           styles.backdrop,
           {
             opacity: opacity.current,
+            transform: [{ translateY: headerScroll }],
           },
         ]}
         source={{ uri: imageSource }}
       />
-      <View
+      <Animated.View
         style={{
           borderColor: Colors[theme].secondary,
           borderWidth: 3,
           height: imageSize,
           width: imageSize,
+          // transform: [{ translateY: imageScroll }],
         }}
       >
         <ImageBackground source={{ uri: imageSource }} style={{ flex: 1 }} />
-      </View>
+      </Animated.View>
       <View style={styles.close}>
         <Pressable
           pressRetentionOffset={20}

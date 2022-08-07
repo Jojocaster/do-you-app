@@ -31,9 +31,10 @@ const filterArchiveTracklist = (data: TrackInfo[] = [], track: ArchiveItem) => {
   }
 }
 
-export const ArchiveTracklist: React.FC<{ track: ArchiveItem }> = ({
-  track,
-}) => {
+export const ArchiveTracklist: React.FC<{
+  onLayout: any
+  track: ArchiveItem
+}> = ({ onLayout, track }) => {
   const theme = useColorScheme()
   const date = new Date(track.date)
   const formattedDate = format(date, 'dd/MM/yyyy')
@@ -56,7 +57,7 @@ export const ArchiveTracklist: React.FC<{ track: ArchiveItem }> = ({
     return <Text>Oops - we ran into an error.</Text>
   }
 
-  if (!filteredData.length) {
+  if (!filteredData.length && !loading) {
     return (
       <View>
         <Text>No tracklist available.</Text>
@@ -65,10 +66,12 @@ export const ArchiveTracklist: React.FC<{ track: ArchiveItem }> = ({
   }
 
   return (
-    <Tracklist
-      virtual={false}
-      tracks={filteredData}
-      showStart={track.start_time}
-    />
+    <View onLayout={onLayout}>
+      <Tracklist
+        virtual={false}
+        tracks={filteredData}
+        showStart={track.start_time}
+      />
+    </View>
   )
 }

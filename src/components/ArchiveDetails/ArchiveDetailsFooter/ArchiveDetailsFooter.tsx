@@ -12,24 +12,12 @@ const VIEW_HEIGHT = 60
 
 export const ArchiveDetailsFooter: React.FC<{ slug: string }> = ({ slug }) => {
   const theme = useColorScheme()
-  const [showWebview, setShowWebview] = useState(true)
   const uri = `${MIXCLOUD_WEBVIEW}/${slug}/${theme === 'light' ? 1 : 0}`
   const webview = useRef<WebView>(null)
   const translateY = useRef(new Animated.Value(VIEW_HEIGHT))
 
-  useEffect(() => {
-    return () => {
-      // setShowWebview(false)
-      // const message = { source: 'app', type: 'pause' }
-      // webview.current?.postMessage(JSON.stringify(message))
-
-      setShowWebview(false)
-    }
-  }, [])
-
   const onMessage = (e: any) => {
     const event = JSON.parse(e.nativeEvent.data)
-    console.log(event)
 
     if (event.type === 'loaded') {
       Animated.timing(translateY.current, {
@@ -52,10 +40,6 @@ export const ArchiveDetailsFooter: React.FC<{ slug: string }> = ({ slug }) => {
         <Link link={`${MIXCLOUD_URL}/${slug}`}>Listen on Mixcloud</Link>
       </View>
     )
-  }
-
-  if (!showWebview) {
-    return null
   }
 
   return (

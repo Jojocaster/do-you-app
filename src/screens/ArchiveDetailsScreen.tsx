@@ -1,6 +1,12 @@
 import { format } from 'date-fns'
-import { useEffect } from 'react'
-import { Platform, ScrollView, StyleSheet } from 'react-native'
+import { useEffect, useRef, useState } from 'react'
+import {
+  Animated,
+  LayoutChangeEvent,
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native'
 import { RootTabScreenProps } from '../../types'
 import { ArchiveDetailsFooter } from '../components/ArchiveDetails/ArchiveDetailsFooter/ArchiveDetailsFooter'
 import { ArchiveDetailsHeader } from '../components/ArchiveDetails/ArchiveDetailsHeader/ArchiveDetailsHeader'
@@ -12,41 +18,79 @@ import Space from '../constants/Space'
 import useColorScheme from '../hooks/useColorScheme'
 import { formatArchiveTitle } from '../utils/archives'
 
-const Tab: React.FC<{ children: string; color?: string }> = ({
-  children,
-  color,
-}) => (
-  <View
-    style={{
-      paddingBottom: 3,
-      flex: 0,
-      borderBottomColor: color,
-      borderBottomWidth: 2,
-    }}
-  >
-    <Text
+const Tab: React.FC<{
+  active: boolean
+  children: string
+  onPress?: () => void
+}> = ({ active, children, onPress }) => {
+  const theme = useColorScheme()
+  const opacity = useRef(new Animated.Value(active ? 1 : 0))
+  const textOpacity = useRef(new Animated.Value(active ? 1 : 0.5))
+
+  useEffect(() => {
+    Animated.timing(opacity.current, {
+      toValue: active ? 1 : 0,
+      useNativeDriver: true,
+    }).start()
+    Animated.timing(textOpacity.current, {
+      toValue: active ? 1 : 0.5,
+      useNativeDriver: true,
+    }).start()
+  }, [active])
+
+  return (
+    // <TouchableOpacity onPress={onPress}>
+    <Animated.View
       style={{
-        color,
-        fontFamily: 'Lato_900Black',
-        textTransform: 'uppercase',
-        fontWeight: 'bold',
-        fontSize: 12,
+        paddingBottom: 3,
+        marginRight: 10,
+        flex: 0,
+        opacity: textOpacity.current,
+        borderBottomColor: Colors[theme].primary,
+        borderBottomWidth: 2,
       }}
     >
-      {children}
-    </Text>
-  </View>
-)
+      <Animated.Text
+        style={{
+          color: Colors[theme].primary,
+          opacity: textOpacity.current,
+          fontFamily: 'Lato_900Black',
+          textTransform: 'uppercase',
+          fontWeight: 'bold',
+          fontSize: 14,
+        }}
+      >
+        {children}
+      </Animated.Text>
+    </Animated.View>
+    // </TouchableOpacity>
+  )
+}
+
+enum Tabs {
+  TRACKLIST,
+  MORE,
+}
 
 export default function ArchiveDetailsScreen({
   route,
 }: RootTabScreenProps<'ArchiveDetails'>) {
   const { track } = route.params
   const theme = useColorScheme()
+  const scrollY = useRef(new Animated.Value(0)).current
+  const [activeTab, setActiveTab] = useState<Tabs>(Tabs.TRACKLIST)
+  const [tabsHeight, setTabsHeight] = useState<number>()
 
   return (
     <View style={{ flex: 1, position: 'relative' }}>
-      <ScrollView
+      <Animated.ScrollView
+        scrollEventThrottle={8}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+          {
+            useNativeDriver: true,
+          }
+        )}
         bounces={false}
         contentContainerStyle={{
           flexGrow: 1,
@@ -54,7 +98,7 @@ export default function ArchiveDetailsScreen({
         }}
         style={styles.scrollView}
       >
-        <ArchiveDetailsHeader track={track} />
+        <ArchiveDetailsHeader scrollY={scrollY} track={track} />
 
         <View
           style={{
@@ -91,15 +135,44 @@ export default function ArchiveDetailsScreen({
             ))}
           </View>
 
-          <View style={{ marginTop: 20 }}>
+          <View
+            style={{
+              marginTop: 20,
+              flex: 1,
+              height: tabsHeight ? tabsHeight + 40 : undefined,
+            }}
+          >
             <View style={styles.tabs}>
-              <Tab color={Colors[theme].primary}>Tracklist</Tab>
+              <Tab
+                active={activeTab === Tabs.TRACKLIST}
+                onPress={() => setActiveTab(Tabs.TRACKLIST)}
+              >
+                Tracklist
+              </Tab>
+              {/* <Tab
+                active={activeTab === Tabs.MORE}
+                onPress={() => setActiveTab(Tabs.MORE)}
+              >
+                More
+              </Tab> */}
             </View>
 
-            <ArchiveTracklist track={track} />
+            {activeTab === Tabs.TRACKLIST && (
+              <ArchiveTracklist
+                onLayout={(e: LayoutChangeEvent) =>
+                  setTabsHeight(e.nativeEvent.layout.height)
+                }
+                track={track}
+              />
+            )}
+            {activeTab === Tabs.MORE && (
+              <View style={{ height: 400 }}>
+                <Text>test</Text>
+              </View>
+            )}
           </View>
         </View>
-      </ScrollView>
+      </Animated.ScrollView>
       <ArchiveDetailsFooter slug={track.slug} />
     </View>
   )

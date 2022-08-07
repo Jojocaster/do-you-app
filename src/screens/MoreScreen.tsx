@@ -13,6 +13,7 @@ import { ScrollView } from 'react-native'
 import Space from '../constants/Space'
 import { Button2 } from '../components/Button2/Button2'
 import { Link } from '../components/Link/Link'
+import Colors from '../constants/Colors'
 
 const Support = () => {
   const theme = useColorScheme()
@@ -51,7 +52,7 @@ const Support = () => {
 
 const Subscribe = () => {
   const onClick = () => {
-    Linking.openURL('https://ko-fi.com/doyouworld/tiers')
+    Linking.openURL('https://doyou.world/')
   }
 
   return (
@@ -75,20 +76,30 @@ const Subscribe = () => {
         </Text>
         <Text style={{ marginBottom: 10 }}>
           However, to allow the station to function, grow and develop, we rely
-          on donations and subscriptions from people like yourself.
+          on support from people like yourself.
         </Text>
         <Text style={{ marginBottom: 10 }}>
+          Follow the link below to learn about how you can help support the
+          station to cover staff, rent, studio equipment, licensing, developing
+          the service and keeping it free for all to use.
+        </Text>
+        <Text style={{ marginBottom: 10 }}>
+          If you are able to contribute, it is greatly appreciated.
+        </Text>
+        {/* <Text style={{ marginBottom: 10 }}>
           Your money goes towards paying for staff, rent, studio equipment,
           licensing, developing the service and keeping the it free for all to
           use.
         </Text>
         <Text style={{ marginBottom: 10 }}>
           If you are able to contribute it is greatly appreciated.
+        </Text> */}
+        <Text style={{ marginBottom: 10, fontWeight: 'bold' }}>
+          DO!!YOU!!! X
         </Text>
-        <Text style={{ marginBottom: 10, fontWeight: 'bold' }}>DO!!YOU!!!</Text>
         <View style={{ marginTop: 10, display: 'flex', flexWrap: 'wrap' }}>
           <Button2 onPress={onClick} icon="heart-multiple">
-            Support the station
+            Find out more
           </Button2>
         </View>
       </View>
@@ -96,33 +107,37 @@ const Subscribe = () => {
   )
 }
 
-export const Weblink: React.FC<{ uri: string }> = ({ children, uri }) => (
-  <Text
-    style={{ textDecorationLine: 'underline' }}
-    onPress={() => Linking.openURL(uri)}
-  >
-    {children}
-  </Text>
-)
+export const Weblink: React.FC<{ uri: string }> = ({ children, uri }) => {
+  const theme = useColorScheme()
+  return (
+    <Text
+      style={{
+        fontWeight: 'bold',
+        color: Colors[theme].primary,
+        textDecorationLine: 'underline',
+        textDecorationColor: Colors[theme].primary,
+      }}
+      onPress={() => Linking.openURL(uri)}
+    >
+      {children}
+    </Text>
+  )
+}
 
 const Credits: React.FC = () => (
   <View>
     <Heading style={{ fontSize: 32 }}>Credits</Heading>
-
-    <Text style={{ marginVertical: 20 }}>
-      - Out to Charlie Bones & Oscar for giving us the{' '}
-      <Text style={{ fontStyle: 'italic' }}>perfect sound forever</Text> and
-      making the radio world a better place.
+    <Text style={{ marginTop: 20 }}>
+      <Weblink uri="https://github.com/Jojocaster">Joel Beaudon</Weblink>: Web &
+      App Developer
     </Text>
-    <Text>
-      - Out to{' '}
-      <Weblink uri="https://github.com/Rassibassi/">Rassibassi</Weblink>,{' '}
-      <Weblink uri="https://www.erinrimmer.com/">Erin Rimmer</Weblink> &{' '}
-      <Weblink uri="https://github.com/jackhkmatthews">jackhkmatthews</Weblink>{' '}
-      for their work on{' '}
-      <Weblink uri="https://doyoutrackid.com/">
-        https://doyoutrackid.com
-      </Weblink>
+    <Text style={{ marginTop: 10 }}>
+      <Weblink uri="https://www.erinrimmer.com/">Erin Rimmer</Weblink>: UI & UX
+      designer
+    </Text>
+    <Text style={{ marginTop: 10 }}>
+      <Weblink uri="https://github.com/Rassibassi/">Rasmus Jones</Weblink>:{' '}
+      Backend
     </Text>
   </View>
 )
@@ -169,9 +184,9 @@ export default function MoreScreen({ navigation }: RootTabScreenProps<'More'>) {
         <View style={styles.section}>
           <Subscribe />
         </View>
-        <View style={styles.section}>
+        {/* <View style={styles.section}>
           <Support />
-        </View>
+        </View> */}
         <View style={styles.section}>
           <Credits />
         </View>

@@ -45,6 +45,7 @@ export const Status: React.FC = () => {
     () => (
       <View
         style={{
+          height: 90,
           paddingTop: 50,
           paddingBottom: 20,
           justifyContent: 'space-between',
