@@ -1,0 +1,762 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tracklist should render correctly 1`] = `
+<RCTScrollView
+  data={
+    Array [
+      Object {
+        "album": "The Soul Of Philadelphia",
+        "artist": "Hipnotic",
+        "label": "Essential Media Group",
+        "out_of": 1,
+        "played_date": "2022-07-27",
+        "played_datetime": "2022-07-27 09:23:04+0100",
+        "received_datetime": "2022-07-27 09:23:13+0100",
+        "release_date": "2008-09-09",
+        "score": 64,
+        "song_link": "https://lis.tn/uoxrjY",
+        "timecode": "00:03",
+        "title": "Are You Lonely?",
+      },
+      Object {
+        "album": "Grand 12 inches 13",
+        "artist": "Larry Wu",
+        "label": "SME - Sony Music Entertainment",
+        "out_of": 1,
+        "played_date": "2022-07-27",
+        "played_datetime": "2022-07-27 09:33:41+0100",
+        "received_datetime": "2022-07-27 09:33:51+0100",
+        "release_date": "2015-05-29",
+        "score": 100,
+        "song_link": "https://lis.tn/Zgqvv",
+        "timecode": "00:15",
+        "title": "Let Me Show You (Long Vocal Version)",
+      },
+      Object {
+        "album": "fabric presents Danilo Plessow (MCDE)",
+        "artist": "John Kongos",
+        "label": "MERLIN - Fabric Records",
+        "out_of": 2,
+        "played_date": "2022-07-27",
+        "played_datetime": "2022-07-27 09:45:25+0100",
+        "received_datetime": "2022-07-27 09:45:35+0100",
+        "release_date": "2021-05-28",
+        "score": 100,
+        "song_link": "https://lis.tn/XFHWU",
+        "timecode": "00:08",
+        "title": "I'm Dreaming (Any Moment I May Wake Up Screaming)",
+      },
+      Object {
+        "album": "The Best of DREAMS UNLIMITED",
+        "artist": "Dreams Unlimited",
+        "label": "Broma16",
+        "out_of": 1,
+        "played_date": "2022-07-27",
+        "played_datetime": "2022-07-27 09:51:43+0100",
+        "received_datetime": "2022-07-27 09:51:52+0100",
+        "release_date": "2019-04-01",
+        "score": 100,
+        "song_link": "https://lis.tn/DEEPINYOULTJCLUBMIX",
+        "timecode": "05:39",
+        "title": "DEEP IN YOU (LTJ CLUB MIX)",
+      },
+    ]
+  }
+  disableVirtualization={false}
+  fadingEdgeLength={100}
+  getItem={[Function]}
+  getItemCount={[Function]}
+  horizontal={false}
+  initialNumToRender={10}
+  keyExtractor={[Function]}
+  maxToRenderPerBatch={10}
+  onContentSizeChange={[Function]}
+  onEndReachedThreshold={2}
+  onLayout={[Function]}
+  onMomentumScrollEnd={[Function]}
+  onScroll={[Function]}
+  onScrollBeginDrag={[Function]}
+  onScrollEndDrag={[Function]}
+  overScrollMode="never"
+  removeClippedSubviews={false}
+  renderItem={[Function]}
+  scrollEventThrottle={50}
+  showsVerticalScrollIndicator={false}
+  stickyHeaderIndices={Array []}
+  style={
+    Object {
+      "width": "100%",
+    }
+  }
+  updateCellsBatchingPeriod={50}
+  viewabilityConfigCallbackPairs={Array []}
+  windowSize={21}
+>
+  <View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#1c1c1c",
+            },
+            undefined,
+          ]
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "backgroundColor": "#1c1c1c",
+              },
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+                "marginBottom": 10,
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "#1c1c1c",
+                },
+                Object {
+                  "flexBasis": 60,
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#fff",
+                  },
+                  Object {
+                    "fontSize": 14,
+                  },
+                ]
+              }
+            >
+              09:23
+            </Text>
+          </View>
+          <View
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "#1c1c1c",
+                },
+                Object {
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "row",
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "#1c1c1c",
+                  },
+                  Object {
+                    "marginRight": 5,
+                  },
+                ]
+              }
+            >
+              <Text />
+            </View>
+            <View
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "#1c1c1c",
+                  },
+                  Object {
+                    "flex": 1,
+                  },
+                ]
+              }
+            >
+              <View
+                accessible={true}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#fff",
+                      },
+                      Object {
+                        "color": "#FFDC3B",
+                        "fontSize": 14,
+                        "fontWeight": "bold",
+                      },
+                    ]
+                  }
+                >
+                  Hipnotic
+                </Text>
+                <View
+                  style={
+                    Array [
+                      Object {
+                        "backgroundColor": "#1c1c1c",
+                      },
+                      undefined,
+                    ]
+                  }
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#fff",
+                        },
+                        undefined,
+                      ]
+                    }
+                  >
+                    Are You Lonely?
+                  </Text>
+                </View>
+              </View>
+              <View
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "#1c1c1c",
+                    },
+                    undefined,
+                  ]
+                }
+              />
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#1c1c1c",
+            },
+            undefined,
+          ]
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "backgroundColor": "#1c1c1c",
+              },
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+                "marginBottom": 10,
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "#1c1c1c",
+                },
+                Object {
+                  "flexBasis": 60,
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#fff",
+                  },
+                  Object {
+                    "fontSize": 14,
+                  },
+                ]
+              }
+            >
+              09:33
+            </Text>
+          </View>
+          <View
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "#1c1c1c",
+                },
+                Object {
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "row",
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "#1c1c1c",
+                  },
+                  Object {
+                    "marginRight": 5,
+                  },
+                ]
+              }
+            >
+              <Text />
+            </View>
+            <View
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "#1c1c1c",
+                  },
+                  Object {
+                    "flex": 1,
+                  },
+                ]
+              }
+            >
+              <View
+                accessible={true}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#fff",
+                      },
+                      Object {
+                        "color": "#FFDC3B",
+                        "fontSize": 14,
+                        "fontWeight": "bold",
+                      },
+                    ]
+                  }
+                >
+                  Larry Wu
+                </Text>
+                <View
+                  style={
+                    Array [
+                      Object {
+                        "backgroundColor": "#1c1c1c",
+                      },
+                      undefined,
+                    ]
+                  }
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#fff",
+                        },
+                        undefined,
+                      ]
+                    }
+                  >
+                    Let Me Show You (Long Vocal Version)
+                  </Text>
+                </View>
+              </View>
+              <View
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "#1c1c1c",
+                    },
+                    undefined,
+                  ]
+                }
+              />
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#1c1c1c",
+            },
+            undefined,
+          ]
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "backgroundColor": "#1c1c1c",
+              },
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+                "marginBottom": 10,
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "#1c1c1c",
+                },
+                Object {
+                  "flexBasis": 60,
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#fff",
+                  },
+                  Object {
+                    "fontSize": 14,
+                  },
+                ]
+              }
+            >
+              09:45
+            </Text>
+          </View>
+          <View
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "#1c1c1c",
+                },
+                Object {
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "row",
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "#1c1c1c",
+                  },
+                  Object {
+                    "marginRight": 5,
+                  },
+                ]
+              }
+            >
+              <Text />
+            </View>
+            <View
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "#1c1c1c",
+                  },
+                  Object {
+                    "flex": 1,
+                  },
+                ]
+              }
+            >
+              <View
+                accessible={true}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#fff",
+                      },
+                      Object {
+                        "color": "#FFDC3B",
+                        "fontSize": 14,
+                        "fontWeight": "bold",
+                      },
+                    ]
+                  }
+                >
+                  John Kongos
+                </Text>
+                <View
+                  style={
+                    Array [
+                      Object {
+                        "backgroundColor": "#1c1c1c",
+                      },
+                      undefined,
+                    ]
+                  }
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#fff",
+                        },
+                        undefined,
+                      ]
+                    }
+                  >
+                    I'm Dreaming (Any Moment I May Wake Up Screaming)
+                  </Text>
+                </View>
+              </View>
+              <View
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "#1c1c1c",
+                    },
+                    undefined,
+                  ]
+                }
+              />
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+    <View
+      onLayout={[Function]}
+      style={null}
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#1c1c1c",
+            },
+            undefined,
+          ]
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "backgroundColor": "#1c1c1c",
+              },
+              Object {
+                "display": "flex",
+                "flexDirection": "row",
+                "marginBottom": 10,
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "#1c1c1c",
+                },
+                Object {
+                  "flexBasis": 60,
+                },
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#fff",
+                  },
+                  Object {
+                    "fontSize": 14,
+                  },
+                ]
+              }
+            >
+              09:51
+            </Text>
+          </View>
+          <View
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "#1c1c1c",
+                },
+                Object {
+                  "display": "flex",
+                  "flex": 1,
+                  "flexDirection": "row",
+                },
+              ]
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "#1c1c1c",
+                  },
+                  Object {
+                    "marginRight": 5,
+                  },
+                ]
+              }
+            >
+              <Text />
+            </View>
+            <View
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "#1c1c1c",
+                  },
+                  Object {
+                    "flex": 1,
+                  },
+                ]
+              }
+            >
+              <View
+                accessible={true}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#fff",
+                      },
+                      Object {
+                        "color": "#FFDC3B",
+                        "fontSize": 14,
+                        "fontWeight": "bold",
+                      },
+                    ]
+                  }
+                >
+                  Dreams Unlimited
+                </Text>
+                <View
+                  style={
+                    Array [
+                      Object {
+                        "backgroundColor": "#1c1c1c",
+                      },
+                      undefined,
+                    ]
+                  }
+                >
+                  <Text
+                    style={
+                      Array [
+                        Object {
+                          "color": "#fff",
+                        },
+                        undefined,
+                      ]
+                    }
+                  >
+                    DEEP IN YOU (LTJ CLUB MIX)
+                  </Text>
+                </View>
+              </View>
+              <View
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "#1c1c1c",
+                    },
+                    undefined,
+                  ]
+                }
+              />
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</RCTScrollView>
+`;

@@ -1,12 +1,12 @@
 import { Dimensions } from 'react-native'
 
-const width = Dimensions.get('window').width
-const height = Dimensions.get('window').height
+export const deviceWidth = Dimensions.get('window').width
+export const deviceHeight = Dimensions.get('window').height
 
 export default {
   window: {
-    width,
-    height,
+    width: deviceWidth,
+    height: deviceHeight,
   },
-  isSmallDevice: width < 375,
+  isSmallDevice: deviceWidth < 375,
 }

@@ -22,7 +22,7 @@ export interface TracksInfoState {
 export const fetchTracksInfo = createAsyncThunk(
   'tracksInfo/fetchShowInfo',
   async () => {
-    const response = await fetch(TRACKLIST_URL)
+    const response = await fetch(`${TRACKLIST_URL}/today`)
     const data = await response.json()
     return data as { tracks: TrackInfo[] }
   }

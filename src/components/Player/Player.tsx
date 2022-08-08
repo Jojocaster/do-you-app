@@ -4,7 +4,7 @@ import { StyledCover } from './Player.styles'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../store/store'
 import {
   ARTIST_NAME,
@@ -27,19 +27,20 @@ import {
   registerBackgroundTask,
   unregisterBackgroundTask,
 } from '../../utils/tasks'
+import { fetchShowInfo } from '../../store/slices/showSlice'
 
 export const Player: React.FC<{ background: string }> = ({ background }) => {
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const [playerState, setPlayerState] = useState<State>(State.None)
   const theme = useColorScheme()
   const { currentShow, currentTrack } = useSelector(
     (state: RootState) => state.show
   )
   const { batterySaver } = useSelector((state: RootState) => state.settings)
-  console.log(currentShow?.name, currentTrack?.name)
 
   const initPlayer = async () => {
-    console.log('init', currentShow?.name, currentTrack?.name)
+    // fetch show info before init player
+    dispatch(fetchShowInfo())
 
     if (!batterySaver) {
       await registerBackgroundTask()

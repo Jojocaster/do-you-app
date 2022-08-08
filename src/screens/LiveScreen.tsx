@@ -22,9 +22,9 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
   const theme = useColorScheme()
 
   useEffect(() => {
-    if (whatsNew !== '0.4.0') {
+    if (whatsNew !== '0.4.2') {
       navigation.navigate('Modal')
-      dispatch(updateWhatsNew('0.4.0'))
+      dispatch(updateWhatsNew('0.4.2'))
     }
   }, [])
 

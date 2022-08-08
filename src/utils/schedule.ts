@@ -6,7 +6,7 @@ export interface ShowInfo {
   end_timestamp: string
   ends: string
   id: number
-  image_cloud_file_id: string | null
+  image_cloud_file_id: string | number | null
   image_path: string
   instance_description: string
   instance_id: number
@@ -19,6 +19,7 @@ export interface ShowInfo {
 
 export interface Schedule {
   [key: string]: ShowInfo[]
+  AIRTIME_API_VERSION: any
 }
 
 export const formatSchedule = (scheduleData: Schedule) => {

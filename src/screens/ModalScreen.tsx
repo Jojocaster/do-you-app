@@ -69,7 +69,7 @@ export default function ModalScreen({
               </Link>{' '}
               are now available! 🎉
             </Text>
-            <Text>Search, filters, embed player & more coming soon.</Text>
+            <Text>Search, filters & more coming soon.</Text>
           </View>
           <View style={styles.textContainer}>
             <Text style={styles.text}>

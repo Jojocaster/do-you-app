@@ -1,23 +1,22 @@
 import { MaterialIcons } from '@expo/vector-icons'
-import { format, parseJSON } from 'date-fns'
 import { useEffect, useMemo, useState } from 'react'
-import { StyleSheet, TouchableOpacity } from 'react-native'
+import { Clipboard, StyleSheet, TouchableOpacity } from 'react-native'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
 import { TrackInfo } from '../../store/slices/tracksInfoSlice'
-import { Button } from '../Button/Button'
-import { Clipboard } from 'react-native'
+import { formatTrackTime, getTrackScore } from '../../utils/track'
+import { Button2 } from '../Button2/Button2'
 import { Text, View } from '../Themed'
 
 export const Track: React.FC<{
   active: boolean
+  showStart?: string
   onToggle: (track: string) => void
   track: TrackInfo
-}> = ({ active, track, onToggle }) => {
+}> = ({ active, track, onToggle, showStart }) => {
   const [copied, setCopied] = useState(false)
   const theme = useColorScheme()
-  const timecode = parseJSON(track.played_datetime)
-  const formattedTimecode = format(timecode, 'HH:mm')
+  const timecode = formatTrackTime(track, showStart)
 
   const onCopy = () => {
     try {
@@ -40,28 +39,25 @@ export const Track: React.FC<{
     () => (
       <View>
         <View style={styles.container} key={track.played_datetime}>
-          <View style={styles.timecode}>
+          <View style={{ flexBasis: showStart ? 80 : 60 }}>
             <Text
               style={{
                 fontSize: 14,
               }}
             >
-              {formattedTimecode}
+              {timecode}
             </Text>
           </View>
-          <TouchableOpacity
-            style={{ flex: 1 }}
-            onPress={() => onToggle(track.played_datetime)}
-          >
-            <View style={{ display: 'flex', flexDirection: 'row' }}>
-              <View style={{ marginRight: 5 }}>
-                <MaterialIcons
-                  name={active ? 'expand-less' : 'expand-more'}
-                  size={16}
-                  color={Colors[theme].text}
-                />
-              </View>
-              <View style={styles.trackContainer}>
+          <View style={{ display: 'flex', flexDirection: 'row', flex: 1 }}>
+            <View style={{ marginRight: 5 }}>
+              <MaterialIcons
+                name={active ? 'expand-less' : 'expand-more'}
+                size={16}
+                color={Colors[theme].text}
+              />
+            </View>
+            <View style={styles.trackContainer}>
+              <TouchableOpacity onPress={() => onToggle(track.played_datetime)}>
                 <Text
                   style={{
                     color: Colors[theme].primary,
@@ -74,66 +70,47 @@ export const Track: React.FC<{
                 <View>
                   <Text>{track.title}</Text>
                 </View>
+              </TouchableOpacity>
+              <View>
+                {active && (
+                  <View
+                    testID="trackDetails"
+                    style={{ marginTop: 10, marginBottom: 10 }}
+                  >
+                    <Text style={{ fontSize: 12 }}>
+                      Confidence:{' '}
+                      <Text style={{ fontWeight: 'bold' }}>
+                        {getTrackScore(track)}
+                      </Text>
+                    </Text>
+                    <Text style={{ fontSize: 12 }}>
+                      Album:{' '}
+                      <Text style={{ fontWeight: 'bold' }}>{track.album}</Text>
+                    </Text>
+                    <Text style={{ fontSize: 12 }}>
+                      Label:{' '}
+                      <Text style={{ fontWeight: 'bold' }}>{track.label}</Text>
+                    </Text>
+                    <Text style={{ fontSize: 12 }}>
+                      Release:{' '}
+                      <Text style={{ fontWeight: 'bold' }}>
+                        {track.release_date}
+                      </Text>
+                    </Text>
 
-                <View>
-                  {active && (
-                    <View style={{ marginTop: 10, marginBottom: 10 }}>
-                      <Text style={{ fontSize: 12 }}>
-                        Confidence:{' '}
-                        <Text style={{ fontWeight: 'bold' }}>
-                          {track.score / 10}/10
-                        </Text>
-                      </Text>
-                      <Text style={{ fontSize: 12 }}>
-                        Album:{' '}
-                        <Text style={{ fontWeight: 'bold' }}>
-                          {track.album}
-                        </Text>
-                      </Text>
-                      <Text style={{ fontSize: 12 }}>
-                        Label:{' '}
-                        <Text style={{ fontWeight: 'bold' }}>
-                          {track.label}
-                        </Text>
-                      </Text>
-                      <Text style={{ fontSize: 12 }}>
-                        Release:{' '}
-                        <Text style={{ fontWeight: 'bold' }}>
-                          {track.release_date}
-                        </Text>
-                      </Text>
-                      <View
-                        style={styles.separator}
-                        lightColor="#eee"
-                        darkColor="rgba(255,255,255,0.1)"
-                      />
-                      <View style={{}}>
-                        <Button
-                          color={copied ? Colors[theme].primary : undefined}
-                          icon={copied ? 'check' : 'content-copy'}
-                          onPress={onCopy}
-                        >
-                          {copied ? `Copied` : 'Copy'}
-                        </Button>
-                      </View>
+                    <View style={{ marginTop: 10 }}>
+                      <Button2
+                        icon={copied ? 'check' : 'content-copy'}
+                        onPress={onCopy}
+                      >
+                        {copied ? `Copied` : 'Copy'}
+                      </Button2>
                     </View>
-
-                    // <View
-                    //   style={[
-                    //     styles.codeHighlightContainer,
-                    //     styles.homeScreenFilename,
-                    //   ]}
-                    //   darkColor="rgba(255,255,255,0.05)"
-                    //   lightColor="rgba(0,0,0,0.05)"
-                    // >
-                    //   <Text>Album: {track.album}</Text>
-                    //   <Text>Release: {track.release_date}</Text>
-                    // </View>
-                  )}
-                </View>
+                  </View>
+                )}
               </View>
             </View>
-          </TouchableOpacity>
+          </View>
         </View>
       </View>
     ),
@@ -146,9 +123,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     marginBottom: 10,
-  },
-  timecode: {
-    flexBasis: 60,
   },
   trackContainer: {
     flex: 1,

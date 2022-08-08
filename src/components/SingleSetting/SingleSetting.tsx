@@ -60,7 +60,7 @@ export const SingleSetting: React.FC<{
 
 const styles = StyleSheet.create({
   view: {
-    marginTop: 10,
+    marginBottom: 5,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',

@@ -1,5 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'
+import { Platform } from 'react-native'
 import { RootTabScreenProps } from '../../types'
 import { Text, View } from '../components/Themed'
 import ArchiveDetailsScreen from './ArchiveDetailsScreen'
@@ -37,7 +38,14 @@ export default function ArchivesScreen({
         }}
       >
         <Stack.Screen name="ArchivesList" component={ArchivesListScreen} />
-        <Stack.Screen name="ArchiveDetails" component={ArchiveDetailsScreen} />
+        <Stack.Screen
+          name="ArchiveDetails"
+          options={{
+            animation:
+              Platform.OS === 'android' ? 'slide_from_right' : 'default',
+          }}
+          component={ArchiveDetailsScreen}
+        />
       </Stack.Navigator>
     </View>
   )

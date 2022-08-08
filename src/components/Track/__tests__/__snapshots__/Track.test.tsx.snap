@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Track should render 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#fff",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#fff",
+        },
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+          "marginBottom": 10,
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fff",
+          },
+          Object {
+            "flexBasis": 60,
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#000",
+            },
+            Object {
+              "fontSize": 14,
+            },
+          ]
+        }
+      >
+        10:46
+      </Text>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fff",
+          },
+          Object {
+            "display": "flex",
+            "flex": 1,
+            "flexDirection": "row",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#fff",
+            },
+            Object {
+              "marginRight": 5,
+            },
+          ]
+        }
+      >
+        <Text />
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#fff",
+            },
+            Object {
+              "flex": 1,
+            },
+          ]
+        }
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#000",
+                },
+                Object {
+                  "color": "#3a5ed6",
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                },
+              ]
+            }
+          >
+            Pink Shabab
+          </Text>
+          <View
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "#fff",
+                },
+                undefined,
+              ]
+            }
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#000",
+                  },
+                  undefined,
+                ]
+              }
+            >
+              Let Me Explain
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            Array [
+              Object {
+                "backgroundColor": "#fff",
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
+    </View>
+  </View>
+</View>
+`;

@@ -1,0 +1,157 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button should render 1`] = `
+<View
+  accessible={true}
+  focusable={false}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "display": "flex",
+      "flexWrap": "wrap",
+      "paddingLeft": 4,
+      "paddingTop": 4,
+      "position": "relative",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "white",
+        "borderBottomColor": "black",
+        "borderRadius": 3,
+        "borderWidth": 1,
+        "paddingHorizontal": 16,
+        "paddingVertical": 4,
+        "transform": Array [
+          Object {
+            "scale": 1,
+          },
+        ],
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fff",
+          },
+          Array [
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "transparent",
+              "display": "flex",
+              "flexDirection": "row",
+            },
+            Object {
+              "opacity": 0,
+            },
+          ],
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#000",
+            },
+            Array [
+              Object {
+                "color": "black",
+                "fontWeight": "bold",
+                "textTransform": "uppercase",
+              },
+              Object {
+                "fontSize": 12,
+              },
+            ],
+          ]
+        }
+      >
+        foo
+      </Text>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fff",
+          },
+          Array [
+            Object {
+              "backgroundColor": "white",
+              "borderBottomColor": "black",
+              "borderRadius": 3,
+              "borderWidth": 1,
+              "paddingVertical": 4,
+            },
+            Object {
+              "paddingHorizontal": 16,
+            },
+            Object {
+              "left": -5,
+              "position": "absolute",
+              "top": -4,
+            },
+            Object {
+              "backgroundColor": "#F3DD7C",
+            },
+          ],
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#fff",
+            },
+            Array [
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "display": "flex",
+                "flexDirection": "row",
+              },
+              Object {
+                "opacity": 1,
+              },
+            ],
+          ]
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#000",
+              },
+              Array [
+                Object {
+                  "color": "black",
+                  "fontWeight": "bold",
+                  "textTransform": "uppercase",
+                },
+                Object {
+                  "fontSize": 12,
+                },
+              ],
+            ]
+          }
+        >
+          foo
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;

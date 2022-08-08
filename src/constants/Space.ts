@@ -1,4 +1,4 @@
 export default {
-  viewPadding: 40,
+  viewPadding: 25,
   viewPaddingVertical: 25,
 }
