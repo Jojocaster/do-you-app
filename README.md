@@ -43,10 +43,10 @@ Bug tracker for non-GitHub users: [Google Form](https://forms.gle/5HYMW6AM7vtAZ1
 
 ## Roadmap
 - UI & UX improvements
+- Add lint-staged to precommit
+- Add jest to prepush
 - Add animation when show is playing
-- Add "Archives" tab
 - Improve splash screen
-- Link track IDs to archives
 - 11:11
 - Support tablets
 - Add "Events" tab
@@ -69,12 +69,21 @@ Bug tracker for non-GitHub users: [Google Form](https://forms.gle/5HYMW6AM7vtAZ1
 - <del>Display more information about tracks</del>
 - <del>Prevent app from going to sleep is chat is focused</del>
 - <del>Persist cookies from Minnit</del>
+- <del>Add "Archives" tab</del>
+- <del>Link track IDs to archives</del>
 
 <strong>Open to suggestions, feel free to post them [here](https://github.com/Jojocaster/do-you-app/issues) :)</strong>
 
 ## Changelog
 
-- 0.4.0: [Android](https://play.google.com/store/apps/details?id=com.wonkylines.doyouworld) - [iOS](https://apps.apple.com/gb/app/do-you-world/id1620769718)
+- 0.4.3: [Android](https://play.google.com/store/apps/details?id=com.wonkylines.doyouworld) - [iOS](https://apps.apple.com/gb/app/do-you-world/id1620769718)
+```
+- Archives tracklists fixed
+- Media Controls fixed - it now shows the current show, as opposed to the previous one
+- "Random" button added to archives
+```
+
+- 0.4.2: [Android](https://play.google.com/store/apps/details?id=com.wonkylines.doyouworld) - [iOS](https://apps.apple.com/gb/app/do-you-world/id1620769718)
 ```
 - Push notifications implemented 🎉
 - Status now fetched in background while playing in order to update "Now Playing"

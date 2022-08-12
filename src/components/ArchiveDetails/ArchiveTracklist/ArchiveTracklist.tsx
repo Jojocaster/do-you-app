@@ -6,7 +6,7 @@ import { TRACKLIST_URL } from '../../../constants/Endpoints'
 import useColorScheme from '../../../hooks/useColorScheme'
 import { useFetch } from '../../../hooks/useFetch'
 import { TrackInfo } from '../../../store/slices/tracksInfoSlice'
-import { ArchiveItem } from '../../Archives/Archives.types'
+import { ArchiveItem } from '../../ArchivesList/ArchivesList.types'
 import { Text, View } from '../../Themed'
 import { Tracklist } from '../../Tracklist/Tracklist'
 
@@ -20,7 +20,10 @@ const filterArchiveTracklist = (data: TrackInfo[] = [], track: ArchiveItem) => {
     const showEnd = parseJSON(track.end_time)
 
     const filteredData = data.filter((t) => {
-      const timecode = parseJSON(t.played_datetime)
+      const date = t.played_datetime.split(' ')
+      const time = date[1].split('+')
+      const timecode = parseJSON(`${date[0]}T${time[0]}`)
+
       return isAfter(timecode, showStart) && isBefore(timecode, showEnd)
     })
 

@@ -8,9 +8,9 @@ import useColorScheme from '../../hooks/useColorScheme'
 import { ArchiveListItem } from '../ArchiveListItem/ArchiveListItem'
 import { LoadMore } from '../LoadMore/LoadMore'
 import { View } from '../Themed'
-import { ArchiveItem } from './Archives.types'
+import { ArchiveItem } from './ArchivesList.types'
 
-export const Archives: React.FC = () => {
+export const ArchivesList: React.FC = () => {
   const navigation = useNavigation()
   const theme = useColorScheme()
   const isFocused = useIsFocused()

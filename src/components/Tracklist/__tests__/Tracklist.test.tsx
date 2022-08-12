@@ -1,5 +1,5 @@
 import { fireEvent, waitFor } from '@testing-library/react-native'
-import { FlatList } from 'react-native'
+import { FlatList, Touchable, TouchableOpacity } from 'react-native'
 import renderer, { act } from 'react-test-renderer'
 import { StatusType } from '../../Status/Status.types'
 import { Track } from '../../Track/Track'
@@ -119,16 +119,24 @@ describe('Tracklist', () => {
     })
   })
 
-  // describe('when a track is pressed', () => {
-  //   it('should set its `active` prop to true', async () => {
-  //     const wrapper = renderer.create(<Tracklist tracks={mockTracks} />)
-  //     const item = wrapper.root.findAllByType(Track)[0]
-  //     expect(item.props.active).toBeFalsy()
+  describe('when a track is pressed', () => {
+    it('should set its `active` prop to true', async () => {
+      const wrapper = renderer.create(<Tracklist tracks={mockTracks} />)
+      const item = wrapper.root.findAllByType(Track)[0]
+      const item2 = wrapper.root.findAllByType(Track)[1]
+      // const touchable = item.findByType(TouchableOpacity)
+      expect(item.props.active).toBeFalsy()
 
-  //     act(() => {
-  //       item.props.onToggle(mockTracks[0])
-  //     })
-  //     await waitFor(() => expect(item.props.active).toBeTruthy())
-  //   })
-  // })
+      act(() => {
+        item.props.onToggle(mockTracks[0].played_datetime)
+      })
+      expect(item.props.active).toBeTruthy()
+
+      act(() => {
+        item2.props.onToggle(mockTracks[1].played_datetime)
+      })
+      expect(item2.props.active).toBeTruthy()
+      expect(item.props.active).toBeFalsy()
+    })
+  })
 })

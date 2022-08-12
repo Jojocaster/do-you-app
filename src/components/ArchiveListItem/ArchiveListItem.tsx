@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react'
 import { Image, StyleSheet, TouchableOpacity } from 'react-native'
 import useColorScheme from '../../hooks/useColorScheme'
 import { formatArchiveDate, formatArchiveTitle } from '../../utils/archives'
-import { ArchiveItem } from '../Archives/Archives.types'
+import { ArchiveItem } from '../ArchivesList/ArchivesList.types'
 import { Text, View } from '../Themed'
 import { MIXCLOUD_IMAGE_ENDPOINT } from './ArchiveListItem.constants'
 

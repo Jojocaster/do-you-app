@@ -1,4 +1,4 @@
-import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons'
 import { fireEvent } from '@testing-library/react-native'
 import { Clipboard, TouchableOpacity } from 'react-native'
 import renderer, { act } from 'react-test-renderer'
@@ -86,6 +86,20 @@ describe('Track', () => {
     })
   })
 
+  describe('when showStart is defined', () => {
+    it('should render correctly', () => {
+      const wrapper = renderer.create(
+        <Track
+          track={mockTrack}
+          active={false}
+          onToggle={mockToggle}
+          showStart={new Date().toISOString()}
+        />
+      )
+      expect(wrapper.toJSON()).toMatchSnapshot()
+    })
+  })
+
   describe('when pressed', () => {
     it('should call `onPress`', () => {
       const wrapper = renderer.create(
@@ -100,15 +114,32 @@ describe('Track', () => {
 
   describe('when copy is pressed', () => {
     it('should store the title in the clipboard', () => {
+      const consoleSpy = jest.spyOn(window.console, 'log')
+
       const wrapper = renderer.create(
         <Track track={mockTrack} active={true} onToggle={mockToggle} />
       )
       const btn = wrapper.root.findByType(Button2)
       fireEvent.press(btn)
-
+      expect(consoleSpy).toHaveBeenCalled()
       expect(spy).toHaveBeenCalledWith(
         `${mockTrack.artist} - ${mockTrack.title}`
       )
+    })
+
+    describe('if Clipboard throws', () => {
+      it('should log the error', () => {
+        spy.mockImplementation(() => {
+          throw new Error()
+        })
+        const consoleSpy = jest.spyOn(window.console, 'log')
+        const wrapper = renderer.create(
+          <Track track={mockTrack} active={true} onToggle={mockToggle} />
+        )
+        const btn = wrapper.root.findByType(Button2)
+        fireEvent.press(btn)
+        expect(consoleSpy).toHaveBeenCalled()
+      })
     })
   })
 })

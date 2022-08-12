@@ -32,7 +32,7 @@ export const Tracks: React.FC = () => {
   // }
 
   const loadTracks = () => {
-    if (status === ShowStatus.ON) {
+    if (status === ShowStatus.ON || !isToday(lastUpdated)) {
       dispatch(fetchTracksInfo())
     }
   }

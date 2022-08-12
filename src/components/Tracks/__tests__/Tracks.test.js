@@ -11,6 +11,7 @@ import { Track } from '../../Track/Track'
 import { useIsFocused } from '@react-navigation/native'
 import { fetchTracksInfo } from '../../../store/slices/tracksInfoSlice'
 import { Loader } from '../../Loader/Loader'
+import { ShowStatus } from '../../../store/slices/showSlice'
 
 const mockStore = {
   settings: {
@@ -18,7 +19,7 @@ const mockStore = {
   },
   tracksInfo: { loading: true, tracks: [] },
   show: {
-    status: StatusType.OFF,
+    status: ShowStatus.ON,
   },
 }
 
@@ -43,64 +44,101 @@ describe('<Tracks />', () => {
     expect(instance.findByProps({ testID: 'loader' })).toBeDefined()
   })
 
-  describe('getTracks()', () => {
+  // describe('getTracks()', () => {
+  //   const dispatchMock = jest.fn()
+  //   useDispatch.mockImplementation(() => dispatchMock)
+
+  //   afterEach(() => {
+  //     dispatchMock.mockReset()
+  //   })
+
+  //   describe('when the radio is live ', () => {
+  //     it('should fetch tracks', () => {
+  //       act(() => {
+  //         const instance = renderer.create(<Tracks />)
+  //       })
+
+  //       expect(dispatchMock).toHaveBeenCalledWith(expect.any(Function))
+  //     })
+  //   })
+  //   describe('when the radio is NOT live ', () => {
+  //     it('should NOT fetch tracks', () => {
+  //       useSelector.mockImplementation((cb) =>
+  //         cb({
+  //           ...mockStore,
+  //           tracksInfo: { loading: false, tracks: [], lastUpdated: Date.now() },
+  //           show: { status: ShowStatus.OFF },
+  //         })
+  //       )
+  //       act(() => {
+  //         const instance = renderer.create(<Tracks />)
+  //       })
+
+  //       expect(dispatchMock).not.toHaveBeenCalled()
+  //     })
+  //     it('should fetch tracks only if lastUpdated is NOT today', () => {
+  //       useSelector.mockImplementation((cb) =>
+  //         cb({
+  //           ...mockStore,
+  //           tracksInfo: { loading: false, tracks: [], lastUpdated: 0 },
+  //           show: { status: ShowStatus.OFF },
+  //         })
+  //       )
+
+  //       act(() => {
+  //         const instance = renderer.create(<Tracks />)
+  //       })
+
+  //       expect(dispatchMock).toHaveBeenCalledWith(expect.any(Function))
+  //     })
+  //   })
+
+  //   // describe('when lastUpdated is defined', () => {
+  //   //   it('should request tracks if lastUpdated was more than 1 minute ago', () => {
+  //   //     const currentTimestamp = new Date().getTime()
+  //   //     const oneMinuteAgo = currentTimestamp - 1000 * 60
+
+  //   //     useSelector.mockImplementation((cb) =>
+  //   //       cb({
+  //   //         ...mockStore,
+  //   //         tracksInfo: {
+  //   //           loading: false,
+  //   //           tracks: [],
+  //   //           lastUpdated: oneMinuteAgo,
+  //   //         },
+  //   //       })
+  //   //     )
+
+  //   //     act(() => {
+  //   //       const instance = renderer.create(<Tracks />)
+  //   //     })
+  //   //     expect(dispatchMock).toHaveBeenCalled()
+  //   //   })
+  //   // })
+  // })
+
+  describe('when the screen is focused', () => {
     const dispatchMock = jest.fn()
+    const setIntervalSpy = jest.spyOn(window, 'setInterval')
     useDispatch.mockImplementation(() => dispatchMock)
 
-    describe('when lastUpdated is not defined', () => {
-      it('should fetch tracks when focused', () => {
-        act(() => {
-          const instance = renderer.create(<Tracks />)
-        })
-
-        expect(dispatchMock).toHaveBeenCalledWith(expect.any(Function))
-      })
+    afterEach(() => {
+      dispatchMock.mockReset()
     })
 
-    describe('when lastUpdated is defined', () => {
-      it('should request tracks if lastUpdated was more than 1 minute ago', () => {
-        const currentTimestamp = new Date().getTime()
-        const oneMinuteAgo = currentTimestamp - 1000 * 60
+    it('should call setInterval and call loadTracks every minute', () => {
+      useIsFocused.mockImplementation(() => true)
+      dispatchMock.mockReset()
+      jest.useFakeTimers()
 
-        useSelector.mockImplementation((cb) =>
-          cb({
-            ...mockStore,
-            tracksInfo: {
-              loading: false,
-              tracks: [],
-              lastUpdated: oneMinuteAgo,
-            },
-          })
-        )
-
-        act(() => {
-          const instance = renderer.create(<Tracks />)
-        })
-        expect(dispatchMock).toHaveBeenCalled()
+      act(() => {
+        const instance = renderer.create(<Tracks />)
       })
 
-      it('should restart the timeout and NOT request tracks if lastUpdated was less than a minute ago', () => {
-        dispatchMock.mockClear()
-        const currentTimestamp = new Date().getTime()
-        const spy = jest.spyOn(window, 'setTimeout')
-
-        useSelector.mockImplementation((cb) =>
-          cb({
-            ...mockStore,
-            tracksInfo: {
-              loading: false,
-              tracks: [],
-              lastUpdated: currentTimestamp,
-            },
-          })
-        )
-
-        act(() => {
-          const instance = renderer.create(<Tracks />)
-        })
-        expect(dispatchMock).not.toHaveBeenCalled()
-        expect(spy).toHaveBeenCalled()
-      })
+      expect(dispatchMock).toHaveBeenCalledTimes(1)
+      expect(setIntervalSpy).toHaveBeenCalled()
+      jest.advanceTimersByTime(1000 * 60)
+      expect(dispatchMock).toHaveBeenCalledTimes(2)
     })
   })
 

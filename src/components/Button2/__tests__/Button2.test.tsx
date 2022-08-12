@@ -35,19 +35,41 @@ describe('Button', () => {
       expect(mockOnPress).toHaveBeenCalled()
     })
 
-    // it('should call animated on pressIn & pressOut', async () => {
-    //   const wrapper = renderer.create(
-    //     <Button2 onPress={mockOnPress}>foo</Button2>
-    //   )
-    //   const button = wrapper.root.findByType(Pressable)
-    //   act(() => {
-    //     fireEvent(button, 'pressIn')
-    //     fireEvent(button, 'pressOut')
-    //   })
-    //   act(() => {
-    //     expect(button.props.onPressIn).toHaveBeenCalledTimes(1)
-    //   })
-    // })
+    it('should call animated on pressIn & pressOut', async () => {
+      const animatedSpy = jest
+        .spyOn(RN.Animated, 'spring')
+        .mockImplementation(() => ({
+          start: jest.fn(),
+          stop: jest.fn(),
+          reset: jest.fn(),
+        }))
+
+      const wrapper = renderer.create(
+        <Button2 onPress={mockOnPress}>foo</Button2>
+      )
+      const button = wrapper.root.findByType(RN.TouchableWithoutFeedback)
+      act(() => {
+        fireEvent(button, 'pressIn')
+        fireEvent(button, 'pressOut')
+      })
+      act(() => {
+        expect(animatedSpy).toHaveBeenCalledTimes(2)
+      })
+    })
+  })
+
+  describe('when the button has no text', () => {
+    it('should render correctly', () => {
+      const wrapper = renderer.create(<Button2 icon="ab-testing" />)
+      expect(wrapper.toJSON()).toMatchSnapshot()
+    })
+  })
+
+  describe('when `elevated` = true', () => {
+    it('should render correctly', () => {
+      const wrapper = renderer.create(<Button2 elevated icon="ab-testing" />)
+      expect(wrapper.toJSON()).toMatchSnapshot()
+    })
   })
 
   describe('when `icon` is defined', () => {
