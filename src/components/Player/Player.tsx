@@ -37,7 +37,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
     (state: RootState) => state.show
   )
   const { batterySaver } = useSelector((state: RootState) => state.settings)
-
+  const currentTitle = getShowTitle({ currentShow, currentTrack })
   const initPlayer = async () => {
     // fetch show info before init player
     dispatch(fetchShowInfo())
@@ -54,7 +54,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
         artwork: currentShow?.image_path || logo,
         album: DEFAULT_SHOW_NAME,
         artist: ARTIST_NAME,
-        title: getShowTitle({ currentShow, currentTrack }),
+        title: currentTitle,
         headers: STREAM_HEADERS,
       },
     ])
@@ -74,12 +74,12 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
   useEffect(() => {
     if (currentTrack || currentShow) {
       // only update when playing to prevent showing controls when not playing
-      if (playerState === State.Playing || playerState === State.Paused) {
+      if (playerState !== State.None || playerState !== State.Stopped) {
         TrackPlayer.updateNowPlayingMetadata({
           artist: ARTIST_NAME,
           artwork: currentShow?.image_path || logo,
           album: DEFAULT_SHOW_NAME,
-          title: getShowTitle({ currentShow, currentTrack }),
+          title: currentTitle,
         })
       }
     } else {

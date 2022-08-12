@@ -76,6 +76,13 @@ Bug tracker for non-GitHub users: [Google Form](https://forms.gle/5HYMW6AM7vtAZ1
 
 ## Changelog
 
+- 0.4.3: [Android](https://play.google.com/store/apps/details?id=com.wonkylines.doyouworld) - [iOS](https://apps.apple.com/gb/app/do-you-world/id1620769718)
+```
+- Archives tracklists fixed
+- Media Controls fixed - it now shows the current show, as opposed to the previous one
+- "Random" button added to archives
+```
+
 - 0.4.2: [Android](https://play.google.com/store/apps/details?id=com.wonkylines.doyouworld) - [iOS](https://apps.apple.com/gb/app/do-you-world/id1620769718)
 ```
 - Push notifications implemented 🎉

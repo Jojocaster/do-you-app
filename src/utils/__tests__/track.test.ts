@@ -17,13 +17,13 @@ describe('track.ts', () => {
     describe('when `showStart` is NOT defined', () => {
       it('should return the formatted time at which the track was played', () => {
         const result = formatTrackTime(mockTrack)
-        expect(result).toEqual('09:23')
+        expect(result).toEqual('08:23')
       })
     })
     describe('when `showStart` is defined', () => {
       it('should return the formatted timecode ', () => {
         const result = formatTrackTime(mockTrack, '2022-07-27T08:00:00')
-        expect(result).toEqual('00:23:04')
+        expect(result).toEqual('01:23:04')
       })
     })
     describe('when the function throws', () => {

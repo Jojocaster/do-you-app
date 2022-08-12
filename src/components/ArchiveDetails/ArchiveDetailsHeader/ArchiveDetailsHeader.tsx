@@ -6,7 +6,7 @@ import Colors from '../../../constants/Colors'
 import { deviceHeight, deviceWidth } from '../../../constants/Layout'
 import useColorScheme from '../../../hooks/useColorScheme'
 import { MIXCLOUD_IMAGE_ENDPOINT } from '../../ArchiveListItem/ArchiveListItem.constants'
-import { ArchiveItem } from '../../Archives/Archives.types'
+import { ArchiveItem } from '../../ArchivesList/ArchivesList.types'
 import { View } from '../../Themed'
 
 export const ArchiveDetailsHeader: React.FC<{

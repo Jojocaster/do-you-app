@@ -1,5 +1,5 @@
 import { format, parse } from 'date-fns'
-import { ArchiveItem } from '../components/Archives/Archives.types'
+import { ArchiveItem } from '../components/ArchivesList/ArchivesList.types'
 
 export const formatArchiveTitle = (title: string): string => {
   if (!title) {

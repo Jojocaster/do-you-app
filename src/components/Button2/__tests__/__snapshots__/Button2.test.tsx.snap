@@ -155,3 +155,283 @@ exports[`Button should render 1`] = `
   </View>
 </View>
 `;
+
+exports[`Button when \`elevated\` = true should render correctly 1`] = `
+<View
+  accessible={true}
+  focusable={false}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "display": "flex",
+      "elevation": 2,
+      "flexWrap": "wrap",
+      "paddingLeft": 4,
+      "paddingTop": 4,
+      "position": "relative",
+      "shadowOffset": Object {
+        "height": 3,
+        "width": 3,
+      },
+      "shadowOpacity": 0.1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "white",
+        "borderBottomColor": "black",
+        "borderRadius": 3,
+        "borderWidth": 1,
+        "paddingHorizontal": 16,
+        "paddingVertical": 4,
+        "transform": Array [
+          Object {
+            "scale": 1,
+          },
+        ],
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fff",
+          },
+          Array [
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "transparent",
+              "display": "flex",
+              "flexDirection": "row",
+            },
+            Object {
+              "opacity": 0,
+            },
+          ],
+        ]
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          Array [
+            Object {
+              "color": undefined,
+              "fontSize": 12,
+            },
+            Object {
+              "marginRight": 0,
+            },
+            Object {
+              "fontFamily": "material-community",
+              "fontStyle": "normal",
+              "fontWeight": "normal",
+            },
+            Object {},
+          ]
+        }
+      >
+        󰇉
+      </Text>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fff",
+          },
+          Array [
+            Object {
+              "backgroundColor": "white",
+              "borderBottomColor": "black",
+              "borderRadius": 3,
+              "borderWidth": 1,
+              "paddingVertical": 4,
+            },
+            Object {
+              "paddingHorizontal": 16,
+            },
+            Object {
+              "left": -5,
+              "position": "absolute",
+              "top": -4,
+            },
+            Object {
+              "backgroundColor": "#F3DD7C",
+            },
+          ],
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#fff",
+            },
+            Array [
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "display": "flex",
+                "flexDirection": "row",
+              },
+              Object {
+                "opacity": 1,
+              },
+            ],
+          ]
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          style={
+            Array [
+              Object {
+                "color": undefined,
+                "fontSize": 12,
+              },
+              Object {
+                "marginRight": 0,
+              },
+              Object {
+                "fontFamily": "material-community",
+                "fontStyle": "normal",
+                "fontWeight": "normal",
+              },
+              Object {},
+            ]
+          }
+        >
+          󰇉
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`Button when the button has no text should render correctly 1`] = `
+<View
+  accessible={true}
+  focusable={false}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "display": "flex",
+      "flexWrap": "wrap",
+      "paddingLeft": 4,
+      "paddingTop": 4,
+      "position": "relative",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "white",
+        "borderBottomColor": "black",
+        "borderRadius": 3,
+        "borderWidth": 1,
+        "paddingHorizontal": 16,
+        "paddingVertical": 4,
+        "transform": Array [
+          Object {
+            "scale": 1,
+          },
+        ],
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fff",
+          },
+          Array [
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "transparent",
+              "display": "flex",
+              "flexDirection": "row",
+            },
+            Object {
+              "opacity": 0,
+            },
+          ],
+        ]
+      }
+    >
+      <Text />
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fff",
+          },
+          Array [
+            Object {
+              "backgroundColor": "white",
+              "borderBottomColor": "black",
+              "borderRadius": 3,
+              "borderWidth": 1,
+              "paddingVertical": 4,
+            },
+            Object {
+              "paddingHorizontal": 16,
+            },
+            Object {
+              "left": -5,
+              "position": "absolute",
+              "top": -4,
+            },
+            Object {
+              "backgroundColor": "#F3DD7C",
+            },
+          ],
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#fff",
+            },
+            Array [
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "transparent",
+                "display": "flex",
+                "flexDirection": "row",
+              },
+              Object {
+                "opacity": 1,
+              },
+            ],
+          ]
+        }
+      >
+        <Text />
+      </View>
+    </View>
+  </View>
+</View>
+`;

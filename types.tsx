@@ -9,7 +9,7 @@ import {
   NavigatorScreenParams,
 } from '@react-navigation/native'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { ArchiveItem } from './src/components/Archives/Archives.types'
+import { ArchiveItem } from './src/components/ArchivesList/ArchivesList.types'
 import { theme } from './src/theme'
 
 declare global {

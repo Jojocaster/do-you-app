@@ -4,11 +4,17 @@ import { TrackInfo } from '../store/slices/tracksInfoSlice'
 export const formatTrackTime = (track: TrackInfo, showStart?: string) => {
   try {
     const trackStart = parseJSON(track.played_datetime)
+
     if (!showStart) {
       return format(trackStart, 'HH:mm')
     }
+
+    const date = track.played_datetime.split(' ')
+    const time = date[1].split('+')
+    const timecode = parseJSON(`${date[0]}T${time[0]}`)
+
     const startShow = parseJSON(showStart)
-    const diff = trackStart.getTime() - startShow.getTime()
+    const diff = timecode.getTime() - startShow.getTime()
     const tc = intervalToDuration({ start: 0, end: diff })
     const hours = `${tc.hours}`.padStart(2, '0')
     const minutes = `${tc.minutes}`.padStart(2, '0')

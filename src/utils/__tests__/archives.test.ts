@@ -1,4 +1,4 @@
-import { ArchiveItem } from '../../components/Archives/Archives.types'
+import { ArchiveItem } from '../../components/ArchivesList/ArchivesList.types'
 import { formatArchiveDate, formatArchiveTitle } from '../archives'
 
 describe('archives.ts', () => {

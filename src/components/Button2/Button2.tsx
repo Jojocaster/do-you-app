@@ -6,29 +6,33 @@ import useColorScheme from '../../hooks/useColorScheme'
 import { Text, View } from '../Themed'
 
 interface ButtonProps {
-  children: string
+  children?: string
+  elevated?: boolean
+  iconSize?: number
   onPress?: () => void
   icon?: React.ComponentProps<typeof MaterialCommunityIcons>['name']
-  variant?: 'sm' | 'lg'
+  variant?: 'sm' | 'md' | 'lg'
 }
 
 const Content: React.FC<
-  Pick<ButtonProps, 'children' | 'icon' | 'variant'> & { visible?: boolean }
-> = ({ children, icon, visible = true, variant }) => {
+  Pick<ButtonProps, 'children' | 'icon' | 'variant' | 'iconSize'> & {
+    visible?: boolean
+  }
+> = ({ children, icon, visible = true, variant = 'md', iconSize }) => {
+  const activeVariant = variants[variant]
+
   return (
     <View style={[styles.content, { opacity: visible ? 1 : 0 }]}>
       {icon && (
         <MaterialCommunityIcons
           name={icon}
-          size={12}
-          style={{ marginRight: 3 }}
+          size={iconSize || activeVariant.text.fontSize}
+          style={{ marginRight: children ? 3 : 0 }}
         />
       )}
-      <Text
-        style={[styles.text, variant === 'sm' ? styles.textSm : styles.textLg]}
-      >
-        {children}
-      </Text>
+      {children && (
+        <Text style={[styles.text, activeVariant.text]}>{children}</Text>
+      )}
     </View>
   )
 }
@@ -36,7 +40,9 @@ const Content: React.FC<
 export const Button2: React.FC<ButtonProps> = (props) => {
   const scale = useRef(new Animated.Value(1))
   const theme = useColorScheme()
-  const { onPress, variant } = props
+  const { elevated, onPress, variant = 'md' } = props
+
+  const activeVariant = variants[variant]
 
   const onPressIn = () => {
     Animated.spring(scale.current, {
@@ -61,11 +67,13 @@ export const Button2: React.FC<ButtonProps> = (props) => {
       onPressIn={onPress ? onPressIn : undefined}
       onPressOut={onPress ? onPressOut : undefined}
     >
-      <Animated.View style={[styles.container]}>
+      <Animated.View
+        style={[styles.container, elevated ? styles.elevated : null]}
+      >
         <Animated.View
           style={[
             styles.button,
-            variant === 'sm' ? styles.buttonSm : styles.buttonLg,
+            activeVariant.button,
             { transform: [{ scale: scale.current }] },
           ]}
         >
@@ -73,7 +81,7 @@ export const Button2: React.FC<ButtonProps> = (props) => {
           <View
             style={[
               styles.button,
-              variant === 'sm' ? styles.buttonSm : styles.buttonLg,
+              activeVariant.button,
               styles.inner,
               { backgroundColor: Colors[theme].button },
             ]}
@@ -84,6 +92,40 @@ export const Button2: React.FC<ButtonProps> = (props) => {
       </Animated.View>
     </TouchableWithoutFeedback>
   )
+}
+
+const smStyles = StyleSheet.create({
+  button: {
+    paddingHorizontal: 8,
+  },
+  text: {
+    fontSize: 10,
+  },
+})
+
+const mdStyles = StyleSheet.create({
+  button: {
+    paddingHorizontal: 16,
+  },
+  text: {
+    fontSize: 12,
+  },
+})
+
+const lgStyles = StyleSheet.create({
+  button: {
+    paddingHorizontal: 16,
+    paddingVertical: 6,
+  },
+  text: {
+    fontSize: 13,
+  },
+})
+
+const variants = {
+  sm: smStyles,
+  md: mdStyles,
+  lg: lgStyles,
 }
 
 const styles = StyleSheet.create({
@@ -101,12 +143,20 @@ const styles = StyleSheet.create({
     borderBottomColor: 'black',
     paddingVertical: 4,
   },
-  buttonSm: {
-    paddingHorizontal: 8,
+  elevated: {
+    elevation: 2,
+    shadowOffset: {
+      height: 3,
+      width: 3,
+    },
+    shadowOpacity: 0.1,
   },
-  buttonLg: {
-    paddingHorizontal: 16,
-  },
+  // buttonSm: {
+  //   paddingHorizontal: 8,
+  // },
+  // buttonLg: {
+  //   paddingHorizontal: 16,
+  // },
   inner: {
     position: 'absolute',
     top: -4,
@@ -123,10 +173,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textTransform: 'uppercase',
   },
-  textSm: {
-    fontSize: 10,
-  },
-  textLg: {
-    fontSize: 12,
-  },
+  // textSm: {
+  //   fontSize: 10,
+  // },
+  // textLg: {
+  //   fontSize: 12,
+  // },
 })
