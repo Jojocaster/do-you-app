@@ -6,20 +6,41 @@ import {
   getToken,
   registerToken,
   unregisterToken,
+  updatePushSettings,
 } from '../../utils/notifications'
 import { Heading } from '../Heading/Heading'
 import { SingleSetting } from '../SingleSetting/SingleSetting'
 
 export const Settings: React.FC = () => {
   const dispatch = useDispatch()
-  const { batterySaver, darkTheme, pushEnabled, useNativeTheme, token } =
-    useSelector((state: RootState) => state.settings)
+  const {
+    batterySaver,
+    darkTheme,
+    pushEnabled,
+    ignoreReruns,
+    useNativeTheme,
+    token,
+  } = useSelector((state: RootState) => state.settings)
 
   const onToggle = (
     key: keyof SettingsState,
     value: SettingsState[typeof key]
   ) => {
     dispatch(updateSettings({ name: key, value }))
+  }
+
+  const toggleIgnoreReruns = async (isEnabled: boolean) => {
+    // toggle state first so users don't wait for API calls
+    onToggle('ignoreReruns', !isEnabled)
+
+    try {
+      const success = await updatePushSettings(token as string, !isEnabled)
+      if (!success) {
+        onToggle('ignoreReruns', isEnabled)
+      }
+    } catch (e) {
+      onToggle('ignoreReruns', isEnabled)
+    }
   }
 
   const togglePushNotifications = async (isEnabled: boolean) => {
@@ -69,6 +90,13 @@ export const Settings: React.FC = () => {
         onToggle={() => togglePushNotifications(pushEnabled)}
       >
         Enable notifications
+      </SingleSetting>
+      <SingleSetting
+        disabled={!pushEnabled}
+        value={ignoreReruns}
+        onToggle={() => toggleIgnoreReruns(ignoreReruns)}
+      >
+        Disable notifications for re-runs
       </SingleSetting>
       <SingleSetting
         value={useNativeTheme}

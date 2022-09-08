@@ -29,11 +29,6 @@ export default function TrackScreen({
         lightColor="#F8F8F8"
       >
         <MonoText>
-          <MaterialCommunityIcons
-            name="information-outline"
-            color={Colors.common.warning}
-            size={16}
-          />{' '}
           Source:{' '}
           <Weblink uri="https://doyoutrackid.com">doyoutrackid.com</Weblink>
         </MonoText>

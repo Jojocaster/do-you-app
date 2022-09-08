@@ -1,4 +1,4 @@
-import { ActivityIndicator, TouchableOpacity } from 'react-native'
+import { ActivityIndicator, StyleSheet, TouchableOpacity } from 'react-native'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
 import { Text, View } from '../Themed'
@@ -30,14 +30,7 @@ export const LoadMore: React.FC<{
 
   return (
     <TouchableOpacity onPress={loadMore}>
-      <View
-        style={{
-          display: 'flex',
-          width: '100%',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
+      <View style={styles.view}>
         <Text
           style={{
             color: Colors[theme].primary,
@@ -51,3 +44,12 @@ export const LoadMore: React.FC<{
     </TouchableOpacity>
   )
 }
+
+const styles = StyleSheet.create({
+  view: {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+})

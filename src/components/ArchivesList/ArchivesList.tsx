@@ -1,18 +1,20 @@
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { differenceInHours } from 'date-fns'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ActivityIndicator, FlatList, RefreshControl } from 'react-native'
 import Colors from '../../constants/Colors'
-import { ARCHIVES_URL } from '../../constants/Endpoints'
 import useColorScheme from '../../hooks/useColorScheme'
 import { ArchiveListItem } from '../ArchiveListItem/ArchiveListItem'
+import { Filter } from '../Filters/Filters'
 import { LoadMore } from '../LoadMore/LoadMore'
 import { View } from '../Themed'
 import { ArchiveItem } from './ArchivesList.types'
+import { getArchives } from './ArchivesList.utils'
 
-export const ArchivesList: React.FC = () => {
+export const ArchivesList: React.FC<{ filter?: Filter }> = ({ filter }) => {
   const navigation = useNavigation()
   const theme = useColorScheme()
+  const listRef = useRef<FlatList>(null)
   const isFocused = useIsFocused()
   const [lastRefreshed, setLastRefreshed] = useState(0)
   const [page, setPage] = useState(1)
@@ -21,12 +23,26 @@ export const ArchivesList: React.FC = () => {
   const [isLoadingMore, setLoadingMore] = useState(false)
   const [canLoadMore, setCanLoadMore] = useState(true)
 
+  // load data on mount
+  useEffect(() => {
+    loadPage(1)
+  }, [])
+
+  // refresh data when filter changes
+  useEffect(() => {
+    onRefresh()
+  }, [filter])
+
   const loadPage = async (pageNumber: number) => {
+    // prevent loading if we reached the end
+    if (!canLoadMore) {
+      return
+    }
+
     setLoadingMore(true)
 
     try {
-      const response = await fetch(`${ARCHIVES_URL}/shows/page/${pageNumber}/`)
-      const data = await response.json()
+      const data = await getArchives({ page: pageNumber, filter })
 
       if (!data.length) {
         setCanLoadMore(false)
@@ -43,7 +59,6 @@ export const ArchivesList: React.FC = () => {
   }
 
   const onClick = useCallback((archive: ArchiveItem) => {
-    // Next version :)
     navigation.navigate('Root', {
       screen: 'Archives',
       params: {
@@ -60,21 +75,19 @@ export const ArchivesList: React.FC = () => {
     setRefreshing(true)
 
     try {
-      const response = await fetch(`${ARCHIVES_URL}/shows/page/1/`)
-      const data: ArchiveItem[] = await response.json()
+      const data = await getArchives({ page: 1, filter: filter })
 
       setArchives(data)
+      setPage(1)
+
+      listRef?.current?.scrollToOffset({ offset: 0, animated: false })
     } catch (e) {
       console.log('error while refreshing')
     } finally {
       setRefreshing(false)
+      setCanLoadMore(true)
     }
   }
-
-  // load data on mount
-  useEffect(() => {
-    loadPage(1)
-  }, [])
 
   // refetch data when screen is focused, only if it's been more than an hour since last fetch
   useEffect(() => {
@@ -104,6 +117,7 @@ export const ArchivesList: React.FC = () => {
 
   return (
     <FlatList
+      ref={listRef}
       refreshControl={
         <RefreshControl
           tintColor={Colors[theme].primary}
@@ -130,6 +144,8 @@ export const ArchivesList: React.FC = () => {
       keyExtractor={(track, index) => `${track.id} + ${index}`}
       showsVerticalScrollIndicator={false}
       fadingEdgeLength={50}
+      onEndReached={() => loadPage(page + 1)}
+      onEndReachedThreshold={0.2}
       overScrollMode="never"
       style={{
         marginTop: 10,

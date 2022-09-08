@@ -1,29 +1,22 @@
-import { PlayerStatus } from '../../store/slices/playerSlice'
-import deviceInfo from '../../constants/Layout'
-import { State } from 'react-native-track-player'
 import { Platform } from 'react-native'
-
-// legacy - linked to redux state
-// TODO: remove
-export const PlayerIcons: Record<PlayerStatus, any> = {
-  [PlayerStatus.PAUSED]: 'play-circle',
-  [PlayerStatus.PLAYING]: 'pause-circle',
-  [PlayerStatus.LOADING]: 'dots-horizontal-circle',
-}
+import { State } from 'react-native-track-player'
+import deviceInfo from '../../constants/Layout'
 
 export const PlayerStateIcons: Record<State, any> = {
-  [State.None]: 'play-circle',
-  [State.Stopped]: 'play-circle',
-  [State.Paused]: 'play-circle',
+  [State.None]: 'play-circle-outline',
+  [State.Stopped]: 'play-circle-outline',
+  [State.Paused]: 'play-circle-outline',
 
-  [State.Buffering]: 'dots-horizontal-circle',
-  [State.Connecting]: 'dots-horizontal-circle',
+  [State.Buffering]: 'dots-horizontal-circle-outline',
+  [State.Connecting]: 'dots-horizontal-circle-outline',
   //@ts-ignore - iOS returns undeclared "buffering" state
-  buffering: 'dots-horizontal-circle',
+  buffering: 'dots-horizontal-circle-outline',
 
   [State.Ready]:
-    Platform.OS === 'ios' ? 'dots-horizontal-circle' : 'play-circle',
-  [State.Playing]: 'pause-circle',
+    Platform.OS === 'ios'
+      ? 'dots-horizontal-circle-outline'
+      : 'play-circle-outline',
+  [State.Playing]: 'pause-circle-outline',
 }
 
 export const ARTIST_NAME = 'Do!!You!!!World'

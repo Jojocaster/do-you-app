@@ -33,6 +33,7 @@ export type RootTabParamList = {
   Chat: undefined
   Archives: undefined
   ArchivesList: undefined
+  ArchivesFilters: undefined
   ArchiveDetails: {
     track: ArchiveItem
   }

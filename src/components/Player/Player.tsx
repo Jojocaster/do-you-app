@@ -109,10 +109,22 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
     }
   }
 
+  const playerImg = currentShow?.image_path
+    ? { uri: currentShow?.image_path }
+    : require('../../../assets/images/doyou.webp')
+
   return useMemo(
     () => (
       <StyledCover
         style={{
+          // shadowColor: '#000000',
+          // shadowOffset: {
+          //   width: 0,
+          //   height: 15,
+          // },
+          // zIndex: 5,
+          // shadowOpacity: 0.5,
+          // shadowRadius: 10,
           width: PLAYER_SIZE,
           height: PLAYER_SIZE,
           borderColor: '#3A70D6',
@@ -121,7 +133,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
       >
         <TouchableHighlight underlayColor="transparent" onPressIn={onPress}>
           <ImageBackground
-            source={require('../../../assets/images/doyou.webp')}
+            source={playerImg}
             style={{
               width: '100%',
               height: '100%',
@@ -133,22 +145,46 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
           >
             <View
               style={{
-                width: 50,
-                height: 50,
-                borderRadius: 50,
-                backgroundColor: 'white',
+                backgroundColor: 'transparent',
                 position: 'absolute',
+                // right: 10,
+                // bottom: 10,
+                shadowColor: '#000000',
+                shadowOffset: {
+                  width: 0,
+                  height: 0,
+                },
+                zIndex: 5,
+                shadowOpacity: 0.3,
+                shadowRadius: 4,
               }}
-            />
-            <MaterialCommunityIcons
-              name={PlayerStateIcons[playerState]}
-              size={80}
-              color={Colors[theme].player.icon}
-            />
+            >
+              <View
+                style={{ position: 'relative', backgroundColor: 'transparent' }}
+              >
+                <MaterialCommunityIcons
+                  name={PlayerStateIcons[playerState]}
+                  size={60}
+                  color={Colors[theme].player.icon}
+                />
+                <View
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, .7)',
+                    position: 'absolute',
+                    left: 6,
+                    borderRadius: 50,
+                    top: 6,
+                    zIndex: -1,
+                    width: 48,
+                    height: 48,
+                  }}
+                />
+              </View>
+            </View>
           </ImageBackground>
         </TouchableHighlight>
       </StyledCover>
     ),
-    [playerState, theme]
+    [playerState, theme, currentShow]
   )
 }
