@@ -1,25 +1,22 @@
 import { useNavigation } from '@react-navigation/native'
-import React, { useState } from 'react'
+import { isToday } from 'date-fns'
+import React, { useEffect } from 'react'
 import { ActivityIndicator, ScrollView, StyleSheet } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
 import Colors from '../../constants/Colors'
-import { ARCHIVES_URL } from '../../constants/Endpoints'
 import useColorScheme from '../../hooks/useColorScheme'
-import { useFetch } from '../../hooks/useFetch'
+import { fetchFilters, Filter } from '../../store/slices/filtersSlice'
+import { RootState } from '../../store/store'
 import { Button2 } from '../Button2/Button2'
 import { Text, View } from '../Themed'
 
-export interface Filter {
-  id: number
-  name: string
-}
-
 export const Filters = () => {
+  const dispatch = useDispatch()
   const navigation = useNavigation()
-  // const [filters, setFilters] = useState<{ id: number; name: string }[]>([])
-  const theme = useColorScheme()
-  const { data, loading, error, refetch } = useFetch<Filter[]>(
-    `${ARCHIVES_URL}/hosts/page/1/size/50/`
+  const { shows, error, lastUpdated, loading } = useSelector(
+    (state: RootState) => state.filters
   )
+  const theme = useColorScheme()
 
   const selectHost = (host: Filter) => {
     navigation.navigate('Root', {
@@ -34,7 +31,13 @@ export const Filters = () => {
     })
   }
 
-  if (loading) {
+  useEffect(() => {
+    if (!lastUpdated || !isToday(lastUpdated)) {
+      dispatch(fetchFilters())
+    }
+  }, [])
+
+  if (!shows.length && loading) {
     return (
       <View style={[styles.view, styles.loaderView]}>
         <ActivityIndicator color={Colors[theme].primary} />
@@ -42,7 +45,7 @@ export const Filters = () => {
     )
   }
 
-  if (error) {
+  if (!shows.length && error) {
     return (
       <View
         style={[
@@ -54,15 +57,19 @@ export const Filters = () => {
         <Text style={{ marginBottom: 20 }}>
           Oops, looks like there was an error.
         </Text>
-        <Button2 onPress={refetch}>Retry</Button2>
+        <Button2 onPress={() => dispatch(fetchFilters())}>Retry</Button2>
       </View>
     )
   }
 
+  const sortedShows = [...shows].sort((a, b) =>
+    a.name < b.name ? -1 : a.name < b.name ? 1 : 0
+  )
+
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.view}>
-        {data?.map((host) => (
+        {sortedShows?.map((host) => (
           <View key={host.id} style={styles.genre}>
             <Button2 onPress={() => selectHost(host)}>{host.name}</Button2>
           </View>

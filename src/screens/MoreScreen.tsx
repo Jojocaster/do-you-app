@@ -57,13 +57,13 @@ const Subscribe = () => {
 
   return (
     <>
-      <Heading multiline={false} style={{ fontSize: 32 }}>
+      <Heading multiline={false} style={{ fontSize: 28 }}>
         Support the station
       </Heading>
 
       <View
         style={{
-          marginTop: 20,
+          marginTop: 15,
         }}
       >
         <Text style={{ marginBottom: 10 }}>
@@ -126,8 +126,8 @@ export const Weblink: React.FC<{ uri: string }> = ({ children, uri }) => {
 
 const Credits: React.FC = () => (
   <View>
-    <Heading style={{ fontSize: 32 }}>Credits</Heading>
-    <Text style={{ marginTop: 20 }}>
+    <Heading style={{ fontSize: 28 }}>Credits</Heading>
+    <Text style={{ marginTop: 15 }}>
       <Weblink uri="https://github.com/Jojocaster">Joel Beaudon</Weblink>: Web &
       App Developer
     </Text>
@@ -145,11 +145,11 @@ const Credits: React.FC = () => (
 const Account = () => {
   return (
     <View>
-      <Heading style={{ fontSize: 32 }} multiline={false}>
+      <Heading style={{ fontSize: 28 }} multiline={false}>
         Manage your data
       </Heading>
 
-      <Text style={{ marginTop: 20, marginBottom: 10 }}>
+      <Text style={{ marginTop: 15, marginBottom: 10 }}>
         <Text style={{ fontWeight: 'bold' }}>Do!! You!!! World</Text> does not
         use/share/store any of your personal data.
       </Text>

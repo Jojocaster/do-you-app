@@ -80,7 +80,7 @@ export default function ModalScreen({
               <Link onClick={() => navigation.navigate('Archives')}>
                 Archives
               </Link>{' '}
-              filter and listen to your favourite shows all over again!
+              filter and listen to your favourite shows all over again.
             </Text>
           </Item>
           <View

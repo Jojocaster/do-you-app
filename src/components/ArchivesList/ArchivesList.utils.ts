@@ -1,5 +1,5 @@
 import { ARCHIVES_URL } from '../../constants/Endpoints'
-import { Filter } from '../Filters/Filters'
+import { Filter } from '../../store/slices/filtersSlice'
 import { ArchiveItem } from './ArchivesList.types'
 
 export const getArchives = async ({

@@ -15,7 +15,7 @@ export default function ArchivesFiltersScreen({
         paddingTop: Space.viewPaddingVertical,
       }}
     >
-      <Heading style={{ marginBottom: 10, fontSize: 32 }}>Shows</Heading>
+      <Heading style={{ marginBottom: 10, fontSize: 28 }}>Shows</Heading>
 
       <Filters />
     </View>

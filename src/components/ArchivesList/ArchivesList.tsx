@@ -4,8 +4,9 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ActivityIndicator, FlatList, RefreshControl } from 'react-native'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
+import { Filter } from '../../store/slices/filtersSlice'
 import { ArchiveListItem } from '../ArchiveListItem/ArchiveListItem'
-import { Filter } from '../Filters/Filters'
+
 import { LoadMore } from '../LoadMore/LoadMore'
 import { View } from '../Themed'
 import { ArchiveItem } from './ArchivesList.types'
@@ -30,7 +31,12 @@ export const ArchivesList: React.FC<{ filter?: Filter }> = ({ filter }) => {
 
   // refresh data when filter changes
   useEffect(() => {
-    onRefresh()
+    const refreshList = async () => {
+      await onRefresh()
+      listRef?.current?.scrollToOffset({ offset: 0, animated: true })
+    }
+
+    refreshList()
   }, [filter])
 
   const loadPage = async (pageNumber: number) => {
@@ -79,8 +85,6 @@ export const ArchivesList: React.FC<{ filter?: Filter }> = ({ filter }) => {
 
       setArchives(data)
       setPage(1)
-
-      listRef?.current?.scrollToOffset({ offset: 0, animated: false })
     } catch (e) {
       console.log('error while refreshing')
     } finally {
@@ -128,7 +132,7 @@ export const ArchivesList: React.FC<{ filter?: Filter }> = ({ filter }) => {
       }
       data={archives}
       renderItem={(track) => (
-        <ArchiveListItem onClick={(t) => onClick(t)} track={track.item} />
+        <ArchiveListItem onClick={onClick} track={track.item} />
       )}
       ListFooterComponentStyle={{
         paddingTop: 10,

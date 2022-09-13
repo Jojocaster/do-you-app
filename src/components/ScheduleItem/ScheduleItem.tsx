@@ -1,6 +1,7 @@
 import { parseJSON } from 'date-fns'
 import { format } from 'date-fns-tz'
 import React from 'react'
+import { Image } from 'react-native'
 import { useSelector } from 'react-redux'
 import Colors from '../../constants/Colors'
 import { useAppState } from '../../hooks/useAppState'
@@ -123,6 +124,14 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
                   {decodeHtmlCharCodes(show.name)}
                 </Text>
               )}
+              {/* <Image
+                style={{ height: 50, width: 50 }}
+                source={{
+                  uri:
+                    show.image_path ||
+                    'https://cdn.shopify.com/s/files/1/0555/5929/1029/t/31/assets/default.jpg',
+                }}
+              /> */}
             </View>
           )
         })}

@@ -15,7 +15,7 @@ export default function TrackScreen({
   return (
     <View style={styles.container}>
       <View style={{ width: '100%' }}>
-        <Heading style={{ fontSize: 32 }} multiline={false}>
+        <Heading style={{ fontSize: 28 }} multiline={false}>
           Track IDs
         </Heading>
       </View>

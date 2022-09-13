@@ -3,12 +3,12 @@ import { StyleSheet } from 'react-native'
 import { RootTabScreenProps } from '../../types'
 import { ArchivesList } from '../components/ArchivesList/ArchivesList'
 import { Button2 } from '../components/Button2/Button2'
-import { Filter } from '../components/Filters/Filters'
 import { Heading } from '../components/Heading/Heading'
 import { Text, View } from '../components/Themed'
 import { ARCHIVES_URL } from '../constants/Endpoints'
 import Space from '../constants/Space'
 import useColorScheme from '../hooks/useColorScheme'
+import { Filter } from '../store/slices/filtersSlice'
 
 export default function ArchivesListScreen({
   navigation,
@@ -57,7 +57,7 @@ export default function ArchivesListScreen({
   return (
     <View style={styles.view}>
       <View style={styles.content}>
-        <Heading style={{ marginBottom: 10, fontSize: 32 }}>Archives</Heading>
+        <Heading style={{ marginBottom: 10, fontSize: 28 }}>Archives</Heading>
         <View
           style={{ marginBottom: 10, display: 'flex', flexDirection: 'row' }}
         >
