@@ -1,11 +1,9 @@
 import { useEffect } from 'react'
 import { Image, ScrollView, StyleSheet } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { RootTabScreenProps } from '../../types'
-import { Container } from '../components/Container/Container'
-import { Heading } from '../components/Heading/Heading'
+//@ts-ignore
 import logo from '../../assets/images/logo.webp'
-import { Home } from '../components/Home/Home'
+import { RootTabScreenProps } from '../../types'
 import { Player } from '../components/Player/Player'
 import { Schedule } from '../components/Schedule/Schedule'
 import { View } from '../components/Themed'
