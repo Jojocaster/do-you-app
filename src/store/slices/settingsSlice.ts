@@ -5,6 +5,7 @@ export interface SettingsState {
   darkTheme: boolean
   pushEnabled: boolean
   useNativeTheme: boolean
+  ignoreReruns: boolean
   volume: number
   token?: string
 }
@@ -13,6 +14,7 @@ const initialState: SettingsState = {
   batterySaver: false,
   pushEnabled: false,
   useNativeTheme: true,
+  ignoreReruns: false,
   darkTheme: false,
   volume: 1,
 }

@@ -15,6 +15,7 @@ const Colors = {
     link: brandBlue,
     statusBar: brandBlue,
     background: '#fff',
+    backgroundDark: '#F9F9FB',
     tint: tintColorLight,
     tabIconDefault: '#ccc',
     tabIconSelected: brandBlue,
@@ -55,6 +56,7 @@ const Colors = {
     text: '#fff',
     link: brandYellow,
     background: '#1c1c1c',
+    backgroundDark: '#F8F8F8',
     button: '#F3DD7C',
     tint: tintColorDark,
     tabIconDefault: '#ccc',
@@ -81,7 +83,7 @@ const Colors = {
       thumDisabled: 'dimgrey',
     },
     player: {
-      icon: 'black',
+      icon: brandBlue,
     },
     volume: {
       trackTint: 'white',

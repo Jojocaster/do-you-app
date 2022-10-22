@@ -38,6 +38,26 @@ export const getToken = async () => {
   return token?.data
 }
 
+export const updatePushSettings = async (
+  token: string,
+  ignoreReruns: boolean
+) => {
+  try {
+    const data = await fetchData({
+      url: `${getEnv('API_URL')}/updatePushSettings`,
+      data: { token, ignoreReruns },
+      method: 'POST',
+    })
+
+    console.log('[updatePushSettings] Success')
+    return data
+  } catch (e) {
+    console.log('[updatePushSettings] Error')
+    console.log(e)
+    return false
+  }
+}
+
 export const registerToken = async (token: string): Promise<boolean> => {
   try {
     const data = await fetchData({

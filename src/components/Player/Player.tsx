@@ -1,5 +1,10 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import { ImageBackground, TouchableHighlight } from 'react-native'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
+import {
+  Animated,
+  Easing,
+  ImageBackground,
+  TouchableHighlight,
+} from 'react-native'
 import { StyledCover } from './Player.styles'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import Colors from '../../constants/Colors'
@@ -33,11 +38,13 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
   const dispatch = useDispatch()
   const [playerState, setPlayerState] = useState<State>(State.None)
   const theme = useColorScheme()
+  const buttonAnimation = useRef(new Animated.Value(0)).current
   const { currentShow, currentTrack } = useSelector(
     (state: RootState) => state.show
   )
   const { batterySaver } = useSelector((state: RootState) => state.settings)
   const currentTitle = getShowTitle({ currentShow, currentTrack })
+
   const initPlayer = async () => {
     // fetch show info before init player
     dispatch(fetchShowInfo())
@@ -70,6 +77,25 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
       }
     }
   )
+
+  useEffect(() => {
+    if (playerState === State.Playing) {
+      Animated.timing(buttonAnimation, {
+        toValue: 1,
+        useNativeDriver: true,
+        easing: Easing.elastic(1),
+        delay: 500,
+      }).start()
+    }
+
+    if (playerState !== State.Playing && playerState !== State.Buffering) {
+      Animated.timing(buttonAnimation, {
+        toValue: 0,
+        easing: Easing.elastic(1),
+        useNativeDriver: true,
+      }).start()
+    }
+  }, [playerState])
 
   useEffect(() => {
     if (currentTrack || currentShow) {
@@ -109,10 +135,26 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
     }
   }
 
+  const playerImg = currentShow?.image_path
+    ? { uri: currentShow?.image_path }
+    : require('../../../assets/images/player-default.png')
+
+  const buttonPosition = buttonAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, PLAYER_SIZE / 2 - 24 - 10],
+  })
   return useMemo(
     () => (
       <StyledCover
         style={{
+          // shadowColor: '#000000',
+          // shadowOffset: {
+          //   width: 0,
+          //   height: 15,
+          // },
+          // zIndex: 5,
+          // shadowOpacity: 0.5,
+          // shadowRadius: 10,
           width: PLAYER_SIZE,
           height: PLAYER_SIZE,
           borderColor: '#3A70D6',
@@ -121,7 +163,8 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
       >
         <TouchableHighlight underlayColor="transparent" onPressIn={onPress}>
           <ImageBackground
-            source={require('../../../assets/images/doyou.webp')}
+            resizeMethod="scale"
+            source={playerImg}
             style={{
               width: '100%',
               height: '100%',
@@ -131,24 +174,52 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
               justifyContent: 'center',
             }}
           >
-            <View
+            <Animated.View
               style={{
-                width: 50,
-                height: 50,
-                borderRadius: 50,
-                backgroundColor: 'white',
+                backgroundColor: 'transparent',
                 position: 'absolute',
+                // right: 10,
+                // bottom: 10,
+                shadowColor: '#000000',
+                shadowOffset: {
+                  width: 0,
+                  height: 0,
+                },
+                zIndex: 5,
+                shadowOpacity: 0.3,
+                shadowRadius: 4,
+                transform: [
+                  { translateY: buttonPosition },
+                  { translateX: buttonPosition },
+                ],
               }}
-            />
-            <MaterialCommunityIcons
-              name={PlayerStateIcons[playerState]}
-              size={80}
-              color={Colors[theme].player.icon}
-            />
+            >
+              <View
+                style={{ position: 'relative', backgroundColor: 'transparent' }}
+              >
+                <MaterialCommunityIcons
+                  name={PlayerStateIcons[playerState]}
+                  size={60}
+                  color={Colors[theme].player.icon}
+                />
+                <View
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, .5)',
+                    position: 'absolute',
+                    left: 6,
+                    borderRadius: 50,
+                    top: 6,
+                    zIndex: -1,
+                    width: 48,
+                    height: 48,
+                  }}
+                />
+              </View>
+            </Animated.View>
           </ImageBackground>
         </TouchableHighlight>
       </StyledCover>
     ),
-    [playerState, theme]
+    [playerState, theme, currentShow]
   )
 }

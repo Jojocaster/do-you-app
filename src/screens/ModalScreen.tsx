@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import { RootTabScreenProps } from '../../types'
-
+import { Button2 } from '../components/Button2/Button2'
 import { Heading } from '../components/Heading/Heading'
 import { Text, View } from '../components/Themed'
 import Colors from '../constants/Colors'
@@ -28,12 +28,17 @@ const Link: React.FC<{ children: string; onClick: () => void }> = ({
   )
 }
 
+const Item: React.FC<{ children: React.ReactElement }> = ({ children }) => (
+  <View style={styles.textContainer}>{children}</View>
+)
+
 export default function ModalScreen({
   navigation,
-}: RootTabScreenProps<'Live'>) {
+}: RootTabScreenProps<'ArchivesList'>) {
   const theme = useColorScheme()
+
   return (
-    <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
+    <TouchableWithoutFeedback>
       <View
         style={{
           flex: 1,
@@ -62,31 +67,30 @@ export default function ModalScreen({
           <Heading style={styles.title} multiline={false}>
             What's new
           </Heading>
-          <View style={styles.textContainer}>
+          <Item>
             <Text style={styles.text}>
+              You can now disable notifications for re-runs. Just head over to
+              the{' '}
+              <Link onClick={() => navigation.navigate('More')}>Settings</Link>!
+            </Text>
+          </Item>
+          <Item>
+            <Text style={styles.text}>
+              Want to relive Gaia? Listen to all Jukebox shows? Use the new{' '}
               <Link onClick={() => navigation.navigate('Archives')}>
                 Archives
               </Link>{' '}
-              are now available! 🎉
+              filter and listen to your favourite shows all over again.
             </Text>
-            <Text>Search, filters & more coming soon.</Text>
-          </View>
-          <View style={styles.textContainer}>
-            <Text style={styles.text}>
-              Notifications are now fully supported.
-            </Text>
-            <Text style={styles.text}>
-              Head over to the{' '}
-              <Link onClick={() => navigation.navigate('More')}>Settings</Link>{' '}
-              to enable notifications and make sure you never miss a show again.
-            </Text>
-            <Text style={styles.text}>
-              <Text style={{ fontWeight: 'bold' }}>Disclaimer:</Text> This may
-              affect your productivity.
-            </Text>
-          </View>
-          <View style={{ marginTop: 10 }}>
-            <Link onClick={() => navigation.goBack()}>Close</Link>
+          </Item>
+          <View
+            style={{ marginTop: 20, display: 'flex', flexDirection: 'row' }}
+          >
+            <View>
+              <Button2 variant="lg" onPress={() => navigation.goBack()}>
+                OK
+              </Button2>
+            </View>
           </View>
         </View>
       </View>

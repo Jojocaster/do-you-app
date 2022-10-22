@@ -1,19 +1,17 @@
-import { StyleSheet } from 'react-native'
-import { Heading } from '../components/Heading/Heading'
-import Constants from 'expo-constants'
-import { Home } from '../components/Home/Home'
-import { View } from '../components/Themed'
+import { useEffect } from 'react'
+import { Image, ScrollView, StyleSheet } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
+//@ts-ignore
+import logo from '../../assets/images/logo.webp'
+import { RootTabScreenProps } from '../../types'
 import { Player } from '../components/Player/Player'
 import { Schedule } from '../components/Schedule/Schedule'
-import { RootTabScreenProps } from '../../types'
-import { Container } from '../components/Container/Container'
-import useColorScheme from '../hooks/useColorScheme'
-import Colors from '../constants/Colors'
+import { View } from '../components/Themed'
 import { VolumeControl } from '../components/VolumeControl/VolumeControl'
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../store/store'
+import Colors from '../constants/Colors'
+import useColorScheme from '../hooks/useColorScheme'
 import { updateWhatsNew } from '../store/slices/appSlice'
+import { RootState } from '../store/store'
 
 export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
   const { whatsNew } = useSelector((state: RootState) => state.app)
@@ -22,23 +20,31 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
   const theme = useColorScheme()
 
   useEffect(() => {
-    if (whatsNew !== '0.4.2') {
+    if (whatsNew !== '0.4.4') {
       navigation.navigate('Modal')
-      dispatch(updateWhatsNew('0.4.2'))
+      dispatch(updateWhatsNew('0.4.4'))
     }
   }, [])
 
   return (
-    <Home>
-      <Container>
-        <Heading offset={50}>DO!! YOU!!!</Heading>
-      </Container>
+    <ScrollView
+      overScrollMode="never"
+      bounces={false}
+      style={{ backgroundColor: Colors[theme].background, paddingVertical: 25 }}
+    >
+      <View style={{ marginLeft: 20 }}>
+        <Image
+          resizeMode="contain"
+          source={logo}
+          style={{ height: 60, width: 60 }}
+        />
+      </View>
       <View
         style={{
           backgroundColor: 'transparent',
           display: 'flex',
           alignItems: 'center',
-          marginTop: -20,
+          marginTop: 20,
         }}
       >
         <Player background={'assets/logo.webp'} />
@@ -56,7 +62,7 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
         <Schedule />
       </View>
       {/* <EditScreenInfo path="/screens/TabOneScreen.tsx" /> */}
-    </Home>
+    </ScrollView>
   )
 }
 

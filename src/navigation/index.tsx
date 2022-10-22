@@ -70,8 +70,9 @@ function RootNavigator() {
       <Stack.Group
         screenOptions={{
           presentation: 'transparentModal',
-          // contentStyle: { backgroundColor: 'rgba(0, 0, 0, .5)' },
+          contentStyle: { backgroundColor: 'rgba(0, 0, 0, .5)' },
           headerShown: false,
+          animation: 'fade',
         }}
       >
         <Stack.Screen name="Modal" component={ModalScreen} />

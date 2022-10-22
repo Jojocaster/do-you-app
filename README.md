@@ -76,6 +76,14 @@ Bug tracker for non-GitHub users: [Google Form](https://forms.gle/5HYMW6AM7vtAZ1
 
 ## Changelog
 
+- 0.4.4: [Android](https://play.google.com/store/apps/details?id=com.wonkylines.doyouworld) - [iOS](https://apps.apple.com/gb/app/do-you-world/id1620769718)
+```
+- Filters added to Archives
+- Player now shows current show's artwork
+- Users can now disable notifications for re-runs
+- Layout improved
+```
+
 - 0.4.3: [Android](https://play.google.com/store/apps/details?id=com.wonkylines.doyouworld) - [iOS](https://apps.apple.com/gb/app/do-you-world/id1620769718)
 ```
 - Archives tracklists fixed

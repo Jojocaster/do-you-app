@@ -5,6 +5,7 @@ import scheduleReducer from './slices/scheduleSlice'
 import showReducer from './slices/showSlice'
 import tracksInfoReducer from './slices/tracksInfoSlice'
 import settingsReducer from './slices/settingsSlice'
+import filtersReducer from './slices/filtersSlice'
 import AsyncStore from '@react-native-async-storage/async-storage'
 import {
   persistStore,
@@ -21,6 +22,7 @@ const persistConfig = {
   key: 'root',
   version: 1,
   storage: AsyncStore,
+  blacklist: ['show'],
 }
 
 const reducers = combineReducers({
@@ -30,6 +32,7 @@ const reducers = combineReducers({
   show: showReducer,
   tracksInfo: tracksInfoReducer,
   settings: settingsReducer,
+  filters: filtersReducer,
 })
 //@ts-ignore
 const persistedReducer = persistReducer(persistConfig, reducers)

@@ -17,6 +17,8 @@ export const getLocalShowTime = (dateTime: string): string => {
 }
 
 export const decodeHtmlCharCodes = (str: string): string =>
-  str.replace(/(&#(\d+);)/g, (match, capture, charCode) =>
-    String.fromCharCode(charCode)
-  )
+  str
+    .replace(/(&#(\d+);)/g, (match, capture, charCode) =>
+      String.fromCharCode(charCode)
+    )
+    .replace(/&amp;/g, '&')

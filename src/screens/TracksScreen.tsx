@@ -15,7 +15,7 @@ export default function TrackScreen({
   return (
     <View style={styles.container}>
       <View style={{ width: '100%' }}>
-        <Heading style={{ fontSize: 32 }} multiline={false}>
+        <Heading style={{ fontSize: 28 }} multiline={false}>
           Track IDs
         </Heading>
       </View>
@@ -29,11 +29,6 @@ export default function TrackScreen({
         lightColor="#F8F8F8"
       >
         <MonoText>
-          <MaterialCommunityIcons
-            name="information-outline"
-            color={Colors.common.warning}
-            size={16}
-          />{' '}
           Source:{' '}
           <Weblink uri="https://doyoutrackid.com">doyoutrackid.com</Weblink>
         </MonoText>
