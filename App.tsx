@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import TrackPlayer, { Capability } from 'react-native-track-player'
-import { Provider } from 'react-redux'
+import { Provider, useDispatch } from 'react-redux'
 import { ThemeProvider } from 'styled-components/native'
 import service from './service'
 import { Status } from './src/components/Status/Status'
@@ -12,12 +12,13 @@ import { theme } from './src/theme'
 //@ts-ignore
 import * as SplashScreen from 'expo-splash-screen'
 import * as TaskManager from 'expo-task-manager'
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { Platform } from 'react-native'
 import { PersistGate } from 'redux-persist/integration/react'
 import { View } from './src/components/Themed'
 import { BACKGROUND_FETCH_TASK } from './src/constants/Tasks'
 import { fetchShowInBackground } from './src/utils/tasks'
+import { fetchConfig } from './src/store/slices/appSlice'
 
 // Required on iOS (otherwise player will go to pause state while buffering)
 // Only makes Android slower to load, hence the condition
@@ -45,6 +46,11 @@ export default function App() {
       await SplashScreen.hideAsync()
     }
   }, [isLoadingComplete])
+
+  useEffect(() => {
+    // fetch config on load
+    store.dispatch(fetchConfig())
+  }, [])
 
   if (!isLoadingComplete) {
     return null

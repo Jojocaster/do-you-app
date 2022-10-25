@@ -10,12 +10,13 @@ import { View } from '../components/Themed'
 import { VolumeControl } from '../components/VolumeControl/VolumeControl'
 import Colors from '../constants/Colors'
 import useColorScheme from '../hooks/useColorScheme'
+import useCustomTheme from '../hooks/useCustomTheme'
 import { updateWhatsNew } from '../store/slices/appSlice'
 import { RootState } from '../store/store'
 
 export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
-  const { whatsNew } = useSelector((state: RootState) => state.app)
-
+  const { whatsNew, config } = useSelector((state: RootState) => state.app)
+  const customTheme = useCustomTheme()
   const dispatch = useDispatch()
   const theme = useColorScheme()
 
@@ -26,6 +27,10 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
     }
   }, [])
 
+  const icon = customTheme?.icon
+    ? { uri: `${config?.assets}${customTheme?.icon}` }
+    : logo
+
   return (
     <ScrollView
       overScrollMode="never"
@@ -34,8 +39,9 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
     >
       <View style={{ marginLeft: 20 }}>
         <Image
+          defaultSource={logo}
+          source={icon}
           resizeMode="contain"
-          source={logo}
           style={{ height: 60, width: 60 }}
         />
       </View>

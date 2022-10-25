@@ -7,11 +7,13 @@ import { View } from '../components/Themed'
 import { Tracks } from '../components/Tracks/Tracks'
 import Colors from '../constants/Colors'
 import Space from '../constants/Space'
+import useColorScheme from '../hooks/useColorScheme'
 import { Weblink } from './MoreScreen'
 
 export default function TrackScreen({
   navigation,
 }: RootTabScreenProps<'Tracks'>) {
+  const theme = useColorScheme()
   return (
     <View style={styles.container}>
       <View style={{ width: '100%' }}>
@@ -23,10 +25,8 @@ export default function TrackScreen({
         style={[
           styles.codeHighlightContainer,
           styles.homeScreenFilename,
-          { marginBottom: 20 },
+          { marginBottom: 20, backgroundColor: Colors[theme].hero },
         ]}
-        darkColor="rgba(255,255,255,0.05)"
-        lightColor="#F8F8F8"
       >
         <MonoText>
           Source:{' '}

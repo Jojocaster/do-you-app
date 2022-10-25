@@ -6,6 +6,7 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
+      "channel": "dev",
       "env": {
         "TARGET": "dev"
       },
@@ -15,11 +16,13 @@
     },
     "preview": {
       "distribution": "internal",
+      "channel": "preview",
       "env": {
         "TARGET": "preview"
       }
     },
     "production": {
+      "channel": "prod",
       "env": {
         "TARGET": "prod"
       }

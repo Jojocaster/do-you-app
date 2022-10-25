@@ -21,8 +21,12 @@ const Colors = {
     tabIconSelected: brandBlue,
     primary: brandBlue,
     secondary: brandYellow,
+    hero: '#F8F8F8',
     accent: brandBlue,
-    button: '#F3DD7C',
+    button: {
+      background: '#F3DD7C',
+      text: 'black',
+    },
     heading: brandYellow,
     headingShadow: brandBlue,
     scheduleBackground: '#F8F8F8',
@@ -41,6 +45,7 @@ const Colors = {
     },
     player: {
       icon: brandBlue,
+      frame: brandBlue,
     },
     tracks: {
       artist: brandBlue,
@@ -57,7 +62,10 @@ const Colors = {
     link: brandYellow,
     background: '#1c1c1c',
     backgroundDark: '#F8F8F8',
-    button: '#F3DD7C',
+    button: {
+      background: '#F3DD7C',
+      text: 'black',
+    },
     tint: tintColorDark,
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorDark,
@@ -65,6 +73,7 @@ const Colors = {
     primary: brandYellow,
     secondary: brandBlue,
     accent: '#000',
+    hero: 'rgba(255,255,255,0.05)',
     statusBar: '#151515',
     heading: brandYellow,
     headingShadow: brandBlue,
@@ -84,6 +93,7 @@ const Colors = {
     },
     player: {
       icon: brandBlue,
+      frame: brandBlue,
     },
     volume: {
       trackTint: 'white',
@@ -91,6 +101,53 @@ const Colors = {
       icons: 'white',
     },
     chatText: brandYellow,
+  },
+  monochrome: {
+    text: '#000',
+    link: 'black',
+    statusBar: 'black',
+    background: '#fff',
+    backgroundDark: '#F9F9FB',
+    tint: 'black',
+    tabIconDefault: 'black',
+    tabIconSelected: 'black',
+    primary: 'black',
+    secondary: 'black',
+    accent: 'black',
+    hero: '#F8F8F8',
+    button: {
+      background: 'black',
+      text: 'white',
+    },
+    heading: 'black',
+    headingShadow: 'rgba(0, 0, 0, .2)',
+    scheduleBackground: '#F8F8F8',
+    scheduleText: '#000',
+    scheduleUnderline: 'black',
+    scheduleHeading: 'black',
+    archive: {
+      webviewBackground: '#F8F8F8',
+    },
+    switch: {
+      trackActive: 'black',
+      trackInactive: 'grey',
+      trackDisabled: 'black',
+      thumb: 'white',
+      thumDisabled: '#F5F5F5',
+    },
+    player: {
+      icon: 'black',
+      frame: 'black',
+    },
+    tracks: {
+      artist: 'black',
+    },
+    volume: {
+      trackTint: 'black',
+      thumb: 'black',
+      icons: 'black',
+    },
+    chatText: 'black',
   },
 }
 
