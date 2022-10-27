@@ -1,5 +1,11 @@
 import React, { useCallback, useMemo } from 'react'
-import { Image, StyleSheet, TouchableNativeFeedback } from 'react-native'
+import {
+  Image,
+  Platform,
+  StyleSheet,
+  TouchableNativeFeedback,
+  TouchableOpacity,
+} from 'react-native'
 import useColorScheme from '../../hooks/useColorScheme'
 import { formatArchiveDate, formatArchiveTitle } from '../../utils/archives'
 import { ArchiveItem } from '../ArchivesList/ArchivesList.types'
@@ -11,6 +17,8 @@ export const ArchiveListItem: React.FC<{
   onClick: (archive: ArchiveItem) => void
 }> = ({ onClick, track }) => {
   const theme = useColorScheme()
+  const CustomTouchable =
+    Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity
 
   const getThumbnail = useCallback((imageUri: string) => {
     return { uri: `${MIXCLOUD_IMAGE_ENDPOINT}/300x300/${imageUri}` }
@@ -18,7 +26,8 @@ export const ArchiveListItem: React.FC<{
 
   return useMemo(
     () => (
-      <TouchableNativeFeedback onPress={() => onClick(track)}>
+      //@ts-ignore
+      <CustomTouchable onPress={() => onClick(track)}>
         <View style={styles.container}>
           <Image
             style={styles.thumbnail}
@@ -39,7 +48,7 @@ export const ArchiveListItem: React.FC<{
             </Text>
           </View>
         </View>
-      </TouchableNativeFeedback>
+      </CustomTouchable>
     ),
     [theme]
   )
@@ -50,14 +59,14 @@ const styles = StyleSheet.create({
     position: 'relative',
     borderRadius: 4,
     shadowColor: 'rgba(0, 0, 0, .2)',
-    shadowOpacity: 1,
-    shadowRadius: 5,
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
     elevation: 5,
     shadowOffset: {
-      width: 0,
+      width: 1,
       height: 2,
     },
-    overflow: 'hidden',
+    // overflow: 'hidden',
     display: 'flex',
     flexDirection: 'row',
     marginBottom: 20,
