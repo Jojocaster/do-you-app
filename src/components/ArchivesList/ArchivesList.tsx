@@ -1,14 +1,13 @@
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { differenceInHours } from 'date-fns'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { ActivityIndicator, FlatList, RefreshControl } from 'react-native'
+import { ActivityIndicator, FlatList, RefreshControl, View } from 'react-native'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
 import { Filter } from '../../store/slices/filtersSlice'
 import { ArchiveListItem } from '../ArchiveListItem/ArchiveListItem'
 
 import { LoadMore } from '../LoadMore/LoadMore'
-import { View } from '../Themed'
 import { ArchiveItem } from './ArchivesList.types'
 import { getArchives } from './ArchivesList.utils'
 
@@ -139,11 +138,7 @@ export const ArchivesList: React.FC<{ filter?: Filter }> = ({ filter }) => {
         paddingBottom: 30,
       }}
       ListFooterComponent={
-        <LoadMore
-          canLoadMore={canLoadMore}
-          loadMore={() => loadPage(page + 1)}
-          isLoading={isLoadingMore}
-        />
+        <LoadMore canLoadMore={canLoadMore} isLoading={isLoadingMore} />
       }
       keyExtractor={(track, index) => `${track.id} + ${index}`}
       showsVerticalScrollIndicator={false}

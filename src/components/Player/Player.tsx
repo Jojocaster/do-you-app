@@ -142,7 +142,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
     ? { uri: currentShow?.image_path }
     : customTheme?.playerImage
     ? { uri: `${config?.assets}${customTheme?.playerImage}` }
-    : require('../../../assets/images/player-default.png')
+    : require('../../../assets/images/playerWhite.png')
 
   const buttonPosition = buttonAnimation.interpolate({
     inputRange: [0, 1],

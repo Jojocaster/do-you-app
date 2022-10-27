@@ -2,7 +2,7 @@
   "expo": {
     "name": "Do!! You!!! World",
     "slug": "DoYouWorld",
-    "version": "0.4.4",
+    "version": "0.4.5",
     "backgroundColor": "#1c1c1c",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -26,7 +26,7 @@
     ],
     "ios": {
       "bundleIdentifier": "com.wonkylines.doyouworld",
-      "buildNumber": "0.4.4.1",
+      "buildNumber": "0.4.5.1",
       "supportsTablet": false,
       "infoPlist": {
         "UIBackgroundModes": [

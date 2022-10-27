@@ -27,9 +27,13 @@ const Colors = {
       background: '#F3DD7C',
       text: 'black',
     },
+    tabs: {
+      header: '#1c1c1c',
+      body: '#F9F9FB',
+    },
     heading: brandYellow,
     headingShadow: brandBlue,
-    scheduleBackground: '#F8F8F8',
+    scheduleBackground: '#F9F9FB',
     scheduleText: '#000',
     scheduleUnderline: brandYellow,
     scheduleHeading: brandBlue,
@@ -65,6 +69,10 @@ const Colors = {
     button: {
       background: '#F3DD7C',
       text: 'black',
+    },
+    tabs: {
+      header: '#1c1c1c',
+      body: '#151515',
     },
     tint: tintColorDark,
     tabIconDefault: '#ccc',
@@ -127,6 +135,10 @@ const Colors = {
     scheduleHeading: 'black',
     archive: {
       webviewBackground: '#F8F8F8',
+    },
+    tabs: {
+      header: '#1c1c1c',
+      body: '#F9F9FB',
     },
     switch: {
       trackActive: 'black',

@@ -1,13 +1,11 @@
-import { ActivityIndicator, StyleSheet, TouchableOpacity } from 'react-native'
+import { ActivityIndicator, StyleSheet, View } from 'react-native'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
-import { Text, View } from '../Themed'
 
 export const LoadMore: React.FC<{
   canLoadMore: boolean
-  loadMore: () => void
   isLoading: boolean
-}> = ({ canLoadMore, isLoading, loadMore }) => {
+}> = ({ canLoadMore, isLoading }) => {
   const theme = useColorScheme()
 
   if (isLoading) {
@@ -28,21 +26,7 @@ export const LoadMore: React.FC<{
     return null
   }
 
-  return (
-    <TouchableOpacity onPress={loadMore}>
-      <View style={styles.view}>
-        <Text
-          style={{
-            color: Colors[theme].primary,
-            fontWeight: 'bold',
-            textDecorationLine: 'underline',
-          }}
-        >
-          Load more
-        </Text>
-      </View>
-    </TouchableOpacity>
-  )
+  return null
 }
 
 const styles = StyleSheet.create({

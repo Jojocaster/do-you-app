@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react'
-import { Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { Image, StyleSheet, TouchableNativeFeedback } from 'react-native'
 import useColorScheme from '../../hooks/useColorScheme'
 import { formatArchiveDate, formatArchiveTitle } from '../../utils/archives'
 import { ArchiveItem } from '../ArchivesList/ArchivesList.types'
@@ -18,7 +18,7 @@ export const ArchiveListItem: React.FC<{
 
   return useMemo(
     () => (
-      <TouchableOpacity onPress={() => onClick(track)}>
+      <TouchableNativeFeedback onPress={() => onClick(track)}>
         <View style={styles.container}>
           <Image
             style={styles.thumbnail}
@@ -39,7 +39,7 @@ export const ArchiveListItem: React.FC<{
             </Text>
           </View>
         </View>
-      </TouchableOpacity>
+      </TouchableNativeFeedback>
     ),
     [theme]
   )
@@ -47,13 +47,25 @@ export const ArchiveListItem: React.FC<{
 
 const styles = StyleSheet.create({
   container: {
+    position: 'relative',
+    borderRadius: 4,
+    shadowColor: 'rgba(0, 0, 0, .2)',
+    shadowOpacity: 1,
+    shadowRadius: 5,
+    elevation: 5,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    overflow: 'hidden',
     display: 'flex',
     flexDirection: 'row',
-    marginBottom: 30,
+    marginBottom: 20,
   },
   content: {
+    backgroundColor: 'transparent',
     flex: 1,
-    marginLeft: 20,
+    marginHorizontal: 20,
     alignSelf: 'center',
   },
   showName: {

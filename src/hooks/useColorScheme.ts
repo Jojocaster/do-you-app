@@ -24,4 +24,5 @@ export default function useColorScheme(): NonNullable<ColorSchemeName> {
   }, [darkTheme])
 
   return customTheme?.theme || theme
+  // return 'monochrome' as any
 }
