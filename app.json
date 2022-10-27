@@ -42,7 +42,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.wonkylines.doyouworld",
-      "versionCode": 16
+      "versionCode": 17
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
