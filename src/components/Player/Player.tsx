@@ -33,15 +33,18 @@ import {
   unregisterBackgroundTask,
 } from '../../utils/tasks'
 import { fetchShowInfo } from '../../store/slices/showSlice'
+import useCustomTheme from '../../hooks/useCustomTheme'
 
 export const Player: React.FC<{ background: string }> = ({ background }) => {
   const dispatch = useDispatch()
   const [playerState, setPlayerState] = useState<State>(State.None)
   const theme = useColorScheme()
+  const customTheme = useCustomTheme()
   const buttonAnimation = useRef(new Animated.Value(0)).current
   const { currentShow, currentTrack } = useSelector(
     (state: RootState) => state.show
   )
+  const { config } = useSelector((state: RootState) => state.app)
   const { batterySaver } = useSelector((state: RootState) => state.settings)
   const currentTitle = getShowTitle({ currentShow, currentTrack })
 
@@ -137,7 +140,9 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
 
   const playerImg = currentShow?.image_path
     ? { uri: currentShow?.image_path }
-    : require('../../../assets/images/player-default.png')
+    : customTheme?.playerImage
+    ? { uri: `${config?.assets}${customTheme?.playerImage}` }
+    : require('../../../assets/images/playerWhite.png')
 
   const buttonPosition = buttonAnimation.interpolate({
     inputRange: [0, 1],
@@ -147,17 +152,9 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
     () => (
       <StyledCover
         style={{
-          // shadowColor: '#000000',
-          // shadowOffset: {
-          //   width: 0,
-          //   height: 15,
-          // },
-          // zIndex: 5,
-          // shadowOpacity: 0.5,
-          // shadowRadius: 10,
           width: PLAYER_SIZE,
           height: PLAYER_SIZE,
-          borderColor: '#3A70D6',
+          borderColor: Colors[theme].player.frame,
           borderWidth: 3,
         }}
       >
@@ -165,6 +162,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
           <ImageBackground
             resizeMethod="scale"
             source={playerImg}
+            defaultSource={require('../../../assets/images/player-default.png')}
             style={{
               width: '100%',
               height: '100%',

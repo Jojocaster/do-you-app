@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { SettingsState, updateSettings } from '../../store/slices/settingsSlice'
 import { RootState } from '../../store/store'
@@ -13,14 +13,8 @@ import { SingleSetting } from '../SingleSetting/SingleSetting'
 
 export const Settings: React.FC = () => {
   const dispatch = useDispatch()
-  const {
-    batterySaver,
-    darkTheme,
-    pushEnabled,
-    ignoreReruns,
-    useNativeTheme,
-    token,
-  } = useSelector((state: RootState) => state.settings)
+  const { batterySaver, darkTheme, pushEnabled, ignoreReruns, token } =
+    useSelector((state: RootState) => state.settings)
 
   const onToggle = (
     key: keyof SettingsState,
@@ -99,13 +93,6 @@ export const Settings: React.FC = () => {
         Disable notifications for re-runs
       </SingleSetting>
       <SingleSetting
-        value={useNativeTheme}
-        onToggle={() => onToggle('useNativeTheme', !useNativeTheme)}
-      >
-        Use native theme
-      </SingleSetting>
-      <SingleSetting
-        disabled={useNativeTheme}
         value={darkTheme}
         onToggle={() => onToggle('darkTheme', !darkTheme)}
       >

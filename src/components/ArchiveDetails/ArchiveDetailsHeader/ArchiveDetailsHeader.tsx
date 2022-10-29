@@ -2,9 +2,15 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import React, { useRef } from 'react'
 import { Animated, ImageBackground, Pressable, StyleSheet } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
 import Colors from '../../../constants/Colors'
 import { deviceHeight, deviceWidth } from '../../../constants/Layout'
 import useColorScheme from '../../../hooks/useColorScheme'
+import {
+  addArchive,
+  deleteArchive,
+} from '../../../store/slices/savedArchivesSlice'
+import { RootState } from '../../../store/store'
 import { MIXCLOUD_IMAGE_ENDPOINT } from '../../ArchiveListItem/ArchiveListItem.constants'
 import { ArchiveItem } from '../../ArchivesList/ArchivesList.types'
 import { View } from '../../Themed'
@@ -13,9 +19,13 @@ export const ArchiveDetailsHeader: React.FC<{
   scrollY: Animated.Value
   track: ArchiveItem
 }> = ({ scrollY, track }) => {
+  const dispatch = useDispatch()
+  const { archives } = useSelector((state: RootState) => state.savedArchives)
+  const savedArchive = archives?.find((a) => a.archive.id === track.id)
   const theme = useColorScheme()
   const navigation = useNavigation()
   const opacity = useRef(new Animated.Value(0))
+  const heartScale = useRef(new Animated.Value(1))
   const imageSource = `${MIXCLOUD_IMAGE_ENDPOINT}${track.picture_url}`
   const imageSize = deviceWidth / 2
 
@@ -32,6 +42,31 @@ export const ArchiveDetailsHeader: React.FC<{
       useNativeDriver: true,
     }).start()
   }
+
+  const updateArchive = () => {
+    if (savedArchive) {
+      dispatch(deleteArchive(track))
+    } else {
+      dispatch(addArchive(track))
+    }
+  }
+
+  const onPressIn = () => {
+    Animated.spring(heartScale.current, {
+      toValue: 0.8,
+      friction: 4,
+      useNativeDriver: true,
+    }).start()
+  }
+
+  const onPressOut = () => {
+    Animated.spring(heartScale.current, {
+      toValue: 1,
+      friction: 2,
+      useNativeDriver: true,
+    }).start()
+  }
+
   return (
     <View
       style={[
@@ -70,9 +105,25 @@ export const ArchiveDetailsHeader: React.FC<{
           pressRetentionOffset={20}
           onPress={() => navigation.goBack()}
         >
-          <MaterialCommunityIcons size={36} color="white" name="arrow-left" />
+          <MaterialCommunityIcons size={30} color="white" name="arrow-left" />
         </Pressable>
       </View>
+      <Animated.View
+        style={[styles.like, { transform: [{ scale: heartScale.current }] }]}
+      >
+        <Pressable
+          pressRetentionOffset={20}
+          onPress={updateArchive}
+          onPressIn={onPressIn}
+          onPressOut={onPressOut}
+        >
+          <MaterialCommunityIcons
+            size={30}
+            color="#f54242"
+            name={savedArchive ? 'heart' : 'heart-outline'}
+          />
+        </Pressable>
+      </Animated.View>
     </View>
   )
 }
@@ -83,6 +134,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 20,
     left: 20,
+  },
+  like: {
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    top: 20,
+    right: 20,
   },
   header: {
     height: deviceHeight * 0.4,

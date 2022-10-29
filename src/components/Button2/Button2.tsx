@@ -19,6 +19,7 @@ const Content: React.FC<
     visible?: boolean
   }
 > = ({ children, icon, visible = true, variant = 'md', iconSize }) => {
+  const theme = useColorScheme()
   const activeVariant = variants[variant]
 
   return (
@@ -27,11 +28,22 @@ const Content: React.FC<
         <MaterialCommunityIcons
           name={icon}
           size={iconSize || activeVariant.text.fontSize}
-          style={{ marginRight: children ? 3 : 0 }}
+          style={{
+            marginRight: children ? 3 : 0,
+            color: Colors[theme].button.text,
+          }}
         />
       )}
       {children && (
-        <Text style={[styles.text, activeVariant.text]}>{children}</Text>
+        <Text
+          style={[
+            styles.text,
+            activeVariant.text,
+            { color: Colors[theme].button.text },
+          ]}
+        >
+          {children}
+        </Text>
       )}
     </View>
   )
@@ -83,7 +95,7 @@ export const Button2: React.FC<ButtonProps> = (props) => {
               styles.button,
               activeVariant.button,
               styles.inner,
-              { backgroundColor: Colors[theme].button },
+              { backgroundColor: Colors[theme].button.background },
             ]}
           >
             <Content {...props} />

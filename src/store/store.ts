@@ -6,6 +6,7 @@ import showReducer from './slices/showSlice'
 import tracksInfoReducer from './slices/tracksInfoSlice'
 import settingsReducer from './slices/settingsSlice'
 import filtersReducer from './slices/filtersSlice'
+import savedArchivesReducer from './slices/savedArchivesSlice'
 import AsyncStore from '@react-native-async-storage/async-storage'
 import {
   persistStore,
@@ -33,6 +34,7 @@ const reducers = combineReducers({
   tracksInfo: tracksInfoReducer,
   settings: settingsReducer,
   filters: filtersReducer,
+  savedArchives: savedArchivesReducer,
 })
 //@ts-ignore
 const persistedReducer = persistReducer(persistConfig, reducers)
