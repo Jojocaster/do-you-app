@@ -1,13 +1,23 @@
 import { parseISO } from 'date-fns'
-import { format } from 'date-fns-tz'
+import { format, zonedTimeToUtc } from 'date-fns-tz'
+
+// TODO: double check whern BST starts
+const hasDST = (date = new Date()) => {
+  const january = new Date(date.getFullYear(), 0, 1).getTimezoneOffset()
+  const july = new Date(date.getFullYear(), 6, 1).getTimezoneOffset()
+
+  return Math.max(january, july) !== date.getTimezoneOffset()
+}
 
 // dateTime is returned as a local time (e.g. 2022-04-12 10:00:00)
 // this function converts it to UTC and formats the time properly
 export const getLocalShowTime = (dateTime: string): string => {
+  const offset = hasDST() ? '01:00' : '00:00'
+
   try {
     const d = dateTime.split(' ')
-    // convert date to BST/GMT
-    const utc = new Date(`${d[0]}T${d[1]}+01:00`)
+    const utc = new Date(`${d[0]}T${d[1]}+${offset}`)
+
     return format(utc, 'HH:mm')
     // if this fail, parse date normally and rely on system's date
   } catch (e) {

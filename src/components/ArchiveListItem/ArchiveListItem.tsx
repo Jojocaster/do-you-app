@@ -83,6 +83,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   thumbnail: {
+    borderTopLeftRadius: 4,
+    borderBottomLeftRadius: 4,
     height: 100,
     width: 100,
   },
