@@ -1,8 +1,9 @@
 import { Octicons } from '@expo/vector-icons'
 import React from 'react'
+import { View } from 'react-native'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
-import { Text, View } from '../Themed'
+import { Text } from '../Themed'
 
 export const Loader: React.FC<{ children?: string; testID?: string }> = ({
   children,

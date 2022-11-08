@@ -50,7 +50,7 @@ export const ArchiveTracklist: React.FC<{
 
   if (loading) {
     return (
-      <View>
+      <View style={{ flex: 1 }}>
         <ActivityIndicator color={Colors[theme].primary} />
       </View>
     )

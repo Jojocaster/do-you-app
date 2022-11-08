@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import { FlatList } from 'react-native'
+import Colors from '../../constants/Colors'
+import Space from '../../constants/Space'
+import useColorScheme from '../../hooks/useColorScheme'
 import { TrackInfo } from '../../store/slices/tracksInfoSlice'
 import { Track } from '../Track/Track'
 
@@ -9,6 +12,7 @@ export const Tracklist: React.FC<{
   virtual?: boolean
 }> = ({ showStart, tracks, virtual = true }) => {
   const [activeTrack, setActiveTrack] = useState<string>()
+  const theme = useColorScheme()
 
   const onToggle = (track: string) => {
     if (track === activeTrack) {
@@ -47,9 +51,9 @@ export const Tracklist: React.FC<{
       )}
       keyExtractor={(track) => track.played_datetime}
       showsVerticalScrollIndicator={false}
-      fadingEdgeLength={100}
       overScrollMode="never"
-      style={{ width: '100%' }}
+      contentContainerStyle={{ paddingTop: Space.viewPaddingVertical }}
+      style={{ width: '100%', backgroundColor: Colors[theme].tabs.body }}
     />
   )
 }

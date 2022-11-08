@@ -1,12 +1,12 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import { useEffect, useMemo, useState } from 'react'
-import { Clipboard, StyleSheet, TouchableOpacity } from 'react-native'
+import { Clipboard, StyleSheet, TouchableOpacity, View } from 'react-native'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
 import { TrackInfo } from '../../store/slices/tracksInfoSlice'
 import { formatTrackTime, getTrackScore } from '../../utils/track'
 import { Button2 } from '../Button2/Button2'
-import { Text, View } from '../Themed'
+import { Text } from '../Themed'
 
 export const Track: React.FC<{
   active: boolean

@@ -76,6 +76,12 @@ Bug tracker for non-GitHub users: [Google Form](https://forms.gle/5HYMW6AM7vtAZ1
 
 ## Changelog
 
+- 0.4.6: [Android](https://play.google.com/store/apps/details?id=com.wonkylines.doyouworld) - [iOS](https://apps.apple.com/gb/app/do-you-world/id1620769718)
+```
+- Schedule fixed to support DST
+- Tabs added to Track IDs
+```
+
 - 0.4.5: [Android](https://play.google.com/store/apps/details?id=com.wonkylines.doyouworld) - [iOS](https://apps.apple.com/gb/app/do-you-world/id1620769718)
 ```
 - Remote config fetched on app start
