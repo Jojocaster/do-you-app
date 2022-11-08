@@ -10,6 +10,7 @@ export enum ShowStatus {
 
 export interface CurrentShowInfo {
   name?: string
+  ends: string
   starts: string
   image_path: string
 }

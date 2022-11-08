@@ -1,31 +1,37 @@
-import { useEffect } from 'react'
 import { Image, ScrollView, StyleSheet } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 //@ts-ignore
 import logo from '../../assets/images/logo.webp'
 import { RootTabScreenProps } from '../../types'
+import { Button2 } from '../components/Button2/Button2'
+import { LiveTabs } from '../components/LiveTabs/LiveTabs'
 import { Player } from '../components/Player/Player'
-import { Schedule } from '../components/Schedule/Schedule'
-import { View } from '../components/Themed'
-import { VolumeControl } from '../components/VolumeControl/VolumeControl'
+import { ShowProgress } from '../components/ShowProgress/ShowProgress'
+import { Text, View } from '../components/Themed'
 import Colors from '../constants/Colors'
+import Space from '../constants/Space'
 import useColorScheme from '../hooks/useColorScheme'
 import useCustomTheme from '../hooks/useCustomTheme'
-import { updateWhatsNew } from '../store/slices/appSlice'
 import { RootState } from '../store/store'
+import { getShowTitle } from '../utils/show'
 
+//TODO: clean up styles
 export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
   const { whatsNew, config } = useSelector((state: RootState) => state.app)
+  const { currentShow, currentTrack } = useSelector(
+    (state: RootState) => state.show
+  )
+  const showName = getShowTitle({ currentShow, currentTrack })
   const customTheme = useCustomTheme()
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const theme = useColorScheme()
 
-  useEffect(() => {
-    if (whatsNew && whatsNew < '0.4.4') {
-      navigation.navigate('Modal')
-      dispatch(updateWhatsNew('0.4.4'))
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (whatsNew && whatsNew < '0.4.4') {
+  //     navigation.navigate('Modal')
+  //     dispatch(updateWhatsNew('0.4.4'))
+  //   }
+  // }, [])
 
   const icon = customTheme?.icon
     ? { uri: `${config?.assets}${customTheme?.icon}` }
@@ -33,7 +39,7 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
 
   return (
     <ScrollView
-      overScrollMode="never"
+      // nestedScrollEnabled
       bounces={false}
       style={{ backgroundColor: Colors[theme].background, paddingVertical: 25 }}
     >
@@ -50,22 +56,43 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
           backgroundColor: 'transparent',
           display: 'flex',
           alignItems: 'center',
-          marginTop: 20,
+          marginTop: 40,
         }}
       >
         <Player background={'assets/logo.webp'} />
-        <VolumeControl />
+
+        {(currentShow || currentTrack) && (
+          <>
+            <View
+              style={{
+                paddingHorizontal: Space.viewPadding,
+                marginTop: 30,
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              <Button2 variant="sm">NOW PLAYING</Button2>
+              <Text
+                style={{
+                  marginTop: 10,
+                  textAlign: 'center',
+                  color: Colors[theme].primary,
+                  fontSize: 24,
+                  fontFamily: 'Lato_700Bold',
+                }}
+              >
+                {/* TODO: handle overtime */}
+                {showName}
+              </Text>
+            </View>
+            <ShowProgress />
+          </>
+        )}
+        {/* <VolumeControl /> */}
       </View>
 
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: Colors[theme].scheduleBackground,
-          paddingHorizontal: 40,
-          paddingTop: 20,
-        }}
-      >
-        <Schedule />
+      <View style={{ marginTop: 40, height: '100%' }}>
+        <LiveTabs />
       </View>
       {/* <EditScreenInfo path="/screens/TabOneScreen.tsx" /> */}
     </ScrollView>

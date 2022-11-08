@@ -1,4 +1,4 @@
-import { useFonts, Lato_900Black } from '@expo-google-fonts/lato'
+import { useFonts, Lato_700Bold, Lato_900Black } from '@expo-google-fonts/lato'
 import { FontAwesome } from '@expo/vector-icons'
 import * as Font from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 export default function useCachedResources() {
   const [isLoadingComplete, setLoadingComplete] = useState(false)
 
-  let [fontsLoaded] = useFonts({ Lato_900Black })
+  let [fontsLoaded] = useFonts({ Lato_700Bold, Lato_900Black })
 
   // Load any resources or data that we need prior to rendering the app
   useEffect(() => {

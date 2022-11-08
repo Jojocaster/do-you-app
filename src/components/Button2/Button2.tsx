@@ -82,11 +82,16 @@ export const Button2: React.FC<ButtonProps> = (props) => {
       <Animated.View
         style={[styles.container, elevated ? styles.elevated : null]}
       >
+        {/* TODO: clean up */}
         <Animated.View
           style={[
             styles.button,
             activeVariant.button,
-            { transform: [{ scale: scale.current }] },
+            {
+              transform: [{ scale: scale.current }],
+              backgroundColor:
+                theme === 'light' ? 'white' : 'rgba(255, 255, 255, .4)',
+            },
           ]}
         >
           <Content {...props} visible={false} />

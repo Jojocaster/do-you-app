@@ -127,7 +127,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
     // only stop if playing, otherwise play - buffering / connecting will play just fine
     if (state === State.Playing) {
       unregisterBackgroundTask()
-      await TrackPlayer.stop()
+      await TrackPlayer.reset()
     } else {
       // reset queue (& buffer)
       await TrackPlayer.reset()

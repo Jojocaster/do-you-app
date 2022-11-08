@@ -1,8 +1,10 @@
 import { useIsFocused } from '@react-navigation/native'
 import React, { useEffect } from 'react'
-import { ActivityIndicator } from 'react-native'
+import { ActivityIndicator, RefreshControl, ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import Colors from '../../constants/Colors'
+import Layout from '../../constants/Layout'
+import Space from '../../constants/Space'
 import useColorScheme from '../../hooks/useColorScheme'
 import { fetchSchedule } from '../../store/slices/scheduleSlice'
 import { RootState } from '../../store/store'
@@ -41,26 +43,35 @@ export const Schedule: React.FC = () => {
 
   return (
     <View
-      // ref={ref}
-      // refreshControl={
-      //   <RefreshControl
-      //     tintColor={Colors[theme].primary}
-      //     colors={[Colors[theme].primary]}
-      //     refreshing={loading}
-      //     onRefresh={() => dispatch(fetchSchedule())}
-      //   />
-      // }
-      // showsVerticalScrollIndicator={false}
-      // fadingEdgeLength={100}
-      // overScrollMode="never"
       style={{
-        backgroundColor: Colors[theme].scheduleBackground,
-        paddingBottom: 25,
+        height: Layout.window.height / 2 - 50,
+        backgroundColor: 'transparent',
       }}
     >
-      {shows.map((showsOfTheDay, i) => (
-        <ScheduleItem key={i} showsOfTheDay={showsOfTheDay} />
-      ))}
+      <ScrollView
+        nestedScrollEnabled
+        refreshControl={
+          <RefreshControl
+            tintColor={Colors[theme].primary}
+            colors={[Colors[theme].primary]}
+            refreshing={loading}
+            onRefresh={() => dispatch(fetchSchedule())}
+          />
+        }
+        showsVerticalScrollIndicator={false}
+        // fadingEdgeLength={100}
+        // overScrollMode="never"
+        contentContainerStyle={{
+          paddingVertical: Space.viewPadding,
+        }}
+        style={{
+          backgroundColor: 'transparent',
+        }}
+      >
+        {shows.map((showsOfTheDay, i) => (
+          <ScheduleItem key={i} showsOfTheDay={showsOfTheDay} />
+        ))}
+      </ScrollView>
     </View>
   )
 }
