@@ -11,7 +11,7 @@ interface ButtonProps {
   iconSize?: number
   onPress?: () => void
   icon?: React.ComponentProps<typeof MaterialCommunityIcons>['name']
-  variant?: 'sm' | 'md' | 'lg'
+  variant?: 'xs' | 'sm' | 'md' | 'lg'
 }
 
 const Content: React.FC<
@@ -89,8 +89,7 @@ export const Button2: React.FC<ButtonProps> = (props) => {
             activeVariant.button,
             {
               transform: [{ scale: scale.current }],
-              backgroundColor:
-                theme === 'light' ? 'white' : 'rgba(255, 255, 255, .4)',
+              backgroundColor: Colors[theme].button.back,
             },
           ]}
         >
@@ -110,6 +109,15 @@ export const Button2: React.FC<ButtonProps> = (props) => {
     </TouchableWithoutFeedback>
   )
 }
+
+const xsStyles = StyleSheet.create({
+  button: {
+    paddingHorizontal: 8,
+  },
+  text: {
+    fontSize: 8,
+  },
+})
 
 const smStyles = StyleSheet.create({
   button: {
@@ -140,6 +148,7 @@ const lgStyles = StyleSheet.create({
 })
 
 const variants = {
+  xs: xsStyles,
   sm: smStyles,
   md: mdStyles,
   lg: lgStyles,

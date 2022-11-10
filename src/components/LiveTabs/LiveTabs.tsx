@@ -4,10 +4,11 @@ import { SceneMap, TabBar, TabView } from 'react-native-tab-view'
 import Colors from '../../constants/Colors'
 import Space from '../../constants/Space'
 import useColorScheme from '../../hooks/useColorScheme'
+import { Events } from '../Events/Events'
 import { Schedule } from '../Schedule/Schedule'
 import { Text } from '../Themed'
 
-export const LiveTabs = () => {
+export const LiveTabs: React.FC<{ onChange: () => void }> = ({ onChange }) => {
   const theme = useColorScheme()
   const layout = useWindowDimensions()
   const [index, setIndex] = useState(0)
@@ -44,7 +45,7 @@ export const LiveTabs = () => {
   )
   const renderScene = SceneMap({
     first: FirstRoute,
-    second: FirstRoute,
+    second: Events,
   })
   return (
     <TabView
@@ -56,7 +57,10 @@ export const LiveTabs = () => {
       renderTabBar={renderTabBar}
       navigationState={{ index, routes }}
       renderScene={renderScene}
-      onIndexChange={setIndex}
+      onIndexChange={(id) => {
+        onChange()
+        setIndex(id)
+      }}
       initialLayout={{ width: layout.width }}
     />
   )

@@ -162,7 +162,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
           <ImageBackground
             resizeMethod="scale"
             source={playerImg}
-            defaultSource={require('../../../assets/images/player-default.png')}
+            defaultSource={require('../../../assets/images/playerWhite.png')}
             style={{
               width: '100%',
               height: '100%',

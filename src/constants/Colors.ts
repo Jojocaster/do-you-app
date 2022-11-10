@@ -26,6 +26,7 @@ const Colors = {
     button: {
       background: '#F3DD7C',
       text: 'black',
+      back: 'white',
     },
     tabs: {
       header: '#1c1c1c',
@@ -69,6 +70,7 @@ const Colors = {
     button: {
       background: '#F3DD7C',
       text: 'black',
+      back: 'rgba(255, 255, 255, .4)',
     },
     tabs: {
       header: '#1c1c1c',
@@ -126,6 +128,7 @@ const Colors = {
     button: {
       background: 'black',
       text: 'white',
+      back: 'white',
     },
     heading: 'black',
     headingShadow: 'rgba(0, 0, 0, .2)',

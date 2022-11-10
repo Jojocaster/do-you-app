@@ -1,4 +1,12 @@
-import { Image, ScrollView, StyleSheet } from 'react-native'
+import { useEffect, useLayoutEffect, useRef } from 'react'
+import {
+  Image,
+  LayoutAnimation,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  UIManager,
+} from 'react-native'
 import { useSelector } from 'react-redux'
 //@ts-ignore
 import logo from '../../assets/images/logo.webp'
@@ -21,6 +29,7 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
   const { currentShow, currentTrack } = useSelector(
     (state: RootState) => state.show
   )
+  const ref = useRef<ScrollView>(null)
   const showName = getShowTitle({ currentShow, currentTrack })
   const customTheme = useCustomTheme()
   // const dispatch = useDispatch()
@@ -32,6 +41,15 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
   //     dispatch(updateWhatsNew('0.4.4'))
   //   }
   // }, [])
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      UIManager.setLayoutAnimationEnabledExperimental(true)
+    }
+  }, [])
+
+  useLayoutEffect(() => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+  }, [currentShow?.name])
 
   const icon = customTheme?.icon
     ? { uri: `${config?.assets}${customTheme?.icon}` }
@@ -39,7 +57,7 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
 
   return (
     <ScrollView
-      // nestedScrollEnabled
+      ref={ref}
       bounces={false}
       style={{ backgroundColor: Colors[theme].background, paddingVertical: 25 }}
     >
@@ -66,12 +84,12 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
             <View
               style={{
                 paddingHorizontal: Space.viewPadding,
-                marginTop: 30,
+                marginTop: 25,
                 display: 'flex',
                 alignItems: 'center',
               }}
             >
-              <Button2 variant="sm">NOW PLAYING</Button2>
+              <Button2 variant="xs">NOW PLAYING</Button2>
               <Text
                 style={{
                   marginTop: 10,
@@ -92,7 +110,7 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
       </View>
 
       <View style={{ marginTop: 40, height: '100%' }}>
-        <LiveTabs />
+        <LiveTabs onChange={() => ref.current?.scrollToEnd()} />
       </View>
       {/* <EditScreenInfo path="/screens/TabOneScreen.tsx" /> */}
     </ScrollView>
