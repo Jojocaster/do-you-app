@@ -1,9 +1,18 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import React, { useRef } from 'react'
-import { Animated, ImageBackground, Pressable, StyleSheet } from 'react-native'
+import {
+  Animated,
+  ImageBackground,
+  Linking,
+  Platform,
+  Pressable,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import Colors from '../../../constants/Colors'
+import { MIXCLOUD_URL } from '../../../constants/Endpoints'
 import { deviceHeight, deviceWidth } from '../../../constants/Layout'
 import useColorScheme from '../../../hooks/useColorScheme'
 import {
@@ -13,6 +22,7 @@ import {
 import { RootState } from '../../../store/store'
 import { MIXCLOUD_IMAGE_ENDPOINT } from '../../ArchiveListItem/ArchiveListItem.constants'
 import { ArchiveItem } from '../../ArchivesList/ArchivesList.types'
+import { Button2 } from '../../Button2/Button2'
 import { View } from '../../Themed'
 
 export const ArchiveDetailsHeader: React.FC<{
@@ -98,8 +108,29 @@ export const ArchiveDetailsHeader: React.FC<{
           // transform: [{ translateY: imageScroll }],
         }}
       >
-        <ImageBackground source={{ uri: imageSource }} style={{ flex: 1 }} />
+        <ImageBackground source={{ uri: imageSource }} style={{ flex: 1 }}>
+          {Platform.OS === 'android' && (
+            <TouchableOpacity
+              onPress={() => Linking.openURL(`${MIXCLOUD_URL}/${track.slug}`)}
+              style={{
+                backgroundColor: 'transparent',
+                flex: 1,
+                display: 'flex',
+                position: 'relative',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <MaterialCommunityIcons
+                name="play-circle-outline"
+                size={60}
+                color={Colors[theme].player.icon}
+              />
+            </TouchableOpacity>
+          )}
+        </ImageBackground>
       </Animated.View>
+
       <View style={styles.close}>
         <Pressable
           pressRetentionOffset={20}
@@ -142,7 +173,7 @@ const styles = StyleSheet.create({
     right: 20,
   },
   header: {
-    height: deviceHeight * 0.4,
+    height: deviceHeight * 0.45,
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',

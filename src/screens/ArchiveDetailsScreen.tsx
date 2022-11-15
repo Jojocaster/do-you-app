@@ -40,7 +40,7 @@ export default function ArchiveDetailsScreen({
         bounces={false}
         contentContainerStyle={{
           flexGrow: 1,
-          paddingBottom: Platform.OS === 'ios' ? 60 : 36,
+          paddingBottom: Platform.OS === 'ios' ? 60 : 0,
         }}
         style={styles.scrollView}
       >

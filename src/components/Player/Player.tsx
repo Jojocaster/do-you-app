@@ -103,7 +103,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
   useEffect(() => {
     if (currentTrack || currentShow) {
       // only update when playing to prevent showing controls when not playing
-      if (playerState !== State.None || playerState !== State.Stopped) {
+      if (playerState === State.Playing) {
         TrackPlayer.updateNowPlayingMetadata({
           artist: ARTIST_NAME,
           artwork: currentShow?.image_path || logo,

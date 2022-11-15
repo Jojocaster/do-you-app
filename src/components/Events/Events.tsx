@@ -13,12 +13,15 @@ import {
   View,
 } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
+import Colors from '../../constants/Colors'
 import Space from '../../constants/Space'
+import useColorScheme from '../../hooks/useColorScheme'
 import { fetchEvents } from '../../store/slices/eventsSlice'
 import { RootState } from '../../store/store'
 import { Text, View as CustomView } from '../Themed'
 
 export const Events = () => {
+  const theme = useColorScheme()
   const { events_data, event_dates } = useSelector(
     (state: RootState) => state.events
   )
@@ -41,7 +44,11 @@ export const Events = () => {
           justifyContent: 'center',
         }}
       >
-        <MaterialCommunityIcons name="radio-off" size={20} />
+        <MaterialCommunityIcons
+          color={Colors[theme].text}
+          name="radio-off"
+          size={20}
+        />
         <Text style={{ marginTop: 10 }}>Nothing to see here - yet</Text>
       </View>
     )
@@ -54,8 +61,6 @@ export const Events = () => {
         contentContainerStyle={{ paddingBottom: Space.viewPadding }}
       >
         {events_data.map((event) => {
-          console.log(event.start_date.date)
-
           const date = new Date(event.start_date.date)
           const formattedDate = format(date, 'E, MMM dd')
           return (
