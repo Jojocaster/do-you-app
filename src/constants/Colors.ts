@@ -39,7 +39,7 @@ const Colors = {
     scheduleUnderline: brandYellow,
     scheduleHeading: brandBlue,
     archive: {
-      webviewBackground: '#F8F8F8',
+      webviewBackground: '#FFF',
     },
     switch: {
       trackActive: brandYellow,

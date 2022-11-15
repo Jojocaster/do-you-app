@@ -1,14 +1,17 @@
 import { format, isAfter, isBefore, parseJSON } from 'date-fns'
-import React from 'react'
-import { ActivityIndicator } from 'react-native'
+import React, { useCallback, useState } from 'react'
+import { ActivityIndicator, useWindowDimensions } from 'react-native'
 import Colors from '../../../constants/Colors'
 import { TRACKLIST_URL } from '../../../constants/Endpoints'
+import Space from '../../../constants/Space'
 import useColorScheme from '../../../hooks/useColorScheme'
 import { useFetch } from '../../../hooks/useFetch'
 import { TrackInfo } from '../../../store/slices/tracksInfoSlice'
 import { ArchiveItem } from '../../ArchivesList/ArchivesList.types'
+import { Tabs } from '../../Tabs/Tabs'
 import { Text, View } from '../../Themed'
 import { Tracklist } from '../../Tracklist/Tracklist'
+import { ArchiveMore } from '../ArchiveMore/ArchiveMore'
 
 const filterArchiveTracklist = (data: TrackInfo[] = [], track: ArchiveItem) => {
   if (!data.length) {
@@ -35,11 +38,12 @@ const filterArchiveTracklist = (data: TrackInfo[] = [], track: ArchiveItem) => {
 }
 
 export const ArchiveTracklist: React.FC<{
-  onLayout: any
   track: ArchiveItem
-}> = ({ onLayout, track }) => {
+}> = ({ track }) => {
   const theme = useColorScheme()
   const date = new Date(track.date)
+  const layout = useWindowDimensions()
+  const [height, setHeight] = useState(400)
   const formattedDate = format(date, 'dd/MM/yyyy')
 
   const { error, data, loading } = useFetch<{ tracks: TrackInfo[] }>(
@@ -47,6 +51,20 @@ export const ArchiveTracklist: React.FC<{
   )
 
   const filteredData = filterArchiveTracklist(data?.tracks, track)
+
+  const FirstRoute = useCallback(
+    () => (
+      <Tracklist
+        onLayout={(e) => setHeight(e.nativeEvent.layout.height)}
+        virtual={false}
+        tracks={filteredData}
+        showStart={track.start_time}
+      />
+    ),
+    [filteredData.length]
+  )
+
+  // const SecondRoute = useCallback(() => <ArchiveMore track={track} />, [theme])
 
   if (loading) {
     return (
@@ -57,24 +75,41 @@ export const ArchiveTracklist: React.FC<{
   }
 
   if (error) {
-    return <Text>Oops - we ran into an error.</Text>
+    return (
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          paddingHorizontal: Space.viewPadding,
+        }}
+      >
+        <Text>Oops - we ran into an error.</Text>
+      </View>
+    )
   }
 
   if (!filteredData.length && !loading) {
     return (
-      <View>
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          paddingHorizontal: Space.viewPadding,
+        }}
+      >
         <Text>No tracklist available.</Text>
       </View>
     )
   }
 
   return (
-    <View onLayout={onLayout}>
-      <Tracklist
-        virtual={false}
-        tracks={filteredData}
-        showStart={track.start_time}
-      />
-    </View>
+    <Tabs
+      style={{ height }}
+      routes={[
+        { key: 'first', title: 'Tracklist' },
+        // { key: 'second', title: 'More' },
+      ]}
+      scene={{ first: FirstRoute }}
+    />
   )
 }

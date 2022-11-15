@@ -58,6 +58,7 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
   return (
     <ScrollView
       ref={ref}
+      overScrollMode="never"
       bounces={false}
       style={{ backgroundColor: Colors[theme].background, paddingVertical: 25 }}
     >
