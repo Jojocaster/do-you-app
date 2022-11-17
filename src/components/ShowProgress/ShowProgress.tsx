@@ -22,7 +22,7 @@ export const ShowProgress = () => {
   const diffFromStart = differenceInMinutes(now, start)
   const length = differenceInMinutes(end, start)
 
-  const diff = (diffFromStart / length) * 100
+  const diff = Math.min(Math.max((diffFromStart / length) * 100, 0), 100)
 
   if (isNaN(diff)) {
     return null

@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import {
   Image,
   LayoutAnimation,
@@ -29,6 +29,7 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
   const { currentShow, currentTrack } = useSelector(
     (state: RootState) => state.show
   )
+  const [animEnabled, setEnabled] = useState(false)
   const ref = useRef<ScrollView>(null)
   const showName = getShowTitle({ currentShow, currentTrack })
   const customTheme = useCustomTheme()
@@ -43,12 +44,21 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
   // }, [])
   useEffect(() => {
     if (Platform.OS === 'android') {
-      UIManager.setLayoutAnimationEnabledExperimental(true)
+      if (UIManager.setLayoutAnimationEnabledExperimental) {
+        UIManager.setLayoutAnimationEnabledExperimental(true)
+        setEnabled(true)
+      }
     }
   }, [])
 
   useLayoutEffect(() => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+    //@ts-ignore - seems to be needed for Android
+    if (Platform.OS === 'ios') {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+    }
+    if (animEnabled) {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+    }
   }, [currentShow?.name])
 
   const icon = customTheme?.icon

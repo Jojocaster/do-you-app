@@ -1,5 +1,5 @@
-import { parseISO } from 'date-fns'
-import { format, zonedTimeToUtc } from 'date-fns-tz'
+import { addMinutes, parseISO } from 'date-fns'
+import { format } from 'date-fns-tz'
 
 // TODO: double check whern BST starts
 const hasDST = (date = new Date()) => {
@@ -13,6 +13,8 @@ export const getLocalTime = (dateTime: string): Date => {
   const offset = hasDST() ? '01:00' : '00:00'
   const d = dateTime.split(' ')
   const utc = new Date(`${d[0]}T${d[1]}+${offset}`)
+  // const offset = utc.getTimezoneOffset()
+  // const localeDate = addMinutes(utc, offset)
   return utc
 }
 

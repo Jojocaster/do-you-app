@@ -22,7 +22,7 @@ export const LiveTabs: React.FC<{ onChange: () => void }> = ({ onChange }) => {
   const renderTabBar = (props: any) => (
     <TabBar
       {...props}
-      indicatorStyle={{ backgroundColor: Colors[theme].primary }}
+      indicatorStyle={{ backgroundColor: Colors[theme].primary, height: 2 }}
       style={{
         backgroundColor: Colors[theme].background,
       }}
