@@ -121,10 +121,19 @@ export const ArchiveDetailsHeader: React.FC<{
                 justifyContent: 'center',
               }}
             >
+              <View
+                style={{
+                  position: 'absolute',
+                  width: 50,
+                  height: 50,
+                  borderRadius: 50,
+                  backgroundColor: 'rgba(0, 0, 0, .3)',
+                }}
+              />
               <MaterialCommunityIcons
                 name="play-circle-outline"
                 size={60}
-                color={Colors[theme].player.icon}
+                color={Colors[theme].secondary}
               />
             </TouchableOpacity>
           )}
