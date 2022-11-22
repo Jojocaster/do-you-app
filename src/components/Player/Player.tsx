@@ -58,7 +58,6 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
 
     await TrackPlayer.add([
       {
-        // url: 'https://hooliganexpress.out.airtime.pro/hooliganexpress_b',
         // url: 'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3',
         url: LIVE_STREAM_URL,
         artwork: currentShow?.image_path || logo,

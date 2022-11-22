@@ -124,8 +124,8 @@ export const ArchiveDetailsHeader: React.FC<{
               <View
                 style={{
                   position: 'absolute',
-                  width: 50,
-                  height: 50,
+                  width: 46,
+                  height: 46,
                   borderRadius: 50,
                   backgroundColor: 'rgba(0, 0, 0, .3)',
                 }}
