@@ -29,17 +29,18 @@ export const ArchiveDetailsFooter: React.FC<{ slug: string }> = ({ slug }) => {
   }
 
   if (Platform.OS === 'android') {
-    return (
-      <View
-        style={[
-          styles.view,
-          styles.androidView,
-          { backgroundColor: Colors[theme].archive.webviewBackground },
-        ]}
-      >
-        <Link link={`${MIXCLOUD_URL}/${slug}`}>Listen on Mixcloud</Link>
-      </View>
-    )
+    return null
+    // return (
+    //   <View
+    //     style={[
+    //       styles.view,
+    //       styles.androidView,
+    //       { backgroundColor: Colors[theme].archive.webviewBackground },
+    //     ]}
+    //   >
+    //     <Link link={`${MIXCLOUD_URL}/${slug}`}>Listen on Mixcloud</Link>
+    //   </View>
+    // )
   }
 
   return (

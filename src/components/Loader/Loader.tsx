@@ -1,4 +1,4 @@
-import { Octicons } from '@expo/vector-icons'
+import { MaterialCommunityIcons, Octicons } from '@expo/vector-icons'
 import React from 'react'
 import { View } from 'react-native'
 import Colors from '../../constants/Colors'
@@ -24,10 +24,14 @@ export const Loader: React.FC<{ children?: string; testID?: string }> = ({
       }}
     >
       <View>
-        <Octicons name="radio-tower" size={30} color={Colors[theme].tint} />
+        <MaterialCommunityIcons
+          name="radio"
+          size={24}
+          color={Colors[theme].tint}
+        />
       </View>
       {children && (
-        <Text style={{ marginTop: 20, fontFamily: 'Lato_900Black' }}>
+        <Text style={{ marginTop: 15, fontFamily: 'Lato_900Black' }}>
           {children}
         </Text>
       )}

@@ -46,12 +46,12 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
         style={{
           display: 'flex',
           flexDirection: 'row',
-          backgroundColor: Colors[theme].scheduleBackground,
+          backgroundColor: 'transparent',
         }}
       >
         <View
           style={{
-            backgroundColor: Colors[theme].scheduleBackground,
+            backgroundColor: 'transparent',
             flex: 0,
             borderBottomWidth: 2,
             borderBottomColor: Colors[theme].scheduleUnderline,
@@ -61,7 +61,7 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
             style={{
               color: Colors[theme].scheduleHeading,
               backgroundColor: Colors[theme].scheduleBackground,
-              fontSize: 16,
+              fontSize: 14,
               fontFamily: 'Lato_900Black',
               textTransform: 'uppercase',
             }}

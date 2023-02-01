@@ -9,11 +9,16 @@ export const getShowTitle = ({
   currentShow?: CurrentShowInfo | null
   currentTrack?: CurrentTrackInfo | null
 }) => {
-  const title = currentShow?.name?.length
-    ? decodeHtmlCharCodes(currentShow.name)
-    : currentTrack?.name?.length
-    ? decodeHtmlCharCodes(currentTrack.name)
-    : DEFAULT_SHOW_NAME
+  if (currentShow?.name?.length) {
+    return decodeHtmlCharCodes(currentShow.name)
+  }
+  if (currentTrack?.name.length) {
+    return decodeHtmlCharCodes(currentTrack.name)
+  }
 
-  return title
+  if (currentTrack) {
+    return 'Overtime / Surprise show'
+  }
+
+  return DEFAULT_SHOW_NAME
 }

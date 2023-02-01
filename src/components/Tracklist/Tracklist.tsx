@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FlatList } from 'react-native'
+import { FlatList, LayoutChangeEvent, View } from 'react-native'
 import Colors from '../../constants/Colors'
 import Space from '../../constants/Space'
 import useColorScheme from '../../hooks/useColorScheme'
@@ -10,7 +10,8 @@ export const Tracklist: React.FC<{
   tracks: TrackInfo[]
   showStart?: string
   virtual?: boolean
-}> = ({ showStart, tracks, virtual = true }) => {
+  onLayout?: (e: LayoutChangeEvent) => void
+}> = ({ showStart, tracks, virtual = true, onLayout = () => {} }) => {
   const [activeTrack, setActiveTrack] = useState<string>()
   const theme = useColorScheme()
 
@@ -24,7 +25,15 @@ export const Tracklist: React.FC<{
 
   if (!virtual) {
     return (
-      <>
+      <View
+        onLayout={onLayout}
+        style={{
+          flexBasis: 'auto',
+          overflow: 'visible',
+          paddingTop: Space.viewPaddingVertical,
+          paddingBottom: 50,
+        }}
+      >
         {tracks.map((t, i) => (
           <Track
             key={i}
@@ -34,12 +43,14 @@ export const Tracklist: React.FC<{
             track={t}
           />
         ))}
-      </>
+      </View>
     )
   }
 
   return (
     <FlatList
+      bounces={false}
+      nestedScrollEnabled
       data={tracks}
       renderItem={(t) => (
         <Track
@@ -53,7 +64,10 @@ export const Tracklist: React.FC<{
       showsVerticalScrollIndicator={false}
       overScrollMode="never"
       contentContainerStyle={{ paddingTop: Space.viewPaddingVertical }}
-      style={{ width: '100%', backgroundColor: Colors[theme].tabs.body }}
+      style={{
+        width: '100%',
+        backgroundColor: Colors[theme].tabs.body,
+      }}
     />
   )
 }

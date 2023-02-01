@@ -58,7 +58,6 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
 
     await TrackPlayer.add([
       {
-        // url: 'https://hooliganexpress.out.airtime.pro/hooliganexpress_b',
         // url: 'https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3',
         url: LIVE_STREAM_URL,
         artwork: currentShow?.image_path || logo,
@@ -103,7 +102,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
   useEffect(() => {
     if (currentTrack || currentShow) {
       // only update when playing to prevent showing controls when not playing
-      if (playerState !== State.None || playerState !== State.Stopped) {
+      if (playerState === State.Playing) {
         TrackPlayer.updateNowPlayingMetadata({
           artist: ARTIST_NAME,
           artwork: currentShow?.image_path || logo,
@@ -127,7 +126,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
     // only stop if playing, otherwise play - buffering / connecting will play just fine
     if (state === State.Playing) {
       unregisterBackgroundTask()
-      await TrackPlayer.stop()
+      await TrackPlayer.reset()
     } else {
       // reset queue (& buffer)
       await TrackPlayer.reset()
@@ -162,7 +161,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
           <ImageBackground
             resizeMethod="scale"
             source={playerImg}
-            defaultSource={require('../../../assets/images/player-default.png')}
+            defaultSource={require('../../../assets/images/playerWhite.png')}
             style={{
               width: '100%',
               height: '100%',

@@ -11,7 +11,7 @@ interface ButtonProps {
   iconSize?: number
   onPress?: () => void
   icon?: React.ComponentProps<typeof MaterialCommunityIcons>['name']
-  variant?: 'sm' | 'md' | 'lg'
+  variant?: 'xs' | 'sm' | 'md' | 'lg'
 }
 
 const Content: React.FC<
@@ -82,11 +82,15 @@ export const Button2: React.FC<ButtonProps> = (props) => {
       <Animated.View
         style={[styles.container, elevated ? styles.elevated : null]}
       >
+        {/* TODO: clean up */}
         <Animated.View
           style={[
             styles.button,
             activeVariant.button,
-            { transform: [{ scale: scale.current }] },
+            {
+              transform: [{ scale: scale.current }],
+              backgroundColor: Colors[theme].button.back,
+            },
           ]}
         >
           <Content {...props} visible={false} />
@@ -105,6 +109,15 @@ export const Button2: React.FC<ButtonProps> = (props) => {
     </TouchableWithoutFeedback>
   )
 }
+
+const xsStyles = StyleSheet.create({
+  button: {
+    paddingHorizontal: 8,
+  },
+  text: {
+    fontSize: 8,
+  },
+})
 
 const smStyles = StyleSheet.create({
   button: {
@@ -135,6 +148,7 @@ const lgStyles = StyleSheet.create({
 })
 
 const variants = {
+  xs: xsStyles,
   sm: smStyles,
   md: mdStyles,
   lg: lgStyles,
