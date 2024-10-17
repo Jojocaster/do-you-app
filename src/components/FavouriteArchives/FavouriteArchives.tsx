@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useCallback, useEffect, useState } from 'react'
-import { View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { ARCHIVES_URL } from '../../constants/Endpoints'
 import { RootState } from '../../store/store'
@@ -65,7 +65,7 @@ export const FavouriteArchives = () => {
   }
 
   return (
-    <View style={{ marginTop: 20 }}>
+    <ScrollView style={{ marginTop: 20 }} showsVerticalScrollIndicator={false}>
       {[...archives]
         .sort((a, b) => b.lastUpdated - a.lastUpdated)
         .map((a) => (
@@ -75,6 +75,6 @@ export const FavouriteArchives = () => {
             onClick={onClick}
           />
         ))}
-    </View>
+    </ScrollView>
   )
 }
