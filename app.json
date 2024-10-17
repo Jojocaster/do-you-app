@@ -2,12 +2,17 @@
   "expo": {
     "name": "Do!! You!!! World",
     "slug": "DoYouWorld",
-    "version": "0.4.7",
+    "version": "0.4.8",
     "backgroundColor": "#1c1c1c",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
+    "extra": {
+      "eas": {
+        "projectId": "1e79607b-3c62-48e4-a448-4399ff4c9879"
+      }
+    },
     "splash": {
       "image": "./assets/images/splashV2.png",
       "resizeMode": "cover",
