@@ -21,19 +21,13 @@
       "fallbackToCacheTimeout": 0,
       "url": "https://exp.host/@joelbeaudon/DoYouWorld"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "com.wonkylines.doyouworld",
-      "buildNumber": "0.4.7.1",
+      "buildNumber": "0.4.8",
       "supportsTablet": false,
       "infoPlist": {
-        "UIBackgroundModes": [
-          "fetch",
-          "audio",
-          "remote-notification"
-        ]
+        "UIBackgroundModes": ["fetch", "audio", "remote-notification"]
       }
     },
     "android": {
@@ -42,7 +36,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.wonkylines.doyouworld",
-      "versionCode": 25
+      "versionCode": 26
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
