@@ -6,7 +6,10 @@ import { useEffect, useState } from 'react'
 export default function useCachedResources() {
   const [isLoadingComplete, setLoadingComplete] = useState(false)
 
-  let [fontsLoaded] = useFonts({ Lato_700Bold, Lato_900Black })
+  let [fontsLoaded] = useFonts({
+    Lato_700Bold,
+    Lato_900Black,
+  })
 
   // Load any resources or data that we need prior to rendering the app
   useEffect(() => {

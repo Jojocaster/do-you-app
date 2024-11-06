@@ -2,12 +2,30 @@
   "expo": {
     "name": "Do!! You!!! World",
     "slug": "DoYouWorld",
-    "version": "0.4.8",
+    "version": "0.4.9",
     "backgroundColor": "#1c1c1c",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": ["./assets/fonts/SpaceMono-Regular.ttf"]
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 34,
+            "targetSdkVersion": 34,
+            "buildToolsVersion": "33.0.0"
+          }
+        }
+      ]
+    ],
     "extra": {
       "eas": {
         "projectId": "1e79607b-3c62-48e4-a448-4399ff4c9879"
@@ -29,7 +47,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "com.wonkylines.doyouworld",
-      "buildNumber": "0.4.8",
+      "buildNumber": "0.4.9",
       "supportsTablet": false,
       "infoPlist": {
         "UIBackgroundModes": ["fetch", "audio", "remote-notification"]
@@ -41,7 +59,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.wonkylines.doyouworld",
-      "versionCode": 26
+      "versionCode": 27
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

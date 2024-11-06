@@ -22,7 +22,6 @@ import {
 import { RootState } from '../../../store/store'
 import { MIXCLOUD_IMAGE_ENDPOINT } from '../../ArchiveListItem/ArchiveListItem.constants'
 import { ArchiveItem } from '../../ArchivesList/ArchivesList.types'
-import { Button2 } from '../../Button2/Button2'
 import { View } from '../../Themed'
 
 export const ArchiveDetailsHeader: React.FC<{
@@ -37,7 +36,7 @@ export const ArchiveDetailsHeader: React.FC<{
   const opacity = useRef(new Animated.Value(0))
   const heartScale = useRef(new Animated.Value(1))
   const imageSource = `${MIXCLOUD_IMAGE_ENDPOINT}${track.picture_url}`
-  const imageSize = deviceWidth * 0.6
+  const imageSize = deviceWidth * 0.5
 
   const headerScroll = scrollY.interpolate({
     inputRange: [0, deviceHeight],
@@ -93,7 +92,7 @@ export const ArchiveDetailsHeader: React.FC<{
       <Animated.Image
         onLoad={onLoad}
         progressiveRenderingEnabled
-        blurRadius={20}
+        blurRadius={10}
         style={[
           styles.backdrop,
           {
@@ -163,7 +162,7 @@ export const ArchiveDetailsHeader: React.FC<{
           name="cloud"
           size={30}
           color="#5000FF"
-          style={styles.shadow}
+          style={[styles.shadow, { marginRight: 16 }]}
         />
         <Animated.View
           style={[
@@ -209,7 +208,6 @@ const styles = StyleSheet.create({
     right: 20,
     display: 'flex',
     flexDirection: 'row',
-    gap: 12,
   },
   like: {
     backgroundColor: 'transparent',

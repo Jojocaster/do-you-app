@@ -10,8 +10,10 @@ import { fetchSchedule } from '../../store/slices/scheduleSlice'
 import { RootState } from '../../store/store'
 import { ScheduleItem } from '../ScheduleItem/ScheduleItem'
 import { View } from '../Themed'
+import { Button2 } from '../Button2/Button2'
+import { ScheduleItem2 } from '../ScheduleItem/ScheduleItem2'
 
-export const Schedule: React.FC = () => {
+export const Schedule2: React.FC = () => {
   const isFocused = useIsFocused()
   // const ref = useRef<ScrollView>(null)
   const dispatch = useDispatch()
@@ -42,36 +44,40 @@ export const Schedule: React.FC = () => {
   }
 
   return (
-    <View
-      style={{
-        height: Layout.window.height / 2,
-        backgroundColor: 'transparent',
-      }}
-    >
-      <ScrollView
-        nestedScrollEnabled
-        refreshControl={
-          <RefreshControl
-            tintColor={Colors[theme].primary}
-            colors={[Colors[theme].primary]}
-            refreshing={loading}
-            onRefresh={() => dispatch(fetchSchedule())}
-          />
-        }
-        showsVerticalScrollIndicator={false}
-        // fadingEdgeLength={100}
-        // overScrollMode="never"
-        contentContainerStyle={{
-          paddingVertical: Space.viewPadding,
-        }}
-        style={{
-          backgroundColor: 'transparent',
-        }}
-      >
-        {shows.map((showsOfTheDay, i) => (
-          <ScheduleItem key={i} showsOfTheDay={showsOfTheDay} />
-        ))}
-      </ScrollView>
-    </View>
+    // <View
+    //   style={{
+    //     height: Layout.window.height / 2 - 50,
+    //     backgroundColor: 'transparent',
+    //   }}
+    // >
+    //   <ScrollView
+    //     nestedScrollEnabled
+    //     refreshControl={
+    //       <RefreshControl
+    //         tintColor={Colors[theme].primary}
+    //         colors={[Colors[theme].primary]}
+    //         refreshing={loading}
+    //         onRefresh={() => dispatch(fetchSchedule())}
+    //       />
+    //     }
+    //     showsVerticalScrollIndicator={false}
+    //     // fadingEdgeLength={100}
+    //     // overScrollMode="never"
+    //     contentContainerStyle={{
+    //       paddingVertical: Space.viewPadding,
+    //     }}
+    //     style={{
+    //       backgroundColor: 'transparent',
+    //     }}
+    //   >
+    <>
+      <ScheduleItem2 showsOfTheDay={shows[0]} />
+
+      {/* {shows.map((showsOfTheDay, i) => (
+        <ScheduleItem key={i} showsOfTheDay={showsOfTheDay} />
+      ))} */}
+    </>
+    // </ScrollView>
+    // </View>
   )
 }

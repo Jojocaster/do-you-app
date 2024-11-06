@@ -22,6 +22,29 @@ import useColorScheme from '../hooks/useColorScheme'
 import useCustomTheme from '../hooks/useCustomTheme'
 import { RootState } from '../store/store'
 import { getShowTitle } from '../utils/show'
+import { MonoText } from '../components/StyledText'
+import { Schedule } from '../components/Schedule/Schedule'
+import { MaterialIcons } from '@expo/vector-icons'
+import { Schedule2 } from '../components/Schedule/Schedule2'
+
+const NewSchedule = () => {
+  const theme = useColorScheme()
+
+  return (
+    <View style={{ paddingHorizontal: Space.viewPadding, marginTop: 48 }}>
+      <View
+        style={{
+          borderRadius: 10,
+          backgroundColor: Colors[theme].secondary,
+          padding: 16,
+        }}
+      >
+        {/* <MonoText style={{ fontSize: 24, fontWeight: 'bold' }}>TODAY</MonoText> */}
+        <Schedule2 />
+      </View>
+    </View>
+  )
+}
 
 //TODO: clean up styles
 export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
@@ -68,8 +91,9 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
   return (
     <ScrollView
       ref={ref}
-      overScrollMode="never"
-      bounces={false}
+      // overScrollMode="never"
+      // bounces={false}
+      contentContainerStyle={{ paddingBottom: 48 }}
       style={{ backgroundColor: Colors[theme].background, paddingVertical: 25 }}
     >
       <View style={{ marginLeft: 20 }}>
@@ -120,6 +144,7 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
         {/* <VolumeControl /> */}
       </View>
 
+      {/* <NewSchedule /> */}
       <View style={{ marginTop: 40, height: '100%' }}>
         <LiveTabs onChange={() => ref.current?.scrollToEnd()} />
       </View>
