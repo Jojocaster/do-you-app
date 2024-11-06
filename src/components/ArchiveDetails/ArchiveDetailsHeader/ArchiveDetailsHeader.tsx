@@ -22,7 +22,6 @@ import {
 import { RootState } from '../../../store/store'
 import { MIXCLOUD_IMAGE_ENDPOINT } from '../../ArchiveListItem/ArchiveListItem.constants'
 import { ArchiveItem } from '../../ArchivesList/ArchivesList.types'
-import { Button2 } from '../../Button2/Button2'
 import { View } from '../../Themed'
 
 export const ArchiveDetailsHeader: React.FC<{
@@ -37,7 +36,7 @@ export const ArchiveDetailsHeader: React.FC<{
   const opacity = useRef(new Animated.Value(0))
   const heartScale = useRef(new Animated.Value(1))
   const imageSource = `${MIXCLOUD_IMAGE_ENDPOINT}${track.picture_url}`
-  const imageSize = deviceWidth / 2
+  const imageSize = deviceWidth * 0.5
 
   const headerScroll = scrollY.interpolate({
     inputRange: [0, deviceHeight],
@@ -77,6 +76,10 @@ export const ArchiveDetailsHeader: React.FC<{
     }).start()
   }
 
+  const openMixcloud = () => {
+    Linking.openURL(`${MIXCLOUD_URL}/${track.slug}`)
+  }
+
   return (
     <View
       style={[
@@ -89,7 +92,7 @@ export const ArchiveDetailsHeader: React.FC<{
       <Animated.Image
         onLoad={onLoad}
         progressiveRenderingEnabled
-        blurRadius={20}
+        blurRadius={10}
         style={[
           styles.backdrop,
           {
@@ -111,7 +114,7 @@ export const ArchiveDetailsHeader: React.FC<{
         <ImageBackground source={{ uri: imageSource }} style={{ flex: 1 }}>
           {Platform.OS === 'android' && (
             <TouchableOpacity
-              onPress={() => Linking.openURL(`${MIXCLOUD_URL}/${track.slug}`)}
+              onPress={openMixcloud}
               style={{
                 backgroundColor: 'transparent',
                 flex: 1,
@@ -145,41 +148,69 @@ export const ArchiveDetailsHeader: React.FC<{
           pressRetentionOffset={20}
           onPress={() => navigation.goBack()}
         >
-          <MaterialCommunityIcons size={30} color="white" name="arrow-left" />
-        </Pressable>
-      </View>
-      <Animated.View
-        style={[styles.like, { transform: [{ scale: heartScale.current }] }]}
-      >
-        <Pressable
-          pressRetentionOffset={20}
-          onPress={updateArchive}
-          onPressIn={onPressIn}
-          onPressOut={onPressOut}
-        >
           <MaterialCommunityIcons
             size={30}
-            color="#f54242"
-            name={savedArchive ? 'heart' : 'heart-outline'}
+            color="white"
+            name="arrow-left"
+            style={styles.shadow}
           />
         </Pressable>
-      </Animated.View>
+      </View>
+      <View style={styles.ctas}>
+        <MaterialCommunityIcons
+          onPress={openMixcloud}
+          name="cloud"
+          size={30}
+          color="#5000FF"
+          style={[styles.shadow, { marginRight: 16 }]}
+        />
+        <Animated.View
+          style={[
+            styles.like,
+            styles.shadow,
+            { transform: [{ scale: heartScale.current }] },
+          ]}
+        >
+          <Pressable
+            pressRetentionOffset={20}
+            onPress={updateArchive}
+            onPressIn={onPressIn}
+            onPressOut={onPressOut}
+          >
+            <MaterialCommunityIcons
+              size={30}
+              color="#f54242"
+              name={savedArchive ? 'heart' : 'heart-outline'}
+            />
+          </Pressable>
+        </Animated.View>
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
+  shadow: {
+    shadowColor: 'black',
+    shadowOffset: { height: 2, width: 2 },
+    shadowOpacity: 0.3,
+  },
   close: {
     backgroundColor: 'transparent',
     position: 'absolute',
     top: 20,
     left: 20,
   },
-  like: {
+  ctas: {
     backgroundColor: 'transparent',
     position: 'absolute',
     top: 20,
     right: 20,
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  like: {
+    backgroundColor: 'transparent',
   },
   header: {
     height: deviceHeight * 0.45,

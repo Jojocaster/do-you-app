@@ -40,9 +40,9 @@ export const fetchShowInBackground = async () => {
     const data = await response.json()
 
     if (data.shows.current) {
-      const state = await TrackPlayer.getState()
+      const state = await (await TrackPlayer.getPlaybackState()).state
 
-      console.log('[BACKGROUND] - Player state: ', State[state])
+      // console.log('[BACKGROUND] - Player state: ', State[state])
 
       if (state === State.Playing || state === State.Paused) {
         console.log('[BACKGROUND] - Updating metadata')

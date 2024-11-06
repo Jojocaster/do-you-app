@@ -99,11 +99,10 @@ export const Settings: React.FC = () => {
         Dark theme
       </SingleSetting>
       <SingleSetting
-        beta
         value={batterySaver}
         onToggle={() => onToggle('batterySaver', !batterySaver)}
       >
-        Battery saver
+        Disable chat in the background
       </SingleSetting>
     </>
   )

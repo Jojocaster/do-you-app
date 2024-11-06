@@ -67,7 +67,7 @@ function RootNavigator() {
           options={{ title: 'Oops!' }}
         />
       </Stack.Group>
-      <Stack.Group
+      {/* <Stack.Group
         screenOptions={{
           presentation: 'transparentModal',
           contentStyle: { backgroundColor: 'rgba(0, 0, 0, .5)' },
@@ -76,7 +76,7 @@ function RootNavigator() {
         }}
       >
         <Stack.Screen name="Modal" component={ModalScreen} />
-      </Stack.Group>
+      </Stack.Group> */}
     </Stack.Navigator>
   )
 }

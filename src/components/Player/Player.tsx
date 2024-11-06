@@ -121,8 +121,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
   const onPress = async () => {
     // const currentPlayerTrack = await TrackPlayer.getCurrentTrack()
 
-    const state = await TrackPlayer.getState()
-
+    const state = (await TrackPlayer.getPlaybackState()).state
     // only stop if playing, otherwise play - buffering / connecting will play just fine
     if (state === State.Playing) {
       unregisterBackgroundTask()
@@ -141,7 +140,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
     ? { uri: currentShow?.image_path }
     : customTheme?.playerImage
     ? { uri: `${config?.assets}${customTheme?.playerImage}` }
-    : require('../../../assets/images/playerWhite.png')
+    : require('../../../assets/images/default.webp')
 
   const buttonPosition = buttonAnimation.interpolate({
     inputRange: [0, 1],

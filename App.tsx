@@ -1,6 +1,9 @@
 import { StatusBar } from 'expo-status-bar'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import TrackPlayer, { Capability } from 'react-native-track-player'
+import TrackPlayer, {
+  AppKilledPlaybackBehavior,
+  Capability,
+} from 'react-native-track-player'
 import { Provider, useDispatch } from 'react-redux'
 import { ThemeProvider } from 'styled-components/native'
 import service from './service'
@@ -22,15 +25,24 @@ import { fetchConfig } from './src/store/slices/appSlice'
 
 // Required on iOS (otherwise player will go to pause state while buffering)
 // Only makes Android slower to load, hence the condition
-TrackPlayer.setupPlayer({ waitForBuffer: Platform.OS === 'ios' })
-TrackPlayer.registerPlaybackService(() => service)
-TrackPlayer.updateOptions({
-  stopWithApp: true,
-  capabilities: [Capability.Stop, Capability.Pause, Capability.Play],
-  compactCapabilities: [Capability.Stop, Capability.Pause, Capability.Play],
+TrackPlayer.setupPlayer({ waitForBuffer: Platform.OS === 'ios' }).then(() => {
+  TrackPlayer.updateOptions({
+    android: {
+      alwaysPauseOnInterruption: true,
+      appKilledPlaybackBehavior: AppKilledPlaybackBehavior.ContinuePlayback,
+    },
+    capabilities: [Capability.Stop, Capability.Pause, Capability.Play],
+    notificationCapabilities: [
+      Capability.Stop,
+      Capability.Pause,
+      Capability.Play,
+    ],
+    compactCapabilities: [Capability.Stop, Capability.Pause, Capability.Play],
+  })
 })
-// Define task to fetch show info in background
+TrackPlayer.registerPlaybackService(() => service)
 TaskManager.defineTask(BACKGROUND_FETCH_TASK, fetchShowInBackground)
+// Define task to fetch show info in background
 
 export default function App() {
   const isLoadingComplete = useCachedResources()

@@ -29,6 +29,11 @@
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios": {
+        "appleId": "joel.beaudon@gmail.com",
+        "ascAppId": "1620769718"
+      }
+    }
   }
 }
