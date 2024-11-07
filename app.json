@@ -2,7 +2,7 @@
   "expo": {
     "name": "Do!! You!!! World",
     "slug": "DoYouWorld",
-    "version": "0.4.9",
+    "version": "0.4.10",
     "backgroundColor": "#1c1c1c",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -47,7 +47,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "com.wonkylines.doyouworld",
-      "buildNumber": "0.4.9",
+      "buildNumber": "0.4.10",
       "supportsTablet": false,
       "infoPlist": {
         "UIBackgroundModes": ["fetch", "audio", "remote-notification"]
@@ -58,8 +58,9 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "permissions": ["android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"],
       "package": "com.wonkylines.doyouworld",
-      "versionCode": 27
+      "versionCode": 28
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
