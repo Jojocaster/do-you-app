@@ -47,9 +47,6 @@ TaskManager.defineTask(BACKGROUND_FETCH_TASK, fetchShowInBackground)
 
 Sentry.init({
   dsn: 'https://2a5ac7b95ce9e24c9a80062ab1757144@o4505204088766464.ingest.us.sentry.io/4509360367075328',
-  // Adds more context data to events (IP address, cookies, user, etc.)
-  // For more information, visit: https://docs.sentry.io/platforms/react-native/data-management/data-collected/
-  sendDefaultPii: true,
 })
 
 function App() {
