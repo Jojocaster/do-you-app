@@ -34,6 +34,7 @@ export type RootTabParamList = {
   Archives: undefined
   ArchivesList: undefined
   ArchivesFilters: undefined
+  Schedule: undefined
   ArchiveDetails: {
     track: ArchiveItem
   }

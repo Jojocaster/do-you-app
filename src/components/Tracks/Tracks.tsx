@@ -59,6 +59,6 @@ export const Tracks: React.FC = () => {
   if ((!loading && !tracks.length) || (!loading && !isToday(lastUpdated))) {
     return <Loader testID="noTracks">No bangers here - yet</Loader>
   }
-
+  console.log(tracks[0])
   return <Tracklist tracks={tracks} />
 }

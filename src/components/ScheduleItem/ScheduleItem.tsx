@@ -10,6 +10,7 @@ import { RootState } from '../../store/store'
 import { ShowInfo } from '../../utils/schedule'
 import { Text, View } from '../Themed'
 import { decodeHtmlCharCodes, getLocalShowTime } from './ScheduleItem.utils'
+import moment from 'moment'
 
 const LiveShow: React.FC = ({ children }) => {
   const theme = useColorScheme()
@@ -17,7 +18,7 @@ const LiveShow: React.FC = ({ children }) => {
   return (
     <Text
       style={{
-        color: Colors[theme].primary,
+        color: '#FDC151',
         fontSize: 16,
         fontWeight: 'bold',
 
@@ -39,6 +40,7 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
   const theme = useColorScheme()
   const day = parseJSON(showsOfTheDay[0].start_timestamp)
   const formattedDay = format(day, 'E, MMM dd')
+  const isToday = moment(day).isSame(moment(), 'day')
 
   return (
     <>
@@ -54,19 +56,18 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
             backgroundColor: 'transparent',
             flex: 0,
             borderBottomWidth: 2,
-            borderBottomColor: Colors[theme].scheduleUnderline,
+            borderBottomColor: 'white',
           }}
         >
           <Text
             style={{
-              color: Colors[theme].scheduleHeading,
-              backgroundColor: Colors[theme].scheduleBackground,
+              color: 'white',
               fontSize: 14,
               fontFamily: 'Lato_900Black',
               textTransform: 'uppercase',
             }}
           >
-            {formattedDay}
+            {isToday ? 'Today' : formattedDay}
           </Text>
         </View>
       </View>
@@ -102,7 +103,7 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
               <Text
                 style={{
                   fontSize: 14,
-                  color: Colors[theme].scheduleText,
+                  color: 'white',
                   flexBasis: 100,
                 }}
                 key={show.start_timestamp}
@@ -116,7 +117,7 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
                   style={{
                     fontSize: 14,
                     fontWeight: 'bold',
-                    color: Colors[theme].scheduleText,
+                    color: 'white',
                     marginLeft: 10,
                     flex: 1,
                   }}

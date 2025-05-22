@@ -53,7 +53,11 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
     dispatch(fetchShowInfo())
 
     if (!batterySaver) {
-      await registerBackgroundTask()
+      try {
+        await registerBackgroundTask()
+      } catch (e) {
+        throw new Error(e, { cause: 'Could not start background task' })
+      }
     }
 
     await TrackPlayer.add([
@@ -152,7 +156,8 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
         style={{
           width: PLAYER_SIZE,
           height: PLAYER_SIZE,
-          borderColor: Colors[theme].player.frame,
+          // borderColor: Colors[theme].player.frame,
+          borderColor: Colors.common.purple,
           borderWidth: 3,
         }}
       >
@@ -196,7 +201,8 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
                 <MaterialCommunityIcons
                   name={PlayerStateIcons[playerState]}
                   size={60}
-                  color={Colors[theme].player.icon}
+                  // color={Colors[theme].player.icon}
+                  color={Colors.common.purple}
                 />
                 <View
                   style={{

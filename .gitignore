@@ -13,3 +13,5 @@ assets/local/
 # macOS
 .DS_Store
 coverage/
+
+.env.local

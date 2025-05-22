@@ -44,11 +44,12 @@ export const Schedule: React.FC = () => {
   return (
     <View
       style={{
-        height: Layout.window.height / 2,
+        // height: Layout.window.height / 2,
         backgroundColor: 'transparent',
+        paddingVertical: Space.viewPadding,
       }}
     >
-      <ScrollView
+      {/* <ScrollView
         nestedScrollEnabled
         refreshControl={
           <RefreshControl
@@ -67,11 +68,12 @@ export const Schedule: React.FC = () => {
         style={{
           backgroundColor: 'transparent',
         }}
-      >
-        {shows.map((showsOfTheDay, i) => (
-          <ScheduleItem key={i} showsOfTheDay={showsOfTheDay} />
-        ))}
-      </ScrollView>
+      > */}
+      {shows.map((showsOfTheDay, i) => (
+        <ScheduleItem key={i} showsOfTheDay={showsOfTheDay} />
+      ))}
+
+      {/* </ScrollView> */}
     </View>
   )
 }

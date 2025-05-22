@@ -26,25 +26,33 @@ import { MonoText } from '../components/StyledText'
 import { Schedule } from '../components/Schedule/Schedule'
 import { MaterialIcons } from '@expo/vector-icons'
 import { Schedule2 } from '../components/Schedule/Schedule2'
+import { ScheduleWidget } from '../components/ScheduleWidget/ScheduleWidget'
+import { NotificationWidget } from '../components/NotificationWidget/NotificationWidget'
+import { SupportWidget } from '../components/SupportWidget/SupportWidget'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import ScheduleScreen from './ScheduleScreen'
 
-const NewSchedule = () => {
-  const theme = useColorScheme()
+const Stack = createNativeStackNavigator()
 
-  return (
-    <View style={{ paddingHorizontal: Space.viewPadding, marginTop: 48 }}>
-      <View
-        style={{
-          borderRadius: 10,
-          backgroundColor: Colors[theme].secondary,
-          padding: 16,
-        }}
-      >
-        {/* <MonoText style={{ fontSize: 24, fontWeight: 'bold' }}>TODAY</MonoText> */}
-        <Schedule2 />
-      </View>
-    </View>
-  )
-}
+// export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
+//   return (
+//     <Stack.Navigator
+//       screenOptions={{
+//         headerShown: false,
+//       }}
+//     >
+//       <Stack.Screen name="Live" component={DashboardScreen} />
+//       <Stack.Group
+//         screenOptions={{
+//           presentation: 'modal',
+//           contentStyle: { marginTop: '20%', backgroundColor: 'transparent' },
+//         }}
+//       >
+//         <Stack.Screen name="Schedule" component={ScheduleScreen} />
+//       </Stack.Group>
+//     </Stack.Navigator>
+//   )
+// }
 
 //TODO: clean up styles
 export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
@@ -65,14 +73,14 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
   //     dispatch(updateWhatsNew('0.4.4'))
   //   }
   // }, [])
-  useEffect(() => {
-    if (Platform.OS === 'android') {
-      if (UIManager.setLayoutAnimationEnabledExperimental) {
-        UIManager.setLayoutAnimationEnabledExperimental(true)
-        setEnabled(true)
-      }
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (Platform.OS === 'android') {
+  //     if (UIManager.setLayoutAnimationEnabledExperimental) {
+  //       UIManager.setLayoutAnimationEnabledExperimental(true)
+  //       setEnabled(true)
+  //     }
+  //   }
+  // }, [])
 
   useLayoutEffect(() => {
     //@ts-ignore - seems to be needed for Android
@@ -90,7 +98,7 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
 
   return (
     <ScrollView
-      ref={ref}
+      // ref={ref}
       // overScrollMode="never"
       // bounces={false}
       contentContainerStyle={{ paddingBottom: 48 }}
@@ -109,7 +117,7 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
           backgroundColor: 'transparent',
           display: 'flex',
           alignItems: 'center',
-          marginTop: 40,
+          marginTop: 24,
         }}
       >
         <Player background={'assets/logo.webp'} />
@@ -124,12 +132,32 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
                 alignItems: 'center',
               }}
             >
-              <Button2 variant="xs">NOW PLAYING</Button2>
+              <View
+                style={{
+                  alignSelf: 'center',
+                  borderRadius: 4,
+                  paddingVertical: 8,
+                  paddingHorizontal: 8,
+                  backgroundColor: Colors.common.yellow,
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 10,
+                    color: 'black',
+                    fontFamily: 'Lato_700Bold',
+                  }}
+                >
+                  NOW PLAYING
+                </Text>
+              </View>
+              {/* <Button2 variant="xs">NOW PLAYING</Button2> */}
               <Text
                 style={{
                   marginTop: 10,
                   textAlign: 'center',
-                  color: Colors[theme].primary,
+                  // color: Colors[theme].primary,
+                  color: Colors.common.purple,
                   fontSize: 24,
                   fontFamily: 'Lato_700Bold',
                 }}
@@ -141,14 +169,15 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
             <ShowProgress />
           </>
         )}
-        {/* <VolumeControl /> */}
       </View>
 
-      {/* <NewSchedule /> */}
-      <View style={{ marginTop: 40, height: '100%' }}>
-        <LiveTabs onChange={() => ref.current?.scrollToEnd()} />
+      <View style={{ gap: 16, marginTop: 40 }}>
+        <ScheduleWidget />
+
+        <NotificationWidget />
+
+        <SupportWidget />
       </View>
-      {/* <EditScreenInfo path="/screens/TabOneScreen.tsx" /> */}
     </ScrollView>
   )
 }

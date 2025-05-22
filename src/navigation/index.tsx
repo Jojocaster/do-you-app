@@ -29,6 +29,9 @@ import MoreScreen from '../screens/MoreScreen'
 import NotFoundScreen from '../screens/NotFoundScreen'
 import TracksScreen from '../screens/TracksScreen'
 import LinkingConfiguration from './LinkingConfiguration'
+import ScheduleScreen from '../screens/ScheduleScreen'
+import TrackIDScreen from '../screens/TrackIDScreen'
+import { TrackDetailsScreen } from '../screens/TrackDetailsScreen'
 
 export default function Navigation({
   colorScheme,
@@ -96,12 +99,37 @@ function BottomTabNavigator() {
       sceneContainerStyle={{ backgroundColor: '#212020' }}
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: Colors[colorScheme].tabIconSelected,
+        tabBarActiveTintColor: Colors.common.purple,
         tabBarStyle: { paddingVertical: 5 },
         tabBarLabelStyle: { marginBottom: 6 },
       }}
     >
       <BottomTab.Screen
+        name="LiveStack"
+        component={LiveStackScreen}
+        options={() => ({
+          title: 'Live',
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="headphones" size={19} color={color} />
+          ),
+        })}
+      />
+      <BottomTab.Screen
+        name="Tracks"
+        component={TrackidScreen}
+        options={({ navigation }) => ({
+          title: 'Track IDs',
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon
+              name="playlist-music-outline"
+              style={{ marginTop: -2 }}
+              size={25}
+              color={color}
+            />
+          ),
+        })}
+      />
+      {/* <BottomTab.Screen
         name="Live"
         component={LiveScreen}
         options={({ navigation }: RootTabScreenProps<'Live'>) => ({
@@ -110,8 +138,8 @@ function BottomTabNavigator() {
             <TabBarIcon name="headphones" size={19} color={color} />
           ),
         })}
-      />
-      <BottomTab.Screen
+      /> */}
+      {/* <BottomTab.Screen
         name="Tracks"
         component={TracksScreen}
         options={({ navigation }) => ({
@@ -140,7 +168,7 @@ function BottomTabNavigator() {
           //   </Pressable>
           // ),
         })}
-      />
+      /> */}
       <BottomTab.Screen
         name="Chat"
         component={ChatScreen}
@@ -177,6 +205,57 @@ function BottomTabNavigator() {
         })}
       />
     </BottomTab.Navigator>
+  )
+}
+
+const LiveStack = createNativeStackNavigator()
+
+const LiveStackScreen = () => {
+  return (
+    <LiveStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      {/* todo: fix types */}
+      <LiveStack.Screen name="Live" component={LiveScreen as any} />
+      <LiveStack.Group
+        screenOptions={{
+          presentation: 'modal',
+          contentStyle: { marginTop: '20%', backgroundColor: 'transparent' },
+        }}
+      >
+        <LiveStack.Screen name="Schedule" component={ScheduleScreen as any} />
+      </LiveStack.Group>
+    </LiveStack.Navigator>
+  )
+}
+
+const TrackIDStack = createNativeStackNavigator()
+
+const TrackidScreen = () => {
+  return (
+    <TrackIDStack.Navigator
+      screenOptions={{
+        headerShown: false,
+        contentStyle: {
+          backgroundColor: 'white',
+        },
+      }}
+    >
+      <TrackIDStack.Screen name="TrackID" component={TrackIDScreen} />
+      <TrackIDStack.Group
+        screenOptions={{
+          presentation: 'modal',
+          contentStyle: { marginTop: '50%', backgroundColor: 'transparent' },
+        }}
+      >
+        <TrackIDStack.Screen
+          name="TrackDetails"
+          component={TrackDetailsScreen as any}
+        />
+      </TrackIDStack.Group>
+    </TrackIDStack.Navigator>
   )
 }
 
