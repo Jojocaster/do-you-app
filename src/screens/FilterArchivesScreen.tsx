@@ -4,18 +4,28 @@ import {
   FlatList,
   ScrollView,
   TouchableOpacity,
+  Platform,
 } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Colors from '../constants/Colors'
 import { useSelector } from 'react-redux'
 import { RootState } from '../store/store'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
-import { Filter } from '../store/slices/filtersSlice'
+import { fetchFilters, Filter } from '../store/slices/filtersSlice'
+import { isToday } from 'date-fns'
+import { useDispatch } from 'react-redux'
 
 export const FilterArchivesScreen = () => {
+  const dispatch = useDispatch()
+
   const navigation = useNavigation()
-  const all = useSelector((state: RootState) => state.filters.shows)
+  const {
+    shows: all,
+    error,
+    lastUpdated,
+    loading,
+  } = useSelector((state: RootState) => state.filters)
   const sortedFilters = [...all].sort((a, b) =>
     a.name.toLowerCase().localeCompare(b.name.toLowerCase())
   )
@@ -24,16 +34,35 @@ export const FilterArchivesScreen = () => {
     navigation.navigate({ name: 'Archives', params: { artist }, merge: true })
   }
 
+  useEffect(() => {
+    if (!lastUpdated || !isToday(lastUpdated)) {
+      dispatch(fetchFilters())
+    }
+  }, [])
+
   return (
     <View
       style={{
         backgroundColor: Colors.common.pink,
         padding: 24,
         height: '100%',
+        position: 'relative',
       }}
     >
       <ScrollView indicatorStyle={'white'} contentContainerStyle={{ gap: 16 }}>
-        {sortedFilters.map((artist) => (
+        <View
+          style={{
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            zIndex: 2,
+          }}
+        >
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <MaterialCommunityIcons color="white" name="close" size={24} />
+          </TouchableOpacity>
+        </View>
+        {sortedFilters?.map((artist) => (
           <TouchableOpacity onPress={() => onPress(artist)}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Text

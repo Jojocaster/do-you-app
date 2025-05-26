@@ -1,25 +1,15 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
 import React, { useRef } from 'react'
 import {
   Animated,
   ImageBackground,
   Linking,
-  Platform,
-  Pressable,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
 import Colors from '../../../constants/Colors'
 import { MIXCLOUD_URL } from '../../../constants/Endpoints'
 import { deviceHeight, deviceWidth } from '../../../constants/Layout'
-import useColorScheme from '../../../hooks/useColorScheme'
-import {
-  addArchive,
-  deleteArchive,
-} from '../../../store/slices/savedArchivesSlice'
-import { RootState } from '../../../store/store'
 import { MIXCLOUD_IMAGE_ENDPOINT } from '../../ArchiveListItem/ArchiveListItem.constants'
 import { ArchiveItem } from '../../ArchivesList/ArchivesList.types'
 import { View } from '../../Themed'
@@ -28,15 +18,8 @@ export const ArchiveDetailsHeader: React.FC<{
   scrollY: Animated.Value
   track: ArchiveItem
 }> = ({ scrollY, track }) => {
-  const dispatch = useDispatch()
-  const { archives } = useSelector((state: RootState) => state.savedArchives)
-  const savedArchive = archives?.find((a) => a.archive.id === track.id)
-  const theme = useColorScheme()
-  const navigation = useNavigation()
   const opacity = useRef(new Animated.Value(0))
-  const heartScale = useRef(new Animated.Value(1))
   const imageSource = `${MIXCLOUD_IMAGE_ENDPOINT}${track.picture_url}`
-  console.log(imageSource)
 
   const imageSize = deviceWidth * 0.5
 
@@ -53,30 +36,6 @@ export const ArchiveDetailsHeader: React.FC<{
       useNativeDriver: true,
     }).start()
   }
-
-  // const updateArchive = () => {
-  //   if (savedArchive) {
-  //     dispatch(deleteArchive(track))
-  //   } else {
-  //     dispatch(addArchive(track))
-  //   }
-  // }
-
-  // const onPressIn = () => {
-  //   Animated.spring(heartScale.current, {
-  //     toValue: 0.8,
-  //     friction: 4,
-  //     useNativeDriver: true,
-  //   }).start()
-  // }
-
-  // const onPressOut = () => {
-  //   Animated.spring(heartScale.current, {
-  //     toValue: 1,
-  //     friction: 2,
-  //     useNativeDriver: true,
-  //   }).start()
-  // }
 
   const openMixcloud = () => {
     Linking.openURL(`${MIXCLOUD_URL}/${track.slug}`)
@@ -110,7 +69,6 @@ export const ArchiveDetailsHeader: React.FC<{
           borderWidth: 3,
           height: imageSize,
           width: imageSize,
-          // transform: [{ translateY: imageScroll }],
         }}
       >
         <ImageBackground source={{ uri: imageSource }} style={{ flex: 1 }}>

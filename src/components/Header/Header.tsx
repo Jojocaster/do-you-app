@@ -18,7 +18,7 @@ export const Header: React.FC<{
     <View
       style={{
         paddingVertical: 16,
-        paddingHorizontal: 32,
+        paddingHorizontal: 24,
         backgroundColor: Colors.common.purple,
       }}
     >

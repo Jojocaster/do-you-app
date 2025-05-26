@@ -76,8 +76,6 @@ export const ArchiveDetailsNewScreen = ({ route }) => {
   const { archives: savedArchives } = useSelector(
     (state: RootState) => state.savedArchives
   )
-  console.log(route.params)
-  console.log(archive)
 
   const formattedDate = format(new Date(archive?.date), 'dd/MM/yyyy')
   const savedArchive = savedArchives?.find((a) => a.archive.id === archive.id)
@@ -98,7 +96,7 @@ export const ArchiveDetailsNewScreen = ({ route }) => {
   }
   const onShare = () => {
     const url = `${MIXCLOUD_URL}/${archive.slug}`
-    Share.share({ url })
+    Share.share({ url, message: Platform.OS === 'android' ? url : undefined })
   }
 
   return (
@@ -159,7 +157,7 @@ export const ArchiveDetailsNewScreen = ({ route }) => {
                 marginBottom: 8,
               }}
             >
-              {format(new Date(archive.date), 'E, MMM dd')}
+              {format(new Date(archive.date), 'E dd MMMM yyyy')}
             </Text>
             <View>
               <Text
@@ -195,7 +193,7 @@ export const ArchiveDetailsNewScreen = ({ route }) => {
               completely wrong.
             </Text>
           </Header>
-          {data?.tracks ? (
+          {archiveTracks?.length ? (
             <TrackIDs
               tracks={archiveTracks || []}
               showStart={archive.start_time}
@@ -205,6 +203,12 @@ export const ArchiveDetailsNewScreen = ({ route }) => {
           {loading ? (
             <View style={{ flex: 1 }}>
               <BananaLoader />
+            </View>
+          ) : null}
+
+          {!loading && !archiveTracks.length ? (
+            <View style={{ padding: 24 }}>
+              <Text>No tracks found.</Text>
             </View>
           ) : null}
 

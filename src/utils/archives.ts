@@ -20,11 +20,11 @@ export const formatArchiveDate = (track: ArchiveItem): string => {
     const titleItems = track.name?.split(' - ')
     if (titleItems.length > 1) {
       const formattedDate = parse(titleItems[1], 'dd/M/yy', new Date())
-      return format(formattedDate, 'E, MMM dd')
+      return format(formattedDate, 'E, MMM dd, yyyy')
     }
-    return format(new Date(track.date), 'E, MMM dd')
+    return format(new Date(track.date), 'E, MMM dd, yyyy')
   } catch (e) {
-    return format(new Date(track.date), 'E, MMM dd')
+    return format(new Date(track.date), 'E, MMM dd, yyyy')
   }
 }
 

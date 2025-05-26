@@ -25,7 +25,7 @@ const ReloadChat: React.FC<{ reload: () => void }> = ({ reload }) => {
             Chat stuck?{' '}
             <Text
               style={{
-                color: Colors[theme].chatText,
+                color: Colors.common.purple,
                 fontWeight: 'bold',
                 textDecorationStyle: 'solid',
                 textDecorationLine: 'underline',

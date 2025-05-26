@@ -12,7 +12,7 @@ import {
 } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import * as React from 'react'
-import { ColorSchemeName } from 'react-native'
+import { ColorSchemeName, Platform } from 'react-native'
 
 import {
   RootStackParamList,
@@ -75,8 +75,12 @@ function RootNavigator() {
         <Stack.Group
           screenOptions={{
             headerShown: false,
-            presentation: 'modal',
-            contentStyle: { marginTop: '50%', backgroundColor: 'transparent' },
+            presentation: Platform.select({
+              ios: 'modal',
+              android: 'containedTransparentModal',
+            }),
+            animation: 'slide_from_bottom',
+            contentStyle: { backgroundColor: 'transparent' },
           }}
         >
           <Stack.Screen
@@ -250,7 +254,11 @@ const LiveStackScreen = () => {
       <LiveStack.Screen name="Live" component={LiveScreen as any} />
       <LiveStack.Group
         screenOptions={{
-          presentation: 'modal',
+          presentation: Platform.select({
+            ios: 'modal',
+            android: 'containedTransparentModal',
+          }),
+          animation: 'slide_from_bottom',
           contentStyle: { marginTop: '20%', backgroundColor: 'transparent' },
         }}
       >
@@ -297,7 +305,12 @@ const ArchiveScreens = () => {
 
       <ArchiveStack.Group
         screenOptions={{
-          presentation: 'modal',
+          presentation: Platform.select({
+            ios: 'modal',
+            android: 'containedTransparentModal',
+          }),
+          // animation: 'slide_from_bottom',
+
           contentStyle: { backgroundColor: 'transparent' },
         }}
       >

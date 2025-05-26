@@ -16,7 +16,6 @@ export const ArchiveListItem: React.FC<{
   track: ArchiveItem
   onClick: (archive: ArchiveItem) => void
 }> = ({ onClick, track }) => {
-  const theme = useColorScheme()
   const CustomTouchable =
     Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity
 
@@ -50,7 +49,7 @@ export const ArchiveListItem: React.FC<{
         </View>
       </CustomTouchable>
     ),
-    [theme]
+    [track]
   )
 }
 

@@ -17,7 +17,7 @@ export const Link: React.FC<{ link: string; children: string }> = ({
     <TouchableOpacity onPress={onClick}>
       <Text
         style={{
-          color: Colors[theme].link,
+          color: Colors.common.purple,
           fontWeight: 'bold',
           textDecorationStyle: 'solid',
           textDecorationLine: 'underline',

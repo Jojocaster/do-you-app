@@ -15,7 +15,7 @@ import {
 
 const getNextShows = (shows: ShowInfo[][] = []) => {
   const nextUp = shows[0]
-  const nextShows = nextUp.filter((show) => {
+  const nextShows = nextUp?.filter((show) => {
     return moment(show.start_timestamp).isAfter(moment())
   })
   return nextShows
@@ -110,7 +110,7 @@ export const ScheduleWidget = () => {
         <Text
           style={{ color: 'white', fontSize: 20, fontFamily: 'Lato_900Black' }}
         >
-          {nextShows.length ? ' Next up' : 'Tomorrow'}
+          {nextShows?.length ? ' Next up' : 'Tomorrow'}
         </Text>
         <View style={{ flexDirection: 'row' }}>
           <>

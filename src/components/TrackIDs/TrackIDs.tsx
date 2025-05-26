@@ -18,7 +18,7 @@ export const TrackIDs: React.FC<{
   }
 
   return (
-    <View style={{ padding: 16, gap: 16 }}>
+    <View style={{ padding: 24, gap: 16 }}>
       {tracks.map((track, i) => {
         const timecode = formatTrackTime(track, showStart)
 
