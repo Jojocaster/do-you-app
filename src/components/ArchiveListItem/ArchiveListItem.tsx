@@ -69,17 +69,15 @@ const styles = StyleSheet.create({
     // overflow: 'hidden',
     display: 'flex',
     flexDirection: 'row',
-    marginBottom: 20,
   },
   content: {
     backgroundColor: 'transparent',
     flex: 1,
-    marginHorizontal: 20,
+    marginHorizontal: 24,
     alignSelf: 'center',
   },
   showName: {
     fontWeight: 'bold',
-    marginBottom: 5,
     fontSize: 14,
   },
   thumbnail: {

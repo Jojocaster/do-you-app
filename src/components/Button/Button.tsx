@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import Colors from '../../constants/Colors'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
-type ButtonVariant = 'pink' | 'purple' | 'yellow'
+export type ButtonVariant = 'pink' | 'purple' | 'yellow'
 
 export const Button: React.FC<{
   onPress: () => void
@@ -12,8 +12,6 @@ export const Button: React.FC<{
 }> = ({ onPress, children, variant }) => {
   const backgroundVariant = background[variant]
   const colorVariant = text[variant]
-
-  console.log(backgroundVariant, colorVariant)
 
   return (
     <TouchableOpacity

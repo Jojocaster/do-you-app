@@ -22,16 +22,19 @@ import {
 import Colors from '../constants/Colors'
 import useColorScheme from '../hooks/useColorScheme'
 import ArchivesScreen from '../screens/ArchivesScreen'
-import ChatScreen from '../screens/ChatScreen'
-import LiveScreen from '../screens/LiveScreen'
+import ChatScreen from '../screens/ChatScreen/ChatScreen'
+import LiveScreen from '../screens/LiveScreen/LiveScreen'
 import ModalScreen from '../screens/ModalScreen'
-import MoreScreen from '../screens/MoreScreen'
+import MoreScreen from '../screens/MoreScreen/MoreScreen'
 import NotFoundScreen from '../screens/NotFoundScreen'
 import TracksScreen from '../screens/TracksScreen'
 import LinkingConfiguration from './LinkingConfiguration'
-import ScheduleScreen from '../screens/ScheduleScreen'
-import TrackIDScreen from '../screens/TrackIDScreen'
-import { TrackDetailsScreen } from '../screens/TrackDetailsScreen'
+import ScheduleScreen from '../screens/ScheduleModalScreen/ScheduleScreen'
+import TrackIDScreen from '../screens/TrackIDScreen/TrackIDScreen'
+import { TrackDetailsScreen } from '../screens/TrackIDModalScreen/TrackDetailsScreen'
+import { ArchiveScreen } from '../screens/ArchiveScreen/ArchiveScreen'
+import { FilterArchivesScreen } from '../screens/FilterArchivesScreen'
+import { ArchiveDetailsNewScreen } from '../screens/ArchiveDetailsScreen/ArchiveDetailsNewScreen'
 
 export default function Navigation({
   colorScheme,
@@ -69,6 +72,18 @@ function RootNavigator() {
           component={NotFoundScreen}
           options={{ title: 'Oops!' }}
         />
+        <Stack.Group
+          screenOptions={{
+            headerShown: false,
+            presentation: 'modal',
+            contentStyle: { marginTop: '50%', backgroundColor: 'transparent' },
+          }}
+        >
+          <Stack.Screen
+            name="TrackDetails"
+            component={TrackDetailsScreen as any}
+          />
+        </Stack.Group>
       </Stack.Group>
       {/* <Stack.Group
         screenOptions={{
@@ -116,7 +131,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Tracks"
-        component={TrackidScreen}
+        component={TrackIDScreens}
         options={({ navigation }) => ({
           title: 'Track IDs',
           tabBarIcon: ({ color }) => (
@@ -182,6 +197,20 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Archives"
+        component={ArchiveScreens}
+        options={({ navigation }) => ({
+          title: 'Archives',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="folder-music-outline"
+              size={19}
+              color={color}
+            />
+          ),
+        })}
+      />
+      {/* <BottomTab.Screen
+        name="Archives"
         component={ArchivesScreen}
         options={({ navigation }: RootTabScreenProps<'Archives'>) => ({
           title: 'Archives',
@@ -193,7 +222,7 @@ function BottomTabNavigator() {
             />
           ),
         })}
-      />
+      /> */}
       <BottomTab.Screen
         name="More"
         component={MoreScreen}
@@ -233,7 +262,7 @@ const LiveStackScreen = () => {
 
 const TrackIDStack = createNativeStackNavigator()
 
-const TrackidScreen = () => {
+const TrackIDScreens = () => {
   return (
     <TrackIDStack.Navigator
       screenOptions={{
@@ -244,18 +273,40 @@ const TrackidScreen = () => {
       }}
     >
       <TrackIDStack.Screen name="TrackID" component={TrackIDScreen} />
-      <TrackIDStack.Group
+    </TrackIDStack.Navigator>
+  )
+}
+
+const ArchiveStack = createNativeStackNavigator()
+
+const ArchiveScreens = () => {
+  return (
+    <ArchiveStack.Navigator
+      screenOptions={{
+        headerShown: false,
+        contentStyle: {
+          backgroundColor: 'white',
+        },
+      }}
+    >
+      <ArchiveStack.Screen name="Archives" component={ArchiveScreen} />
+      <ArchiveStack.Screen
+        name="ArchiveDetails"
+        component={ArchiveDetailsNewScreen}
+      />
+
+      <ArchiveStack.Group
         screenOptions={{
           presentation: 'modal',
-          contentStyle: { marginTop: '50%', backgroundColor: 'transparent' },
+          contentStyle: { backgroundColor: 'transparent' },
         }}
       >
-        <TrackIDStack.Screen
-          name="TrackDetails"
-          component={TrackDetailsScreen as any}
+        <ArchiveStack.Screen
+          name="FilterArchives"
+          component={FilterArchivesScreen as any}
         />
-      </TrackIDStack.Group>
-    </TrackIDStack.Navigator>
+      </ArchiveStack.Group>
+    </ArchiveStack.Navigator>
   )
 }
 

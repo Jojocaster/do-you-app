@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
+import { useIsFocused, useNavigation } from '@react-navigation/native'
 import moment from 'moment'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import Colors from '../../constants/Colors'
@@ -66,6 +66,7 @@ const Show: React.FC<{ show: ShowInfo }> = ({ show }) => {
 }
 
 export const ScheduleWidget = () => {
+  const isFocused = useIsFocused()
   const { navigate } = useNavigation()
   const dispatch = useDispatch()
 
@@ -78,6 +79,22 @@ export const ScheduleWidget = () => {
   const onRefresh = () => {
     dispatch(fetchSchedule())
   }
+
+  useEffect(() => {
+    // if schedule has never been updated (~fetched), fetch it now
+    if (!lastUpdated) {
+      dispatch(fetchSchedule())
+      return
+    }
+    const today = new Date()
+    const diff = today.getTime() - new Date(lastUpdated).getTime()
+    const diffInHours = diff / (1000 * 60 * 60)
+
+    // fetch every hour to avoid hammering the API
+    if (diffInHours > 1) {
+      dispatch(fetchSchedule())
+    }
+  }, [isFocused, lastUpdated])
 
   return (
     <View
@@ -118,8 +135,7 @@ export const ScheduleWidget = () => {
               return <Show show={show} key={i} />
             })}
           </>
-        ) : null}
-        {tomorrowsShows?.length ? (
+        ) : tomorrowsShows?.length ? (
           <>
             {tomorrowsShows.map((show, i) => {
               return <Show show={show} key={i} />

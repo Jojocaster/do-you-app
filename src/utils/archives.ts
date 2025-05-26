@@ -1,5 +1,6 @@
 import { format, parse } from 'date-fns'
 import { ArchiveItem } from '../components/ArchivesList/ArchivesList.types'
+import { ARCHIVES_URL } from '../constants/Endpoints'
 
 export const formatArchiveTitle = (title: string): string => {
   if (!title) {
@@ -24,5 +25,16 @@ export const formatArchiveDate = (track: ArchiveItem): string => {
     return format(new Date(track.date), 'E, MMM dd')
   } catch (e) {
     return format(new Date(track.date), 'E, MMM dd')
+  }
+}
+
+export const getRandomArchive = async () => {
+  try {
+    const response = await fetch(`${ARCHIVES_URL}/shows/random/`)
+    const data = await response.json()
+
+    return data
+  } catch {
+    return null
   }
 }

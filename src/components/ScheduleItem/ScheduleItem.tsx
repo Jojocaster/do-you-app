@@ -55,14 +55,14 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
           style={{
             backgroundColor: 'transparent',
             flex: 0,
-            borderBottomWidth: 2,
-            borderBottomColor: 'white',
+            // borderBottomWidth: 2,
+            // borderBottomColor: 'white',
           }}
         >
           <Text
             style={{
               color: 'white',
-              fontSize: 14,
+              fontSize: 20,
               fontFamily: 'Lato_900Black',
               textTransform: 'uppercase',
             }}

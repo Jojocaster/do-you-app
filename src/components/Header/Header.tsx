@@ -1,8 +1,19 @@
-import React from 'react'
-import { Text, View } from 'react-native'
+import React, { ReactElement } from 'react'
+import { Text, TouchableOpacity, View } from 'react-native'
 import Colors from '../../constants/Colors'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
+import { ButtonVariant } from '../Button/Button'
 
-export const Header = ({ title, children }) => {
+export const Header: React.FC<{
+  backButton?: boolean
+  variant?: ButtonVariant
+  title: string
+  children?: ReactElement
+  buttons?: () => ReactElement
+  titleSize?: number
+}> = ({ backButton, title, buttons, children, titleSize = 32 }) => {
+  const navigation = useNavigation()
   return (
     <View
       style={{
@@ -11,15 +22,48 @@ export const Header = ({ title, children }) => {
         backgroundColor: Colors.common.purple,
       }}
     >
-      <Text
+      <View
         style={{
-          fontSize: 32,
-          fontFamily: 'Lato_700Bold',
-          color: 'white',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
         }}
       >
-        {title}
-      </Text>
+        <View>
+          <TouchableOpacity
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}
+            disabled={!backButton}
+            onPress={() => navigation.goBack()}
+          >
+            {backButton ? (
+              <View style={{ marginLeft: -10 }}>
+                <MaterialCommunityIcons
+                  name="chevron-left"
+                  size={32}
+                  color="white"
+                />
+              </View>
+            ) : null}
+
+            <Text
+              style={{
+                fontSize: titleSize,
+                fontFamily: 'Lato_700Bold',
+                color: 'white',
+              }}
+            >
+              {title}
+            </Text>
+          </TouchableOpacity>
+        </View>
+        {buttons ? (
+          <View style={{ gap: 16, flexDirection: 'row' }}>{buttons()}</View>
+        ) : null}
+      </View>
+
       {children}
     </View>
   )

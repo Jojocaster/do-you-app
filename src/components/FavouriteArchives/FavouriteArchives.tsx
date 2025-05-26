@@ -14,15 +14,8 @@ export const FavouriteArchives = () => {
   const navigation = useNavigation()
 
   const onClick = useCallback((archive: ArchiveItem) => {
-    navigation.navigate('Root', {
-      screen: 'Archives',
-      params: {
-        //@ts-ignore
-        screen: 'ArchiveDetails',
-        params: {
-          track: archive,
-        },
-      },
+    navigation.navigate('ArchiveDetails', {
+      track: archive,
     })
   }, [])
 
@@ -42,6 +35,7 @@ export const FavouriteArchives = () => {
     return (
       <View
         style={{
+          backgroundColor: '#F9F9FB',
           flex: 1,
           display: 'flex',
           justifyContent: 'center',
@@ -65,7 +59,11 @@ export const FavouriteArchives = () => {
   }
 
   return (
-    <ScrollView style={{ marginTop: 20 }} showsVerticalScrollIndicator={false}>
+    <ScrollView
+      style={{ backgroundColor: '#F9F9FB' }}
+      contentContainerStyle={{ padding: 24, gap: 24 }}
+      showsVerticalScrollIndicator={false}
+    >
       {[...archives]
         .sort((a, b) => b.lastUpdated - a.lastUpdated)
         .map((a) => (

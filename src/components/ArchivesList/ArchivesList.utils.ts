@@ -10,6 +10,7 @@ export const getArchives = async ({
   filter?: Filter
 }): Promise<ArchiveItem[]> => {
   if (!filter) {
+    console.log(`${ARCHIVES_URL}/shows/page/${page}/`)
     const response = await fetch(`${ARCHIVES_URL}/shows/page/${page}/`)
     const data = await response.json()
 

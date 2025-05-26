@@ -66,7 +66,7 @@ function App() {
 
   useEffect(() => {
     // fetch config on load
-    store.dispatch(fetchConfig())
+    // store.dispatch(fetchConfig())
   }, [])
 
   if (!isLoadingComplete) {

@@ -10,7 +10,7 @@ import { Tracks } from '../components/Tracks/Tracks'
 import Colors from '../constants/Colors'
 import Space from '../constants/Space'
 import useColorScheme from '../hooks/useColorScheme'
-import { Weblink } from './MoreScreen'
+import { Weblink } from './MoreScreen/MoreScreen'
 
 export default function TrackScreen({
   navigation,
