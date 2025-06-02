@@ -44,45 +44,47 @@ export const FilterArchivesScreen = () => {
     <View
       style={{
         backgroundColor: Colors.common.pink,
-        padding: 24,
+
         height: '100%',
-        position: 'relative',
       }}
     >
-      <ScrollView indicatorStyle={'white'} contentContainerStyle={{ gap: 16 }}>
-        <View
+      <ScrollView indicatorStyle={'white'} showsVerticalScrollIndicator={false}>
+        <TouchableOpacity
           style={{
             position: 'absolute',
             top: 0,
             right: 0,
             zIndex: 2,
+            padding: 24,
           }}
+          onPress={() => navigation.goBack()}
         >
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <MaterialCommunityIcons color="white" name="close" size={24} />
-          </TouchableOpacity>
+          <MaterialCommunityIcons color="white" name="close" size={24} />
+        </TouchableOpacity>
+
+        <View style={{ padding: 24, gap: 16 }}>
+          {sortedFilters?.map((artist) => (
+            <TouchableOpacity key={artist.id} onPress={() => onPress(artist)}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Text
+                  style={{
+                    color: 'white',
+                    fontSize: 24,
+                    fontFamily: 'Lato_900Black',
+                  }}
+                >
+                  {artist.name}
+                </Text>
+                <MaterialCommunityIcons
+                  style={{ marginTop: 4, marginLeft: 4 }}
+                  name="chevron-right"
+                  color={Colors.common.yellow}
+                  size={24}
+                />
+              </View>
+            </TouchableOpacity>
+          ))}
         </View>
-        {sortedFilters?.map((artist) => (
-          <TouchableOpacity onPress={() => onPress(artist)}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Text
-                style={{
-                  color: 'white',
-                  fontSize: 24,
-                  fontFamily: 'Lato_900Black',
-                }}
-              >
-                {artist.name}
-              </Text>
-              <MaterialCommunityIcons
-                style={{ marginTop: 4, marginLeft: 4 }}
-                name="chevron-right"
-                color={Colors.common.yellow}
-                size={24}
-              />
-            </View>
-          </TouchableOpacity>
-        ))}
       </ScrollView>
     </View>
   )

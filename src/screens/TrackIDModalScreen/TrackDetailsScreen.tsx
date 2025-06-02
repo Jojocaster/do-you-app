@@ -64,11 +64,12 @@ export const TrackDetailsScreen = ({ route }) => {
         style={{
           backgroundColor: Colors.common.pink,
 
-          borderRadius: 4,
+          borderTopLeftRadius: 8,
+          borderTopRightRadius: 8,
           padding: 24,
         }}
       >
-        <View
+        <TouchableOpacity
           style={{
             position: 'absolute',
             top: 0,
@@ -76,11 +77,11 @@ export const TrackDetailsScreen = ({ route }) => {
             padding: 24,
             zIndex: 2,
           }}
+          onPress={() => navigation.goBack()}
         >
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <MaterialCommunityIcons color="white" name="close" size={24} />
-          </TouchableOpacity>
-        </View>
+          <MaterialCommunityIcons color="white" name="close" size={24} />
+        </TouchableOpacity>
+
         <Text
           style={{
             color: 'white',
@@ -100,7 +101,7 @@ export const TrackDetailsScreen = ({ route }) => {
           <Metadata tKey="Release" value={track.release_date} />
           <Metadata tKey="Score" value={`${track.score / 10} /10`} />
         </View>
-        <View style={{ flexDirection: 'row', gap: 16 }}>
+        <View style={{ flexDirection: 'row', gap: 16, marginBottom: 16 }}>
           <Button onPress={copyToClipboard} variant="yellow">
             {copied ? 'Done!' : 'Copy to clipboard'}
           </Button>

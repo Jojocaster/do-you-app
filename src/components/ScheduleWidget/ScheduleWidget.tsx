@@ -80,6 +80,10 @@ export const ScheduleWidget = () => {
     dispatch(fetchSchedule())
   }
 
+  const showSchedule = () => {
+    navigate('Schedule')
+  }
+
   useEffect(() => {
     // if schedule has never been updated (~fetched), fetch it now
     if (!lastUpdated) {
@@ -97,72 +101,78 @@ export const ScheduleWidget = () => {
   }, [isFocused, lastUpdated])
 
   return (
-    <View
-      style={{
-        borderRadius: 8,
-        padding: 16,
-        paddingTop: 16,
-        marginHorizontal: 16,
-        backgroundColor: Colors.common.purple,
-      }}
-    >
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        <Text
-          style={{ color: 'white', fontSize: 20, fontFamily: 'Lato_900Black' }}
-        >
-          {nextShows?.length ? ' Next up' : 'Tomorrow'}
-        </Text>
-        <View style={{ flexDirection: 'row' }}>
-          <>
-            {loading ? (
-              <ActivityIndicator color="white" style={{ marginRight: 8 }} />
-            ) : null}
-            <TouchableOpacity disabled={loading} onPress={onRefresh}>
-              <MaterialCommunityIcons
-                name="refresh"
-                color={loading ? '#ccc' : 'white'}
-                size={24}
-              />
-            </TouchableOpacity>
-          </>
+    <TouchableOpacity activeOpacity={0.8} onPress={showSchedule}>
+      <View
+        style={{
+          borderRadius: 8,
+          padding: 16,
+          paddingTop: 16,
+          marginHorizontal: 16,
+          backgroundColor: Colors.common.purple,
+        }}
+      >
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Text
+            style={{
+              color: 'white',
+              fontSize: 20,
+              fontFamily: 'Lato_900Black',
+            }}
+          >
+            {nextShows?.length ? ' Next up' : 'Tomorrow'}
+          </Text>
+          <View style={{ flexDirection: 'row' }}>
+            <>
+              {loading ? (
+                <ActivityIndicator color="white" style={{ marginRight: 8 }} />
+              ) : null}
+              <TouchableOpacity disabled={loading} onPress={onRefresh}>
+                <MaterialCommunityIcons
+                  name="refresh"
+                  color={loading ? '#ccc' : 'white'}
+                  size={24}
+                />
+              </TouchableOpacity>
+            </>
+          </View>
+        </View>
+
+        <View style={{ marginTop: 16 }}>
+          {nextShows?.length ? (
+            <>
+              {nextShows.map((show, i) => {
+                return <Show show={show} key={i} />
+              })}
+            </>
+          ) : tomorrowsShows?.length ? (
+            <>
+              {tomorrowsShows.map((show, i) => {
+                return <Show show={show} key={i} />
+              })}
+            </>
+          ) : (
+            <Text style={{ color: 'white' }}>
+              Nothing to see here - please refresh the schedule.
+            </Text>
+          )}
+        </View>
+        <View style={{ marginTop: 24 }}>
+          <TouchableOpacity
+            onPress={showSchedule}
+            style={{
+              alignSelf: 'flex-start',
+              borderRadius: 4,
+              paddingVertical: 8,
+              paddingHorizontal: 24,
+              backgroundColor: Colors.common.pink,
+            }}
+          >
+            <Text style={{ color: 'white', fontFamily: 'Lato_700Bold' }}>
+              Full schedule
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
-
-      <View style={{ marginTop: 16 }}>
-        {nextShows?.length ? (
-          <>
-            {nextShows.map((show, i) => {
-              return <Show show={show} key={i} />
-            })}
-          </>
-        ) : tomorrowsShows?.length ? (
-          <>
-            {tomorrowsShows.map((show, i) => {
-              return <Show show={show} key={i} />
-            })}
-          </>
-        ) : (
-          <Text style={{ color: 'white' }}>
-            Nothing to see here - please refresh the schedule.
-          </Text>
-        )}
-      </View>
-      <View style={{ marginTop: 24 }}>
-        <TouchableOpacity
-          onPress={() => navigate('Schedule')}
-          style={{
-            alignSelf: 'flex-start',
-            borderRadius: 4,
-            paddingVertical: 8,
-            paddingHorizontal: 24,
-            backgroundColor: Colors.common.pink,
-          }}
-        >
-          <Text style={{ color: 'white', fontFamily: 'Lato_700Bold' }}>
-            Full schedule
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    </TouchableOpacity>
   )
 }

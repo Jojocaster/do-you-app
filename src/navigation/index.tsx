@@ -35,6 +35,7 @@ import { TrackDetailsScreen } from '../screens/TrackIDModalScreen/TrackDetailsSc
 import { ArchiveScreen } from '../screens/ArchiveScreen/ArchiveScreen'
 import { FilterArchivesScreen } from '../screens/FilterArchivesScreen'
 import { ArchiveDetailsNewScreen } from '../screens/ArchiveDetailsScreen/ArchiveDetailsNewScreen'
+import EventScreen from '../screens/EventScreen/EventScreen'
 
 export default function Navigation({
   colorScheme,
@@ -77,9 +78,41 @@ function RootNavigator() {
             headerShown: false,
             presentation: Platform.select({
               ios: 'modal',
-              android: 'containedTransparentModal',
+              android: 'transparentModal',
             }),
-            animation: 'slide_from_bottom',
+            // animation: 'slide_from_bottom',
+            contentStyle: {
+              marginTop: '20%',
+              backgroundColor: 'transparent',
+            },
+          }}
+        >
+          <Stack.Screen name="Schedule" component={ScheduleScreen as any} />
+        </Stack.Group>
+
+        <Stack.Group
+          screenOptions={{
+            headerShown: false,
+            presentation: Platform.select({
+              ios: 'modal',
+              android: 'transparentModal',
+            }),
+            contentStyle: {
+              backgroundColor: 'transparent',
+            },
+          }}
+        >
+          <Stack.Screen name="Events" component={EventScreen as any} />
+        </Stack.Group>
+
+        <Stack.Group
+          screenOptions={{
+            headerShown: false,
+            presentation: Platform.select({
+              ios: 'modal',
+              android: 'transparentModal',
+            }),
+            // animation: 'slide_from_bottom',
             contentStyle: { backgroundColor: 'transparent' },
           }}
         >
@@ -252,18 +285,21 @@ const LiveStackScreen = () => {
     >
       {/* todo: fix types */}
       <LiveStack.Screen name="Live" component={LiveScreen as any} />
-      <LiveStack.Group
+      {/* <LiveStack.Group
         screenOptions={{
           presentation: Platform.select({
             ios: 'modal',
-            android: 'containedTransparentModal',
+            android: 'transparentModal',
           }),
-          animation: 'slide_from_bottom',
-          contentStyle: { marginTop: '20%', backgroundColor: 'transparent' },
+          // animation: 'slide_from_bottom',
+          contentStyle: {
+            marginTop: '20%',
+            backgroundColor: 'transparent',
+          },
         }}
       >
         <LiveStack.Screen name="Schedule" component={ScheduleScreen as any} />
-      </LiveStack.Group>
+      </LiveStack.Group> */}
     </LiveStack.Navigator>
   )
 }
@@ -307,7 +343,7 @@ const ArchiveScreens = () => {
         screenOptions={{
           presentation: Platform.select({
             ios: 'modal',
-            android: 'containedTransparentModal',
+            android: 'transparentModal',
           }),
           // animation: 'slide_from_bottom',
 

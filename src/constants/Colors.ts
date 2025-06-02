@@ -1,3 +1,5 @@
+import { Platform } from 'react-native'
+
 const tintColorLight = '#1c1c1c'
 const tintColorDark = '#fff'
 const brandYellow = '#FFDC3B'
@@ -5,7 +7,7 @@ const brandBlue = '#3a5ed6'
 
 const common = {
   purple: '#4747DF',
-  pink: '#F869BB',
+  pink: Platform.select({ ios: '#F869BB', android: '#f978c2' }), // iOS
   yellow: '#FDC151',
   warning: brandYellow,
   success: '#27ae60',

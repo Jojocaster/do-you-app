@@ -39,7 +39,7 @@ const Tag: React.FC<{ children: string }> = ({ children }) => {
         borderRadius: 20,
       }}
     >
-      <Text style={{ fontFamily: 'space-mono', color: 'black', fontSize: 12 }}>
+      <Text style={{ fontFamily: 'space-mono', color: 'black', fontSize: 10 }}>
         {children}
       </Text>
     </View>
@@ -127,7 +127,8 @@ export const ArchiveDetailsNewScreen = ({ route }) => {
 
       <View style={{ flex: 1, position: 'relative' }}>
         <Animated.ScrollView
-          nestedScrollEnabled
+          overScrollMode="never"
+          bounces={Platform.select({ ios: true, android: false })}
           scrollEventThrottle={8}
           onScroll={Animated.event(
             [{ nativeEvent: { contentOffset: { y: scrollY } } }],

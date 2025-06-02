@@ -22,7 +22,6 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { View } from './src/components/Themed'
 import { BACKGROUND_FETCH_TASK } from './src/constants/Tasks'
 import { fetchShowInBackground } from './src/utils/tasks'
-import { fetchConfig } from './src/store/slices/appSlice'
 
 // Required on iOS (otherwise player will go to pause state while buffering)
 // Only makes Android slower to load, hence the condition
@@ -40,9 +39,9 @@ TrackPlayer.setupPlayer({ waitForBuffer: Platform.OS === 'ios' }).then(() => {
     ],
     compactCapabilities: [Capability.Stop, Capability.Pause, Capability.Play],
   })
+  TrackPlayer.registerPlaybackService(() => service)
+  TaskManager.defineTask(BACKGROUND_FETCH_TASK, fetchShowInBackground)
 })
-TrackPlayer.registerPlaybackService(() => service)
-TaskManager.defineTask(BACKGROUND_FETCH_TASK, fetchShowInBackground)
 // Define task to fetch show info in background
 
 Sentry.init({

@@ -1,7 +1,7 @@
 import { View, Text, useWindowDimensions, TouchableOpacity } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Header } from '../../components/Header/Header'
-import { SceneMap, TabBar, TabView } from 'react-native-tab-view'
+import { SceneMap, TabBar, TabBarItem, TabView } from 'react-native-tab-view'
 import { FavouriteArchives } from '../../components/FavouriteArchives/FavouriteArchives'
 import Colors from '../../constants/Colors'
 import { ArchivesList } from '../../components/ArchivesList/ArchivesList'
@@ -55,7 +55,7 @@ export const ArchiveScreen = ({ route }) => {
               width: '100%',
 
               backgroundColor: Colors.common.yellow,
-              padding: 16,
+              padding: 12,
             }}
           >
             <TouchableOpacity
@@ -66,8 +66,8 @@ export const ArchiveScreen = ({ route }) => {
               }}
               onPress={() => setFilter(undefined)}
             >
-              <View style={{ flexDirection: 'row' }}>
-                <Text style={{}}>Showing results for: </Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={{}}>Filter: </Text>
                 <Text style={{ fontWeight: 'bold' }}>{filter.name}</Text>
               </View>
               <MaterialCommunityIcons name="close" style={{}} size={20} />
@@ -121,6 +121,9 @@ export const ArchiveScreen = ({ route }) => {
         backgroundColor: Colors.common.purple,
       }}
       tabStyle={{ width: layout.width * 0.3 }}
+      renderTabBarItem={({ key, ...props }) => (
+        <TabBarItem {...props} key={key} />
+      )}
       renderLabel={({ route, focused }) => (
         <Text
           style={{

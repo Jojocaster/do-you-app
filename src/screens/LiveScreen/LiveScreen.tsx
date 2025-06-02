@@ -1,20 +1,24 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import {
   Image,
   LayoutAnimation,
   Platform,
   ScrollView,
-  StyleSheet,
-  UIManager,
+  TouchableOpacity,
 } from 'react-native'
 import { useSelector } from 'react-redux'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+//@ts-ignore
+import banana from '../../../assets/images/cropped-gif-logo.gif'
 //@ts-ignore
 import logo from '../../../assets/images/logo.webp'
 import { RootTabScreenProps } from '../../../types'
-import { Button2 } from '../../components/Button2/Button2'
-import { LiveTabs } from '../../components/LiveTabs/LiveTabs'
+import { EventWidget } from '../../components/EventWidget/EventWidget'
+import { NotificationWidget } from '../../components/NotificationWidget/NotificationWidget'
 import { Player } from '../../components/Player/Player'
+import { ScheduleWidget } from '../../components/ScheduleWidget/ScheduleWidget'
 import { ShowProgress } from '../../components/ShowProgress/ShowProgress'
+import { SupportWidget } from '../../components/SupportWidget/SupportWidget'
 import { Text, View } from '../../components/Themed'
 import Colors from '../../constants/Colors'
 import Space from '../../constants/Space'
@@ -22,65 +26,31 @@ import useColorScheme from '../../hooks/useColorScheme'
 import useCustomTheme from '../../hooks/useCustomTheme'
 import { RootState } from '../../store/store'
 import { getShowTitle } from '../../utils/show'
-import { MonoText } from '../../components/StyledText'
-import { Schedule } from '../../components/Schedule/Schedule'
-import { MaterialIcons } from '@expo/vector-icons'
-import { Schedule2 } from '../../components/Schedule/Schedule2'
-import { ScheduleWidget } from '../../components/ScheduleWidget/ScheduleWidget'
-import { NotificationWidget } from '../../components/NotificationWidget/NotificationWidget'
-import { SupportWidget } from '../../components/SupportWidget/SupportWidget'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import ScheduleScreen from '../ScheduleModalScreen/ScheduleScreen'
-
-const Stack = createNativeStackNavigator()
-
-// export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
-//   return (
-//     <Stack.Navigator
-//       screenOptions={{
-//         headerShown: false,
-//       }}
-//     >
-//       <Stack.Screen name="Live" component={DashboardScreen} />
-//       <Stack.Group
-//         screenOptions={{
-//           presentation: 'modal',
-//           contentStyle: { marginTop: '20%', backgroundColor: 'transparent' },
-//         }}
-//       >
-//         <Stack.Screen name="Schedule" component={ScheduleScreen} />
-//       </Stack.Group>
-//     </Stack.Navigator>
-//   )
-// }
 
 //TODO: clean up styles
 export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
-  const { whatsNew, config } = useSelector((state: RootState) => state.app)
+  const { config } = useSelector((state: RootState) => state.app)
   const { currentShow, currentTrack } = useSelector(
     (state: RootState) => state.show
   )
   const [animEnabled, setEnabled] = useState(false)
-  const ref = useRef<ScrollView>(null)
   const showName = getShowTitle({ currentShow, currentTrack })
   const customTheme = useCustomTheme()
-  // const dispatch = useDispatch()
   const theme = useColorScheme()
+  const iconPress = useRef(0)
+  const [showBanana, setShowBanana] = useState(false)
 
-  // useEffect(() => {
-  //   if (whatsNew && whatsNew < '0.4.4') {
-  //     navigation.navigate('Modal')
-  //     dispatch(updateWhatsNew('0.4.4'))
-  //   }
-  // }, [])
-  // useEffect(() => {
-  //   if (Platform.OS === 'android') {
-  //     if (UIManager.setLayoutAnimationEnabledExperimental) {
-  //       UIManager.setLayoutAnimationEnabledExperimental(true)
-  //       setEnabled(true)
-  //     }
-  //   }
-  // }, [])
+  const onIconPress = () => {
+    if (iconPress.current === 5) {
+      setShowBanana(true)
+      iconPress.current = iconPress.current + 1
+    } else if (iconPress.current === 6) {
+      setShowBanana(false)
+      iconPress.current = 0
+    } else {
+      iconPress.current = iconPress.current + 1
+    }
+  }
 
   useLayoutEffect(() => {
     //@ts-ignore - seems to be needed for Android
@@ -98,6 +68,7 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
 
   return (
     <ScrollView
+      showsVerticalScrollIndicator={false}
       // ref={ref}
       // overScrollMode="never"
       // bounces={false}
@@ -105,12 +76,14 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
       style={{ backgroundColor: Colors[theme].background, paddingVertical: 25 }}
     >
       <View style={{ marginLeft: 20 }}>
-        <Image
-          defaultSource={logo}
-          source={icon}
-          resizeMode="contain"
-          style={{ height: 60, width: 60 }}
-        />
+        <TouchableOpacity onPress={onIconPress}>
+          <Image
+            defaultSource={logo}
+            source={showBanana ? banana : icon}
+            resizeMode="contain"
+            style={{ height: 60, width: 60 }}
+          />
+        </TouchableOpacity>
       </View>
       <View
         style={{
@@ -143,12 +116,12 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
               >
                 <Text
                   style={{
-                    fontSize: 12,
+                    fontSize: 10,
                     color: 'black',
                     fontFamily: 'space-mono',
                   }}
                 >
-                  NOW PLAYING
+                  live now
                 </Text>
               </View>
               {/* <Button2 variant="xs">NOW PLAYING</Button2> */}
@@ -176,26 +149,10 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
 
         <NotificationWidget />
 
+        <EventWidget />
+
         <SupportWidget />
       </View>
     </ScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 20,
-    marginHorizontal: '10%',
-    height: 1,
-    width: '80%',
-  },
-})

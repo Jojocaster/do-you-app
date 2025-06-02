@@ -27,7 +27,6 @@ export const FavouriteArchives: React.FC<{ isFocused: boolean }> = ({
     const randomArchive = await getRandomArchive()
     setRandomArchive(randomArchive)
   }
-  console.log(randomArchive)
 
   useEffect(() => {
     if (!archives.length) {

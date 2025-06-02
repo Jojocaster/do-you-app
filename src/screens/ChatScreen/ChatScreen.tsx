@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../store/store'
 import { useIsFocused } from '@react-navigation/native'
 import { useAppState } from '../../hooks/useAppState'
+import { BananaLoader } from '../../components/BananaLoader/BananaLoader'
 
 const ReloadChat: React.FC<{ reload: () => void }> = ({ reload }) => {
   const theme = useColorScheme()
@@ -81,7 +82,7 @@ export default function ChatScreen({ navigation }: RootTabScreenProps<'Chat'>) {
 
   return useMemo(
     () => (
-      <View style={{ position: 'relative', height: '100%' }}>
+      <View style={{ position: 'relative', height: '100%', width: '100%' }}>
         {loading && (
           <View
             style={{
@@ -92,13 +93,13 @@ export default function ChatScreen({ navigation }: RootTabScreenProps<'Chat'>) {
               bottom: 0,
               left: 0,
               height: '100%',
-              zIndex: 1,
+              zIndex: 2,
               width: '100%',
               alignItems: 'center',
               justifyContent: 'center',
             }}
           >
-            <ActivityIndicator color={Colors[theme].primary} />
+            <BananaLoader text="Loading chat ..." />
           </View>
         )}
 
@@ -125,6 +126,7 @@ export default function ChatScreen({ navigation }: RootTabScreenProps<'Chat'>) {
                 Linking.openURL(event.url)
               }
             }}
+            onLoadStart={() => setLoading(true)}
             sharedCookiesEnabled
             thirdPartyCookiesEnabled
             onLoadEnd={(syntheticEvent) => {

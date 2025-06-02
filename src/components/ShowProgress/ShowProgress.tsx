@@ -42,14 +42,14 @@ export const ShowProgress = () => {
         style={{
           height: 4,
           width: '100%',
-          backgroundColor: Colors[theme].tabs.body,
+          backgroundColor: '#F9F9FB',
         }}
       >
         <View
           style={{
             height: '100%',
             width: `${diff}%`,
-            backgroundColor: Colors[theme].secondary,
+            backgroundColor: Colors.common.yellow,
           }}
         />
       </View>

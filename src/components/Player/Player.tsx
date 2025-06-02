@@ -1,3 +1,4 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import {
   Animated,
@@ -5,35 +6,37 @@ import {
   ImageBackground,
   TouchableHighlight,
 } from 'react-native'
-import { StyledCover } from './Player.styles'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
-import Colors from '../../constants/Colors'
-import useColorScheme from '../../hooks/useColorScheme'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../store/store'
-import {
-  ARTIST_NAME,
-  DEFAULT_SHOW_NAME,
-  PlayerStateIcons,
-  PLAYER_SIZE,
-  STREAM_HEADERS,
-} from './Player.constants'
-import { LIVE_STREAM_URL } from '../../constants/Endpoints'
-import { View } from '../Themed'
 import TrackPlayer, {
+  AppKilledPlaybackBehavior,
+  Capability,
   Event,
   State,
   useTrackPlayerEvents,
 } from 'react-native-track-player'
+import { useDispatch, useSelector } from 'react-redux'
+import Colors from '../../constants/Colors'
+import { LIVE_STREAM_URL } from '../../constants/Endpoints'
+import useColorScheme from '../../hooks/useColorScheme'
+import { RootState } from '../../store/store'
+import { View } from '../Themed'
+import {
+  ARTIST_NAME,
+  DEFAULT_SHOW_NAME,
+  PLAYER_SIZE,
+  PlayerStateIcons,
+  STREAM_HEADERS,
+} from './Player.constants'
+import { StyledCover } from './Player.styles'
 //@ts-ignore
 import logo from '../../../assets/images/doyou.webp'
+import useCustomTheme from '../../hooks/useCustomTheme'
+import { fetchShowInfo } from '../../store/slices/showSlice'
 import { getShowTitle } from '../../utils/show'
 import {
   registerBackgroundTask,
   unregisterBackgroundTask,
 } from '../../utils/tasks'
-import { fetchShowInfo } from '../../store/slices/showSlice'
-import useCustomTheme from '../../hooks/useCustomTheme'
+import service from '../../../service'
 
 export const Player: React.FC<{ background: string }> = ({ background }) => {
   const dispatch = useDispatch()
@@ -124,7 +127,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
 
   const onPress = async () => {
     // const currentPlayerTrack = await TrackPlayer.getCurrentTrack()
-
+    // try {
     const state = (await TrackPlayer.getPlaybackState()).state
     // only stop if playing, otherwise play - buffering / connecting will play just fine
     if (state === State.Playing) {
@@ -138,6 +141,28 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
       // and finally play track again
       await TrackPlayer.play()
     }
+    // }
+    // } catch (e: any) {
+    //   if (e.code === 'player_not_initialized') {
+    //     TrackPlayer.setupPlayer().then(async () => {
+    //       await TrackPlayer.updateOptions({
+    //         android: {
+    //           alwaysPauseOnInterruption: true,
+    //           appKilledPlaybackBehavior:
+    //             AppKilledPlaybackBehavior.StopPlaybackAndRemoveNotification,
+    //         },
+    //         capabilities: [Capability.Stop, Capability.Pause, Capability.Play],
+    //         compactCapabilities: [
+    //           Capability.Stop,
+    //           Capability.Pause,
+    //           Capability.Play,
+    //         ],
+    //       })
+    //       TrackPlayer.registerPlaybackService(() => service)
+    //       onPress()
+    //     })
+    //   }
+    // }
   }
 
   const playerImg = currentShow?.image_path

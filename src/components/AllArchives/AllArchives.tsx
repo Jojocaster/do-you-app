@@ -7,10 +7,14 @@ import { ArchiveListItem } from '../ArchiveListItem/ArchiveListItem'
 import gif from '../../../assets/images/ezgif-5f13f00e4e5b50.gif'
 import { Filter } from '../../store/slices/filtersSlice'
 import Colors from '../../constants/Colors'
-import { useNavigation } from '@react-navigation/native'
+import { useIsFocused, useNavigation } from '@react-navigation/native'
+import { differenceInHours } from 'date-fns'
 
 export const AllArchives: React.FC<{ filter?: Filter }> = ({ filter }) => {
   const { navigate } = useNavigation()
+  const isFocused = useIsFocused()
+  const [lastRefreshed, setLastRefreshed] = useState(0)
+
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [isLoading, setLoading] = useState(false)
   const [archives, setArchives] = useState<ArchiveItem[]>([])
@@ -67,6 +71,17 @@ export const AllArchives: React.FC<{ filter?: Filter }> = ({ filter }) => {
       setLoading(false)
     }
   }
+
+  // refetch data when screen is focused, only if it's been more than an hour since last fetch
+  useEffect(() => {
+    if (isFocused) {
+      const now = new Date().getTime()
+      if (differenceInHours(now, lastRefreshed) >= 1) {
+        onRefresh()
+        setLastRefreshed(now)
+      }
+    }
+  }, [isFocused])
 
   if (isRefreshing && !archives.length) {
     return <BananaLoader text="Loading archives ..." />

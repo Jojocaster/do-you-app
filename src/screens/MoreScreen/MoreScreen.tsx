@@ -134,7 +134,7 @@ const Account = () => {
           However, the chat (hosted by minnit.chat) may retain some of your data
           on their servers if you have an account with them.
         </Text>
-        <Text style={{ marginBottom: 0 }}>
+        <Text style={{ marginBottom: 16 }}>
           If you wish to delete your Minnit account, please use the link below.
         </Text>
         <Link link="https://minnit.chat/accountsettings">
@@ -150,7 +150,7 @@ export default function MoreScreen({ navigation }: RootTabScreenProps<'More'>) {
     <ScrollView
       bounces={false}
       overScrollMode="never"
-      showsVerticalScrollIndicator
+      showsVerticalScrollIndicator={false}
     >
       <View
         style={

@@ -19,13 +19,15 @@
       "distribution": "internal",
       "channel": "preview",
       "env": {
-        "TARGET": "preview"
+        "TARGET": "preview",
+        "ANDROID_SDK_ROOT": "/Users/joelbeaudon/Library/Android/sdk"
       }
     },
     "production": {
       "channel": "prod",
       "env": {
-        "TARGET": "prod"
+        "TARGET": "prod",
+        "ANDROID_SDK_ROOT": "/Users/joelbeaudon/Library/Android/sdk"
       }
     }
   },

@@ -21,7 +21,8 @@
           "android": {
             "compileSdkVersion": 35,
             "targetSdkVersion": 35,
-            "buildToolsVersion": "35.0.0"
+            "buildToolsVersion": "35.0.0",
+            "disableAutomaticComponentCreation": false
           }
         }
       ],
@@ -40,9 +41,9 @@
       }
     },
     "splash": {
-      "image": "./assets/images/splashV2.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#1c1c1c"
+      "image": "./assets/images/splash-icon-light.png",
+      "imageWidth": 200,
+      "backgroundColor": "#4747DF"
     },
     "notification": {
       "icon": "./assets/images/notifs.png",
@@ -68,7 +69,7 @@
       },
       "permissions": ["android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"],
       "package": "com.wonkylines.doyouworld",
-      "versionCode": 29
+      "versionCode": 31
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
