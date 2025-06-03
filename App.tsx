@@ -5,9 +5,8 @@ import TrackPlayer, {
   Capability,
 } from 'react-native-track-player'
 import * as Sentry from '@sentry/react-native'
-import { Provider, useDispatch } from 'react-redux'
+import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components/native'
-import service from './service'
 import { Status } from './src/components/Status/Status'
 import useCachedResources from './src/hooks/useCachedResources'
 import Navigation from './src/navigation'
@@ -31,18 +30,17 @@ TrackPlayer.setupPlayer({ waitForBuffer: Platform.OS === 'ios' }).then(() => {
       alwaysPauseOnInterruption: true,
       appKilledPlaybackBehavior: AppKilledPlaybackBehavior.ContinuePlayback,
     },
-    capabilities: [Capability.Stop, Capability.Pause, Capability.Play],
+    capabilities: [Capability.Pause, Capability.Play],
     notificationCapabilities: [
-      Capability.Stop,
+      // Capability.Stop,
       Capability.Pause,
       Capability.Play,
     ],
-    compactCapabilities: [Capability.Stop, Capability.Pause, Capability.Play],
+    compactCapabilities: [Capability.Pause, Capability.Play],
   })
-  TrackPlayer.registerPlaybackService(() => service)
+  // Define task to fetch show info in background
   TaskManager.defineTask(BACKGROUND_FETCH_TASK, fetchShowInBackground)
 })
-// Define task to fetch show info in background
 
 Sentry.init({
   dsn: 'https://2a5ac7b95ce9e24c9a80062ab1757144@o4505204088766464.ingest.us.sentry.io/4509360367075328',
@@ -62,11 +60,6 @@ function App() {
       await SplashScreen.hideAsync()
     }
   }, [isLoadingComplete])
-
-  useEffect(() => {
-    // fetch config on load
-    // store.dispatch(fetchConfig())
-  }, [])
 
   if (!isLoadingComplete) {
     return null

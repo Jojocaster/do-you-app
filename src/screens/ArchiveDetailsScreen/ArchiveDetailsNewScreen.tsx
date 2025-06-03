@@ -96,7 +96,7 @@ export const ArchiveDetailsNewScreen = ({ route }) => {
   }
   const onShare = () => {
     const url = `${MIXCLOUD_URL}/${archive.slug}`
-    Share.share({ url, message: Platform.OS === 'android' ? url : undefined })
+    Share.share({ message: url })
   }
 
   return (
