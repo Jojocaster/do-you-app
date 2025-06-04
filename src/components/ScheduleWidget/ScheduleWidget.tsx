@@ -1,33 +1,50 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import moment from 'moment'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import Colors from '../../constants/Colors'
 import { fetchSchedule } from '../../store/slices/scheduleSlice'
-import { RootState } from '../../store/store'
+import { RootState, useAppDispatch } from '../../store/store'
 import { ShowInfo } from '../../utils/schedule'
-import {
-  decodeHtmlCharCodes,
-  getLocalShowTime,
-} from '../ScheduleItem/ScheduleItem.utils'
+import { decodeHtmlCharCodes } from '../ScheduleItem/ScheduleItem.utils'
 
-const getNextShows = (shows: ShowInfo[][] = []) => {
-  const nextUp = shows[0]
+const getNextShows = (
+  shows: { [key: string]: ShowInfo[] } = {},
+  hideReplays: boolean
+) => {
+  const today = moment().format('yyyy-MM-DD')
+  const nextUp = shows[today] || []
+
   const nextShows = nextUp?.filter((show) => {
-    return moment(show.start_timestamp).isAfter(moment())
+    if (hideReplays) {
+      return (
+        moment(show.start_timestamp).isAfter(moment()) &&
+        !show.name.includes('(R)')
+      )
+    } else {
+      return moment(show.start_timestamp).isAfter(moment())
+    }
   })
   return nextShows
 }
 
-export const getTomorrowShows = (shows: ShowInfo[][] = []) => {
-  return shows[1] || []
+export const getTomorrowShows = (
+  shows: { [key: string]: ShowInfo[] } = {},
+  hideReplays: boolean
+) => {
+  const tomorrow = moment().add(1, 'day').format('yyyy-MM-DD')
+  if (hideReplays) {
+    return shows[tomorrow].filter((show) => !show.name.includes('(R)'))
+  } else {
+    return shows[tomorrow] || []
+  }
 }
 
 const Show: React.FC<{ show: ShowInfo }> = ({ show }) => {
-  const start = getLocalShowTime(show.start_timestamp)
-  const end = getLocalShowTime(show.end_timestamp)
+  const start = moment(show.start_timestamp).format('HH:mm')
+  const end = moment(show.end_timestamp).format('HH:mm')
 
   return (
     <View
@@ -68,13 +85,14 @@ const Show: React.FC<{ show: ShowInfo }> = ({ show }) => {
 export const ScheduleWidget = () => {
   const isFocused = useIsFocused()
   const { navigate } = useNavigation()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
+  const [hideReplays, setHideReplays] = useState(false)
 
   const { shows, loading, lastUpdated } = useSelector(
     (state: RootState) => state.schedule
   )
-  const nextShows = getNextShows(shows)
-  const tomorrowsShows = getTomorrowShows(shows)
+  const nextShows = getNextShows(shows, hideReplays)
+  const tomorrowsShows = getTomorrowShows(shows, hideReplays)
 
   const onRefresh = () => {
     dispatch(fetchSchedule())
@@ -82,6 +100,10 @@ export const ScheduleWidget = () => {
 
   const showSchedule = () => {
     navigate('Schedule')
+  }
+
+  const onToggleReplay = () => {
+    setHideReplays(!hideReplays)
   }
 
   useEffect(() => {
@@ -121,19 +143,23 @@ export const ScheduleWidget = () => {
           >
             {nextShows?.length ? ' Next up' : 'Tomorrow'}
           </Text>
-          <View style={{ flexDirection: 'row' }}>
-            <>
-              {loading ? (
-                <ActivityIndicator color="white" style={{ marginRight: 8 }} />
-              ) : null}
-              <TouchableOpacity disabled={loading} onPress={onRefresh}>
-                <MaterialCommunityIcons
-                  name="refresh"
-                  color={loading ? '#ccc' : 'white'}
-                  size={24}
-                />
-              </TouchableOpacity>
-            </>
+          <View style={{ flexDirection: 'row', gap: 8 }}>
+            {/* Disabled for now */}
+            {/* <TouchableOpacity onPress={onToggleReplay}>
+              <MaterialCommunityIcons
+                name={hideReplays ? 'archive' : 'archive-off'}
+                size={24}
+                color="white"
+              />
+            </TouchableOpacity> */}
+            {loading ? <ActivityIndicator color="white" /> : null}
+            <TouchableOpacity disabled={loading} onPress={onRefresh}>
+              <MaterialCommunityIcons
+                name="refresh"
+                color={loading ? '#ccc' : 'white'}
+                size={24}
+              />
+            </TouchableOpacity>
           </View>
         </View>
 

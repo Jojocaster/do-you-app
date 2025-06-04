@@ -26,6 +26,7 @@ import {
   addArchive,
   deleteArchive,
 } from '../../store/slices/savedArchivesSlice'
+import moment from 'moment'
 
 const Tag: React.FC<{ children: string }> = ({ children }) => {
   return (
@@ -77,12 +78,14 @@ export const ArchiveDetailsNewScreen = ({ route }) => {
     (state: RootState) => state.savedArchives
   )
 
-  const formattedDate = format(new Date(archive?.date), 'dd/MM/yyyy')
+  // const formattedDate = format(new Date(archive?.date), 'dd/MM/yyyy')
+  const formattedDate = moment(archive.date).format('DD/MM/yyyy')
   const savedArchive = savedArchives?.find((a) => a.archive.id === archive.id)
   const bookmarkIcon = savedArchive ? 'bookmark' : 'bookmark-outline'
   const { error, data, loading } = useFetch<{ tracks: TrackInfo[] }>(
     `${TRACKLIST_URL}/archive/${formattedDate}`
   )
+
   const archiveTracks = filterArchiveTracklist(data?.tracks, archive)
 
   const scrollY = useRef(new Animated.Value(0)).current
@@ -158,7 +161,7 @@ export const ArchiveDetailsNewScreen = ({ route }) => {
                 marginBottom: 8,
               }}
             >
-              {format(new Date(archive.date), 'E dd MMMM yyyy')}
+              {moment(archive.date).format('ddd, DD MMM yyyy')}
             </Text>
             <View>
               <Text

@@ -10,9 +10,7 @@ import { Text } from '../Themed'
 import { getRandomArchive } from '../../utils/archives'
 import { Button } from '../Button/Button'
 
-export const FavouriteArchives: React.FC<{ isFocused: boolean }> = ({
-  isFocused,
-}) => {
+export const FavouriteArchives: React.FC = () => {
   const [randomArchive, setRandomArchive] = useState<ArchiveItem>()
   const { archives } = useSelector((state: RootState) => state.savedArchives)
   const navigation = useNavigation()

@@ -109,7 +109,7 @@ export const AllArchives: React.FC<{ filter?: Filter }> = ({ filter }) => {
       )}
       ListFooterComponentStyle={{
         paddingTop: 16,
-        paddingBottom: 16,
+        paddingBottom: filter ? 48 : 16,
       }}
       ListFooterComponent={
         <View style={{ alignItems: 'center' }}>

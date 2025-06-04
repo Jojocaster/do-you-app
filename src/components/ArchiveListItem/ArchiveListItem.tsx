@@ -6,11 +6,11 @@ import {
   TouchableNativeFeedback,
   TouchableOpacity,
 } from 'react-native'
-import useColorScheme from '../../hooks/useColorScheme'
-import { formatArchiveDate, formatArchiveTitle } from '../../utils/archives'
+import { formatArchiveTitle } from '../../utils/archives'
 import { ArchiveItem } from '../ArchivesList/ArchivesList.types'
 import { Text, View } from '../Themed'
 import { MIXCLOUD_IMAGE_ENDPOINT } from './ArchiveListItem.constants'
+import moment from 'moment'
 
 export const ArchiveListItem: React.FC<{
   track: ArchiveItem
@@ -40,7 +40,7 @@ export const ArchiveListItem: React.FC<{
                 marginBottom: 5,
               }}
             >
-              {formatArchiveDate(track)}
+              {moment(track.start_time).format('ddd, DD MMM yyyy')}
             </Text>
             <Text style={styles.showName}>
               {formatArchiveTitle(track.name)}

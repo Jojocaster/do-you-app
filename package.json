@@ -1,6 +1,6 @@
 {
   "name": "do-you-world",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "main": "./AppEntry.js",
   "scripts": {
     "start": "expo start",
@@ -64,6 +64,7 @@
     "expo-task-manager": "~12.0.6",
     "expo-web-browser": "~14.0.2",
     "moment": "^2.30.1",
+    "moment-timezone": "^0.6.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-native": "0.76.9",

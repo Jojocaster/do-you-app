@@ -1,9 +1,15 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { SCHEDULE_URL } from '../../constants/Endpoints'
-import { formatSchedule, Schedule, ShowInfo } from '../../utils/schedule'
+import {
+  formatSchedule,
+  FormattedSchedule,
+  Schedule,
+} from '../../utils/schedule'
+import { getCalendars } from 'expo-localization'
+import moment from 'moment-timezone'
 
 export interface ScheduleState {
-  shows: ShowInfo[][]
+  shows: FormattedSchedule
   lastUpdated: number | null
   loading: boolean
 }
@@ -11,15 +17,20 @@ export interface ScheduleState {
 const initialState: ScheduleState = {
   // TODO: enum instead of boolean to handle errors?
   loading: false,
-  shows: [],
+  shows: {},
   lastUpdated: null,
 }
 
 export const fetchSchedule = createAsyncThunk(
   'schedule/fetchSchedule',
   async () => {
-    const response = await fetch(SCHEDULE_URL)
+    const tz = getCalendars()[0].timeZone
+    const isAUS = tz?.startsWith('Australia')
+    const timezone = !isAUS && tz ? moment.tz(tz).format('z') : tz || undefined
+
+    const response = await fetch(`${SCHEDULE_URL}?timezone=${timezone}`)
     const data = await response.json()
+
     return data as Schedule
   }
 )

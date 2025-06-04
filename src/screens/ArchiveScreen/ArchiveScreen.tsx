@@ -4,7 +4,6 @@ import { Header } from '../../components/Header/Header'
 import { SceneMap, TabBar, TabBarItem, TabView } from 'react-native-tab-view'
 import { FavouriteArchives } from '../../components/FavouriteArchives/FavouriteArchives'
 import Colors from '../../constants/Colors'
-import { ArchivesList } from '../../components/ArchivesList/ArchivesList'
 import { AllArchives } from '../../components/AllArchives/AllArchives'
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
@@ -12,9 +11,8 @@ import { Filter } from '../../store/slices/filtersSlice'
 import { getRandomArchive } from '../../utils/archives'
 
 export const ArchiveScreen = ({ route }) => {
-  const { navigate } = useNavigation()
+  const navigation = useNavigation()
   const [filter, setFilter] = useState<Filter>()
-  const [isLoading, setLoading] = useState(false)
   const layout = useWindowDimensions()
   const [index, setIndex] = useState(0)
   const [routes] = useState([
@@ -23,15 +21,13 @@ export const ArchiveScreen = ({ route }) => {
   ])
 
   useEffect(() => {
-    if (route.params?.artist) {
-      setFilter(route.params?.artist)
-    }
+    setFilter(route.params?.artist)
   }, [route.params?.artist])
 
   const onRandom = async () => {
     const randomArchive = await getRandomArchive()
 
-    navigate('ArchiveDetails', { track: randomArchive })
+    navigation.navigate('ArchiveDetails', { track: randomArchive })
   }
 
   // see https://github.com/satya164/react-native-tab-view/issues/1068#issuecomment-783233062
@@ -64,7 +60,10 @@ export const ArchiveScreen = ({ route }) => {
                 justifyContent: 'space-between',
                 flexDirection: 'row',
               }}
-              onPress={() => setFilter(undefined)}
+              onPress={() => {
+                setFilter(undefined)
+                navigation.setParams({ artist: undefined })
+              }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Text style={{}}>Filter: </Text>
@@ -96,14 +95,17 @@ export const ArchiveScreen = ({ route }) => {
     if (index === 0) {
       return () => (
         <>
-          <TouchableOpacity onPress={onRandom}>
+          <TouchableOpacity hitSlop={16} onPress={onRandom}>
             <MaterialCommunityIcons
               name="shuffle-variant"
               color="white"
               size={24}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigate('FilterArchives')}>
+          <TouchableOpacity
+            hitSlop={16}
+            onPress={() => navigation.navigate('FilterArchives')}
+          >
             <MaterialIcons name="search" color="white" size={24} />
           </TouchableOpacity>
         </>
