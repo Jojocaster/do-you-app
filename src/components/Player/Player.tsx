@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Colors from '../../constants/Colors'
 import { LIVE_STREAM_URL } from '../../constants/Endpoints'
 import useColorScheme from '../../hooks/useColorScheme'
-import { RootState } from '../../store/store'
+import { RootState, useAppDispatch } from '../../store/store'
 import { View } from '../Themed'
 import {
   ARTIST_NAME,
@@ -36,10 +36,9 @@ import {
   registerBackgroundTask,
   unregisterBackgroundTask,
 } from '../../utils/tasks'
-import service from '../../../service'
 
 export const Player: React.FC<{ background: string }> = ({ background }) => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const [playerState, setPlayerState] = useState<State>(State.None)
   const theme = useColorScheme()
   const customTheme = useCustomTheme()
@@ -125,44 +124,42 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
     }
   }, [currentTrack, currentShow])
 
-  const onPress = async () => {
+  const onPress = async (skipRetry?: boolean) => {
     // const currentPlayerTrack = await TrackPlayer.getCurrentTrack()
-    // try {
-    const state = (await TrackPlayer.getPlaybackState()).state
-    // only stop if playing, otherwise play - buffering / connecting will play just fine
-    if (state === State.Playing) {
-      unregisterBackgroundTask()
-      await TrackPlayer.reset()
-    } else {
-      // reset queue (& buffer)
-      await TrackPlayer.reset()
-      // re-add track
-      await initPlayer()
-      // and finally play track again
-      await TrackPlayer.play()
+    try {
+      const state = (await TrackPlayer.getPlaybackState()).state
+      // only stop if playing, otherwise play - buffering / connecting will play just fine
+      if (state === State.Playing) {
+        unregisterBackgroundTask()
+        await TrackPlayer.reset()
+      } else {
+        // reset queue (& buffer)
+        await TrackPlayer.reset()
+        // re-add track
+        await initPlayer()
+        // and finally play track again
+        await TrackPlayer.play()
+      }
+    } catch (e: any) {
+      if (e.code === 'player_not_initialized' && !skipRetry) {
+        TrackPlayer.setupPlayer().then(async () => {
+          await TrackPlayer.updateOptions({
+            android: {
+              alwaysPauseOnInterruption: true,
+              appKilledPlaybackBehavior:
+                AppKilledPlaybackBehavior.StopPlaybackAndRemoveNotification,
+            },
+            capabilities: [Capability.Stop, Capability.Pause, Capability.Play],
+            compactCapabilities: [
+              Capability.Stop,
+              Capability.Pause,
+              Capability.Play,
+            ],
+          })
+          onPress(true)
+        })
+      }
     }
-    // }
-    // } catch (e: any) {
-    //   if (e.code === 'player_not_initialized') {
-    //     TrackPlayer.setupPlayer().then(async () => {
-    //       await TrackPlayer.updateOptions({
-    //         android: {
-    //           alwaysPauseOnInterruption: true,
-    //           appKilledPlaybackBehavior:
-    //             AppKilledPlaybackBehavior.StopPlaybackAndRemoveNotification,
-    //         },
-    //         capabilities: [Capability.Stop, Capability.Pause, Capability.Play],
-    //         compactCapabilities: [
-    //           Capability.Stop,
-    //           Capability.Pause,
-    //           Capability.Play,
-    //         ],
-    //       })
-    //       TrackPlayer.registerPlaybackService(() => service)
-    //       onPress()
-    //     })
-    //   }
-    // }
   }
 
   const playerImg = currentShow?.image_path
@@ -186,7 +183,10 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
           borderWidth: 3,
         }}
       >
-        <TouchableHighlight underlayColor="transparent" onPressIn={onPress}>
+        <TouchableHighlight
+          underlayColor="transparent"
+          onPressIn={() => onPress()}
+        >
           <ImageBackground
             resizeMethod="scale"
             source={playerImg}

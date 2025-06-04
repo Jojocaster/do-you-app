@@ -16,3 +16,6 @@ coverage/
 
 .env.local
 .env
+*.ipa
+*.aab
+*.apk

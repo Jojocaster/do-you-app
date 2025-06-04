@@ -1,24 +1,17 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { format, parseISO } from 'date-fns'
 import React, { useEffect } from 'react'
 import {
-  Image,
-  Linking,
   Platform,
-  ScrollView,
   StyleSheet,
   TouchableNativeFeedback,
   TouchableOpacity,
   useWindowDimensions,
   View,
 } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import Colors from '../../constants/Colors'
-import Space from '../../constants/Space'
 import useColorScheme from '../../hooks/useColorScheme'
-import { fetchEvents } from '../../store/slices/eventsSlice'
-import { RootState } from '../../store/store'
-import { Text, View as CustomView } from '../Themed'
+import { Text } from '../Themed'
 
 export const Events = () => {
   const theme = useColorScheme()

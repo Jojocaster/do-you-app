@@ -1,4 +1,9 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import {
+  AnyAction,
+  combineReducers,
+  configureStore,
+  ThunkDispatch,
+} from '@reduxjs/toolkit'
 import appReducer from './slices/appSlice'
 import playerReducer from './slices/playerSlice'
 import scheduleReducer from './slices/scheduleSlice'
@@ -19,6 +24,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist'
+import { useDispatch } from 'react-redux'
 
 const persistConfig = {
   key: 'root',
@@ -53,4 +59,7 @@ export const store = configureStore({
 
 let persistor = persistStore(store)
 export type RootState = ReturnType<typeof store.getState>
+export type AppThunkDispatch = ThunkDispatch<RootState, any, AnyAction>
+export const useAppDispatch = () => useDispatch<AppThunkDispatch>()
+
 export { persistor }
