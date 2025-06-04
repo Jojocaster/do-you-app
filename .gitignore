@@ -13,3 +13,9 @@ assets/local/
 # macOS
 .DS_Store
 coverage/
+
+.env.local
+.env
+*.ipa
+*.aab
+*.apk

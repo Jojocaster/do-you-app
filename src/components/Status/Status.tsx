@@ -50,10 +50,11 @@ export const Status: React.FC = () => {
           paddingBottom: 20,
           justifyContent: 'space-between',
           alignItems: 'center',
-          backgroundColor: Colors[theme].statusBar,
+          // backgroundColor: Colors[theme].statusBar,
+          backgroundColor: Colors.common.purple,
           display: 'flex',
           flexDirection: 'row',
-          paddingHorizontal: 20,
+          paddingHorizontal: 24,
         }}
       >
         <Text style={{ fontWeight: 'bold', color: '#fff' }}>Status: </Text>

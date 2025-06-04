@@ -12,7 +12,7 @@ import {
 } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import * as React from 'react'
-import { ColorSchemeName } from 'react-native'
+import { ColorSchemeName, Platform } from 'react-native'
 
 import {
   RootStackParamList,
@@ -22,13 +22,20 @@ import {
 import Colors from '../constants/Colors'
 import useColorScheme from '../hooks/useColorScheme'
 import ArchivesScreen from '../screens/ArchivesScreen'
-import ChatScreen from '../screens/ChatScreen'
-import LiveScreen from '../screens/LiveScreen'
+import ChatScreen from '../screens/ChatScreen/ChatScreen'
+import LiveScreen from '../screens/LiveScreen/LiveScreen'
 import ModalScreen from '../screens/ModalScreen'
-import MoreScreen from '../screens/MoreScreen'
+import MoreScreen from '../screens/MoreScreen/MoreScreen'
 import NotFoundScreen from '../screens/NotFoundScreen'
 import TracksScreen from '../screens/TracksScreen'
 import LinkingConfiguration from './LinkingConfiguration'
+import ScheduleScreen from '../screens/ScheduleModalScreen/ScheduleScreen'
+import TrackIDScreen from '../screens/TrackIDScreen/TrackIDScreen'
+import { TrackDetailsScreen } from '../screens/TrackIDModalScreen/TrackDetailsScreen'
+import { ArchiveScreen } from '../screens/ArchiveScreen/ArchiveScreen'
+import { FilterArchivesScreen } from '../screens/FilterArchivesScreen'
+import { ArchiveDetailsNewScreen } from '../screens/ArchiveDetailsScreen/ArchiveDetailsNewScreen'
+import EventScreen from '../screens/EventScreen/EventScreen'
 
 export default function Navigation({
   colorScheme,
@@ -66,6 +73,54 @@ function RootNavigator() {
           component={NotFoundScreen}
           options={{ title: 'Oops!' }}
         />
+        <Stack.Group
+          screenOptions={{
+            headerShown: false,
+            presentation: Platform.select({
+              ios: 'modal',
+              android: 'transparentModal',
+            }),
+            // animation: 'slide_from_bottom',
+            contentStyle: {
+              marginTop: '20%',
+              backgroundColor: 'transparent',
+            },
+          }}
+        >
+          <Stack.Screen name="Schedule" component={ScheduleScreen as any} />
+        </Stack.Group>
+
+        <Stack.Group
+          screenOptions={{
+            headerShown: false,
+            presentation: Platform.select({
+              ios: 'modal',
+              android: 'transparentModal',
+            }),
+            contentStyle: {
+              backgroundColor: 'transparent',
+            },
+          }}
+        >
+          <Stack.Screen name="Events" component={EventScreen as any} />
+        </Stack.Group>
+
+        <Stack.Group
+          screenOptions={{
+            headerShown: false,
+            presentation: Platform.select({
+              ios: 'modal',
+              android: 'transparentModal',
+            }),
+            // animation: 'slide_from_bottom',
+            contentStyle: { backgroundColor: 'transparent' },
+          }}
+        >
+          <Stack.Screen
+            name="TrackDetails"
+            component={TrackDetailsScreen as any}
+          />
+        </Stack.Group>
       </Stack.Group>
       {/* <Stack.Group
         screenOptions={{
@@ -96,12 +151,37 @@ function BottomTabNavigator() {
       sceneContainerStyle={{ backgroundColor: '#212020' }}
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: Colors[colorScheme].tabIconSelected,
+        tabBarActiveTintColor: Colors.common.purple,
         tabBarStyle: { paddingVertical: 5 },
         tabBarLabelStyle: { marginBottom: 6 },
       }}
     >
       <BottomTab.Screen
+        name="LiveStack"
+        component={LiveStackScreen}
+        options={() => ({
+          title: 'Live',
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="headphones" size={19} color={color} />
+          ),
+        })}
+      />
+      <BottomTab.Screen
+        name="Tracks"
+        component={TrackIDScreens}
+        options={({ navigation }) => ({
+          title: 'Track IDs',
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon
+              name="playlist-music-outline"
+              style={{ marginTop: -2 }}
+              size={25}
+              color={color}
+            />
+          ),
+        })}
+      />
+      {/* <BottomTab.Screen
         name="Live"
         component={LiveScreen}
         options={({ navigation }: RootTabScreenProps<'Live'>) => ({
@@ -110,8 +190,8 @@ function BottomTabNavigator() {
             <TabBarIcon name="headphones" size={19} color={color} />
           ),
         })}
-      />
-      <BottomTab.Screen
+      /> */}
+      {/* <BottomTab.Screen
         name="Tracks"
         component={TracksScreen}
         options={({ navigation }) => ({
@@ -140,7 +220,7 @@ function BottomTabNavigator() {
           //   </Pressable>
           // ),
         })}
-      />
+      /> */}
       <BottomTab.Screen
         name="Chat"
         component={ChatScreen}
@@ -154,6 +234,20 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Archives"
+        component={ArchiveScreens}
+        options={({ navigation }) => ({
+          title: 'Archives',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="folder-music-outline"
+              size={19}
+              color={color}
+            />
+          ),
+        })}
+      />
+      {/* <BottomTab.Screen
+        name="Archives"
         component={ArchivesScreen}
         options={({ navigation }: RootTabScreenProps<'Archives'>) => ({
           title: 'Archives',
@@ -165,7 +259,7 @@ function BottomTabNavigator() {
             />
           ),
         })}
-      />
+      /> */}
       <BottomTab.Screen
         name="More"
         component={MoreScreen}
@@ -177,6 +271,91 @@ function BottomTabNavigator() {
         })}
       />
     </BottomTab.Navigator>
+  )
+}
+
+const LiveStack = createNativeStackNavigator()
+
+const LiveStackScreen = () => {
+  return (
+    <LiveStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      {/* todo: fix types */}
+      <LiveStack.Screen name="Live" component={LiveScreen as any} />
+      {/* <LiveStack.Group
+        screenOptions={{
+          presentation: Platform.select({
+            ios: 'modal',
+            android: 'transparentModal',
+          }),
+          // animation: 'slide_from_bottom',
+          contentStyle: {
+            marginTop: '20%',
+            backgroundColor: 'transparent',
+          },
+        }}
+      >
+        <LiveStack.Screen name="Schedule" component={ScheduleScreen as any} />
+      </LiveStack.Group> */}
+    </LiveStack.Navigator>
+  )
+}
+
+const TrackIDStack = createNativeStackNavigator()
+
+const TrackIDScreens = () => {
+  return (
+    <TrackIDStack.Navigator
+      screenOptions={{
+        headerShown: false,
+        contentStyle: {
+          backgroundColor: 'white',
+        },
+      }}
+    >
+      <TrackIDStack.Screen name="TrackID" component={TrackIDScreen} />
+    </TrackIDStack.Navigator>
+  )
+}
+
+const ArchiveStack = createNativeStackNavigator()
+
+const ArchiveScreens = () => {
+  return (
+    <ArchiveStack.Navigator
+      screenOptions={{
+        headerShown: false,
+        contentStyle: {
+          backgroundColor: 'white',
+        },
+      }}
+    >
+      <ArchiveStack.Screen name="Archives" component={ArchiveScreen} />
+      <ArchiveStack.Screen
+        name="ArchiveDetails"
+        component={ArchiveDetailsNewScreen}
+      />
+
+      <ArchiveStack.Group
+        screenOptions={{
+          presentation: Platform.select({
+            ios: 'modal',
+            android: 'transparentModal',
+          }),
+          // animation: 'slide_from_bottom',
+
+          contentStyle: { backgroundColor: 'transparent' },
+        }}
+      >
+        <ArchiveStack.Screen
+          name="FilterArchives"
+          component={FilterArchivesScreen as any}
+        />
+      </ArchiveStack.Group>
+    </ArchiveStack.Navigator>
   )
 }
 

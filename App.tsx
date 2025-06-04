@@ -4,9 +4,9 @@ import TrackPlayer, {
   AppKilledPlaybackBehavior,
   Capability,
 } from 'react-native-track-player'
-import { Provider, useDispatch } from 'react-redux'
+import * as Sentry from '@sentry/react-native'
+import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components/native'
-import service from './service'
 import { Status } from './src/components/Status/Status'
 import useCachedResources from './src/hooks/useCachedResources'
 import Navigation from './src/navigation'
@@ -21,7 +21,6 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { View } from './src/components/Themed'
 import { BACKGROUND_FETCH_TASK } from './src/constants/Tasks'
 import { fetchShowInBackground } from './src/utils/tasks'
-import { fetchConfig } from './src/store/slices/appSlice'
 
 // Required on iOS (otherwise player will go to pause state while buffering)
 // Only makes Android slower to load, hence the condition
@@ -31,20 +30,23 @@ TrackPlayer.setupPlayer({ waitForBuffer: Platform.OS === 'ios' }).then(() => {
       alwaysPauseOnInterruption: true,
       appKilledPlaybackBehavior: AppKilledPlaybackBehavior.ContinuePlayback,
     },
-    capabilities: [Capability.Stop, Capability.Pause, Capability.Play],
+    capabilities: [Capability.Pause, Capability.Play],
     notificationCapabilities: [
-      Capability.Stop,
+      // Capability.Stop,
       Capability.Pause,
       Capability.Play,
     ],
-    compactCapabilities: [Capability.Stop, Capability.Pause, Capability.Play],
+    compactCapabilities: [Capability.Pause, Capability.Play],
   })
+  // Define task to fetch show info in background
+  TaskManager.defineTask(BACKGROUND_FETCH_TASK, fetchShowInBackground)
 })
-TrackPlayer.registerPlaybackService(() => service)
-TaskManager.defineTask(BACKGROUND_FETCH_TASK, fetchShowInBackground)
-// Define task to fetch show info in background
 
-export default function App() {
+Sentry.init({
+  dsn: 'https://2a5ac7b95ce9e24c9a80062ab1757144@o4505204088766464.ingest.us.sentry.io/4509360367075328',
+})
+
+function App() {
   const isLoadingComplete = useCachedResources()
 
   // const colorScheme = useColorScheme()
@@ -58,11 +60,6 @@ export default function App() {
       await SplashScreen.hideAsync()
     }
   }, [isLoadingComplete])
-
-  useEffect(() => {
-    // fetch config on load
-    store.dispatch(fetchConfig())
-  }, [])
 
   if (!isLoadingComplete) {
     return null
@@ -84,3 +81,5 @@ export default function App() {
     </SafeAreaProvider>
   )
 }
+
+export default Sentry.wrap(App)

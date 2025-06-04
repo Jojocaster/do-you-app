@@ -26,7 +26,7 @@ export const LiveTabs: React.FC<{ onChange: () => void }> = ({ onChange }) => {
       style={{
         backgroundColor: Colors[theme].background,
       }}
-      tabStyle={{ width: layout.width * 0.3 }}
+      tabStyle={{ height: '100%', flex: 1, width: layout.width * 0.3 }}
       renderLabel={({ route, focused }) => (
         <Text
           style={{
@@ -47,9 +47,11 @@ export const LiveTabs: React.FC<{ onChange: () => void }> = ({ onChange }) => {
     first: FirstRoute,
     second: Events,
   })
+
   return (
     <TabView
-      style={{ height: layout.height / 2 }}
+      style={{ height: '100%', flex: 1 }}
+      // style={{ height: layout.height / 2 }}
       sceneContainerStyle={{
         paddingHorizontal: Space.viewPadding,
         backgroundColor: Colors[theme].tabs.body,
@@ -61,7 +63,7 @@ export const LiveTabs: React.FC<{ onChange: () => void }> = ({ onChange }) => {
         onChange()
         setIndex(id)
       }}
-      initialLayout={{ width: layout.width }}
+      initialLayout={{ width: layout.width, height: 0 }}
     />
   )
 }

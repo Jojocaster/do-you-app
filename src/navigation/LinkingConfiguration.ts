@@ -8,6 +8,7 @@ import { LinkingOptions } from '@react-navigation/native'
 import * as Linking from 'expo-linking'
 
 import { RootStackParamList } from '../../types'
+import ScheduleScreen from '../screens/ScheduleModalScreen/ScheduleScreen'
 
 const linking: LinkingOptions<RootStackParamList> = {
   prefixes: [Linking.createURL('/')],
@@ -18,6 +19,11 @@ const linking: LinkingOptions<RootStackParamList> = {
           Live: {
             screens: {
               LiveScreen: 'live',
+            },
+          },
+          Schedule: {
+            screens: {
+              ScheduleScreen: 'schedule',
             },
           },
           Tracks: {

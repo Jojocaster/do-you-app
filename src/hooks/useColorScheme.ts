@@ -23,6 +23,8 @@ export default function useColorScheme(): NonNullable<ColorSchemeName> {
     setTheme(darkTheme ? 'dark' : 'light')
   }, [darkTheme])
 
+  // todo: remove dark theme altogether
+  return 'light'
   return customTheme?.theme || theme
   // return 'monochrome' as any
 }

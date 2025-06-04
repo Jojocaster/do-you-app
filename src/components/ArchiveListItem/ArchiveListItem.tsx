@@ -6,17 +6,16 @@ import {
   TouchableNativeFeedback,
   TouchableOpacity,
 } from 'react-native'
-import useColorScheme from '../../hooks/useColorScheme'
-import { formatArchiveDate, formatArchiveTitle } from '../../utils/archives'
+import { formatArchiveTitle } from '../../utils/archives'
 import { ArchiveItem } from '../ArchivesList/ArchivesList.types'
 import { Text, View } from '../Themed'
 import { MIXCLOUD_IMAGE_ENDPOINT } from './ArchiveListItem.constants'
+import moment from 'moment'
 
 export const ArchiveListItem: React.FC<{
   track: ArchiveItem
   onClick: (archive: ArchiveItem) => void
 }> = ({ onClick, track }) => {
-  const theme = useColorScheme()
   const CustomTouchable =
     Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity
 
@@ -41,7 +40,7 @@ export const ArchiveListItem: React.FC<{
                 marginBottom: 5,
               }}
             >
-              {formatArchiveDate(track)}
+              {moment(track.start_time).format('ddd, DD MMM yyyy')}
             </Text>
             <Text style={styles.showName}>
               {formatArchiveTitle(track.name)}
@@ -50,7 +49,7 @@ export const ArchiveListItem: React.FC<{
         </View>
       </CustomTouchable>
     ),
-    [theme]
+    [track]
   )
 }
 
@@ -69,17 +68,15 @@ const styles = StyleSheet.create({
     // overflow: 'hidden',
     display: 'flex',
     flexDirection: 'row',
-    marginBottom: 20,
   },
   content: {
     backgroundColor: 'transparent',
     flex: 1,
-    marginHorizontal: 20,
+    marginHorizontal: 24,
     alignSelf: 'center',
   },
   showName: {
     fontWeight: 'bold',
-    marginBottom: 5,
     fontSize: 14,
   },
   thumbnail: {

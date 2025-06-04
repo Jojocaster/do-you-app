@@ -7,41 +7,37 @@ import { RootState } from '../../store/store'
 import { ArchiveListItem } from '../ArchiveListItem/ArchiveListItem'
 import { ArchiveItem } from '../ArchivesList/ArchivesList.types'
 import { Text } from '../Themed'
+import { getRandomArchive } from '../../utils/archives'
+import { Button } from '../Button/Button'
 
-export const FavouriteArchives = () => {
+export const FavouriteArchives: React.FC = () => {
   const [randomArchive, setRandomArchive] = useState<ArchiveItem>()
   const { archives } = useSelector((state: RootState) => state.savedArchives)
   const navigation = useNavigation()
 
   const onClick = useCallback((archive: ArchiveItem) => {
-    navigation.navigate('Root', {
-      screen: 'Archives',
-      params: {
-        //@ts-ignore
-        screen: 'ArchiveDetails',
-        params: {
-          track: archive,
-        },
-      },
+    navigation.navigate('ArchiveDetails', {
+      track: archive,
     })
   }, [])
 
   const fetchRandom = async () => {
-    const response = await fetch(`${ARCHIVES_URL}/shows/random/`)
-    const data = await response.json()
-    setRandomArchive(data)
+    const randomArchive = await getRandomArchive()
+    setRandomArchive(randomArchive)
   }
 
   useEffect(() => {
     if (!archives.length) {
       fetchRandom()
     }
-  }, [archives])
+  }, [])
 
   if (!archives.length) {
     return (
       <View
         style={{
+          padding: 24,
+          backgroundColor: '#F9F9FB',
           flex: 1,
           display: 'flex',
           justifyContent: 'center',
@@ -49,23 +45,32 @@ export const FavouriteArchives = () => {
         }}
       >
         <Text style={{ alignSelf: 'center' }}>No favourites yet?</Text>
-        <Text style={{ alignSelf: 'center' }}>
+        <Text style={{ alignSelf: 'center', marginTop: 8 }}>
           Here is a random show for you.
         </Text>
         {randomArchive && (
-          <View style={{ width: '100%', marginTop: 20 }}>
+          <View style={{ width: '100%', marginTop: 32 }}>
             <ArchiveListItem
               onClick={() => onClick(randomArchive)}
               track={randomArchive}
             />
           </View>
         )}
+        <View style={{ marginTop: 32, alignItems: 'center' }}>
+          <Button onPress={() => fetchRandom()} variant="pink">
+            Refresh
+          </Button>
+        </View>
       </View>
     )
   }
 
   return (
-    <ScrollView style={{ marginTop: 20 }} showsVerticalScrollIndicator={false}>
+    <ScrollView
+      style={{ backgroundColor: '#F9F9FB' }}
+      contentContainerStyle={{ padding: 24, gap: 24 }}
+      showsVerticalScrollIndicator={false}
+    >
       {[...archives]
         .sort((a, b) => b.lastUpdated - a.lastUpdated)
         .map((a) => (

@@ -10,6 +10,7 @@ import { RootState } from '../../store/store'
 import { ShowInfo } from '../../utils/schedule'
 import { Text, View } from '../Themed'
 import { decodeHtmlCharCodes, getLocalShowTime } from './ScheduleItem.utils'
+import moment from 'moment'
 
 const LiveShow: React.FC = ({ children }) => {
   const theme = useColorScheme()
@@ -17,7 +18,7 @@ const LiveShow: React.FC = ({ children }) => {
   return (
     <Text
       style={{
-        color: Colors[theme].primary,
+        color: '#FDC151',
         fontSize: 16,
         fontWeight: 'bold',
 
@@ -35,10 +36,20 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
 }) => {
   const { currentShow } = useSelector((state: RootState) => state.show)
   // this will allow component to re-render when appState changes
-  const appState = useAppState()
-  const theme = useColorScheme()
-  const day = parseJSON(showsOfTheDay[0].start_timestamp)
-  const formattedDay = format(day, 'E, MMM dd')
+  // console.log(showsOfTheDay[0].start_timestamp)
+  // console.log(moment(showsOfTheDay[0].start_timestamp))
+  // const day = parseJSON(showsOfTheDay[0].start_timestamp)
+  const day = moment(showsOfTheDay[0].start_timestamp)
+  // console.log('yo', moment.utc(showsOfTheDay[0].start_timestamp))
+  // const formattedDay = format(day, 'E, MMM dd')
+  const formattedDay = moment(day).format('dddd, DD MMM')
+  const isToday = moment(day).isSame(moment(), 'day')
+  const isTomorrow = moment(day).isSame(moment().add(1, 'day'), 'day')
+  const dayToDisplay = isToday
+    ? 'Today'
+    : isTomorrow
+    ? 'Tomorrow'
+    : formattedDay
 
   return (
     <>
@@ -53,20 +64,19 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
           style={{
             backgroundColor: 'transparent',
             flex: 0,
-            borderBottomWidth: 2,
-            borderBottomColor: Colors[theme].scheduleUnderline,
+            // borderBottomWidth: 2,
+            // borderBottomColor: 'white',
           }}
         >
           <Text
             style={{
-              color: Colors[theme].scheduleHeading,
-              backgroundColor: Colors[theme].scheduleBackground,
-              fontSize: 14,
+              color: 'white',
+              fontSize: 20,
               fontFamily: 'Lato_900Black',
               textTransform: 'uppercase',
             }}
           >
-            {formattedDay}
+            {dayToDisplay}
           </Text>
         </View>
       </View>
@@ -83,10 +93,10 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
           // TODO: improve logic
           const isCurrent =
             show.name === currentShow?.name &&
-            show.starts === currentShow.starts
+            moment(show.start_timestamp).isSame(moment(), 'day')
 
-          const start = getLocalShowTime(show.start_timestamp)
-          const end = getLocalShowTime(show.end_timestamp)
+          const start = moment(show.start_timestamp).format('HH:mm')
+          const end = moment(show.end_timestamp).format('HH:mm')
 
           return (
             <View
@@ -102,7 +112,7 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
               <Text
                 style={{
                   fontSize: 14,
-                  color: Colors[theme].scheduleText,
+                  color: 'white',
                   flexBasis: 100,
                 }}
                 key={show.start_timestamp}
@@ -116,7 +126,7 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
                   style={{
                     fontSize: 14,
                     fontWeight: 'bold',
-                    color: Colors[theme].scheduleText,
+                    color: 'white',
                     marginLeft: 10,
                     flex: 1,
                   }}
