@@ -1,6 +1,6 @@
 {
   "name": "do-you-world",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "main": "./AppEntry.js",
   "scripts": {
     "start": "expo start",
