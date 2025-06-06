@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useEffect } from 'react'
-import { ScrollView, TouchableOpacity, View } from 'react-native'
+import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { RootTabScreenProps } from '../../../types'
 import { ScheduleItem } from '../../components/ScheduleItem/ScheduleItem'
@@ -18,28 +18,15 @@ export default function ScheduleScreen({
   }, [])
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      style={{
-        backgroundColor: '#4747DF',
-        borderTopLeftRadius: 8,
-        borderTopRightRadius: 8,
-      }}
-    >
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
       <TouchableOpacity
-        style={{
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          padding: 24,
-          zIndex: 2,
-        }}
+        style={styles.close}
         onPress={() => navigation.goBack()}
       >
         <MaterialCommunityIcons color="white" name="close" size={24} />
       </TouchableOpacity>
 
-      <View style={{ padding: 24, gap: 16 }}>
+      <View style={styles.scheduleItems}>
         {Object.values(shows).map((showsByDay, i) => (
           <ScheduleItem showsOfTheDay={showsByDay} key={i} />
         ))}
@@ -47,3 +34,19 @@ export default function ScheduleScreen({
     </ScrollView>
   )
 }
+
+const styles = StyleSheet.create({
+  scrollView: {
+    backgroundColor: '#4747DF',
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+  },
+  close: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    padding: 24,
+    zIndex: 2,
+  },
+  scheduleItems: { padding: 24, gap: 24 },
+})

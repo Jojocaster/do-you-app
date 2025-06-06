@@ -11,6 +11,7 @@ import {
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { ArchiveItem } from './src/components/ArchivesList/ArchivesList.types'
 import { theme } from './src/theme'
+import { Event } from './src/components/EventWidget/EventWidget'
 
 declare global {
   namespace ReactNavigation {
@@ -20,7 +21,10 @@ declare global {
 
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined
-  Modal: undefined
+  Schedule: undefined
+  Events: {
+    events: Event[]
+  }
   NotFound: undefined
 }
 

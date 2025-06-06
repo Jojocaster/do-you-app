@@ -147,14 +147,10 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
             android: {
               alwaysPauseOnInterruption: true,
               appKilledPlaybackBehavior:
-                AppKilledPlaybackBehavior.StopPlaybackAndRemoveNotification,
+                AppKilledPlaybackBehavior.ContinuePlayback,
             },
-            capabilities: [Capability.Stop, Capability.Pause, Capability.Play],
-            compactCapabilities: [
-              Capability.Stop,
-              Capability.Pause,
-              Capability.Play,
-            ],
+            capabilities: [Capability.Pause, Capability.Play],
+            compactCapabilities: [Capability.Pause, Capability.Play],
           })
           onPress(true)
         })

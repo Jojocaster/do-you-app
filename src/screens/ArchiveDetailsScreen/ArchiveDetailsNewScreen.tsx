@@ -28,7 +28,7 @@ import {
 } from '../../store/slices/savedArchivesSlice'
 import moment from 'moment'
 
-const Tag: React.FC<{ children: string }> = ({ children }) => {
+export const Tag: React.FC<{ children: string }> = ({ children }) => {
   return (
     <View
       style={{
