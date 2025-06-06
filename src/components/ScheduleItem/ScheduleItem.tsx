@@ -85,8 +85,7 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
         style={{
           backgroundColor: 'transparent',
           // marginHorizontal: 15,
-          marginTop: 10,
-          marginBottom: 20,
+          gap: 8,
         }}
       >
         {showsOfTheDay.map((show) => {

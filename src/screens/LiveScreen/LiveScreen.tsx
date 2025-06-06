@@ -4,10 +4,10 @@ import {
   LayoutAnimation,
   Platform,
   ScrollView,
+  StyleSheet,
   TouchableOpacity,
 } from 'react-native'
 import { useSelector } from 'react-redux'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
 //@ts-ignore
 import banana from '../../../assets/images/cropped-gif-logo.gif'
 //@ts-ignore
@@ -22,21 +22,16 @@ import { SupportWidget } from '../../components/SupportWidget/SupportWidget'
 import { Text, View } from '../../components/Themed'
 import Colors from '../../constants/Colors'
 import Space from '../../constants/Space'
-import useColorScheme from '../../hooks/useColorScheme'
-import useCustomTheme from '../../hooks/useCustomTheme'
 import { RootState } from '../../store/store'
 import { getShowTitle } from '../../utils/show'
+import { Tag } from '../ArchiveDetailsScreen/ArchiveDetailsNewScreen'
 
-//TODO: clean up styles
 export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
-  const { config } = useSelector((state: RootState) => state.app)
   const { currentShow, currentTrack } = useSelector(
     (state: RootState) => state.show
   )
-  const [animEnabled, setEnabled] = useState(false)
   const showName = getShowTitle({ currentShow, currentTrack })
-  const customTheme = useCustomTheme()
-  const theme = useColorScheme()
+
   const iconPress = useRef(0)
   const [showBanana, setShowBanana] = useState(false)
 
@@ -53,98 +48,44 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
   }
 
   useLayoutEffect(() => {
-    //@ts-ignore - seems to be needed for Android
     if (Platform.OS === 'ios') {
-      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
-    }
-    if (animEnabled) {
       LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
     }
   }, [currentShow?.name])
 
-  const icon = customTheme?.icon
-    ? { uri: `${config?.assets}${customTheme?.icon}` }
-    : logo
-
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
-      // ref={ref}
-      // overScrollMode="never"
-      // bounces={false}
-      contentContainerStyle={{ paddingBottom: 48 }}
-      style={{ backgroundColor: Colors[theme].background, paddingVertical: 25 }}
+      contentContainerStyle={styles.scrollViewContainer}
+      style={styles.scrollView}
     >
-      <View style={{ marginLeft: 20 }}>
+      <View style={styles.iconWrapper}>
         <TouchableOpacity onPress={onIconPress}>
           <Image
             defaultSource={logo}
-            source={showBanana ? banana : icon}
+            source={showBanana ? banana : logo}
             resizeMode="contain"
-            style={{ height: 60, width: 60 }}
+            style={styles.icon}
           />
         </TouchableOpacity>
       </View>
-      <View
-        style={{
-          backgroundColor: 'transparent',
-          display: 'flex',
-          alignItems: 'center',
-          marginTop: 24,
-        }}
-      >
+      <View style={styles.wrapper}>
         <Player background={'../../../assets/logo.webp'} />
 
         {(currentShow || currentTrack) && (
           <>
-            <View
-              style={{
-                paddingHorizontal: Space.viewPadding,
-                marginTop: 25,
-                display: 'flex',
-                alignItems: 'center',
-              }}
-            >
-              <View
-                style={{
-                  alignSelf: 'center',
-                  borderRadius: 20,
-                  paddingVertical: 4,
-                  paddingHorizontal: 16,
-                  backgroundColor: Colors.common.yellow,
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 10,
-                    color: 'black',
-                    fontFamily: 'space-mono',
-                  }}
-                >
-                  live now
-                </Text>
-              </View>
-              {/* <Button2 variant="xs">NOW PLAYING</Button2> */}
-              <Text
-                style={{
-                  marginTop: 8,
-                  textAlign: 'center',
-                  // color: Colors[theme].primary,
-                  color: Colors.common.purple,
-                  fontSize: 24,
-                  fontFamily: 'Lato_700Bold',
-                }}
-              >
-                {/* TODO: handle overtime */}
-                {showName}
-              </Text>
+            <View style={styles.showWrapper}>
+              <Tag>live now</Tag>
+
+              <Text style={styles.showName}>{showName}</Text>
             </View>
+
             <ShowProgress />
           </>
         )}
       </View>
 
-      <View style={{ gap: 16, marginTop: 40 }}>
+      <View style={styles.widgets}>
         <ScheduleWidget />
 
         <NotificationWidget />
@@ -156,3 +97,35 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
     </ScrollView>
   )
 }
+
+const styles = StyleSheet.create({
+  scrollView: {
+    backgroundColor: 'white',
+    paddingVertical: 24,
+  },
+  scrollViewContainer: {
+    paddingBottom: 48,
+  },
+  iconWrapper: { marginLeft: 24 },
+  icon: { height: 48, width: 48 },
+  wrapper: {
+    backgroundColor: 'transparent',
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: 24,
+  },
+  showWrapper: {
+    paddingHorizontal: Space.viewPadding,
+    marginTop: 24,
+    display: 'flex',
+    alignItems: 'center',
+  },
+  showName: {
+    marginTop: 8,
+    textAlign: 'center',
+    color: Colors.common.purple,
+    fontSize: 24,
+    fontFamily: 'Lato_700Bold',
+  },
+  widgets: { gap: 16, marginTop: 36 },
+})
