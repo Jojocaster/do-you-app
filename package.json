@@ -1,6 +1,6 @@
 {
   "name": "do-you-world",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "main": "./AppEntry.js",
   "scripts": {
     "start": "expo start",
@@ -77,7 +77,8 @@
     "react-native-webview": "13.12.5",
     "react-redux": "^8.0.0",
     "redux-persist": "6.0.0",
-    "styled-components": "5.3.5"
+    "styled-components": "5.3.5",
+    "expo-background-task": "~0.1.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

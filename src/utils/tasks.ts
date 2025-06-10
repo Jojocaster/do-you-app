@@ -1,5 +1,5 @@
-import * as BackgroundFetch from 'expo-background-fetch'
 import TrackPlayer, { State } from 'react-native-track-player'
+import * as BackgroundTask from 'expo-background-task'
 import {
   ARTIST_NAME,
   DEFAULT_SHOW_NAME,
@@ -9,21 +9,36 @@ import { LIVE_INFO_URL } from '../constants/Endpoints'
 import { BACKGROUND_FETCH_TASK } from '../constants/Tasks'
 //@ts-ignore
 import logo from '../../assets/images/doyou.webp'
+import * as TaskManager from 'expo-task-manager'
 
 export const registerBackgroundTask = async () => {
-  try {
-    await BackgroundFetch.registerTaskAsync(BACKGROUND_FETCH_TASK, {
-      minimumInterval: 120, // seconds,
-    })
-    console.log('[BACKGROUND] - Task registered')
-  } catch (err) {
-    console.log('[BACKGROUND] - Task register error:', err)
+  const isRegistered = await TaskManager.isTaskRegisteredAsync(
+    BACKGROUND_FETCH_TASK
+  )
+
+  if (isRegistered) {
+    try {
+      await BackgroundTask.registerTaskAsync(BACKGROUND_FETCH_TASK, {
+        minimumInterval: 15, // seconds,
+      })
+      console.log('[BACKGROUND] - Task registered')
+    } catch (err) {
+      console.log('[BACKGROUND] - Task register error:', err)
+    }
   }
 }
 
 export const unregisterBackgroundTask = async () => {
+  const isRegistered = await TaskManager.isTaskRegisteredAsync(
+    BACKGROUND_FETCH_TASK
+  )
+
+  if (!isRegistered) {
+    return
+  }
+
   try {
-    await BackgroundFetch.unregisterTaskAsync(BACKGROUND_FETCH_TASK)
+    await BackgroundTask.unregisterTaskAsync(BACKGROUND_FETCH_TASK)
     console.log('[BACKGROUND] - Task unregistered')
   } catch (e) {
     console.log('[BACKGROUND] - Cancel error: ', e)
@@ -56,9 +71,9 @@ export const fetchShowInBackground = async () => {
     }
 
     // Be sure to return the successful result type!
-    return BackgroundFetch.BackgroundFetchResult.NewData
+    return BackgroundTask.BackgroundTaskResult.Success
   } catch (e) {
     console.log('[BACKGROUND] - Error: ', e)
-    return BackgroundFetch.BackgroundFetchResult.Failed
+    return BackgroundTask.BackgroundTaskResult.Failed
   }
 }
