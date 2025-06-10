@@ -31,9 +31,10 @@ const LiveShow: React.FC = ({ children }) => {
   )
 }
 
-export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
-  showsOfTheDay,
-}) => {
+export const ScheduleItem: React.FC<{
+  showsOfTheDay: ShowInfo[]
+  hideReplays?: boolean
+}> = ({ showsOfTheDay, hideReplays }) => {
   const { currentShow } = useSelector((state: RootState) => state.show)
   // this will allow component to re-render when appState changes
   // console.log(showsOfTheDay[0].start_timestamp)
@@ -50,6 +51,12 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
     : isTomorrow
     ? 'Tomorrow'
     : formattedDay
+
+  const shows = hideReplays
+    ? showsOfTheDay.filter((show) => {
+        return !show.name.includes('(R)')
+      })
+    : showsOfTheDay
 
   return (
     <>
@@ -88,7 +95,7 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
           gap: 8,
         }}
       >
-        {showsOfTheDay.map((show) => {
+        {shows.map((show) => {
           // TODO: improve logic
           const isCurrent =
             show.name === currentShow?.name &&

@@ -2,13 +2,14 @@
   "expo": {
     "name": "Do!! You!!! World",
     "slug": "DoYouWorld",
-    "version": "0.5.4",
+    "version": "0.5.5",
     "backgroundColor": "#1c1c1c",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "plugins": [
+      ["expo-background-task"],
       [
         "expo-font",
         {
@@ -56,10 +57,11 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "com.wonkylines.doyouworld",
-      "buildNumber": "0.5.4",
+      "buildNumber": "0.5.5",
       "supportsTablet": false,
       "infoPlist": {
-        "UIBackgroundModes": ["fetch", "audio", "remote-notification"]
+        "UIBackgroundModes": ["fetch", "audio", "remote-notification"],
+        "NSCameraUsageDescription": "This app uses the camera to send pictures to the chat."
       }
     },
     "android": {
@@ -69,7 +71,7 @@
       },
       "permissions": ["android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"],
       "package": "com.wonkylines.doyouworld",
-      "versionCode": 35
+      "versionCode": 36
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Text, View } from '../../components/Themed'
-import { WebView } from 'react-native-webview'
+import { WebView, WebViewNavigation } from 'react-native-webview'
 import { RootTabScreenProps } from '../../../types'
-import { ActivityIndicator, Linking, TouchableOpacity } from 'react-native'
+import { Linking, TouchableOpacity } from 'react-native'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
 import { CHAT_URL } from '../../constants/Endpoints'
@@ -50,6 +50,22 @@ export default function ChatScreen({ navigation }: RootTabScreenProps<'Chat'>) {
   const theme = useColorScheme()
   const isFocused = useIsFocused()
   const [showChat, setShowChat] = useState(true)
+  const isURLLoading = useRef(false)
+
+  const openLink = async (event: WebViewNavigation) => {
+    if (event.url !== CHAT_URL && !isURLLoading.current) {
+      isURLLoading.current = true
+      chatRef.current?.stopLoading()
+      try {
+        await Linking.openURL(event.url)
+      } catch {
+        const encodedURL = encodeURI(event.url)
+        Linking.openURL(encodedURL)
+      } finally {
+        isURLLoading.current = false
+      }
+    }
+  }
 
   const reload = () => {
     setLoading(true)
@@ -120,12 +136,7 @@ export default function ChatScreen({ navigation }: RootTabScreenProps<'Chat'>) {
               console.log('onRenderProcessGone')
               reload()
             }}
-            onNavigationStateChange={(event) => {
-              if (event.url !== CHAT_URL) {
-                chatRef.current?.stopLoading()
-                Linking.openURL(event.url)
-              }
-            }}
+            onNavigationStateChange={openLink}
             onLoadStart={() => setLoading(true)}
             sharedCookiesEnabled
             thirdPartyCookiesEnabled
