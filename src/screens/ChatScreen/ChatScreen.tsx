@@ -2,7 +2,12 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Text, View } from '../../components/Themed'
 import { WebView, WebViewNavigation } from 'react-native-webview'
 import { RootTabScreenProps } from '../../../types'
-import { Linking, TouchableOpacity } from 'react-native'
+import {
+  KeyboardAvoidingView,
+  Linking,
+  Platform,
+  TouchableOpacity,
+} from 'react-native'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
 import { CHAT_URL } from '../../constants/Endpoints'
@@ -40,6 +45,30 @@ const ReloadChat: React.FC<{ reload: () => void }> = ({ reload }) => {
     ),
     [theme]
   )
+}
+
+const CustomView: React.FC<{ children: any }> = ({ children }) => {
+  if (Platform.OS === 'android') {
+    return (
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior="padding"
+        keyboardVerticalOffset={90}
+      >
+        {children}
+      </KeyboardAvoidingView>
+    )
+  }
+
+  if (Platform.OS === 'ios') {
+    return (
+      <View style={{ position: 'relative', height: '100%', width: '100%' }}>
+        {children}
+      </View>
+    )
+  }
+
+  return null
 }
 
 export default function ChatScreen({ navigation }: RootTabScreenProps<'Chat'>) {
@@ -98,7 +127,7 @@ export default function ChatScreen({ navigation }: RootTabScreenProps<'Chat'>) {
 
   return useMemo(
     () => (
-      <View style={{ position: 'relative', height: '100%', width: '100%' }}>
+      <CustomView>
         {loading && (
           <View
             style={{
@@ -149,7 +178,7 @@ export default function ChatScreen({ navigation }: RootTabScreenProps<'Chat'>) {
             }}
           />
         )}
-      </View>
+      </CustomView>
     ),
     [loading, showChat]
   )

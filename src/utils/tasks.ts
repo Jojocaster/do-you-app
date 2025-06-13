@@ -19,7 +19,7 @@ export const registerBackgroundTask = async () => {
   if (isRegistered) {
     try {
       await BackgroundTask.registerTaskAsync(BACKGROUND_FETCH_TASK, {
-        minimumInterval: 15, // seconds,
+        minimumInterval: 15, // minutes,
       })
       console.log('[BACKGROUND] - Task registered')
     } catch (err) {
