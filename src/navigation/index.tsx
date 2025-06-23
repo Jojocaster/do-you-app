@@ -99,7 +99,7 @@ function RootNavigator() {
             },
           }}
         >
-          <Stack.Screen name="Events" component={EventScreen as any} />
+          <Stack.Screen name="Events" component={EventScreen} />
         </Stack.Group>
 
         <Stack.Group

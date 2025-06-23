@@ -86,7 +86,8 @@ export default function ChatScreen({ navigation }: RootTabScreenProps<'Chat'>) {
       isURLLoading.current = true
       chatRef.current?.stopLoading()
       try {
-        await Linking.openURL(event.url)
+        const url = event.url.trim()
+        await Linking.openURL(url)
       } catch {
         const encodedURL = encodeURI(event.url)
         Linking.openURL(encodedURL)
