@@ -77,8 +77,6 @@ export const EventItem: React.FC<{
     ? event.tickets?.links[0]?.link.trim()
     : null
 
-  console.log(event.tickets.links[0])
-
   const onPress = () => {
     if (link) {
       Linking.openURL(link)
