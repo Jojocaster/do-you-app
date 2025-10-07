@@ -12,6 +12,8 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { ArchiveItem } from './src/components/ArchivesList/ArchivesList.types'
 import { theme } from './src/theme'
 import { Event } from './src/components/EventWidget/EventWidget'
+import { TrackInfo } from './src/store/slices/tracksInfoSlice'
+import { Filter } from './src/store/slices/filtersSlice'
 
 declare global {
   namespace ReactNavigation {
@@ -22,6 +24,16 @@ declare global {
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined
   Schedule: undefined
+  Archives: {
+    artist?: Filter | null
+  }
+  ArchiveDetails: {
+    track: ArchiveItem
+  }
+  TrackDetails: {
+    track: TrackInfo
+  }
+  FilterArchives: undefined
   Events: {
     events: Event[]
   }
@@ -35,7 +47,9 @@ export type RootTabParamList = {
   Live: undefined
   Tracks: undefined
   Chat: undefined
-  Archives: undefined
+  Archives: {
+    artist?: Filter
+  }
   ArchivesList: undefined
   ArchivesFilters: undefined
   Schedule: undefined

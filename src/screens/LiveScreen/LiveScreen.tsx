@@ -1,17 +1,14 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useLayoutEffect } from 'react'
 import {
-  Image,
   LayoutAnimation,
   Platform,
   ScrollView,
   StyleSheet,
-  TouchableOpacity,
+  Text,
+  View,
 } from 'react-native'
 import { useSelector } from 'react-redux'
-//@ts-ignore
-import banana from '../../../assets/images/cropped-gif-logo.gif'
-//@ts-ignore
-import logo from '../../../assets/images/logo.webp'
+import { BananaIcon } from '../../components/BananaIcon/BananaIcon'
 import { RootTabScreenProps } from '../../../types'
 import { EventWidget } from '../../components/EventWidget/EventWidget'
 import { NotificationWidget } from '../../components/NotificationWidget/NotificationWidget'
@@ -19,33 +16,17 @@ import { Player } from '../../components/Player/Player'
 import { ScheduleWidget } from '../../components/ScheduleWidget/ScheduleWidget'
 import { ShowProgress } from '../../components/ShowProgress/ShowProgress'
 import { SupportWidget } from '../../components/SupportWidget/SupportWidget'
-import { Text, View } from '../../components/Themed'
 import Colors from '../../constants/Colors'
 import Space from '../../constants/Space'
 import { RootState } from '../../store/store'
 import { getShowTitle } from '../../utils/show'
 import { Tag } from '../ArchiveDetailsScreen/ArchiveDetailsNewScreen'
 
-export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
+export default function LiveScreen() {
   const { currentShow, currentTrack } = useSelector(
     (state: RootState) => state.show
   )
   const showName = getShowTitle({ currentShow, currentTrack })
-
-  const iconPress = useRef(0)
-  const [showBanana, setShowBanana] = useState(false)
-
-  const onIconPress = () => {
-    if (iconPress.current === 5) {
-      setShowBanana(true)
-      iconPress.current = iconPress.current + 1
-    } else if (iconPress.current === 6) {
-      setShowBanana(false)
-      iconPress.current = 0
-    } else {
-      iconPress.current = iconPress.current + 1
-    }
-  }
 
   useLayoutEffect(() => {
     if (Platform.OS === 'ios') {
@@ -60,14 +41,7 @@ export default function LiveScreen({ navigation }: RootTabScreenProps<'Live'>) {
       style={styles.scrollView}
     >
       <View style={styles.iconWrapper}>
-        <TouchableOpacity onPress={onIconPress}>
-          <Image
-            defaultSource={logo}
-            source={showBanana ? banana : logo}
-            resizeMode="contain"
-            style={styles.icon}
-          />
-        </TouchableOpacity>
+        <BananaIcon />
       </View>
       <View style={styles.wrapper}>
         <Player background={'../../../assets/logo.webp'} />
@@ -107,7 +81,6 @@ const styles = StyleSheet.create({
     paddingBottom: 48,
   },
   iconWrapper: { marginLeft: 24 },
-  icon: { height: 48, width: 48 },
   wrapper: {
     backgroundColor: 'transparent',
     display: 'flex',

@@ -9,8 +9,9 @@ import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { Filter } from '../../store/slices/filtersSlice'
 import { getRandomArchive } from '../../utils/archives'
+import { RootTabScreenProps } from '../../../types'
 
-export const ArchiveScreen = ({ route }) => {
+export const ArchiveScreen = ({ route }: RootTabScreenProps<'Archives'>) => {
   const navigation = useNavigation()
   const [filter, setFilter] = useState<Filter>()
   const layout = useWindowDimensions()
@@ -55,6 +56,7 @@ export const ArchiveScreen = ({ route }) => {
             }}
           >
             <TouchableOpacity
+              testID="removeFilter"
               style={{
                 alignItems: 'center',
                 justifyContent: 'space-between',

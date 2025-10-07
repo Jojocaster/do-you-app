@@ -9,17 +9,31 @@ export const Header: React.FC<{
   backButton?: boolean
   variant?: ButtonVariant
   title: string
-  children?: ReactElement
+  children?: ReactElement | ReactElement[]
   buttons?: () => ReactElement
   titleSize?: number
-}> = ({ backButton, title, buttons, children, titleSize = 32 }) => {
+}> = ({
+  backButton,
+  variant = 'purple',
+  title,
+  buttons,
+  children,
+  titleSize = 32,
+}) => {
   const navigation = useNavigation()
+
+  const variantColor = {
+    pink: Colors.common.pink,
+    purple: Colors.common.purple,
+    yellow: Colors.common.yellow,
+  }
+
   return (
     <View
       style={{
         paddingVertical: 16,
         paddingHorizontal: 24,
-        backgroundColor: Colors.common.purple,
+        backgroundColor: variantColor[variant] || Colors.common.purple,
       }}
     >
       <View
