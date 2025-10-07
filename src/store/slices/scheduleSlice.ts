@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { SCHEDULE_URL } from '../../constants/Endpoints'
 import {
   formatSchedule,
@@ -12,6 +12,7 @@ export interface ScheduleState {
   shows: FormattedSchedule
   lastUpdated: number | null
   loading: boolean
+  hideReplays: boolean
 }
 
 const initialState: ScheduleState = {
@@ -19,6 +20,7 @@ const initialState: ScheduleState = {
   loading: false,
   shows: {},
   lastUpdated: null,
+  hideReplays: false,
 }
 
 export const fetchSchedule = createAsyncThunk(
@@ -38,7 +40,11 @@ export const fetchSchedule = createAsyncThunk(
 const scheduleSlice = createSlice({
   name: 'schedule',
   initialState,
-  reducers: {},
+  reducers: {
+    toggleHideReplays: (state) => {
+      state.hideReplays = !state.hideReplays
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchSchedule.fulfilled, (state, action) => {
       console.log('[fetchSchedule]: resolved')
@@ -46,7 +52,7 @@ const scheduleSlice = createSlice({
       state.shows = formatSchedule(action.payload)
       state.lastUpdated = new Date().getTime()
     }),
-      builder.addCase(fetchSchedule.pending, (state, action) => {
+      builder.addCase(fetchSchedule.pending, (state) => {
         console.log('[fetchSchedule]: pending')
 
         state.loading = true
@@ -60,4 +66,5 @@ const scheduleSlice = createSlice({
   },
 })
 
+export const { toggleHideReplays } = scheduleSlice.actions
 export default scheduleSlice.reducer

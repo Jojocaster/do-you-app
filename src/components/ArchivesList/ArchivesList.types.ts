@@ -1,3 +1,5 @@
+import { Filter } from '../../store/slices/filtersSlice'
+
 export interface ArchiveItem {
   audio_length: number
   audio_quality: string
@@ -5,6 +7,7 @@ export interface ArchiveItem {
   description: string
   end_time?: any
   id: number
+  hosts?: Filter[]
   mixcloud_id: string
   name: string
   picture_url: string

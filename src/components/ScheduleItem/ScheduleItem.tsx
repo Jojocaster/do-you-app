@@ -11,6 +11,7 @@ import { ShowInfo } from '../../utils/schedule'
 import { Text, View } from '../Themed'
 import { decodeHtmlCharCodes, getLocalShowTime } from './ScheduleItem.utils'
 import moment from 'moment'
+import { CurrentShowInfo } from '../../store/slices/showSlice'
 
 const LiveShow: React.FC = ({ children }) => {
   const theme = useColorScheme()
@@ -31,9 +32,71 @@ const LiveShow: React.FC = ({ children }) => {
   )
 }
 
-export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
-  showsOfTheDay,
-}) => {
+const AllShows: React.FC<{
+  currentShow: CurrentShowInfo | null
+  shows: ShowInfo[]
+}> = ({ shows, currentShow }) => {
+  return shows.map((show) => {
+    const isCurrent =
+      show.name === currentShow?.name &&
+      moment(show.start_timestamp).isSame(moment(), 'day')
+
+    const start = moment(show.start_timestamp).format('HH:mm')
+    const end = moment(show.end_timestamp).format('HH:mm')
+
+    return (
+      <View
+        key={show.start_timestamp}
+        style={{
+          backgroundColor: 'transparent',
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'flex-start',
+          marginVertical: 5,
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 14,
+            color: 'white',
+            flexBasis: 100,
+          }}
+          key={show.start_timestamp}
+        >
+          {start} - {end}
+        </Text>
+        {isCurrent ? (
+          <LiveShow>{decodeHtmlCharCodes(show.name)}</LiveShow>
+        ) : (
+          <Text
+            style={{
+              fontSize: 14,
+              fontWeight: 'bold',
+              color: 'white',
+              marginLeft: 10,
+              flex: 1,
+            }}
+          >
+            {decodeHtmlCharCodes(show.name)}
+          </Text>
+        )}
+        {/* <Image
+          style={{ height: 50, width: 50 }}
+          source={{
+            uri:
+              show.image_path ||
+              'https://cdn.shopify.com/s/files/1/0555/5929/1029/t/31/assets/default.jpg',
+          }}
+        /> */}
+      </View>
+    )
+  })
+}
+
+export const ScheduleItem: React.FC<{
+  showsOfTheDay: ShowInfo[]
+  hideReplays?: boolean
+}> = ({ showsOfTheDay, hideReplays }) => {
   const { currentShow } = useSelector((state: RootState) => state.show)
   // this will allow component to re-render when appState changes
   // console.log(showsOfTheDay[0].start_timestamp)
@@ -50,6 +113,12 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
     : isTomorrow
     ? 'Tomorrow'
     : formattedDay
+
+  const shows = hideReplays
+    ? showsOfTheDay.filter((show) => {
+        return !show.name.includes('(R)')
+      })
+    : showsOfTheDay
 
   return (
     <>
@@ -88,62 +157,13 @@ export const ScheduleItem: React.FC<{ showsOfTheDay: ShowInfo[] }> = ({
           gap: 8,
         }}
       >
-        {showsOfTheDay.map((show) => {
-          // TODO: improve logic
-          const isCurrent =
-            show.name === currentShow?.name &&
-            moment(show.start_timestamp).isSame(moment(), 'day')
-
-          const start = moment(show.start_timestamp).format('HH:mm')
-          const end = moment(show.end_timestamp).format('HH:mm')
-
-          return (
-            <View
-              key={show.start_timestamp}
-              style={{
-                backgroundColor: 'transparent',
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'flex-start',
-                marginVertical: 5,
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 14,
-                  color: 'white',
-                  flexBasis: 100,
-                }}
-                key={show.start_timestamp}
-              >
-                {start} - {end}
-              </Text>
-              {isCurrent ? (
-                <LiveShow>{decodeHtmlCharCodes(show.name)}</LiveShow>
-              ) : (
-                <Text
-                  style={{
-                    fontSize: 14,
-                    fontWeight: 'bold',
-                    color: 'white',
-                    marginLeft: 10,
-                    flex: 1,
-                  }}
-                >
-                  {decodeHtmlCharCodes(show.name)}
-                </Text>
-              )}
-              {/* <Image
-                style={{ height: 50, width: 50 }}
-                source={{
-                  uri:
-                    show.image_path ||
-                    'https://cdn.shopify.com/s/files/1/0555/5929/1029/t/31/assets/default.jpg',
-                }}
-              /> */}
-            </View>
-          )
-        })}
+        {shows.length ? (
+          <AllShows currentShow={currentShow} shows={shows} />
+        ) : (
+          <Text style={{ fontSize: 14, color: 'white' }}>
+            Nothing scheduled yet.
+          </Text>
+        )}
       </View>
     </>
   )

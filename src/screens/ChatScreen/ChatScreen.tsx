@@ -1,8 +1,13 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Text, View } from '../../components/Themed'
-import { WebView } from 'react-native-webview'
+import { WebView, WebViewNavigation } from 'react-native-webview'
 import { RootTabScreenProps } from '../../../types'
-import { ActivityIndicator, Linking, TouchableOpacity } from 'react-native'
+import {
+  KeyboardAvoidingView,
+  Linking,
+  Platform,
+  TouchableOpacity,
+} from 'react-native'
 import Colors from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
 import { CHAT_URL } from '../../constants/Endpoints'
@@ -42,6 +47,30 @@ const ReloadChat: React.FC<{ reload: () => void }> = ({ reload }) => {
   )
 }
 
+const CustomView: React.FC<{ children: any }> = ({ children }) => {
+  if (Platform.OS === 'android') {
+    return (
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior="padding"
+        keyboardVerticalOffset={90}
+      >
+        {children}
+      </KeyboardAvoidingView>
+    )
+  }
+
+  if (Platform.OS === 'ios') {
+    return (
+      <View style={{ position: 'relative', height: '100%', width: '100%' }}>
+        {children}
+      </View>
+    )
+  }
+
+  return null
+}
+
 export default function ChatScreen({ navigation }: RootTabScreenProps<'Chat'>) {
   const [loading, setLoading] = useState(true)
   const { batterySaver } = useSelector((state: RootState) => state.settings)
@@ -50,6 +79,23 @@ export default function ChatScreen({ navigation }: RootTabScreenProps<'Chat'>) {
   const theme = useColorScheme()
   const isFocused = useIsFocused()
   const [showChat, setShowChat] = useState(true)
+  const isURLLoading = useRef(false)
+
+  const openLink = async (event: WebViewNavigation) => {
+    if (event.url !== CHAT_URL && !isURLLoading.current) {
+      isURLLoading.current = true
+      chatRef.current?.stopLoading()
+      try {
+        const url = event.url.trim()
+        await Linking.openURL(url)
+      } catch {
+        const encodedURL = encodeURI(event.url)
+        Linking.openURL(encodedURL)
+      } finally {
+        isURLLoading.current = false
+      }
+    }
+  }
 
   const reload = () => {
     setLoading(true)
@@ -82,7 +128,7 @@ export default function ChatScreen({ navigation }: RootTabScreenProps<'Chat'>) {
 
   return useMemo(
     () => (
-      <View style={{ position: 'relative', height: '100%', width: '100%' }}>
+      <CustomView>
         {loading && (
           <View
             style={{
@@ -120,12 +166,7 @@ export default function ChatScreen({ navigation }: RootTabScreenProps<'Chat'>) {
               console.log('onRenderProcessGone')
               reload()
             }}
-            onNavigationStateChange={(event) => {
-              if (event.url !== CHAT_URL) {
-                chatRef.current?.stopLoading()
-                Linking.openURL(event.url)
-              }
-            }}
+            onNavigationStateChange={openLink}
             onLoadStart={() => setLoading(true)}
             sharedCookiesEnabled
             thirdPartyCookiesEnabled
@@ -138,7 +179,7 @@ export default function ChatScreen({ navigation }: RootTabScreenProps<'Chat'>) {
             }}
           />
         )}
-      </View>
+      </CustomView>
     ),
     [loading, showChat]
   )

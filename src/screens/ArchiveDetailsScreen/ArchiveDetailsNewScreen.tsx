@@ -1,32 +1,36 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { isAfter, isBefore, parseJSON } from 'date-fns'
+import moment from 'moment'
+import React, { useRef } from 'react'
 import {
-  View,
-  Text,
   Animated,
   Platform,
-  TouchableOpacity,
   Share,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native'
-import React, { ReactElement, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootTabScreenProps } from '../../../types'
 import { ArchiveDetailsHeader } from '../../components/ArchiveDetails/ArchiveDetailsHeader/ArchiveDetailsHeader'
-import { Header } from '../../components/Header/Header'
-import { format, isAfter, isBefore, parseJSON } from 'date-fns'
-import Colors from '../../constants/Colors'
-import { formatArchiveTitle } from '../../utils/archives'
-import { MIXCLOUD_URL, TRACKLIST_URL } from '../../constants/Endpoints'
-import { useFetch } from '../../hooks/useFetch'
-import { TrackInfo } from '../../store/slices/tracksInfoSlice'
 import { ArchiveItem } from '../../components/ArchivesList/ArchivesList.types'
-import { TrackIDs } from '../../components/TrackIDs/TrackIDs'
 import { BananaLoader } from '../../components/BananaLoader/BananaLoader'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../store/store'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { useDispatch } from 'react-redux'
+import { Header } from '../../components/Header/Header'
+import { TrackIDs } from '../../components/TrackIDs/TrackIDs'
+import Colors from '../../constants/Colors'
+import { MIXCLOUD_URL, TRACKLIST_URL } from '../../constants/Endpoints'
+import { useArchives } from '../../hooks/useArchives'
+import { useFetch } from '../../hooks/useFetch'
 import {
   addArchive,
   deleteArchive,
 } from '../../store/slices/savedArchivesSlice'
-import moment from 'moment'
+import { TrackInfo } from '../../store/slices/tracksInfoSlice'
+import { RootState } from '../../store/store'
+import { formatArchiveTitle } from '../../utils/archives'
+import { ArchiveListItem } from '../../components/ArchiveListItem/ArchiveListItem'
+import { Button } from '../../components/Button/Button'
+import { useNavigation } from '@react-navigation/native'
 
 export const Tag: React.FC<{ children: string }> = ({ children }) => {
   return (
@@ -71,9 +75,13 @@ const filterArchiveTracklist = (data: TrackInfo[] = [], track: ArchiveItem) => {
   }
 }
 
-export const ArchiveDetailsNewScreen = ({ route }) => {
+export const ArchiveDetailsNewScreen = ({
+  navigation,
+  route,
+}: RootTabScreenProps<'ArchiveDetails'>) => {
   const archive: ArchiveItem = route.params.track
   const dispatch = useDispatch()
+  const mainHost = archive.hosts?.length ? archive.hosts[0] : undefined
   const { archives: savedArchives } = useSelector(
     (state: RootState) => state.savedArchives
   )
@@ -82,6 +90,7 @@ export const ArchiveDetailsNewScreen = ({ route }) => {
   const formattedDate = moment(archive.date).format('DD/MM/yyyy')
   const savedArchive = savedArchives?.find((a) => a.archive.id === archive.id)
   const bookmarkIcon = savedArchive ? 'bookmark' : 'bookmark-outline'
+
   const { error, data, loading } = useFetch<{ tracks: TrackInfo[] }>(
     `${TRACKLIST_URL}/archive/${formattedDate}`
   )
@@ -188,6 +197,46 @@ export const ArchiveDetailsNewScreen = ({ route }) => {
                 </View>
               ))}
             </View>
+            {mainHost ? (
+              <View style={{ marginTop: 16 }}>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate('Archives', {
+                      artist: mainHost,
+                    })
+                  }}
+                  style={{ flexDirection: 'row' }}
+                >
+                  <View
+                    style={{
+                      flex: 1,
+                    }}
+                  >
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <Text
+                        style={{
+                          color: Colors.common.purple,
+                          fontFamily: 'Lato_900Black',
+                        }}
+                      >
+                        More shows from {mainHost?.name}
+                      </Text>
+                      <MaterialCommunityIcons
+                        size={16}
+                        style={{ marginTop: 2 }}
+                        name="chevron-right"
+                        color={Colors.common.purple}
+                      />
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            ) : null}
           </View>
 
           <Header titleSize={24} title="Tracklist">
@@ -215,18 +264,6 @@ export const ArchiveDetailsNewScreen = ({ route }) => {
               <Text>No tracks found.</Text>
             </View>
           ) : null}
-
-          {/* <View style={{ backgroundColor: Colors.common.pink, padding: 16 }}>
-            <Text
-              style={{
-                color: 'white',
-                fontSize: 18,
-                fontFamily: 'Lato_700Bold',
-              }}
-            >
-              Track IDs
-            </Text>
-          </View> */}
 
           {/* <ArchiveTracklist track={archive} /> */}
         </Animated.ScrollView>

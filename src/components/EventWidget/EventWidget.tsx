@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import {
   ActivityIndicator,
   Image,
-  Linking,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native'
+import * as Linking from 'expo-linking'
 import Colors from '../../constants/Colors'
 import { Button, ButtonVariant } from '../Button/Button'
 import moment from 'moment'
@@ -73,12 +73,15 @@ export const EventItem: React.FC<{
       return text
     }
   }
-  const onPress = () => {
-    link ? Linking.openURL(link) : null
-  }
   const link = event.tickets?.links.length
-    ? event.tickets?.links[0]?.link
+    ? event.tickets?.links[0]?.link.trim()
     : null
+
+  const onPress = () => {
+    if (link) {
+      Linking.openURL(link)
+    }
+  }
 
   return (
     <TouchableOpacity
@@ -137,7 +140,7 @@ export const EventWidget = () => {
   const { pushEnabled } = useSelector((state: RootState) => state.settings)
   const variant: ButtonVariant = pushEnabled ? 'pink' : 'purple'
   const buttonVariant: ButtonVariant = pushEnabled ? 'yellow' : 'pink'
-  const [events, setEvents] = useState<Event[]>()
+  const [events, setEvents] = useState<Event[]>([])
   const [loading, setLoading] = useState(false)
   const appState = useAppState()
 

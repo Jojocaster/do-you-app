@@ -1,11 +1,14 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import moment from 'moment'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import Colors from '../../constants/Colors'
-import { fetchSchedule } from '../../store/slices/scheduleSlice'
+import {
+  fetchSchedule,
+  toggleHideReplays,
+} from '../../store/slices/scheduleSlice'
 import { RootState, useAppDispatch } from '../../store/store'
 import { ShowInfo } from '../../utils/schedule'
 import { decodeHtmlCharCodes } from '../ScheduleItem/ScheduleItem.utils'
@@ -31,9 +34,8 @@ export const ScheduleWidget = () => {
   const isFocused = useIsFocused()
   const { navigate } = useNavigation()
   const dispatch = useAppDispatch()
-  const [hideReplays, setHideReplays] = useState(false)
 
-  const { shows, loading, lastUpdated } = useSelector(
+  const { shows, loading, lastUpdated, hideReplays } = useSelector(
     (state: RootState) => state.schedule
   )
   const nextShows = getNextShows(shows, hideReplays)
@@ -48,7 +50,7 @@ export const ScheduleWidget = () => {
   }
 
   const onToggleReplay = () => {
-    setHideReplays(!hideReplays)
+    dispatch(toggleHideReplays())
   }
 
   useEffect(() => {
