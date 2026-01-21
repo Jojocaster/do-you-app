@@ -24,6 +24,7 @@ export const SingleSetting: React.FC<{
   disabled?: boolean
   onToggle: () => void
   value: any
+  children: React.ReactNode
 }> = ({ children, beta = false, disabled = false, onToggle, value }) => {
   // scale Switch down on iOS
   const switchScale = Platform.OS === 'ios' ? 0.8 : 1

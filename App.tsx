@@ -6,37 +6,29 @@ import TrackPlayer, {
 } from 'react-native-track-player'
 import * as Sentry from '@sentry/react-native'
 import { Provider } from 'react-redux'
-import { ThemeProvider } from 'styled-components/native'
 import { Status } from './src/components/Status/Status'
 import useCachedResources from './src/hooks/useCachedResources'
 import Navigation from './src/navigation'
 import { persistor, store } from './src/store/store'
-import { theme } from './src/theme'
 //@ts-ignore
 import * as SplashScreen from 'expo-splash-screen'
 import * as TaskManager from 'expo-task-manager'
-import { useCallback, useEffect } from 'react'
-import { Platform } from 'react-native'
+import { useCallback } from 'react'
 import { PersistGate } from 'redux-persist/integration/react'
 import { View } from './src/components/Themed'
 import { BACKGROUND_FETCH_TASK } from './src/constants/Tasks'
 import { fetchShowInBackground } from './src/utils/tasks'
 
-// Required on iOS (otherwise player will go to pause state while buffering)
-// Only makes Android slower to load, hence the condition
-TrackPlayer.setupPlayer({ waitForBuffer: Platform.OS === 'ios' }).then(() => {
+TrackPlayer.setupPlayer().then(() => {
   TrackPlayer.updateOptions({
     android: {
       alwaysPauseOnInterruption: true,
-      appKilledPlaybackBehavior: AppKilledPlaybackBehavior.ContinuePlayback,
+      appKilledPlaybackBehavior:
+        AppKilledPlaybackBehavior.StopPlaybackAndRemoveNotification,
     },
     capabilities: [Capability.Pause, Capability.Play],
-    notificationCapabilities: [
-      // Capability.Stop,
-      Capability.Pause,
-      Capability.Play,
-    ],
-    compactCapabilities: [Capability.Pause, Capability.Play],
+    notificationCapabilities: [Capability.Pause, Capability.Play],
+    // compactCapabilities: [Capability.Pause, Capability.Play],
   })
   // Define task to fetch show info in background
   TaskManager.defineTask(BACKGROUND_FETCH_TASK, fetchShowInBackground)
@@ -70,10 +62,8 @@ function App() {
       <Provider store={store}>
         <PersistGate persistor={persistor}>
           <View style={{ height: '100%' }} onLayout={onLayout}>
-            <ThemeProvider theme={theme}>
-              <Status />
-              <Navigation colorScheme={null} />
-            </ThemeProvider>
+            <Status />
+            <Navigation colorScheme={null} />
             <StatusBar style={'light'} />
           </View>
         </PersistGate>

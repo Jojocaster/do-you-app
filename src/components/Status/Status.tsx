@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React, { useRef, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import Colors from '../../constants/Colors'
+import Colors, { ThemeColors } from '../../constants/Colors'
 import useColorScheme from '../../hooks/useColorScheme'
 import { fetchShowInfo, ShowStatus } from '../../store/slices/showSlice'
 import { RootState } from '../../store/store'
@@ -51,7 +51,10 @@ export const Status: React.FC = () => {
           justifyContent: 'space-between',
           alignItems: 'center',
           // backgroundColor: Colors[theme].statusBar,
-          backgroundColor: Colors.common.purple,
+          backgroundColor:
+            theme === 'dark'
+              ? ThemeColors.dark.backgroundLight
+              : Colors.common.purple,
           display: 'flex',
           flexDirection: 'row',
           paddingHorizontal: 24,

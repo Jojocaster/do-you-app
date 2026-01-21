@@ -59,7 +59,9 @@ export const ScheduleWidget = () => {
       dispatch(fetchSchedule())
       return
     }
+
     const today = new Date()
+    // const diffHours = moment(today).diff(moment(lastUpdated), 'hours')
     const diff = today.getTime() - new Date(lastUpdated).getTime()
     const diffInHours = diff / (1000 * 60 * 60)
 

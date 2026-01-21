@@ -15,7 +15,12 @@ const Subscribe = () => {
 
   return (
     <>
-      <View style={{ padding: 24, backgroundColor: Colors.common.yellow }}>
+      <View
+        style={{
+          padding: 24,
+          backgroundColor: Colors.common.yellow,
+        }}
+      >
         <Text style={{ fontFamily: 'Lato_700Bold', fontSize: 20 }}>
           Support the station
         </Text>

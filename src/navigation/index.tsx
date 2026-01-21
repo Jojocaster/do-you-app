@@ -218,7 +218,7 @@ function BottomTabNavigator() {
           // ),
         })}
       /> */}
-      <BottomTab.Screen
+      {/* <BottomTab.Screen
         name="Chat"
         component={ChatScreen}
         options={({ navigation }: RootTabScreenProps<'Chat'>) => ({
@@ -228,7 +228,7 @@ function BottomTabNavigator() {
             <Ionicons name="chatbox-ellipses-outline" size={19} color={color} />
           ),
         })}
-      />
+      /> */}
       <BottomTab.Screen
         name="Archives"
         component={ArchiveScreens}

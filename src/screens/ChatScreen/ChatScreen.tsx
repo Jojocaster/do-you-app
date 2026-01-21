@@ -103,8 +103,6 @@ export default function ChatScreen({ navigation }: RootTabScreenProps<'Chat'>) {
   }
 
   useEffect(() => {
-    console.log('appState', appState)
-
     if (batterySaver) {
       setShowChat(appState === 'active')
     }

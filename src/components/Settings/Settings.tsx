@@ -8,7 +8,7 @@ import {
   unregisterToken,
   updatePushSettings,
 } from '../../utils/notifications'
-import { Heading } from '../Heading/Heading'
+
 import { SingleSetting } from '../SingleSetting/SingleSetting'
 import { Header } from '../Header/Header'
 import { View } from 'react-native'

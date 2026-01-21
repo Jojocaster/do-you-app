@@ -2,22 +2,18 @@
   "expo": {
     "name": "Do!! You!!! World",
     "slug": "DoYouWorld",
-    "version": "0.5.9",
+    "version": "0.5.10",
     "backgroundColor": "#1c1c1c",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "plugins": [
-      [
-        "expo-background-task"
-      ],
+      ["expo-background-task"],
       [
         "expo-font",
         {
-          "fonts": [
-            "./assets/fonts/SpaceMono-Regular.ttf"
-          ]
+          "fonts": ["./assets/fonts/SpaceMono-Regular.ttf"]
         }
       ],
       [
@@ -58,19 +54,14 @@
       "fallbackToCacheTimeout": 0,
       "url": "https://exp.host/@joelbeaudon/DoYouWorld"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "com.wonkylines.doyouworld",
-      "buildNumber": "0.5.9",
+      "buildNumber": "0.5.10",
       "supportsTablet": false,
       "infoPlist": {
-        "UIBackgroundModes": [
-          "fetch",
-          "audio",
-          "remote-notification"
-        ],
+        "ITSAppUsesNonExemptEncryption": false,
+        "UIBackgroundModes": ["fetch", "audio", "remote-notification"],
         "NSCameraUsageDescription": "This app uses the camera to send pictures to the chat."
       }
     },
@@ -79,11 +70,9 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "permissions": [
-        "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"
-      ],
+      "permissions": ["android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"],
       "package": "com.wonkylines.doyouworld",
-      "versionCode": 40
+      "versionCode": 42
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

@@ -12,7 +12,7 @@ export default function useColorScheme(): NonNullable<ColorSchemeName> {
   // const nativeTheme = _useColorScheme() as NonNullable<ColorSchemeName>
   // get settings from store
   const { darkTheme } = useSelector((state: RootState) => state.settings)
-  const customTheme = useCustomTheme()
+  // const customTheme = useCustomTheme()
   //set local theme based on store
   const [theme, setTheme] = useState<NonNullable<ColorSchemeName>>(
     darkTheme ? 'dark' : 'light'
@@ -24,7 +24,7 @@ export default function useColorScheme(): NonNullable<ColorSchemeName> {
   }, [darkTheme])
 
   // todo: remove dark theme altogether
-  return 'light'
-  return customTheme?.theme || theme
+  return theme
+  // return customTheme?.theme || theme
   // return 'monochrome' as any
 }

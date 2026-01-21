@@ -59,7 +59,7 @@ const AllShows: React.FC<{
           style={{
             fontSize: 14,
             color: 'white',
-            flexBasis: 100,
+            flexBasis: 120,
           }}
           key={show.start_timestamp}
         >

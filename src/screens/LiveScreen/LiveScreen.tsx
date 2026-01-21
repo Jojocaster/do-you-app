@@ -16,16 +16,22 @@ import { Player } from '../../components/Player/Player'
 import { ScheduleWidget } from '../../components/ScheduleWidget/ScheduleWidget'
 import { ShowProgress } from '../../components/ShowProgress/ShowProgress'
 import { SupportWidget } from '../../components/SupportWidget/SupportWidget'
-import Colors from '../../constants/Colors'
+import Colors, { ThemeColors } from '../../constants/Colors'
 import Space from '../../constants/Space'
 import { RootState } from '../../store/store'
 import { getShowTitle } from '../../utils/show'
 import { Tag } from '../ArchiveDetailsScreen/ArchiveDetailsNewScreen'
+import useColorScheme from '../../hooks/useColorScheme'
 
 export default function LiveScreen() {
+  const theme = useColorScheme()
   const { currentShow, currentTrack } = useSelector(
     (state: RootState) => state.show
   )
+  const isReplay =
+    currentShow?.name?.startsWith('(R)') ||
+    currentTrack?.name?.startsWith('(R)')
+
   const showName = getShowTitle({ currentShow, currentTrack })
 
   useLayoutEffect(() => {
@@ -38,7 +44,10 @@ export default function LiveScreen() {
     <ScrollView
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.scrollViewContainer}
-      style={styles.scrollView}
+      style={[
+        styles.scrollView,
+        { backgroundColor: ThemeColors[theme].background },
+      ]}
     >
       <View style={styles.iconWrapper}>
         <BananaIcon />
@@ -49,7 +58,7 @@ export default function LiveScreen() {
         {(currentShow || currentTrack) && (
           <>
             <View style={styles.showWrapper}>
-              <Tag>live now</Tag>
+              <Tag>{isReplay ? 'playing now' : 'live now'}</Tag>
 
               <Text style={styles.showName}>{showName}</Text>
             </View>
@@ -74,11 +83,10 @@ export default function LiveScreen() {
 
 const styles = StyleSheet.create({
   scrollView: {
-    backgroundColor: 'white',
     paddingVertical: 24,
   },
   scrollViewContainer: {
-    paddingBottom: 48,
+    paddingBottom: Platform.OS === 'ios' ? 24 : 48,
   },
   iconWrapper: { marginLeft: 24 },
   wrapper: {

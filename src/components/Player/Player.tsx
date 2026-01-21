@@ -26,7 +26,7 @@ import {
   PlayerStateIcons,
   STREAM_HEADERS,
 } from './Player.constants'
-import { StyledCover } from './Player.styles'
+// import { StyledCover } from './Player.styles'
 //@ts-ignore
 import logo from '../../../assets/images/doyou.webp'
 import useCustomTheme from '../../hooks/useCustomTheme'
@@ -170,12 +170,15 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
   })
   return useMemo(
     () => (
-      <StyledCover
+      <View
         style={{
+          display: 'flex',
           width: PLAYER_SIZE,
           height: PLAYER_SIZE,
           // borderColor: Colors[theme].player.frame,
+          // borderRadius: 16,
           borderColor: Colors.common.purple,
+          overflow: 'hidden',
           borderWidth: 3,
         }}
       >
@@ -241,7 +244,7 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
             </Animated.View>
           </ImageBackground>
         </TouchableHighlight>
-      </StyledCover>
+      </View>
     ),
     [playerState, theme, currentShow]
   )
