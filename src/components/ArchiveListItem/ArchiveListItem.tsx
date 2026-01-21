@@ -57,12 +57,12 @@ const styles = StyleSheet.create({
   container: {
     position: 'relative',
     borderRadius: 8,
-    shadowColor: 'rgba(0, 0, 0, .2)',
+    shadowColor: 'rgba(0, 0, 0, .4)',
     shadowOpacity: 0.5,
     shadowRadius: 3,
     elevation: 5,
     shadowOffset: {
-      width: 1,
+      width: 2,
       height: 2,
     },
     // overflow: 'hidden',
