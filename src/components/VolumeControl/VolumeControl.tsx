@@ -3,6 +3,7 @@ import Slider from '@react-native-community/slider'
 import { useEffect, useMemo } from 'react'
 import { Platform } from 'react-native'
 import TrackPlayer from 'react-native-track-player'
+import { useRemoteMediaClient } from 'react-native-google-cast'
 import { useDispatch, useSelector } from 'react-redux'
 import Colors from '../../constants/Colors'
 import Space from '../../constants/Space'
@@ -14,20 +15,29 @@ import { View } from '../Themed'
 export const VolumeControl: React.FC = () => {
   const theme = useColorScheme()
   const dispatch = useDispatch()
+  const castClient = useRemoteMediaClient()
   const margin = Platform.OS === 'ios' ? 20 : 0
   const { volume } = useSelector((state: RootState) => state.settings)
 
   const setVolume = async (v: number) => {
-    await TrackPlayer.setVolume(v)
+    if (castClient) {
+      await castClient.setStreamVolume(v)
+    } else {
+      await TrackPlayer.setVolume(v)
+    }
     dispatch(updateSettings({ name: 'volume', value: v }))
   }
 
   // set volume on first render
   useEffect(() => {
     if (volume) {
-      TrackPlayer.setVolume(volume)
+      if (castClient) {
+        castClient.setStreamVolume(volume)
+      } else {
+        TrackPlayer.setVolume(volume)
+      }
     }
-  }, [])
+  }, [castClient])
 
   // only rerender when theme changes, as <Slider /> is not a controlled component
   return useMemo(
