@@ -1,5 +1,5 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   Animated,
   Easing,
@@ -13,6 +13,7 @@ import TrackPlayer, {
   State,
   useTrackPlayerEvents,
 } from 'react-native-track-player'
+import { useRemoteMediaClient } from 'react-native-google-cast'
 import { useDispatch, useSelector } from 'react-redux'
 import Colors from '../../constants/Colors'
 import { LIVE_STREAM_URL } from '../../constants/Endpoints'
@@ -49,6 +50,62 @@ export const Player: React.FC<{ background: string }> = ({ background }) => {
   const { config } = useSelector((state: RootState) => state.app)
   const { batterySaver } = useSelector((state: RootState) => state.settings)
   const currentTitle = getShowTitle({ currentShow, currentTrack })
+
+  // Google Cast integration
+  const castClient = useRemoteMediaClient()
+  const wasPlayingBeforeCast = useRef(false)
+
+  const loadMediaToCast = useCallback(
+    async (client: NonNullable<typeof castClient>) => {
+      await client.loadMedia({
+        mediaInfo: {
+          contentUrl: LIVE_STREAM_URL,
+          contentType: 'audio/mpeg',
+          streamType: 'live',
+          metadata: {
+            type: 'musicTrack',
+            title: currentTitle,
+            artist: ARTIST_NAME,
+            albumTitle: DEFAULT_SHOW_NAME,
+            images: currentShow?.image_path
+              ? [{ url: currentShow.image_path }]
+              : [],
+          },
+        },
+        autoplay: true,
+      })
+    },
+    [currentTitle, currentShow?.image_path]
+  )
+
+  // When cast connects: load stream to cast device, pause local playback
+  // When cast disconnects: resume local playback if it was playing before
+  useEffect(() => {
+    if (castClient) {
+      const startCasting = async () => {
+        const state = (await TrackPlayer.getPlaybackState()).state
+        wasPlayingBeforeCast.current = state === State.Playing
+        await loadMediaToCast(castClient)
+        if (state === State.Playing) {
+          await TrackPlayer.reset()
+        }
+      }
+      startCasting()
+    } else if (wasPlayingBeforeCast.current) {
+      // Cast disconnected — resume local playback
+      wasPlayingBeforeCast.current = false
+      TrackPlayer.reset()
+        .then(() => initPlayer())
+        .then(() => TrackPlayer.play())
+    }
+  }, [castClient])
+
+  // Keep cast metadata in sync when show changes during an active cast session
+  useEffect(() => {
+    if (castClient && (currentTrack || currentShow)) {
+      loadMediaToCast(castClient)
+    }
+  }, [currentTrack, currentShow, castClient])
 
   const initPlayer = async () => {
     // fetch show info before init player

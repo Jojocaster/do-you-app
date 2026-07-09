@@ -38,7 +38,8 @@
           "project": "doyouapp",
           "organization": "wonky-lines-ltd"
         }
-      ]
+      ],
+      "react-native-google-cast"
     ],
     "extra": {
       "eas": {

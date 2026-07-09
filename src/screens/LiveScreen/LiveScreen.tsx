@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 import { useSelector } from 'react-redux'
 import { BananaIcon } from '../../components/BananaIcon/BananaIcon'
+import { CastButton } from '../../components/CastButton/CastButton'
 import { RootTabScreenProps } from '../../../types'
 import { EventWidget } from '../../components/EventWidget/EventWidget'
 import { NotificationWidget } from '../../components/NotificationWidget/NotificationWidget'
@@ -45,6 +46,10 @@ export default function LiveScreen() {
       </View>
       <View style={styles.wrapper}>
         <Player background={'../../../assets/logo.webp'} />
+
+        <View style={styles.castWrapper}>
+          <CastButton />
+        </View>
 
         {(currentShow || currentTrack) && (
           <>
@@ -86,6 +91,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     marginTop: 24,
+  },
+  castWrapper: {
+    marginTop: 12,
+    alignItems: 'center',
   },
   showWrapper: {
     paddingHorizontal: Space.viewPadding,
