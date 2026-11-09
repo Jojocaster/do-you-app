@@ -1,19 +1,14 @@
-import { parseJSON } from 'date-fns'
-import { format } from 'date-fns-tz'
 import React from 'react'
-import { Image } from 'react-native'
 import { useSelector } from 'react-redux'
-import Colors from '../../constants/Colors'
-import { useAppState } from '../../hooks/useAppState'
 import useColorScheme from '../../hooks/useColorScheme'
 import { RootState } from '../../store/store'
 import { ShowInfo } from '../../utils/schedule'
 import { Text, View } from '../Themed'
-import { decodeHtmlCharCodes, getLocalShowTime } from './ScheduleItem.utils'
+import { decodeHtmlCharCodes } from './ScheduleItem.utils'
 import moment from 'moment'
 import { CurrentShowInfo } from '../../store/slices/showSlice'
 
-const LiveShow: React.FC = ({ children }) => {
+const LiveShow: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const theme = useColorScheme()
 
   return (
@@ -22,8 +17,7 @@ const LiveShow: React.FC = ({ children }) => {
         color: '#FDC151',
         fontSize: 16,
         fontWeight: 'bold',
-
-        marginLeft: 10,
+        marginLeft: 24,
         flex: 1,
       }}
     >
@@ -59,7 +53,7 @@ const AllShows: React.FC<{
           style={{
             fontSize: 14,
             color: 'white',
-            flexBasis: 120,
+            fontVariant: ['tabular-nums'],
           }}
           key={show.start_timestamp}
         >
@@ -73,7 +67,7 @@ const AllShows: React.FC<{
               fontSize: 14,
               fontWeight: 'bold',
               color: 'white',
-              marginLeft: 10,
+              marginLeft: 24,
               flex: 1,
             }}
           >

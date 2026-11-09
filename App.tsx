@@ -13,26 +13,11 @@ import { persistor, store } from './src/store/store'
 //@ts-ignore
 import * as SplashScreen from 'expo-splash-screen'
 import * as TaskManager from 'expo-task-manager'
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { PersistGate } from 'redux-persist/integration/react'
 import { View } from './src/components/Themed'
 import { BACKGROUND_FETCH_TASK } from './src/constants/Tasks'
 import { fetchShowInBackground } from './src/utils/tasks'
-
-TrackPlayer.setupPlayer().then(() => {
-  TrackPlayer.updateOptions({
-    android: {
-      alwaysPauseOnInterruption: true,
-      appKilledPlaybackBehavior:
-        AppKilledPlaybackBehavior.StopPlaybackAndRemoveNotification,
-    },
-    capabilities: [Capability.Pause, Capability.Play],
-    notificationCapabilities: [Capability.Pause, Capability.Play],
-    // compactCapabilities: [Capability.Pause, Capability.Play],
-  })
-  // Define task to fetch show info in background
-  TaskManager.defineTask(BACKGROUND_FETCH_TASK, fetchShowInBackground)
-})
 
 Sentry.init({
   dsn: 'https://2a5ac7b95ce9e24c9a80062ab1757144@o4505204088766464.ingest.us.sentry.io/4509360367075328',
@@ -40,6 +25,31 @@ Sentry.init({
 
 function App() {
   const isLoadingComplete = useCachedResources()
+
+  // Initialize TrackPlayer and background tasks after component mounts
+  useEffect(() => {
+    const setupAudio = async () => {
+      try {
+        await TrackPlayer.setupPlayer()
+        await TrackPlayer.updateOptions({
+          android: {
+            alwaysPauseOnInterruption: true,
+            appKilledPlaybackBehavior:
+              AppKilledPlaybackBehavior.StopPlaybackAndRemoveNotification,
+          },
+          capabilities: [Capability.Pause, Capability.Play],
+          notificationCapabilities: [Capability.Pause, Capability.Play],
+          // compactCapabilities: [Capability.Pause, Capability.Play],
+        })
+        // Define task to fetch show info in background
+        TaskManager.defineTask(BACKGROUND_FETCH_TASK, fetchShowInBackground)
+      } catch (error) {
+        console.error('Failed to setup TrackPlayer:', error)
+      }
+    }
+
+    setupAudio()
+  }, [])
 
   // const colorScheme = useColorScheme()
   const onLayout = useCallback(async () => {

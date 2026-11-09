@@ -58,7 +58,7 @@ export default function LiveScreen() {
         {(currentShow || currentTrack) && (
           <>
             <View style={styles.showWrapper}>
-              <Tag>{isReplay ? 'playing now' : 'live now'}</Tag>
+              <Tag>{isReplay ? 'repeat' : 'live now'}</Tag>
 
               <Text style={styles.showName}>{showName}</Text>
             </View>

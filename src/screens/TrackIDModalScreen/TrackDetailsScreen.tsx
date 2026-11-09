@@ -24,7 +24,6 @@ const Metadata: React.FC<{ tKey: string; value: string }> = ({
         color: 'white',
         fontSize: 16,
         marginTop: 1,
-        width: 70,
       }}
     >
       {tKey}:
@@ -58,12 +57,15 @@ export const TrackDetailsScreen = ({ route }) => {
 
   return (
     <ScrollView
-      contentContainerStyle={{ height: '100%', justifyContent: 'flex-end' }}
+      contentContainerStyle={{
+        height: '100%',
+        justifyContent: 'flex-end',
+        backgroundColor: 'transparent',
+      }}
     >
       <View
         style={{
           backgroundColor: Colors.common.pink,
-
           borderTopLeftRadius: 8,
           borderTopRightRadius: 8,
           padding: 24,
@@ -99,7 +101,7 @@ export const TrackDetailsScreen = ({ route }) => {
           <Metadata tKey="Album" value={track.album} />
           <Metadata tKey="Label" value={track.label} />
           <Metadata tKey="Release" value={track.release_date} />
-          <Metadata tKey="Score" value={`${track.score / 10} /10`} />
+          <Metadata tKey="Confidence" value={`${track.score / 10} /10`} />
         </View>
         <View style={{ flexDirection: 'row', gap: 16, marginBottom: 16 }}>
           <Button onPress={copyToClipboard} variant="yellow">
