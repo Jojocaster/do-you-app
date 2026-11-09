@@ -59,7 +59,9 @@ export const ScheduleWidget = () => {
       dispatch(fetchSchedule())
       return
     }
+
     const today = new Date()
+    // const diffHours = moment(today).diff(moment(lastUpdated), 'hours')
     const diff = today.getTime() - new Date(lastUpdated).getTime()
     const diffInHours = diff / (1000 * 60 * 60)
 
@@ -158,13 +160,13 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     color: 'white',
-    marginLeft: 12,
+    marginLeft: 24,
     flex: 1,
   },
   timing: {
     fontSize: 14,
     color: 'white',
-    flexBasis: 100,
+    fontVariant: ['tabular-nums'],
   },
   noData: { color: 'white' },
   cta: { marginTop: 24 },

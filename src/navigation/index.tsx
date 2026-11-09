@@ -74,7 +74,7 @@ function RootNavigator() {
           screenOptions={{
             headerShown: false,
             presentation: Platform.select({
-              ios: 'modal',
+              ios: 'containedTransparentModal',
               android: 'transparentModal',
             }),
             // animation: 'slide_from_bottom',
@@ -91,7 +91,7 @@ function RootNavigator() {
           screenOptions={{
             headerShown: false,
             presentation: Platform.select({
-              ios: 'modal',
+              ios: 'transparentModal',
               android: 'transparentModal',
             }),
             contentStyle: {
@@ -106,7 +106,7 @@ function RootNavigator() {
           screenOptions={{
             headerShown: false,
             presentation: Platform.select({
-              ios: 'modal',
+              ios: 'transparentModal',
               android: 'transparentModal',
             }),
             // animation: 'slide_from_bottom',
@@ -218,7 +218,7 @@ function BottomTabNavigator() {
           // ),
         })}
       /> */}
-      <BottomTab.Screen
+      {/* <BottomTab.Screen
         name="Chat"
         component={ChatScreen}
         options={({ navigation }: RootTabScreenProps<'Chat'>) => ({
@@ -228,7 +228,7 @@ function BottomTabNavigator() {
             <Ionicons name="chatbox-ellipses-outline" size={19} color={color} />
           ),
         })}
-      />
+      /> */}
       <BottomTab.Screen
         name="Archives"
         component={ArchiveScreens}

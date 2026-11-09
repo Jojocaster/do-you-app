@@ -27,7 +27,6 @@ export const NotificationWidget = () => {
           padding: 16,
           paddingTop: 16,
           marginHorizontal: 16,
-          // backgroundColor: Colors.light.primary,
           backgroundColor: Colors.common.pink,
         }}
       >

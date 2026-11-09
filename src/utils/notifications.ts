@@ -8,34 +8,51 @@ import {
 import { Platform } from 'react-native'
 import { getEnv } from '../constants/Env'
 import { fetchData } from './fetch'
+import Constants from 'expo-constants'
 
 export const getToken = async () => {
-  console.log('[fetchToken]')
-  const { status: existingStatus } = await getPermissionsAsync()
-  let finalStatus = existingStatus
-  if (existingStatus !== 'granted') {
-    const { status } = await requestPermissionsAsync()
-    finalStatus = status
-  }
-  if (finalStatus !== 'granted') {
-    throw new Error('Permission not granted!')
-  }
-  const token = await getExpoPushTokenAsync({
-    experienceId: '@joelbeaudon/DoYouWorld',
-  })
+  try {
+    console.log('[fetchToken]')
+    const { status: existingStatus } = await getPermissionsAsync()
+    console.log('[Status]', existingStatus)
+    let finalStatus = existingStatus
+    if (existingStatus !== 'granted') {
+      const { status } = await requestPermissionsAsync()
+      finalStatus = status
+    }
+    if (finalStatus !== 'granted') {
+      throw new Error('Permission not granted!')
+    }
 
-  console.log('[fetchToken]: ', token?.data)
+    const projectId =
+      Constants?.expoConfig?.extra?.eas?.projectId ??
+      Constants?.easConfig?.projectId
 
-  // create notif channel for icons & vibrate on Android
-  if (Platform.OS === 'android') {
-    await setNotificationChannelAsync('notification-sound-channel', {
-      name: 'default',
-      importance: AndroidImportance.MAX,
-      vibrationPattern: [0, 250, 250, 250],
+    if (!projectId) {
+      throw new Error('Project ID not found')
+    }
+
+    const token = await getExpoPushTokenAsync({
+      projectId,
     })
-  }
 
-  return token?.data
+    console.log('[fetchToken]: ', token?.data)
+    console.log('[Project ID]: ', projectId)
+
+    // create notif channel for icons & vibrate on Android
+    if (Platform.OS === 'android') {
+      await setNotificationChannelAsync('notification-sound-channel', {
+        name: 'default',
+        importance: AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+      })
+    }
+
+    return token?.data
+  } catch (e) {
+    console.log('[fetchToken] Error: ', e)
+    throw e
+  }
 }
 
 export const updatePushSettings = async (

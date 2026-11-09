@@ -22,7 +22,7 @@ export const AllArchives: React.FC<{ filter?: Filter }> = ({ filter }) => {
   const [limitReached, setLimitReached] = useState(false)
 
   useEffect(() => {
-    loadPage(1)
+    onRefresh()
   }, [])
 
   const onRefresh = async () => {
@@ -128,7 +128,9 @@ export const AllArchives: React.FC<{ filter?: Filter }> = ({ filter }) => {
       showsVerticalScrollIndicator={false}
       fadingEdgeLength={50}
       onEndReached={() => {
-        loadPage(page + 1)
+        if (archives.length) {
+          loadPage(page + 1)
+        }
       }}
       onEndReachedThreshold={0.2}
       contentContainerStyle={{ gap: 24 }}

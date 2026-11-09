@@ -56,13 +56,13 @@ export const ArchiveListItem: React.FC<{
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
-    borderRadius: 4,
-    shadowColor: 'rgba(0, 0, 0, .2)',
+    borderRadius: 8,
+    shadowColor: 'rgba(0, 0, 0, .4)',
     shadowOpacity: 0.5,
     shadowRadius: 3,
     elevation: 5,
     shadowOffset: {
-      width: 1,
+      width: 2,
       height: 2,
     },
     // overflow: 'hidden',
@@ -80,8 +80,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   thumbnail: {
-    borderTopLeftRadius: 4,
-    borderBottomLeftRadius: 4,
+    borderTopLeftRadius: 8,
+    borderBottomLeftRadius: 8,
     height: 100,
     width: 100,
   },

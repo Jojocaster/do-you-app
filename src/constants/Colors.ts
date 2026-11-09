@@ -13,6 +13,17 @@ const common = {
   success: '#27ae60',
 }
 
+export const ThemeColors = {
+  light: {
+    background: 'white',
+    backgroundLight: 'white',
+  },
+  dark: {
+    background: '#171719',
+    backgroundLight: '#23222A',
+  },
+}
+
 const Colors = {
   common,
   light: {

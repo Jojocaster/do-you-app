@@ -27,7 +27,7 @@ export const getTomorrowShows = (
 ) => {
   const tomorrow = moment().add(1, 'day').format('yyyy-MM-DD')
   if (hideReplays) {
-    return shows[tomorrow].filter((show) => !show.name.includes('(R)'))
+    return shows[tomorrow]?.filter((show) => !show.name.includes('(R)'))
   } else {
     return shows[tomorrow] || []
   }

@@ -8,10 +8,11 @@ import {
   unregisterToken,
   updatePushSettings,
 } from '../../utils/notifications'
-import { Heading } from '../Heading/Heading'
+
 import { SingleSetting } from '../SingleSetting/SingleSetting'
 import { Header } from '../Header/Header'
 import { View } from 'react-native'
+import { SupportWidget } from '../SupportWidget/SupportWidget'
 
 export const Settings: React.FC = () => {
   const dispatch = useDispatch()
@@ -88,25 +89,19 @@ export const Settings: React.FC = () => {
         >
           Enable notifications
         </SingleSetting>
-        <SingleSetting
-          disabled={!pushEnabled}
-          value={ignoreReruns}
-          onToggle={() => toggleIgnoreReruns(ignoreReruns)}
-        >
-          Disable notifications for re-runs
-        </SingleSetting>
+
         {/* <SingleSetting
           value={darkTheme}
           onToggle={() => onToggle('darkTheme', !darkTheme)}
         >
           Dark theme
         </SingleSetting> */}
-        <SingleSetting
+        {/* <SingleSetting
           value={batterySaver}
           onToggle={() => onToggle('batterySaver', !batterySaver)}
         >
           Disable chat in the background
-        </SingleSetting>
+        </SingleSetting> */}
       </View>
     </>
   )

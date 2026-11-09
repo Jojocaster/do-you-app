@@ -1,7 +1,5 @@
-import { ReactElement } from 'react'
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import Colors from '../../constants/Colors'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 export type ButtonVariant = 'pink' | 'purple' | 'yellow'
 
@@ -20,7 +18,7 @@ export const Button: React.FC<{
         backgroundVariant,
         {
           alignSelf: 'flex-start',
-          borderRadius: 4,
+          borderRadius: 8,
           paddingVertical: 8,
           paddingHorizontal: 24,
         },

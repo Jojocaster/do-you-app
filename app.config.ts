@@ -21,6 +21,7 @@ export default ({ config }: ConfigContext): Partial<ExpoConfig> => {
   return {
     ...config,
     name: appName,
+    plugins: ['expo-asset', 'expo-localization', 'expo-web-browser'],
     ios: {
       ...config.ios,
       bundleIdentifier: packageName,
@@ -28,7 +29,9 @@ export default ({ config }: ConfigContext): Partial<ExpoConfig> => {
     android: {
       ...config.android,
       package: packageName,
-      googleServicesFile: `./services/firebase/${target}/google-services.json`,
+      googleServicesFile: `./services/firebase/${
+        target || 'dev'
+      }/google-services.json`,
     },
   }
 }

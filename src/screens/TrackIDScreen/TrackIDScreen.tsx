@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
-import { RootState } from '../../store/store'
+import { RootState, useAppDispatch } from '../../store/store'
 import { ShowStatus } from '../../store/slices/showSlice'
 import { isToday } from 'date-fns'
 import { fetchTracksInfo, TrackInfo } from '../../store/slices/tracksInfoSlice'
@@ -15,9 +15,9 @@ import { TrackIDs } from '../../components/TrackIDs/TrackIDs'
 
 const TrackList = () => {
   const { navigate } = useNavigation()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const isFocused = useIsFocused()
-  const timeout = useRef<NodeJS.Timeout>(null)
+  const timeout = useRef<number>(null)
   const { status } = useSelector((state: RootState) => state.show)
   const { lastUpdated, loading, tracks } = useSelector(
     (state: RootState) => state.tracksInfo
